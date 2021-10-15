@@ -1,0 +1,76 @@
+version: '3.4'
+
+volumes:
+  static-data:
+  media-data:
+  database:
+  rabbitmq:
+
+x-common-django:
+  &default-common-django
+  image: kartoza/${COMPOSE_PROJECT_NAME}_django:${DJANGO_TAG:-latest}
+  environment:
+    - DATABASE_NAME=${DATABASE_NAME}
+    - DATABASE_HOST=${DATABASE_HOST}
+    - DATABASE_USERNAME=${DATABASE_USERNAME}
+    - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+    - ADMIN_USERNAME=${ADMIN_USERNAME}
+    - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+    - ADMIN_EMAIL=${ADMIN_EMAIL}
+
+    # hardcoded
+    - RABBITMQ_HOST=rabbitmq
+    - DJANGO_SETTINGS_MODULE=core.settings.prod
+    - VIRTUAL_HOST=project.com
+    - VIRTUAL_PORT=8080
+  volumes:
+    - static-data:/home/web/static
+    - media-data:/home/web/media
+  restart: on-failure
+
+services:
+  # Vanilla RabbitMQ service. This is needed by celery
+  rabbitmq:
+    image: rabbitmq:3.7-alpine
+    container_name: "${COMPOSE_PROJECT_NAME}_rabbitmq"
+    volumes:
+      - rabbitmq:/var/lib/rabbitmq
+    restart: on-failure
+
+  db:
+    image: kartoza/postgis:13.0
+    container_name: "${COMPOSE_PROJECT_NAME}_db"
+    volumes:
+      - database:/var/lib/postgresql/13
+    environment:
+      - ALLOW_IP_RANGE=0.0.0.0/0
+      - USERNAME=${DATABASE_USERNAME}
+      - PASS=${DATABASE_PASSWORD}
+      - POSTGRES_DBNAME=${DATABASE_NAME}
+    restart: on-failure:5
+
+  django:
+    <<: *default-common-django
+    container_name: "${COMPOSE_PROJECT_NAME}_django"
+    command: 'uwsgi --ini /uwsgi.conf'
+  # TODO:
+  #  Can't run the entrypoint
+  #    entrypoint: ["/entrypoint.sh"]
+
+  # Celery worker that executes celery tasks created by Django.
+  worker:
+    <<: *default-common-django
+    container_name: "${COMPOSE_PROJECT_NAME}_worker"
+    command: celery -A core.celery:app worker -B -l debug
+    entrypoint: []
+
+  nginx:
+    image: nginx
+    container_name: "${COMPOSE_PROJECT_NAME}_nginx"
+    hostname: nginx
+    volumes:
+      - static-data:/home/web/static:ro
+      - media-data:/home/web/media:ro
+    ports:
+      - "${HTTP_PORT}:8080"
+    restart: on-failure:5

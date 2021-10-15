@@ -1,0 +1,29 @@
+[
+  {
+    "model": "core.geometrylevel",
+    "pk": 1,
+    "fields": {
+      "name": "Country",
+      "description": "",
+      "lower_of": null
+    }
+  },
+  {
+    "model": "core.geometrylevel",
+    "pk": 2,
+    "fields": {
+      "name": "Region",
+      "description": "",
+      "lower_of": 1
+    }
+  },
+  {
+    "model": "core.geometrylevel",
+    "pk": 3,
+    "fields": {
+      "name": "District",
+      "description": "",
+      "lower_of": 2
+    }
+  }
+]
