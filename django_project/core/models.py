@@ -1,4 +1,5 @@
 from django.contrib.gis.db import models
+from django.db.models import Q
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -28,6 +29,17 @@ class GeometryLevel(AbstractTerm):
         on_delete=models.SET_NULL,
         blank=True, null=True
     )
+
+
+class FindGeometry(models.Manager):
+    def get_by(self, name, geometry_level, child_of=None):
+        return self.filter(
+            child_of=child_of,
+            geometry_level=geometry_level
+        ).get(
+            Q(name__iexact=name) |
+            Q(alias__icontains=name)
+        )
 
 
 class Geometry(models.Model):
@@ -60,6 +72,7 @@ class Geometry(models.Model):
         blank=True, null=True,
         related_name='geometry_child_of'
     )
+    objects = FindGeometry()
 
     def __str__(self):
         return f'{self.name} ({self.identifier})'

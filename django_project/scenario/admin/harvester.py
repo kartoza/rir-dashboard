@@ -7,8 +7,10 @@ from scenario.models.harvester import (
 )
 
 BASICAPI = 'scenario.harvester.basic.BasicAPI'
+POPULATION_TRACKING_TOOL = 'scenario.harvester.ipc.PopulationTrackingTool'
 HARVESTERS = (
-    (BASICAPI, BASICAPI),
+    # (BASICAPI, BASICAPI),
+    (POPULATION_TRACKING_TOOL, POPULATION_TRACKING_TOOL),
 )
 
 
@@ -50,13 +52,19 @@ harvest_data.short_description = 'Harvest data'
 class HarvesterAdmin(admin.ModelAdmin):
     form = HarvesterForm
     inlines = [HarvesterAttributeInline, HarvesterLogInline]
-    list_display = ('id', '_indicator', 'harvester_class', 'active', 'is_run',)
+    list_display = ('id', '_indicator', 'harvester_class', 'active', 'is_finished',)
     list_editable = ('active',)
     actions = (harvest_data,)
     search_fields = ('indicator__name',)
 
     def _indicator(self, object: Harvester):
         return mark_safe(f'<a href="{reverse("admin:scenario_indicator_change", args=[object.pk])}">{object.indicator.__str__()}</a>')
+
+    def is_finished(self, object: Harvester):
+        if not object.is_run:
+            return mark_safe('<img src="/static/admin/img/icon-yes.svg" alt="True">')
+        else:
+            return mark_safe('<img src="/static/admin/img/icon-no.svg" alt="True">')
 
 
 admin.site.register(Harvester, HarvesterAdmin)

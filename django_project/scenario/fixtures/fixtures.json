@@ -5,7 +5,8 @@
     "fields": {
       "name": "Best Case",
       "description": "",
-      "level": 1
+      "level": 1,
+      "color": null
     }
   },
   {
@@ -14,7 +15,8 @@
     "fields": {
       "name": "Status Quo / Baseline",
       "description": "",
-      "level": 2
+      "level": 2,
+      "color": null
     }
   },
   {
@@ -23,7 +25,8 @@
     "fields": {
       "name": "Worsening",
       "description": "",
-      "level": 3
+      "level": 3,
+      "color": null
     }
   },
   {
@@ -32,7 +35,8 @@
     "fields": {
       "name": "Worst Case",
       "description": "",
-      "level": 4
+      "level": 4,
+      "color": null
     }
   },
   {
@@ -53,6 +57,15 @@
     }
   },
   {
+    "model": "scenario.indicatorfrequency",
+    "pk": 2,
+    "fields": {
+      "name": "Monthly",
+      "description": "",
+      "frequency": 31
+    }
+  },
+  {
     "model": "scenario.indicator",
     "pk": 1,
     "fields": {
@@ -60,7 +73,8 @@
       "description": "",
       "group": 1,
       "frequency": 1,
-      "show_in_traffic_light": true
+      "show_in_traffic_light": true,
+      "geometry_reporting_level": null
     }
   },
   {
@@ -71,7 +85,8 @@
       "description": "",
       "group": 1,
       "frequency": 1,
-      "show_in_traffic_light": true
+      "show_in_traffic_light": true,
+      "geometry_reporting_level": null
     }
   },
   {
@@ -82,7 +97,8 @@
       "description": "",
       "group": 1,
       "frequency": 1,
-      "show_in_traffic_light": true
+      "show_in_traffic_light": true,
+      "geometry_reporting_level": null
     }
   },
   {
@@ -93,7 +109,20 @@
       "description": "",
       "group": 1,
       "frequency": 1,
-      "show_in_traffic_light": true
+      "show_in_traffic_light": true,
+      "geometry_reporting_level": null
+    }
+  },
+  {
+    "model": "scenario.indicator",
+    "pk": 5,
+    "fields": {
+      "name": "IPC Phase",
+      "description": "",
+      "group": null,
+      "frequency": 2,
+      "show_in_traffic_light": true,
+      "geometry_reporting_level": 3
     }
   },
   {
@@ -254,6 +283,25 @@
       "indicator": 4,
       "scenario_level": 4,
       "rule": "x==0"
+    }
+  },
+  {
+    "model": "scenario.harvester",
+    "pk": 1,
+    "fields": {
+      "harvester_class": "scenario.harvester.ipc.PopulationTrackingTool",
+      "indicator": 5,
+      "is_run": false,
+      "active": true
+    }
+  },
+  {
+    "model": "scenario.harvesterattribute",
+    "pk": 1,
+    "fields": {
+      "harvester": 1,
+      "name": "country_code",
+      "value": "SO"
     }
   },
   {

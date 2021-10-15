@@ -2,7 +2,7 @@ import typing
 from datetime import date
 from django.contrib.gis.db import models
 from django.utils.translation import ugettext_lazy as _
-from core.models import AbstractTerm, GeometryLevel
+from core.models import AbstractTerm, GeometryLevel, Geometry
 from scenario.models.scenario import ScenarioLevel
 
 
@@ -129,6 +129,10 @@ class IndicatorValue(models.Model):
         _('Date'),
         help_text=_('The date of the value harvested.')
     )
+    geometry = models.ForeignKey(
+        Geometry, on_delete=models.SET_NULL,
+        null=True, blank=True
+    )
     value = models.CharField(
         max_length=256,
         help_text=_(
@@ -137,11 +141,7 @@ class IndicatorValue(models.Model):
             'It will replace x with the value and will check the condition.'
         )
     )
-    geometry = models.ForeignKey(
-        GeometryLevel, on_delete=models.SET_NULL,
-        null=True, blank=True
-    )
 
     class Meta:
-        unique_together = ('indicator', 'date')
+        unique_together = ('indicator', 'date', 'geometry')
         ordering = ('-date',)

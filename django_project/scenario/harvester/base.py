@@ -6,6 +6,7 @@ from django.contrib.auth import get_user_model
 from scenario.models.harvester import (
     Harvester, HarvesterLog, ERROR, DONE
 )
+from core.models import Geometry
 from scenario.models.indicator import IndicatorValue
 
 User = get_user_model()
@@ -94,10 +95,13 @@ class BaseHarvester(ABC):
         self.log.note = message
         self.log.save()
 
-    def save_indicator_data(self, value):
+    def save_indicator_data(self, value: str, date: datetime.date, geometry: Geometry):
         """ Save new indicator data of the indicator """
         IndicatorValue.objects.get_or_create(
             indicator=self.harvester.indicator,
-            date=datetime.date.today(),
-            value=value
+            date=date,
+            geometry=geometry,
+            defaults={
+                'value': value
+            }
         )
