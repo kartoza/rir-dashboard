@@ -47,7 +47,8 @@ class Geometry(models.Model):
     Geometry with it's type
     """
     identifier = models.CharField(
-        max_length=512
+        max_length=512,
+        unique=True
     )
     name = models.CharField(
         max_length=512,

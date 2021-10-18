@@ -3,6 +3,7 @@ services:
   db:
     volumes:
       - ./volumes/database:/var/lib/postgresql/13
+      - ./volumes/backups:/backups
   django:
     build:
       context: ../
