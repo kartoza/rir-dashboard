@@ -20,14 +20,35 @@ class IndicatorValue(models.Model):
         Geometry, on_delete=models.SET_NULL,
         null=True, blank=True
     )
-    value = models.FloatField(
-        help_text=_(
-            'Use formula to create the rule and use x as the value.'
-            'Example: x<100. '
-            'It will replace x with the value and will check the condition.'
-        )
-    )
+    value = models.FloatField()
 
     class Meta:
         unique_together = ('indicator', 'date', 'geometry')
         ordering = ('-date',)
+
+
+class IndicatorValueExtraData(models.Model):
+    """
+    Additional data for Indicator value data
+    """
+    indicator_value = models.ForeignKey(
+        IndicatorValue, on_delete=models.CASCADE
+    )
+    name = models.CharField(
+        max_length=100,
+        help_text=_(
+            "The name of attribute"
+        )
+    )
+    value = models.TextField(
+        null=True, default=True,
+        help_text=_(
+            "The value of attribute"
+        )
+    )
+
+    class Meta:
+        unique_together = ('indicator_value', 'name')
+
+    def __str__(self):
+        return f'{self.name}'

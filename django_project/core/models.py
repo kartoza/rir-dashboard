@@ -77,3 +77,18 @@ class Geometry(models.Model):
 
     def __str__(self):
         return f'{self.name} ({self.identifier})'
+
+    def geometries_by_level(self, geometry_level: GeometryLevel):
+        """ Return geometries of this geometry by geometry level """
+        geometries = Geometry.objects.filter(id=self.id)
+        current_geometry_level = self.geometry_level
+
+        while geometry_level != current_geometry_level:
+            geometry_ids = list(geometries.values_list('id', flat=True))
+            geometries = Geometry.objects.filter(child_of__in=geometry_ids)
+
+            if geometries.first():
+                current_geometry_level = geometries.first().geometry_level
+            else:
+                current_geometry_level = geometry_level
+        return geometries

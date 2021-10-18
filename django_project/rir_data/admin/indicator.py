@@ -3,20 +3,20 @@ from django.shortcuts import reverse
 from django.utils.html import mark_safe
 from rir_data.models.indicator import (
     Indicator, IndicatorGroup, IndicatorFrequency,
-    IndicatorValue, IndicatorScenarioRule
+    IndicatorValue, IndicatorScenarioRule, IndicatorValueExtraData
 )
 from rir_data.models.harvester import Harvester
 
 
-class IndicatorScenarioRuleInline(admin.TabularInline):
-    model = IndicatorScenarioRule
-    extra = 0
-
-
 class IndicatorValueAdmin(admin.ModelAdmin):
+    class IndicatorValueExtraDataRuleInline(admin.TabularInline):
+        model = IndicatorValueExtraData
+        extra = 0
+
     list_display = ('indicator', 'date', 'geometry', 'value')
     list_filter = ('indicator', 'date', 'geometry')
     search_fields = ('indicator',)
+    inlines = (IndicatorValueExtraDataRuleInline,)
 
 
 class IndicatorFrequencyAdmin(admin.ModelAdmin):
@@ -24,6 +24,10 @@ class IndicatorFrequencyAdmin(admin.ModelAdmin):
 
 
 class IndicatorAdmin(admin.ModelAdmin):
+    class IndicatorScenarioRuleInline(admin.TabularInline):
+        model = IndicatorScenarioRule
+        extra = 0
+
     list_display = (
         'name', 'group', 'scenario_1', 'scenario_2', 'scenario_3', 'scenario_4',
         'frequency', 'show_in_traffic_light', '_harvester', 'geometry_reporting_level')

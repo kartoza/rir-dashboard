@@ -15,3 +15,4 @@ class ScenarioList(APIView):
                 ScenarioLevel.objects.all(), many=True
             ).data
         )
+

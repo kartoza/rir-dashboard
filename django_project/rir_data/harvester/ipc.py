@@ -3,6 +3,7 @@ from rir_data.harvester.base import (
     BaseHarvester, HarvestingError
 )
 from core.models import Geometry, GeometryLevel
+from rir_data.models.indicator import IndicatorValueExtraData
 
 
 class PopulationTrackingTool(BaseHarvester):
@@ -50,8 +51,27 @@ class PopulationTrackingTool(BaseHarvester):
                 date_data = row['fanalysis_date']
                 date_data = datetime.strptime(date_data, "%Y%m%d").date()
                 value = row['overall_phase']
-                self.save_indicator_data(
+                indicator_value = self.save_indicator_data(
                     value, date_data, district
                 )
+                # save additional data
+                for key, name in {
+                    'phase1_C_population': 'Phase 1 population',
+                    'phase2_C_population': 'Phase 2 population',
+                    'phase3_C_population': 'Phase 3 population',
+                    'phase4_C_population': 'Phase 4 population',
+                    'phase5_C_population': 'Phase 5 population',
+                }.items():
+                    try:
+                        IndicatorValueExtraData.objects.get_or_create(
+                            indicator_value=indicator_value,
+                            name=name,
+                            defaults={
+                                'value': row[key]
+                            }
+                        )
+                    except KeyError:
+                        pass
+
             except Geometry.DoesNotExist:
                 print(f'Not found : {region_name} - {district_name}')

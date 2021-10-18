@@ -96,9 +96,9 @@ class BaseHarvester(ABC):
         self.log.note = message
         self.log.save()
 
-    def save_indicator_data(self, value: str, date: datetime.date, geometry: Geometry):
+    def save_indicator_data(self, value: str, date: datetime.date, geometry: Geometry) -> IndicatorValue:
         """ Save new indicator data of the indicator """
-        IndicatorValue.objects.get_or_create(
+        indicator_value, created = IndicatorValue.objects.get_or_create(
             indicator=self.harvester.indicator,
             date=date,
             geometry=geometry,
@@ -106,3 +106,4 @@ class BaseHarvester(ABC):
                 'value': value
             }
         )
+        return indicator_value
