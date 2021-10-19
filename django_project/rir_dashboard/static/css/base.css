@@ -37,6 +37,40 @@ html, body {
 
 body {
     background-color: #eee;
-    min-height: 100%;
     position: relative;
+}
+
+#page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding-top: var(--navbar-height);
+    position: relative;
+    width: 100%;
+}
+
+#container {
+    flex: 1;
+}
+
+.container-page {
+    background-color: white;
+}
+
+.main-button {
+    border: none;
+    outline: none;
+    padding: 5px 15px;
+    font-weight: 500;
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.main-button:focus-visible,
+.main-button:focus {
+    outline: none;
+}
+
+.main-button:hover {
+    opacity: 0.9;
 }

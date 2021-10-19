@@ -6,7 +6,8 @@
       "name": "Best Case",
       "description": "",
       "level": 1,
-      "color": null
+      "color": "black",
+      "background_color": "#CDFACD"
     }
   },
   {
@@ -16,7 +17,8 @@
       "name": "Status Quo / Baseline",
       "description": "",
       "level": 2,
-      "color": null
+      "color": "black",
+      "background_color": "#F9E61E"
     }
   },
   {
@@ -26,7 +28,8 @@
       "name": "Worsening",
       "description": "",
       "level": 3,
-      "color": null
+      "color": "white",
+      "background_color": "#E67800"
     }
   },
   {
@@ -36,7 +39,8 @@
       "name": "Worst Case",
       "description": "",
       "level": 4,
-      "color": null
+      "color": "white",
+      "background_color": "#C80F00"
     }
   },
   {
@@ -83,6 +87,7 @@
       "frequency": 1,
       "show_in_traffic_light": true,
       "geometry_reporting_level": 1,
+      "unit": "per 2 weeks",
       "aggregation_behaviour": "Use all available populated geography in current time window",
       "aggregation_method": "Aggregate data by sum all data."
     }
@@ -97,6 +102,7 @@
       "frequency": 1,
       "show_in_traffic_light": false,
       "geometry_reporting_level": 1,
+      "unit": "Open",
       "aggregation_behaviour": "Use all available populated geography in current time window",
       "aggregation_method": "Aggregate data by sum all data."
     }
@@ -111,6 +117,7 @@
       "frequency": 1,
       "show_in_traffic_light": false,
       "geometry_reporting_level": 1,
+      "unit": "Open",
       "aggregation_behaviour": "Use all available populated geography in current time window",
       "aggregation_method": "Aggregate data by sum all data."
     }
@@ -125,6 +132,7 @@
       "frequency": 1,
       "show_in_traffic_light": false,
       "geometry_reporting_level": 1,
+      "unit": "Open",
       "aggregation_behaviour": "Use all available populated geography in current time window",
       "aggregation_method": "Aggregate data by sum all data."
     }
@@ -139,6 +147,7 @@
       "frequency": 2,
       "show_in_traffic_light": true,
       "geometry_reporting_level": 3,
+      "unit": null,
       "aggregation_behaviour": "Use all available populated geography in current time window",
       "aggregation_method": "Aggregate data by majority data in the levels."
     }

@@ -45,6 +45,11 @@ class Indicator(AbstractTerm):
         GeometryLevel, on_delete=models.SET_NULL,
         null=True, blank=True
     )
+    unit = models.CharField(
+        max_length=256,
+        default='',
+        null=True, blank=True
+    )
 
     aggregation_behaviour = models.CharField(
         max_length=256,
@@ -82,6 +87,15 @@ class Indicator(AbstractTerm):
     def list():
         """ Return list of indicators """
         return Indicator.objects.filter(show_in_traffic_light=True)
+
+    def scenario_rule(self, level):
+        """
+        Return scenario rule for specific level
+        """
+        scenario_rule = self.indicatorscenariorule_set.filter(scenario_level__level=level).first()
+        if scenario_rule:
+            return scenario_rule.rule
+        return '-'
 
     def scenario_level(self, value) -> typing.Optional[ScenarioLevel]:
         """ Return scenario level of the value """

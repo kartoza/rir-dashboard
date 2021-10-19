@@ -30,7 +30,7 @@ class IndicatorAdmin(admin.ModelAdmin):
 
     list_display = (
         'name', 'group', 'frequency', 'show_in_traffic_light',
-        '_harvester', 'geometry_reporting_level')
+        '_harvester', 'geometry_reporting_level', 'unit')
     list_editable = ('show_in_traffic_light',)
     inlines = (IndicatorScenarioRuleInline,)
     list_filter = ('group', 'show_in_traffic_light')

@@ -10,7 +10,7 @@ class IndicatorSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Indicator
-        fields = ('id', 'group', 'name', 'description')
+        fields = ('id', 'group', 'name', 'description', 'show_in_traffic_light', 'unit')
 
     def to_representation(self, instance: Indicator):
         data = super(IndicatorSerializer, self).to_representation(instance)
