@@ -1,5 +1,5 @@
 table {
-    width: 100%;
+    width: 150%;
 }
 
 table th, table td {
@@ -12,7 +12,7 @@ table th {
 }
 
 .scenario {
-    width: 15%;
+    width: 200px;
 }
 
 .header {
@@ -40,4 +40,18 @@ iframe {
 
 .traffic-indicator {
     display: table-row;
+}
+
+#table-section {
+    padding-bottom: 20px;
+    overflow-x: auto;
+}
+
+.api-list {
+    width: 700px;
+}
+
+.api-list span {
+    color: var(--primary-color);
+    cursor: pointer;
 }

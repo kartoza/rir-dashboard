@@ -104,7 +104,7 @@ class Indicator(AbstractTerm):
             for indicator_rule in self.indicatorscenariorule_set.all():
                 try:
                     if eval(indicator_rule.rule.replace('x', f'{value}')):
-                        return indicator_rule.scenario_level.level
+                        return indicator_rule.scenario_level
                 except NameError:
                     pass
         else:
@@ -156,12 +156,14 @@ class Indicator(AbstractTerm):
                     value = output[0]['sum']
 
                 # return data
+                scenario_value = self.scenario_level(value)
                 values.append({
                     'geometry_id': geometry_target.id,
                     'geometry_identifier': geometry_target.identifier,
                     'geometry_name': geometry_target.name,
                     'value': value,
-                    'scenario_value': self.scenario_level(value)
+                    'scenario_value': scenario_value.level,
+                    'color': scenario_value.background_color
                 })
             except IndexError:
                 pass

@@ -64,38 +64,47 @@
                     <div>
                         <button id="toggle-table" class="main-button content-button">Show all indicator</button>
                     </div>
-                    <table>
-                        <tr>
-                            <th valign="top">Case Title</th>
-                            <th valign="top">Value</th>
-                            {% for scenario in scenarios %}
-                                <th class="scenario scenario-{{ scenario.level }}" valign="top">
-                                    Scenario {{ scenario.level }}
-                                    <div>
-                                        {{ scenario.name }}
-                                    </div>
-                                </th>
-                            {% endfor %}
-                        </tr>
-                        {% for indicator in indicators %}
-                            <tr class="indicator-row {% if indicator.show_in_traffic_light %}traffic-indicator{% endif %}">
-                                <td>{{ indicator.name }}</td>
-                                <td class="scenario-{{ indicator.scenario_value }}">{{ indicator.value }} {% if indicator.unit %}{{ indicator.unit }}{% endif %}</td>
+                    <div id="table-section">
+                        <table>
+                            <tr>
+                                <th valign="top" style="width: 300px">Case Title</th>
                                 {% for scenario in scenarios %}
-                                    <td class="scenario indicator {% if indicator.scenario_value == scenario.level %}scenario-{{ scenario.level }}{% endif %}">
-                                        {% get_scenario_rule indicator scenario.level as rule %}
-                                        {{ rule }}
-                                    </td>
+                                    <th class="scenario scenario-{{ scenario.level }}" valign="top">
+                                        Scenario {{ scenario.level }}
+                                        <div>
+                                            {{ scenario.name }}
+                                        </div>
+                                    </th>
                                 {% endfor %}
+                                <th valign="top" style="width: 200px">Value</th>
+                                <th valign="top">API List</th>
                             </tr>
-                        {% endfor %}
-                    </table>
-                </div>
-                {% for intervention in interventions %}
-                    <div id="intervention-{{ intervention.program_id }}" class="sidebar-content">
-                        <iframe src="{{ intervention.url }}" title="{{ intervention.program_name }}" frameBorder="0"></iframe>
+                            {% for indicator in indicators %}
+                                <tr class="indicator-row {% if indicator.show_in_traffic_light %}traffic-indicator{% endif %}">
+                                    <td>{{ indicator.name }}</td>
+                                    {% for scenario in scenarios %}
+                                        <td class="scenario indicator {% if indicator.scenario_value == scenario.level %}scenario-{{ scenario.level }}{% endif %}">
+                                            {% get_scenario_rule indicator scenario.level as rule %}
+                                            {{ rule }}
+                                        </td>
+                                    {% endfor %}
+                                    <td class="scenario-{{ indicator.scenario_value }}">{{ indicator.value }} {% if indicator.unit %}{{ indicator.unit }}{% endif %}</td>
+                                    <td class="api-list">
+                                        {# <a data-url="{% url "indicator_values_geojson" indicator.id 'so' 'country' today_date %}" onclick="copyToClipboard(this)">Geojson Country</a>,#}
+                                        <a href="{% url "indicator_values_geojson" indicator.id 'so' 'country' today_date %}" target="_blank">Geojson Country</a>,
+                                        <a href="{% url "indicator_values_geojson" indicator.id 'so' 'region' today_date %}" target="_blank">Geojson Region</a>,
+                                        <a href="{% url "indicator_values_geojson" indicator.id 'so' 'district' today_date %}" target="_blank">Geojson District</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
                     </div>
-                {% endfor %}
+                    {% for intervention in interventions %}
+                        <div id="intervention-{{ intervention.program_id }}" class="sidebar-content">
+                            <iframe src="{{ intervention.url }}" title="{{ intervention.program_name }}" frameBorder="0"></iframe>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>
@@ -107,11 +116,15 @@
             if ($(this).hasClass('all')) {
                 $(this).html('Show just traffic light indicators')
                 $('.indicator-row').show();
-            }else{
+            } else {
                 $(this).html('Show all indicators')
                 $('.indicator-row').hide();
                 $('.traffic-indicator').show();
             }
         })
+
+        function copyToClipboard(elmt) {
+            navigator.clipboard.writeText(window.location.host + $(elmt).data('url'));
+        }
     </script>
 {% endblock %}

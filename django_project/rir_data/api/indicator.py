@@ -31,7 +31,7 @@ class IndicatorValues(APIView):
 
     def values(self, id, geometry_identifier, geometry_level, date):
         indicator = get_object_or_404(Indicator, id=id)
-        geometry = get_object_or_404(Geometry, identifier=geometry_identifier)
+        geometry = get_object_or_404(Geometry, identifier__iexact=geometry_identifier)
         geometry_level = GeometryLevel.objects.get(name__iexact=geometry_level)
         date = datetime.strptime(date, "%Y-%m-%d").date()
         return indicator.values(geometry, geometry_level, date)

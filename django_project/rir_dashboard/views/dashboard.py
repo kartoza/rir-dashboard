@@ -59,4 +59,5 @@ class DashboardView(LoginView):
                 'url': intervention.intervention_url,
             })
         context['interventions'] = interventions
+        context['today_date'] = date.today().strftime('%Y-%m-%d')
         return context
