@@ -3,7 +3,8 @@
 }
 
 .container-page {
-    padding: 0;
+    margin-left: 40px;
+    margin-right: 40px;
     border: none;
     margin-top: 40px;
     min-height: 80vh;
@@ -21,7 +22,7 @@
     height: 100%;
 }
 
-.col-sm-2, .col-sm-10 {
+.col-sm-1, .col-sm-11 {
     padding: 0;
     position: relative;
 }
