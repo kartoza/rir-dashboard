@@ -99,12 +99,12 @@
                             {% endfor %}
                         </table>
                     </div>
-                    {% for intervention in interventions %}
-                        <div id="intervention-{{ intervention.program_id }}" class="sidebar-content">
-                            <iframe src="{{ intervention.url }}" title="{{ intervention.program_name }}" frameBorder="0"></iframe>
-                        </div>
-                    {% endfor %}
                 </div>
+                {% for intervention in interventions %}
+                    <div id="intervention-{{ intervention.program_id }}" class="sidebar-content">
+                        <iframe src="{{ intervention.url }}" title="{{ intervention.program_name }}" frameBorder="0"></iframe>
+                    </div>
+                {% endfor %}
             </div>
         </div>
     </div>
