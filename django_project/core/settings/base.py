@@ -55,7 +55,7 @@ STATICFILES_DIRS = (
 # Every cache key will get prefixed with this value - here we set it to
 # the name of the directory the project is in to try and use something
 # project specific.
-CACHE_MIDDLEWARE_KEY_PREFIX = 'unicef'
+CACHE_MIDDLEWARE_KEY_PREFIX = 'rir_dashboard'
 
 MIDDLEWARE = (
     'django.contrib.sessions.middleware.SessionMiddleware',

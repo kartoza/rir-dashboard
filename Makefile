@@ -1,4 +1,4 @@
-PROJECT_ID := unicef_rir
+PROJECT_ID := rir_dashboard
 export COMPOSE_FILE=deployment/docker-compose.yml:deployment/docker-compose.override.yml
 
 SHELL := /bin/bash
