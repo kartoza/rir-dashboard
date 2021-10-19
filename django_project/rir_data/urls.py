@@ -8,7 +8,7 @@ from rir_data.api.indicator import (
 
 indicators_url = [
     url(
-        r'^(?P<id>\d+)/values/(?P<geometry_identifier>.+)/(?P<geometry_level>.+)/(?P<date>.+)/geojson',
+        r'^(?P<id>\d+)/values/(?P<geometry_identifier>.+)/(?P<geometry_level>.+)/(?P<date>.+).geojson',
         IndicatorValuesGeojson.as_view(), name='indicator_values_geojson'),
     url(
         r'^(?P<id>\d+)/values/(?P<geometry_identifier>.+)/(?P<geometry_level>.+)/(?P<date>.+)',

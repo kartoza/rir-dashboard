@@ -29,23 +29,11 @@ class IndicatorAdmin(admin.ModelAdmin):
         extra = 0
 
     list_display = (
-        'name', 'group', 'scenario_1', 'scenario_2', 'scenario_3', 'scenario_4',
-        'frequency', 'show_in_traffic_light', '_harvester', 'geometry_reporting_level')
+        'name', 'group', 'frequency', 'show_in_traffic_light',
+        '_harvester', 'geometry_reporting_level')
     list_editable = ('show_in_traffic_light',)
     inlines = (IndicatorScenarioRuleInline,)
     list_filter = ('group', 'show_in_traffic_light')
-
-    def scenario_1(self, indicator: Indicator):
-        return ''
-
-    def scenario_2(self, indicator: Indicator):
-        return ''
-
-    def scenario_3(self, indicator: Indicator):
-        return ''
-
-    def scenario_4(self, indicator: Indicator):
-        return ''
 
     def _harvester(self, indicator: Indicator):
         try:

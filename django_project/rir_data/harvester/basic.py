@@ -1,6 +1,8 @@
+from datetime import date
 from rir_data.harvester.base import (
     BaseHarvester, HarvestingError
 )
+from core.models import Geometry
 
 
 class BasicAPI(BaseHarvester):
@@ -19,6 +21,7 @@ class BasicAPI(BaseHarvester):
         return {
             'api_url': None,
             'data_keys': None,
+            'geometry': None
         }
 
     def _process(self):
@@ -26,6 +29,7 @@ class BasicAPI(BaseHarvester):
         try:
             api_url = self.attributes['api_url']
             data_keys = self.attributes['data_keys']
+            geometry = self.attributes['geometry']
         except KeyError as e:
             raise HarvestingError(f'{e} is not provided.')
 
@@ -43,9 +47,10 @@ class BasicAPI(BaseHarvester):
                     key = int(key)
 
                 value = value[key]
+            geometry = Geometry.objects.get(identifier__iexact=geometry)
         except ValueError as e:
             raise HarvestingError(f'{e}')
         except (KeyError, IndexError) as e:
             raise HarvestingError(f'{e} is not found on data. Data:{data}')
         else:
-            self.save_indicator_data(value)
+            self.save_indicator_data(value, date=date.today(), geometry=geometry)

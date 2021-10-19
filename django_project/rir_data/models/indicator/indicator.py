@@ -1,6 +1,6 @@
 import typing
 from datetime import date
-from django.db.models import Count
+from django.db.models import Count, Sum
 from django.contrib.gis.db import models
 from django.utils.translation import ugettext_lazy as _
 from core.models import AbstractTerm, Geometry, GeometryLevel
@@ -101,16 +101,18 @@ class Indicator(AbstractTerm):
         Return geojson value of indicator by geometry, the target geometry level and the date
         """
         # get the geometries of data
+        values = []
         query = self.indicatorvalue_set.filter(date__lte=date_data).filter(
             geometry__geometry_level=self.geometry_reporting_level
         )
+        if not query.first():
+            return values
 
         # update query by behaviour
         if self.aggregation_behaviour == AggregationBehaviour.USE_AVAILABLE:
             last_date = query.first().date
             query = query.filter(date=last_date)
 
-        values = []
         # get the geometries target by the level
         geometries_target = geometry.geometries_by_level(geometry_level)
 
@@ -133,6 +135,11 @@ class Indicator(AbstractTerm):
                         dcount=Count('value')
                     ).order_by('-dcount')
                     value = output[0]['value']
+                elif self.aggregation_method == AggregationMethod.SUM:
+                    output = query_report.values('value').annotate(
+                        sum=Sum('value')
+                    )
+                    value = output[0]['sum']
 
                 # return data
                 values.append({
