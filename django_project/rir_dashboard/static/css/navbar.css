@@ -1,0 +1,92 @@
+#navbar {
+    background-color: var(--primary-color);
+    height: var(--navbar-height);
+    padding: 10px 50px;
+    width: 100%;
+    z-index: 1001;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+#navbar.transparent {
+    background: none;
+}
+
+#navbar .item {
+    font-size: 14px;
+    margin-top: 2px;
+    margin-right: 20px;
+    font-weight: 700;
+}
+
+#navbar .title .item {
+    display: inline-block;
+    margin-top: -10px;
+}
+
+#navbar .title img {
+    height: 100%;
+}
+
+#navbar .item:hover {
+    opacity: 0.9;
+}
+
+#navbar .row {
+    margin: 0;
+    height: 100%;
+}
+
+#navbar a {
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+#navbar.transparent a {
+    color: white;
+}
+
+#navbar .navbar-options {
+    color: rgba(255, 255, 255, .5);
+    cursor: default;
+    height: 100%;
+    position: relative;
+}
+
+#navbar .title {
+    display: inline-block;
+    font-size: 16px;
+    height: 100%;
+    font-weight: 700;
+}
+
+#navbar .title a:hover {
+    opacity: 1;
+}
+
+#navbar #logo {
+    margin-top: -4px;
+}
+
+#navbar #profile-navbar {
+    border: 2px solid var(--primary-color);
+    border-radius: 25px;
+    display: block;
+    height: 35px;
+    margin-top: -5px;
+    overflow: hidden;
+    width: 35px;
+}
+
+#navbar.transparent #profile-navbar {
+    border: 2px solid white;
+}
+
+
+#navbar #profile-navbar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

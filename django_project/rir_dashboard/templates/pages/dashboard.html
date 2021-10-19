@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Dashboard
+{% endblock %}
+
+{% block stylesheet %}
+    <link href="{% static 'libs/leaflet/1.5.1/leaflet.css' %}" rel="stylesheet" type="text/css" media="screen, projection"/>
+    <link href="{% static 'css/dashboard.css' %}" rel="stylesheet" type="text/css" media="screen, projection"/>
+    <script>
+        const requireConfig = {
+            paths: {
+                'jquery': '{% static 'libs/jquery.js/3.4.1/jquery.min.js' %}?',
+                'jqueryUI': '{% static 'libs/jquery-ui/1.12.1/jquery-ui.js' %}?',
+                'backbone': '{% static 'libs/backbone.js/1.4.0/backbone-min.js' %}?',
+                'leaflet': '{% static 'libs/leaflet/1.5.1/leaflet-src.js' %}?',
+                'underscore': '{% static 'libs/underscore.js/1.9.1/underscore-min.js' %}?',
+            },
+            shim: {
+                leaflet: {
+                    exports: ['L']
+                },
+                jqueryUI: {
+                    deps: ["jquery"]
+                },
+                rangeSlider: {
+                    deps: ["jquery"]
+                },
+                templates: {
+                    deps: ['underscore']
+                },
+            }
+        }
+    </script>
+{% endblock stylesheet %}
+
+{% block container %}
+{% endblock %}
+
+{% block extrascripts %}
+{% endblock extrascripts %}

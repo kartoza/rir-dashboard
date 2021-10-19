@@ -13,6 +13,7 @@ admin.autodiscover()
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^rir/', include('rir_data.urls')),
+    url(r'^', include('rir_dashboard.urls')),
 
 ]
 

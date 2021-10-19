@@ -1,5 +1,5 @@
 from django.contrib import admin
-from core.models import GeometryLevel, Geometry
+from core.models import GeometryLevel, Geometry, SitePreferences
 
 
 class GeometryAdmin(admin.ModelAdmin):
@@ -13,3 +13,4 @@ class GeometryLevelAdmin(admin.ModelAdmin):
 
 admin.site.register(GeometryLevel, GeometryLevelAdmin)
 admin.site.register(Geometry, GeometryAdmin)
+admin.site.register(SitePreferences, admin.ModelAdmin)

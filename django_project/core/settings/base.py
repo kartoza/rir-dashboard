@@ -50,6 +50,8 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    ABS_PATH('core', 'static'),
+    ABS_PATH('rir_dashboard', 'static'),
 )
 
 # Every cache key will get prefixed with this value - here we set it to
@@ -79,6 +81,8 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             # Put Templates Hers
+            ABS_PATH('core', 'templates'),
+            ABS_PATH('rir_dashboard', 'templates'),
         ],
         'OPTIONS': {
             'loaders': [
@@ -93,6 +97,7 @@ TEMPLATES = [
                 'django.template.context_processors.static',
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
+                'core.context_processors.global_context.global_context',
             ],
         },
     },

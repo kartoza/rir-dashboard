@@ -50,5 +50,6 @@ LOCALE_PATHS = (ABS_PATH('locale'),)
 # Extra installed apps
 INSTALLED_APPS = INSTALLED_APPS + (
     'core',
-    'rir_data'
+    'rir_data',
+    'rir_dashboard',
 )
