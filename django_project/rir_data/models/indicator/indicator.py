@@ -35,15 +35,15 @@ class Indicator(AbstractTerm):
         IndicatorFrequency, on_delete=models.SET_NULL,
         blank=True, null=True
     )
+    geometry_reporting_level = models.ForeignKey(
+        GeometryLevel, on_delete=models.SET_NULL,
+        null=True, blank=True
+    )
     show_in_traffic_light = models.BooleanField(
         default=True,
         help_text=_(
             'Showing this indicator on traffic light.'
         )
-    )
-    geometry_reporting_level = models.ForeignKey(
-        GeometryLevel, on_delete=models.SET_NULL,
-        null=True, blank=True
     )
     unit = models.CharField(
         max_length=256,

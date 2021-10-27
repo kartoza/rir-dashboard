@@ -1,0 +1,98 @@
+{% extends 'pages/_base-with-sidebar.html' %}
+{% load static %}
+{% load indicator_tags %}
+
+{% block title %}
+    Dashboard
+{% endblock %}
+
+{% block stylesheet %}
+    <link href="{% static 'libs/leaflet/1.5.1/leaflet.css' %}" rel="stylesheet" type="text/css" media="screen, projection"/>
+    <link href="{% static 'css/pages/traffic-light.css' %}" rel="stylesheet" type="text/css" media="screen, projection"/>
+    <style>
+        {% for scenario in scenarios %}
+            .scenario-{{ scenario.level }} {
+                color: {{ scenario.color }} !important;
+                background-color: {{ scenario.background_color }};
+            }
+        {% endfor %}
+    </style>
+{% endblock %}
+
+{% block header %}
+    <div class="scenario-header scenario-{{ overall_scenario.level }}">
+        Somalia<br>
+        Scenario {{ overall_scenario.level }}: {{ overall_scenario.name }}
+    </div>
+{% endblock %}
+
+{% block sidebar %}
+    <li data-target="scenario">Scenarios</li>
+    {% for intervention in interventions %}
+        <li data-target="intervention-{{ intervention.program_id }}">{{ intervention.program_name }}</li>
+    {% endfor %}
+{% endblock %}
+
+{% block sidebar_content %}
+    <div id="scenario" class="sidebar-content">
+        <div>
+            <button id="toggle-table" class="main-button content-button">Show all indicators</button>
+        </div>
+        <div id="table-section">
+            <table>
+                <tr>
+                    <th valign="top" style="width: 250px">Case Title</th>
+                    <th valign="top" style="width: 150px">Value</th>
+                    {% for scenario in scenarios %}
+                        <th class="scenario scenario-{{ scenario.level }}" valign="top">
+                            Scenario {{ scenario.level }}
+                            <div>
+                                {{ scenario.name }}
+                            </div>
+                        </th>
+                    {% endfor %}
+                    <th valign="top">API List</th>
+                </tr>
+                {% for indicator in indicators %}
+                    <tr class="indicator-row {% if indicator.show_in_traffic_light %}traffic-indicator{% endif %}">
+                        <td>{{ indicator.name }}</td>
+                        <td class="scenario-{{ indicator.scenario_value }}">{{ indicator.value }} {% if indicator.unit %}{{ indicator.unit }}{% endif %}</td>
+                        {% for scenario in scenarios %}
+                            <td class="scenario indicator {% if indicator.scenario_value == scenario.level %}scenario-{{ scenario.level }}{% endif %}">
+                                {% get_scenario_rule indicator scenario.level as rule %}
+                                {{ rule }}
+                            </td>
+                        {% endfor %}
+                        <td class="api-list">
+                            {# <a data-url="{% url "indicator_values_geojson" indicator.id 'so' 'country' today_date %}" onclick="copyToClipboard(this)">Geojson Country</a>,#}
+                            <a href="{% url "indicator_values_geojson" indicator.id 'so' 'country' today_date %}" target="_blank">Country</a><br>
+                            <a href="{% url "indicator_values_geojson" indicator.id 'so' 'region' today_date %}" target="_blank">Region</a><br>
+                            <a href="{% url "indicator_values_geojson" indicator.id 'so' 'district' today_date %}" target="_blank">District</a><br>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    {% for intervention in interventions %}
+        <div id="intervention-{{ intervention.program_id }}" class="sidebar-content">
+            <iframe src="{{ intervention.url }}" title="{{ intervention.program_name }}" frameBorder="0"></iframe>
+        </div>
+    {% endfor %}
+{% endblock %}
+
+{% block extrascripts %}
+    <script>
+        $('#toggle-table').click(function () {
+            $(this).toggleClass('all');
+            if ($(this).hasClass('all')) {
+                $(this).html('Show just traffic light indicators')
+                $('.indicator-row').show();
+            } else {
+                $(this).html('Show all indicators')
+                $('.indicator-row').hide();
+                $('.traffic-indicator').show();
+            }
+        });
+    </script>
+{% endblock %}

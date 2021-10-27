@@ -1,23 +1,25 @@
 #navbar {
     background-color: var(--primary-color);
     height: var(--navbar-height);
+    left: 0;
     padding: 10px 50px;
-    width: 100%;
-    z-index: 1001;
     position: fixed;
     top: 0;
-    left: 0;
+    width: 100%;
+    z-index: 1001;
 }
 
-#navbar.transparent {
-    background: none;
+#navbar a {
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
 }
 
 #navbar .item {
     font-size: 14px;
-    margin-top: 2px;
-    margin-right: 20px;
     font-weight: 700;
+    margin-right: 20px;
+    margin-top: 2px;
 }
 
 #navbar .title .item {
@@ -33,21 +35,6 @@
     opacity: 0.9;
 }
 
-#navbar .row {
-    margin: 0;
-    height: 100%;
-}
-
-#navbar a {
-    color: white;
-    cursor: pointer;
-    text-decoration: none;
-}
-
-#navbar.transparent a {
-    color: white;
-}
-
 #navbar .navbar-options {
     color: rgba(255, 255, 255, .5);
     cursor: default;
@@ -55,11 +42,16 @@
     position: relative;
 }
 
+#navbar .row {
+    height: 100%;
+    margin: 0;
+}
+
 #navbar .title {
     display: inline-block;
     font-size: 16px;
-    height: 100%;
     font-weight: 700;
+    height: 100%;
 }
 
 #navbar .title a:hover {
@@ -80,13 +72,21 @@
     width: 35px;
 }
 
-#navbar.transparent #profile-navbar {
-    border: 2px solid white;
-}
-
 
 #navbar #profile-navbar img {
-    width: 100%;
     height: 100%;
     object-fit: cover;
+    width: 100%;
+}
+
+#navbar.transparent {
+    background: none;
+}
+
+#navbar.transparent a {
+    color: white;
+}
+
+#navbar.transparent #profile-navbar {
+    border: 2px solid white;
 }

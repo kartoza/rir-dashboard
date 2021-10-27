@@ -1,3 +1,8 @@
+iframe {
+    width: 100%;
+    height: 800px;
+}
+
 table {
     width: 100%;
 }
@@ -11,14 +16,11 @@ table th {
     text-align: center;
 }
 
-.scenario {
-    width: 200px;
-}
-
 .header {
-    text-align: center;
     font-size: 16px;
     font-weight: 700;
+    padding: 0 !important;
+    text-align: center;
 }
 
 .indicator {
@@ -29,9 +31,12 @@ table th {
     color: rgba(0, 0, 0, 0.5);
 }
 
-iframe {
-    width: 100%;
-    height: 800px;
+.scenario {
+    width: 200px;
+}
+
+.scenario-header {
+    padding: 20px;
 }
 
 .indicator-row {
@@ -42,11 +47,6 @@ iframe {
     display: table-row;
 }
 
-#table-section {
-    padding-bottom: 20px;
-    overflow-x: auto;
-}
-
 .api-list {
     width: 200px;
 }
@@ -54,4 +54,9 @@ iframe {
 .api-list span {
     color: var(--primary-color);
     cursor: pointer;
+}
+
+#table-section {
+    padding-bottom: 20px;
+    overflow-x: auto;
 }

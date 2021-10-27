@@ -1,6 +1,6 @@
 from django.conf.urls import url
-from rir_dashboard.views.dashboard import DashboardView
+from rir_dashboard.views.traffic_light import TrafficLightView
 
 urlpatterns = [
-    url(r'^$', DashboardView.as_view(), name='dashboard_view'),
+    url(r'^$', TrafficLightView.as_view(), name='traffic_light_view'),
 ]

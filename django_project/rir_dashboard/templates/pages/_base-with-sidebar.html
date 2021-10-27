@@ -1,27 +1,28 @@
-{% extends 'pages/base.html' %}
+{% extends 'pages/_base.html' %}
 {% load static %}
 {% block info %}
     <div class="row">
-        <div class="col-sm-3">
+        <div class="col-sm-1">
             <ul id="sidebar">
                 {% block sidebar %}
-                {% endblock sidebar %}
+                {% endblock %}
             </ul>
         </div>
-        <div class="col-sm-9 content">
+        <div class="col-sm-11 content">
             <div id="content">
                 {% block sidebar_content %}
-                {% endblock sidebar_content %}
+                {% endblock %}
             </div>
         </div>
     </div>
 {% endblock %}
 
-{% block extrascripts %}
+{% block script %}
     <script>
         const $list = $('#sidebar li');
+        const $page = $('#page');
         $list.click(function () {
-            const top = $('#page').scrollTop() + 0;
+            const top = $page.scrollTop() + 0;
             $list.removeClass('active');
             $('.sidebar-content').hide();
             $(this).addClass('active');
@@ -30,7 +31,7 @@
             $(`#${target}`).show();
             window.location.hash = target;
 
-            $('#page').scrollTop(top);
+            $page.scrollTop(top);
             $('html').scrollTop(0);
         });
         if (!window.location.hash) {
@@ -43,8 +44,7 @@
             } else {
                 $target.click();
             }
-
         }
     </script>
-    {% block extrascripts_extend %}{% endblock %}
+    {% block extrascripts %}{% endblock %}
 {% endblock %}
