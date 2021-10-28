@@ -16,7 +16,7 @@ class SitePreferences(SingletonModel):
     primary_color = models.CharField(
         max_length=16,
         null=True, blank=True,
-        default='#45ABE1',
+        default='#1CABE2',
         help_text=_(
             'Put the hex color with # (e.g. #ffffff) '
             'or put the text of color. (e.g. blue)')

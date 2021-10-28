@@ -1,22 +1,19 @@
 from django.contrib import admin
-from django.shortcuts import reverse
-from django.utils.html import mark_safe
 from rir_data.models.indicator import (
     Indicator, IndicatorGroup, IndicatorFrequency,
-    IndicatorValue, IndicatorScenarioRule, IndicatorValueExtraData
+    IndicatorValue, IndicatorExtraValue
 )
-from rir_data.models.harvester import Harvester
 
 
 class IndicatorValueAdmin(admin.ModelAdmin):
-    class IndicatorValueExtraDataRuleInline(admin.TabularInline):
-        model = IndicatorValueExtraData
+    class IndicatorExtraValueRuleInline(admin.TabularInline):
+        model = IndicatorExtraValue
         extra = 0
 
     list_display = ('indicator', 'date', 'geometry', 'value')
     list_filter = ('indicator', 'date', 'geometry')
     search_fields = ('indicator',)
-    inlines = (IndicatorValueExtraDataRuleInline,)
+    inlines = (IndicatorExtraValueRuleInline,)
 
 
 class IndicatorFrequencyAdmin(admin.ModelAdmin):
@@ -24,27 +21,11 @@ class IndicatorFrequencyAdmin(admin.ModelAdmin):
 
 
 class IndicatorAdmin(admin.ModelAdmin):
-    class IndicatorScenarioRuleInline(admin.TabularInline):
-        model = IndicatorScenarioRule
-        extra = 0
-
     list_display = (
         'name', 'group', 'frequency', 'show_in_traffic_light',
-        '_harvester', 'geometry_reporting_level', 'unit')
+        'geometry_reporting_level',)
     list_editable = ('show_in_traffic_light',)
-    inlines = (IndicatorScenarioRuleInline,)
     list_filter = ('group', 'show_in_traffic_light')
-
-    def _harvester(self, indicator: Indicator):
-        try:
-            change__url = reverse(
-                "admin:rir_data_harvester_change",
-                args=[indicator.harvester.pk])
-            return mark_safe(
-                f'<a href="{change__url}">{indicator.harvester.harvester_class}</a>')
-        except Harvester.DoesNotExist:
-            return mark_safe(
-                f'<i><a href="{reverse("admin:rir_data_harvester_add")}">Create</a></i>')
 
 
 admin.site.register(IndicatorGroup, admin.ModelAdmin)

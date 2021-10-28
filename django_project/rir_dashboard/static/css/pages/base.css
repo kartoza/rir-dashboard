@@ -1,48 +1,3 @@
-:root {
-    --background-color: #eee;
-    --background-color-light: #f5f5f5;
-    --box-shadow: 0 1px 2px rgb(0 0 0 / 30%);
-    --inner-shadow: inset 0 1px 2px rgb(0 0 0 / 30%);
-    --navbar-height: 70px;
-    --navbar-height-minus: -70px;
-    --border-gray: 1px solid rgba(0, 0, 0, .125);
-    --border-gray-bolder: 1px solid rgba(0, 0, 0, .3);
-}
-
-/* SCROLL */
-::-webkit-scrollbar {
-    width: 5px;
-    height: 5px;
-}
-
-::-webkit-scrollbar-track {
-    background: #eee;
-}
-
-::-webkit-scrollbar-thumb {
-    background: var(--primary-color);
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #555;
-}
-
-/* HTML */
-
-html {
-    height: 100%;
-}
-
-html, body {
-    font-family: Roboto, Arial, sans-serif !important;
-    width: 100%;
-}
-
-body {
-    background-color: #eee;
-    position: relative;
-}
-
 .col-sm-1,
 .col-sm-11 {
     padding: 0;
@@ -125,7 +80,7 @@ body {
 
 #sidebar li {
     cursor: pointer;
-    border: 1px solid var(--background-color);
+    border: 1px solid #eee;
     margin-top: -1px;
     margin-left: -1px;
     padding: 5px 20px;
@@ -133,11 +88,11 @@ body {
 
 #sidebar li:hover {
     opacity: 0.5;
-    background: var(--background-color);
+    background: #eee;
 }
 
 #sidebar li.active {
-    background: var(--background-color);
+    background: #eee;
     border-left: 3px solid var(--primary-color);
     padding-left: 17px !important;
 }

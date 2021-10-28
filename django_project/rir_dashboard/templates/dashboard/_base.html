@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="{{ favicon }}" type="image/x-icon">
+    <title>{{ site_title }} : {{ instance.name }} - {{ dashboard_title }}</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;1,100;1,300&display=swap" rel="stylesheet">
+
+    <link href="{% static 'libs/bootstrap/4.5.2/bootstrap.min.css' %}" rel="stylesheet" type="text/css" media="screen, projection"/>
+    <link href="{% static 'libs/font-awesome/4.7.0/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css" media="screen, projection"/>
+    <link href="{% static 'libs/jquery-ui/1.12.1/jquery-ui.css' %}" rel="stylesheet" type="text/css" media="screen, projection"/>
+    <link href="{% static 'css/base.css' %}" rel="stylesheet" type="text/css" media="screen, projection"/>
+    <link href="{% static 'css/navbar.css' %}" rel="stylesheet" type="text/css" media="screen, projection"/>
+    <link href="{% static 'css/dashboard/base.css' %}" rel="stylesheet" type="text/css" media="screen, projection"/>
+
+    <script type="text/javascript" src="{% static 'libs/jquery.js/3.4.1/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'libs/jquery-ui/1.12.1/jquery-ui.js' %}"></script>
+    <script type="text/javascript" src="{% static 'libs/bootstrap/4.5.2/bootstrap.bundle.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/shared.js' %}"></script>
+    <style>
+        :root {
+            --primary-color: {{ primary_color }};
+            --secondary-color: {{ secondary_color }};
+        }
+    </style>
+    {% block stylesheet %}{% endblock stylesheet %}
+</head>
+
+<body class="body">
+{% include "pages/_navbar.html" %}
+<div id="page">
+    <div id="navigation" class="box-shadow-right">
+        <div class="content">
+            <div class="section">
+                <div class="header">Data</div>
+                <a href="{% url "dashboard-view" instance.slug %}" class="nav {% if dashboard_title.lower == 'dashboard' %}active{% endif %}">
+                    <table>
+                        <tr>
+                            <td class="icon"><i class="fa fa-home" aria-hidden="true"></i></td>
+                            <td>Dashboard</td>
+                        </tr>
+                    </table>
+                </a>
+                <a href="{% url "indicator-view" instance.slug %}" class="nav {% if dashboard_title.lower == 'indicator' %}active{% endif %}">
+                    <table>
+                        <tr>
+                            <td class="icon"><i class="fa fa-th" aria-hidden="true"></i></td>
+                            <td>Indicator</td>
+                        </tr>
+                    </table>
+                </a>
+            </div>
+        </div>
+        <div class="footer">
+
+        </div>
+    </div>
+    <div id="content">
+        <div class="header">
+            {{ dashboard_title }}
+        </div>
+        {% block content %}{% endblock %}
+    </div>
+</div>
+</body>
+</html>

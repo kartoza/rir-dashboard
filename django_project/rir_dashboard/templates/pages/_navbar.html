@@ -1,11 +1,8 @@
 {% load i18n %}
 {% load static %}
-<div id="navbar">
-    <div class="row">
-        <div class="title">
-            <a href="/" style="margin-right: 20px">
-                <img src="{{ icon }}">
-            </a>
-        </div>
-    </div>
-</div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light box-shadow-bottom">
+    <a class="navbar-brand" href="/">
+        <img src="{% static "img/unicef.icon.png" %}">
+        <div class="title">{{ site_title }} {% if instance %} - {{ instance.name }}{% endif %}</div>
+    </a>
+</nav>
