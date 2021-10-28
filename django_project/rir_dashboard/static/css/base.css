@@ -1,9 +1,8 @@
 :root {
     --left-side-width: 250px;
-    --box-shadow: 0 1px 2px rgb(0 0 0 / 30%);
-    --inner-shadow: inset 0 1px 2px rgb(0 0 0 / 30%);
     --navbar-height: 50px;
     --navbar-height-minus: -50px;
+    --divider-color: #ddd;
 }
 
 /* SCROLL */
@@ -50,4 +49,23 @@ html, body {
 body {
     background-color: #eee;
     position: relative;
+}
+
+/* BUTTONS */
+.main-button {
+    border: none;
+    outline: none;
+    padding: 5px 15px;
+    font-weight: 500;
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.main-button:focus-visible,
+.main-button:focus {
+    outline: none;
+}
+
+.main-button:hover {
+    opacity: 0.9;
 }

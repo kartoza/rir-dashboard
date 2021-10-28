@@ -3,12 +3,8 @@ from rir_data.models.geometry import Geometry, GeometryLevelName, GeometryLevelI
 
 
 class GeometryAdmin(admin.ModelAdmin):
-    list_display = ('identifier', 'name', 'alias', 'geometry_level', 'child_of')
-    list_filter = ('geometry_level', 'child_of')
-
-
-class GeometryLevelNameAdmin(admin.ModelAdmin):
-    list_display = ('slug', 'name')
+    list_display = ('identifier', 'instance', 'name', 'alias', 'geometry_level', 'child_of')
+    list_filter = ('instance', 'geometry_level', 'child_of')
 
 
 class GeometryLevelInstanceAdmin(admin.ModelAdmin):
@@ -16,6 +12,6 @@ class GeometryLevelInstanceAdmin(admin.ModelAdmin):
     list_filter = ('instance',)
 
 
-admin.site.register(GeometryLevelName, GeometryLevelNameAdmin)
+admin.site.register(GeometryLevelName, admin.ModelAdmin)
 admin.site.register(GeometryLevelInstance, GeometryLevelInstanceAdmin)
 admin.site.register(Geometry, GeometryAdmin)

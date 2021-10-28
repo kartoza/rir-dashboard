@@ -38,7 +38,7 @@
     <div id="navigation" class="box-shadow-right">
         <div class="content">
             <div class="section">
-                <div class="header">Data</div>
+                <div class="header">{{ instance.name }}</div>
                 <a href="{% url "dashboard-view" instance.slug %}" class="nav {% if dashboard_title.lower == 'dashboard' %}active{% endif %}">
                     <table>
                         <tr>
@@ -62,11 +62,14 @@
         </div>
     </div>
     <div id="content">
-        <div class="header">
+        <div class="header box-shadow-bottom ">
             {{ dashboard_title }}
         </div>
-        {% block content %}{% endblock %}
+        <div id="content-view">
+            {% block content %}{% endblock %}
+        </div>
     </div>
 </div>
+{% block scripts %}{% endblock %}
 </body>
 </html>

@@ -1,10 +1,13 @@
+import typing
 from datetime import date
+from django.db.models import Count, Sum
 from django.contrib.gis.db import models
 from django.utils.translation import ugettext_lazy as _
-from rir_data.models.geometry import GeometryLevelName
+from rir_data.models.geometry import Geometry, GeometryLevelName
 from rir_data.models.indicator.indicator_attributes import (
     IndicatorFrequency, IndicatorGroup
 )
+from rir_data.models.scenario import ScenarioLevel
 
 
 # AGGREGATION BEHAVIOURS
@@ -65,6 +68,9 @@ class Indicator(models.Model):
         )
     )
 
+    def __str__(self):
+        return self.name
+
     @property
     def allow_to_harvest_new_data(self):
         """
@@ -82,3 +88,86 @@ class Indicator(models.Model):
     def list():
         """ Return list of indicators """
         return Indicator.objects.filter(show_in_traffic_light=True)
+
+    def scenario_rule(self, level):
+        """
+        Return scenario rule for specific level
+        """
+        scenario_rule = self.indicatorscenariorule_set.filter(scenario_level__level=level).first()
+        if scenario_rule:
+            return scenario_rule.rule
+        return '-'
+
+    def scenario_level(self, value) -> typing.Optional[ScenarioLevel]:
+        """ Return scenario level of the value """
+        if value:
+            # check the rule
+            for indicator_rule in self.indicatorscenariorule_set.all():
+                try:
+                    if eval(indicator_rule.rule.replace('x', f'{value}')):
+                        return indicator_rule.scenario_level
+                except NameError:
+                    pass
+        else:
+            return None
+
+    def values(self, geometry: Geometry, geometry_level: GeometryLevelName, date_data: date):
+        """
+        Return geojson value of indicator by geometry, the target geometry level and the date
+        """
+        # get the geometries of data
+        values = []
+        query = self.indicatorvalue_set.filter(date__lte=date_data).filter(
+            geometry__geometry_level=self.geometry_reporting_level
+        )
+        if not query.first():
+            return values
+
+        # update query by behaviour
+        if self.aggregation_behaviour == AggregationBehaviour.USE_AVAILABLE:
+            last_date = query.first().date
+            query = query.filter(date=last_date)
+
+        # get the geometries target by the level
+        geometries_target = geometry.geometries_by_level(geometry_level)
+
+        # get the data for every geometry target
+        for geometry_target in geometries_target:
+            geometries_report = list(
+                geometry_target.geometries_by_level(
+                    self.geometry_reporting_level).values_list('id', flat=True)
+            )
+            # filter data just by geometry target
+            query_report = query.filter(
+                geometry__in=geometries_report
+            )
+            try:
+                value = None
+
+                # aggregate the data by method
+                if self.aggregation_method == AggregationMethod.MAJORITY:
+                    output = query_report.values('value').annotate(
+                        dcount=Count('value')
+                    ).order_by('-dcount')
+                    value = output[0]['value']
+                elif self.aggregation_method == AggregationMethod.SUM:
+                    output = query_report.values('value').annotate(
+                        sum=Sum('value')
+                    )
+                    value = output[0]['sum']
+
+                # return data
+                scenario_value = self.scenario_level(value)
+                values.append({
+                    'geometry_id': geometry_target.id,
+                    'geometry_identifier': geometry_target.identifier,
+                    'geometry_name': geometry_target.name,
+                    'value': value,
+                    'scenario_value': scenario_value.level,
+                    'text_color': scenario_value.text_color,
+                    'background_color': scenario_value.background_color
+                })
+            except IndexError:
+                pass
+
+        return values

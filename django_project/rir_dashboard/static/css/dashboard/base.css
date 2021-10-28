@@ -4,6 +4,7 @@
 
 html, body {
     height: 100%;
+    font-size: 14px;
 }
 
 #page {
@@ -19,14 +20,45 @@ html, body {
     overflow-y: auto;
 }
 
+#content-view {
+    padding: 20px;
+}
+
 #content .header {
     background: white;
+    font-weight: 600;
     padding: 13px 20px;
 }
 
 #content .header .dashboard-icon {
     margin-right: 2px;
     padding: 7px;
+}
+
+#content .section {
+    background: white;
+    border-radius: 5px;
+}
+
+#content .section-nav {
+    margin-bottom: 30px;
+    margin-top: 30px;
+    padding: 0;
+    border-bottom: 1px solid var(--divider-color);
+}
+
+#content .section-nav li {
+    cursor: pointer;
+    list-style-type: none;
+    display: inline-block;
+    padding: 0 20px;
+}
+
+#content .section-nav li.active,
+#content .section-nav li:hover {
+    margin-bottom: -2px;
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
 }
 
 #navigation {

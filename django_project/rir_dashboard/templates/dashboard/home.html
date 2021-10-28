@@ -1,4 +1,93 @@
 {% extends 'dashboard/_base.html' %}
+{% load static %}
+{% load indicator_tags %}
 
+{% block stylesheet %}
+    <link href="{% static 'libs/leaflet/1.5.1/leaflet.css' %}" rel="stylesheet" type="text/css" media="screen, projection"/>
+    <link href="{% static 'css/dashboard/home.css' %}" rel="stylesheet" type="text/css" media="screen, projection"/>
+    <style>
+        {% for scenario in scenarios %}
+            .scenario-{{ scenario.level }} {
+                background-color: {{ scenario.background_color }} !important;
+                color: {{ scenario.text_color}};
+            }
+        {% endfor %}
+    </style>
+{% endblock %}
 {% block content %}
+    <div id="traffic-light">
+        <div class="section scenario-header scenario-{{ overall_scenario.level }}">
+            {{ instance.name }}<br>
+            Scenario {{ overall_scenario.level }}: {{ overall_scenario.name }}
+        </div>
+
+        <ul class="section-nav">
+            <li data-target="table-section" class="active">Traffic Light</li>
+            {% for intervention in interventions %}
+                <li data-target="intervention-{{ intervention.program_id }}">{{ intervention.program_name }}</li>
+            {% endfor %}
+        </ul>
+
+        <div id="table-section" class="section scenario-section box-shadow-bottom" style="display: block">
+            <div id="toggle-table-section">
+                <button id="toggle-table" class="main-button content-button">Show all indicators</button>
+            </div>
+            <table>
+                <tr>
+                    <th valign="top" style="width: 250px">Case Title</th>
+                    <th valign="top" style="width: 150px">Value</th>
+                    {% for scenario in scenarios %}
+                        <th class="scenario scenario-{{ scenario.level }}" valign="top">
+                            Scenario {{ scenario.level }}
+                            <div>
+                                {{ scenario.name }}
+                            </div>
+                        </th>
+                    {% endfor %}
+                </tr>
+                {% for indicator in indicators %}
+                    <tr class="indicator-row {% if indicator.show_in_traffic_light %}traffic-indicator{% endif %}">
+                        <td>{{ indicator.name }}</td>
+                        <td class="scenario-{{ indicator.scenario_value }}">{{ indicator.value }}</td>
+                        {% for scenario in scenarios %}
+                            <td class="scenario indicator {% if indicator.scenario_value == scenario.level %}scenario-{{ scenario.level }}{% endif %}">
+                                {% get_scenario_rule indicator scenario.level as rule %}
+                                {{ rule }}
+                            </td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+        {% for intervention in interventions %}
+            <div id="intervention-{{ intervention.program_id }}" class="section intervention scenario-section">
+                <iframe src="{{ intervention.url }}" title="{{ intervention.program_name }}" frameBorder="0"></iframe>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+{% block scripts %}
+    <script>
+        $('#toggle-table').click(function () {
+            $(this).toggleClass('all');
+            if ($(this).hasClass('all')) {
+                $(this).html('Show just traffic light indicators')
+                $('.indicator-row').show();
+            } else {
+                $(this).html('Show all indicators')
+                $('.indicator-row').hide();
+                $('.traffic-indicator').show();
+            }
+        });
+        const $list = $('.section-nav li');
+        $list.click(function () {
+            $list.removeClass('active');
+            $('.scenario-section').hide();
+            $(this).addClass('active');
+
+            const target = $(this).data('target');
+            $(`#${target}`).show();
+            $('html').scrollTop(0);
+        });
+    </script>
 {% endblock %}

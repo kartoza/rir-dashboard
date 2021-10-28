@@ -1,6 +1,7 @@
 from django.contrib.gis.db import models
 from django.utils.translation import ugettext_lazy as _
 from core.models import AbstractTerm
+from rir_data.models.instance import Instance
 
 
 class IndicatorFrequency(AbstractTerm):
@@ -21,5 +22,9 @@ class IndicatorFrequency(AbstractTerm):
 class IndicatorGroup(AbstractTerm):
     """
     The group of indicator
+    It is linked with the instance
     """
-    pass
+    instance = models.ForeignKey(
+        Instance,
+        on_delete=models.CASCADE
+    )

@@ -12,7 +12,7 @@
     <style>
         {% for scenario in scenarios %}
             .scenario-{{ scenario.level }} {
-                color: {{ scenario.color }} !important;
+                color: {{ scenario.text_color }} !important;
                 background-color: {{ scenario.background_color }};
             }
         {% endfor %}
@@ -51,7 +51,6 @@
                             </div>
                         </th>
                     {% endfor %}
-                    <th valign="top">API List</th>
                 </tr>
                 {% for indicator in indicators %}
                     <tr class="indicator-row {% if indicator.show_in_traffic_light %}traffic-indicator{% endif %}">
@@ -63,12 +62,6 @@
                                 {{ rule }}
                             </td>
                         {% endfor %}
-                        <td class="api-list">
-                            {# <a data-url="{% url "indicator_values_geojson" indicator.id 'so' 'country' today_date %}" onclick="copyToClipboard(this)">Geojson Country</a>,#}
-                            <a href="{% url "indicator_values_geojson" indicator.id 'so' 'country' today_date %}" target="_blank">Country</a><br>
-                            <a href="{% url "indicator_values_geojson" indicator.id 'so' 'region' today_date %}" target="_blank">Region</a><br>
-                            <a href="{% url "indicator_values_geojson" indicator.id 'so' 'district' today_date %}" target="_blank">District</a><br>
-                        </td>
                     </tr>
                 {% endfor %}
             </table>
@@ -94,5 +87,31 @@
                 $('.traffic-indicator').show();
             }
         });
+        const $list = $('#sidebar li');
+        const $page = $('#page');
+        $list.click(function () {
+            const top = $page.scrollTop() + 0;
+            $list.removeClass('active');
+            $('.sidebar-content').hide();
+            $(this).addClass('active');
+
+            const target = $(this).data('target');
+            $(`#${target}`).show();
+            window.location.hash = target;
+
+            $page.scrollTop(top);
+            $('html').scrollTop(0);
+        });
+        if (!window.location.hash) {
+            $($list[0]).click();
+        } else {
+            const hash = window.location.hash.replaceAll('#', '');
+            const $target = $(`#sidebar li[data-target="${hash}"]`);
+            if ($target.length === 0) {
+                $($list[0]).click();
+            } else {
+                $target.click();
+            }
+        }
     </script>
 {% endblock %}

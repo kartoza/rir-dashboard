@@ -1,7 +1,7 @@
 from django.contrib import admin
 from rir_data.models.indicator import (
     Indicator, IndicatorGroup, IndicatorFrequency,
-    IndicatorValue, IndicatorExtraValue
+    IndicatorValue, IndicatorScenarioRule, IndicatorExtraValue
 )
 
 
@@ -21,14 +21,24 @@ class IndicatorFrequencyAdmin(admin.ModelAdmin):
 
 
 class IndicatorAdmin(admin.ModelAdmin):
+    class IndicatorScenarioRuleInline(admin.TabularInline):
+        model = IndicatorScenarioRule
+        extra = 0
+
     list_display = (
         'name', 'group', 'frequency', 'show_in_traffic_light',
         'geometry_reporting_level',)
     list_editable = ('show_in_traffic_light',)
+    inlines = (IndicatorScenarioRuleInline,)
     list_filter = ('group', 'show_in_traffic_light')
 
 
-admin.site.register(IndicatorGroup, admin.ModelAdmin)
+class IndicatorGroupAdmin(admin.ModelAdmin):
+    list_display = ('name', 'instance')
+    list_filter = ('instance',)
+
+
+admin.site.register(IndicatorGroup, IndicatorGroupAdmin)
 admin.site.register(IndicatorFrequency, IndicatorFrequencyAdmin)
 admin.site.register(IndicatorValue, IndicatorValueAdmin)
 admin.site.register(Indicator, IndicatorAdmin)
