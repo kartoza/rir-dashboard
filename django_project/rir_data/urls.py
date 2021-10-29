@@ -3,6 +3,7 @@ from django.urls import include
 from rir_data.api.indicator import (
     IndicatorsList, IndicatorValuesGeojson, IndicatorValues
 )
+from rir_dashboard.views.instances import InstancesView
 
 indicator_api = [
 
@@ -25,4 +26,5 @@ instance_url = [
 
 urlpatterns = [
     url(r'^(?P<slug>[^/]+)/', include(instance_url)),
+    url(r'^', InstancesView.as_view(), name='instances-view'),
 ]

@@ -3,6 +3,8 @@
     --navbar-height: 50px;
     --navbar-height-minus: -50px;
     --divider-color: #ddd;
+    --hovered-color: rgba(180, 180, 180, 0.1);
+    --hovered-color-darker: rgba(0, 0, 0, 0.1);
 }
 
 /* SCROLL */
