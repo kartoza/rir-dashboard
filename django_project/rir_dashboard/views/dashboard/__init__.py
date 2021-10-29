@@ -1,2 +1,2 @@
-from .home import DashboardHomeView
-from .indicator import IndicatorView
+from .home import *
+from .indicator import *

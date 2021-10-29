@@ -47,14 +47,14 @@
                         </tr>
                     </table>
                 </a>
-                <a href="{% url "indicator-view" instance.slug %}" class="nav {% if dashboard_title.lower == 'indicator' %}active{% endif %}">
-                    <table>
-                        <tr>
-                            <td class="icon"><i class="fa fa-th" aria-hidden="true"></i></td>
-                            <td>Indicator</td>
-                        </tr>
-                    </table>
-                </a>
+{#                <a href="{% url "indicator-view" instance.slug %}" class="nav {% if dashboard_title.lower == 'indicator' %}active{% endif %}">#}
+{#                    <table>#}
+{#                        <tr>#}
+{#                            <td class="icon"><i class="fa fa-th" aria-hidden="true"></i></td>#}
+{#                            <td>Indicator</td>#}
+{#                        </tr>#}
+{#                    </table>#}
+{#                </a>#}
             </div>
         </div>
         <div class="footer">
@@ -63,7 +63,7 @@
     </div>
     <div id="content">
         <div class="header box-shadow-bottom ">
-            {{ dashboard_title }}
+            {{ dashboard_title|safe }}
         </div>
         <div id="content-view">
             {% block content %}{% endblock %}

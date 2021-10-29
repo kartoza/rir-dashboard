@@ -35,3 +35,10 @@ class ScenarioLevel(AbstractTerm):
 
     class Meta:
         ordering = ('level',)
+
+    @property
+    def element(self):
+        """
+        Return element of the scenario
+        """
+        return f'<span class="scenario-level" style="color:{self.text_color}; background-color: {self.background_color}">Scenario {self.level} - {self.name}</span>'

@@ -93,13 +93,16 @@ class Indicator(models.Model):
         """
         Return scenario rule for specific level
         """
-        scenario_rule = self.indicatorscenariorule_set.filter(scenario_level__level=level).first()
+        scenario_rule = self.indicatorscenariorule_set.filter(
+            scenario_level__level=level).first()
         if scenario_rule:
             return scenario_rule.rule
         return '-'
 
     def scenario_level(self, value) -> typing.Optional[ScenarioLevel]:
-        """ Return scenario level of the value """
+        """
+        Return scenario level of the value
+        """
         if value:
             # check the rule
             for indicator_rule in self.indicatorscenariorule_set.all():

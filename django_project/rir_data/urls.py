@@ -1,9 +1,21 @@
 from django.conf.urls import url
 from django.urls import include
-from rir_data.api.indicator import IndicatorsList
+from rir_data.api.indicator import (
+    IndicatorsList, IndicatorValuesGeojson, IndicatorValues
+)
 
+indicator_api = [
+
+    url(
+        r'^(?P<pk>\d+)/values/(?P<geometry_identifier>.+)/(?P<geometry_level>.+)/(?P<date>.+).geojson',
+        IndicatorValuesGeojson.as_view(), name='indicator-values-geojson'),
+    url(
+        r'^(?P<pk>\d+)/values/(?P<geometry_identifier>.+)/(?P<geometry_level>.+)/(?P<date>.+)',
+        IndicatorValues.as_view(), name='indicator_values'),
+    url(r'^', IndicatorsList.as_view(), name='indicator-list'),
+]
 api = [
-    url(r'^indicator', IndicatorsList.as_view(), name='indicator_list'),
+    url(r'^indicator/', include(indicator_api))
 ]
 
 instance_url = [
