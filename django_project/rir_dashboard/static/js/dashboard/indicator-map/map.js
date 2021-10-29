@@ -44,6 +44,7 @@ $(document).ready(function () {
         $level.addClass('active');
 
         // get geojson
+        indicatorLayer.clearLayers();
         if (!indicatorGeojson[level]) {
             $.ajax({
                 url: url,
@@ -61,7 +62,6 @@ $(document).ready(function () {
             });
 
         } else {
-            indicatorLayer.clearLayers();
             indicatorLayer.addData(indicatorGeojson[level]);
         }
     }

@@ -21,7 +21,8 @@ class IndicatorMapView(BaseDashboardView):
 
     @property
     def dashboard_title(self):
-        return f'Indicator Map : {self.indicator.name} {self.scenario_level.element}'
+        element = self.scenario_level.element if self.scenario_level else ''
+        return f'Indicator Map : {self.indicator.name} {element}'
 
     @property
     def context_view(self) -> dict:
@@ -77,6 +78,8 @@ class IndicatorMapView(BaseDashboardView):
                                 self.instance.slug, indicator.pk, geometry_country.identifier, level, date.today()
                             ])
                         }
+                        if indicator.geometry_reporting_level == level:
+                            break
                     context['levels'] = level_with_url
 
             return context
