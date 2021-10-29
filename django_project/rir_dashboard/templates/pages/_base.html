@@ -5,8 +5,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="{{ favicon }}" type="image/x-icon">
-    <title>{{ site_title }} : {% block title %}{% endblock title %}</title>
+    <link rel="shortcut icon" href="{{ preferences.favicon }}" type="image/x-icon">
+    <title>{{ preferences.site_title }} : {% block title %}{% endblock title %}</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,8 +21,8 @@
 
     <style>
         :root {
-            --primary-color: {{ primary_color }};
-            --secondary-color: {{ secondary_color }};
+            --primary-color: {{ preferences.primary_color }};
+            --secondary-color: {{ preferences.secondary_color }};
         }
     </style>
 
