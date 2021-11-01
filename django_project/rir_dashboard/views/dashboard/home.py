@@ -32,7 +32,10 @@ class DashboardHomeView(BaseDashboardView):
                     'program_name': intervention.program.name,
                     'url': intervention.intervention_url,
                 })
-        context['overall_scenario'] = context['scenarios'][overall_scenario_level - 1]
+        try:
+            context['overall_scenario'] = context['scenarios'][overall_scenario_level - 1]
+        except IndexError:
+            context['overall_scenario'] = 1
         context['indicators'] = indicators
         context['interventions'] = interventions
         context['today_date'] = date.today().strftime('%Y-%m-%d')

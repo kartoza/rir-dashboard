@@ -1,8 +1,24 @@
 {% load i18n %}
 {% load static %}
 <nav class="navbar navbar-expand-lg navbar-light bg-light box-shadow-bottom">
-    <a class="navbar-brand" href="/">
+    <a class="navbar-brand mr-auto" href="/">
         <img src="{% if preferences.icon %}{{ preferences.icon }}{% endif %}">
         <div class="title">{{ preferences.site_title }} {% if instance %} - {{ instance.name }}{% endif %}</div>
     </a>
+    <select id="instance-selection">
+    </select>
 </nav>
+<script>
+    const $instanceSelection = $('#instance-selection');
+    const currentInstance = {% if instance %} "{{ instance.slug }}" {% else %} "" {% endif %};
+    if (currentInstance) {
+        $instanceSelection.show();
+        {% for instance in instances %}
+            $instanceSelection.append('<option value="{{ instance.slug }}">{{ instance.name }}</option>')
+        {% endfor %}
+        $instanceSelection.val(currentInstance);
+        $instanceSelection.change(function () {
+            window.location = window.location.href.replaceAll(currentInstance, $(this).val())
+        })
+    }
+</script>
