@@ -22,7 +22,7 @@ class IndicatorMapView(BaseDashboardView):
     @property
     def dashboard_title(self):
         element = self.scenario_level.element if self.scenario_level else ''
-        return f'Indicator Map : {self.indicator.name} {element}'
+        return f'<span>Indicator Map</span> : {self.indicator.name} {element}'
 
     @property
     def context_view(self) -> dict:

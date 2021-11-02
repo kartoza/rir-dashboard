@@ -16,6 +16,10 @@
     border-bottom: 1px solid var(--divider-color);
 }
 
+#dashboard table a {
+    text-decoration: none;
+}
+
 #dashboard .indicator {
     color: rgba(0, 0, 0, 0);
 }
