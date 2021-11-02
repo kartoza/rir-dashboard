@@ -54,20 +54,32 @@ body {
 }
 
 /* BUTTONS */
-.main-button {
+.main-button,
+.white-button {
     border: none;
     outline: none;
     padding: 5px 15px;
     font-weight: 500;
+}
+
+.main-button {
     background-color: var(--primary-color);
     color: white;
 }
 
+.white-button {
+    background-color: white;
+    color: var(--primary-color);
+}
+
 .main-button:focus-visible,
-.main-button:focus {
+.main-button:focus,
+.white-button:focus-visible,
+.white-button:focus {
     outline: none;
 }
 
-.main-button:hover {
+.main-button:hover,
+.white-button:hover {
     opacity: 0.9;
 }

@@ -26,7 +26,7 @@
 }
 
 .instance img {
-    border: 1px solid #ddd;
+    border: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 .instance span {
