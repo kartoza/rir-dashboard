@@ -1,16 +1,21 @@
 from django.contrib.gis.db import models
 from django.utils.translation import ugettext_lazy as _
 from core.models import AbstractTerm
+from rir_data.models.instance import Instance
 
 
 class ScenarioLevel(AbstractTerm):
     """
     The level of scenario
     """
+    instance = models.ForeignKey(
+        Instance,
+        on_delete=models.CASCADE
+    )
     level = models.IntegerField(
         unique=True,
     )
-    color = models.CharField(
+    text_color = models.CharField(
         max_length=16,
         null=True, blank=True,
         help_text=_(
@@ -26,7 +31,14 @@ class ScenarioLevel(AbstractTerm):
     )
 
     def __str__(self):
-        return f'{self.level} - {self.name}'
+        return f'{self.instance} - {self.name} - {self.level}'
 
     class Meta:
         ordering = ('level',)
+
+    @property
+    def element(self):
+        """
+        Return element of the scenario
+        """
+        return f'<span class="scenario-level" style="color:{self.text_color}; background-color: {self.background_color}">Scenario {self.level} - {self.name}</span>'

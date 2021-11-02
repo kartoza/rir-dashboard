@@ -1,5 +1,3 @@
-let event;
-let Request;
 let csrfmiddlewaretoken;
 
 $(document).ready(function () {
@@ -16,15 +14,15 @@ String.prototype.capitalize = function () {
     return target.charAt(0).toUpperCase() + target.slice(1);
 }
 
+/**
+ * Fuction before ajax
+ */
 function beforeAjaxSend(xhr) {
     xhr.setRequestHeader('X-CSRFToken', csrfmiddlewaretoken);
 }
 
 /**
  * Clone object
- *
- * @param obj
- * @returns {*}
  */
 function cloneObject(obj) {
     if (obj === null || typeof obj !== 'object') {
@@ -39,16 +37,10 @@ function cloneObject(obj) {
     return temp;
 }
 
-function capitalize(string) {
-    //check if it is already has upper case
-    string = string.replaceAll('_', ' ')
-    if (/[A-Z]/.test(string)) {
-        return string;
-    }
-    return string.charAt(0).toUpperCase() + string.slice(1);
-}
 
-
+/**
+ * Set cookie
+ */
 function setCookie(name, value, days) {
     var expires = "";
     if (days) {
@@ -59,6 +51,10 @@ function setCookie(name, value, days) {
     document.cookie = name + "=" + (value || "") + expires + "; path=/";
 }
 
+
+/**
+ * Get cookie
+ */
 function getCookie(name) {
     var nameEQ = name + "=";
     var ca = document.cookie.split(';');
@@ -68,4 +64,12 @@ function getCookie(name) {
         if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
     }
     return null;
+}
+
+
+/**
+ * Copy to clipboard
+ */
+function copyToClipboard(elmt) {
+    navigator.clipboard.writeText(window.location.host + $(elmt).data('url'));
 }

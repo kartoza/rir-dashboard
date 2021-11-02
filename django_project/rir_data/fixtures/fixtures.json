@@ -1,52 +1,114 @@
 [
   {
+    "model": "rir_data.instance",
+    "pk": 1,
+    "fields": {
+      "name": "Somalia",
+      "description": "",
+      "slug": "somalia"
+    }
+  },
+  {
+    "model": "rir_data.geometrylevelname",
+    "pk": 1,
+    "fields": {
+      "name": "Country"
+    }
+  },
+  {
+    "model": "rir_data.geometrylevelname",
+    "pk": 2,
+    "fields": {
+      "name": "Region"
+    }
+  },
+  {
+    "model": "rir_data.geometrylevelname",
+    "pk": 3,
+    "fields": {
+      "name": "District"
+    }
+  },
+  {
+    "model": "rir_data.geometrylevelinstance",
+    "pk": 1,
+    "fields": {
+      "instance": 1,
+      "level": 1,
+      "parent": null
+    }
+  },
+  {
+    "model": "rir_data.geometrylevelinstance",
+    "pk": 2,
+    "fields": {
+      "instance": 1,
+      "level": 2,
+      "parent": 1
+    }
+  },
+  {
+    "model": "rir_data.geometrylevelinstance",
+    "pk": 3,
+    "fields": {
+      "instance": 1,
+      "level": 3,
+      "parent": 2
+    }
+  },
+  {
     "model": "rir_data.scenariolevel",
     "pk": 1,
     "fields": {
+      "instance": 1,
       "name": "Best Case",
       "description": "",
       "level": 1,
-      "color": "black",
-      "background_color": "#CDFACD"
+      "background_color": "#CDFACD",
+      "text_color": "black"
     }
   },
   {
     "model": "rir_data.scenariolevel",
     "pk": 2,
     "fields": {
+      "instance": 1,
       "name": "Status Quo / Baseline",
       "description": "",
       "level": 2,
-      "color": "black",
-      "background_color": "#F9E61E"
+      "background_color": "#F9E61E",
+      "text_color": "black"
     }
   },
   {
     "model": "rir_data.scenariolevel",
     "pk": 3,
     "fields": {
+      "instance": 1,
       "name": "Worsening",
       "description": "",
       "level": 3,
-      "color": "white",
-      "background_color": "#E67800"
+      "background_color": "#E67800",
+      "text_color": "white"
     }
   },
   {
     "model": "rir_data.scenariolevel",
     "pk": 4,
     "fields": {
+      "instance": 1,
       "name": "Worst Case",
       "description": "",
       "level": 4,
-      "color": "white",
-      "background_color": "#C80F00"
+      "background_color": "#C80F00",
+      "text_color": "white"
     }
   },
   {
     "model": "rir_data.indicatorgroup",
     "pk": 1,
     "fields": {
+      "instance": 1,
       "name": "Changes in COVID-19",
       "description": ""
     }
@@ -55,6 +117,7 @@
     "model": "rir_data.indicatorgroup",
     "pk": 2,
     "fields": {
+      "instance": 1,
       "name": "Changes in the Socio-economic Status",
       "description": ""
     }
@@ -82,12 +145,10 @@
     "pk": 1,
     "fields": {
       "name": "Biweekly change in Confirmed COVID-19 cases",
-      "description": "",
       "group": 1,
       "frequency": 1,
       "show_in_traffic_light": true,
       "geometry_reporting_level": 1,
-      "unit": "per 2 weeks",
       "aggregation_behaviour": "Use all available populated geography in current time window",
       "aggregation_method": "Aggregate data by sum all data."
     }
@@ -97,12 +158,10 @@
     "pk": 2,
     "fields": {
       "name": "Travel Restrictions - Air",
-      "description": "",
       "group": 1,
       "frequency": 1,
       "show_in_traffic_light": false,
       "geometry_reporting_level": 1,
-      "unit": "Open",
       "aggregation_behaviour": "Use all available populated geography in current time window",
       "aggregation_method": "Aggregate data by sum all data."
     }
@@ -112,12 +171,10 @@
     "pk": 3,
     "fields": {
       "name": "Travel Restrictions - Sea",
-      "description": "",
       "group": 1,
       "frequency": 1,
       "show_in_traffic_light": false,
       "geometry_reporting_level": 1,
-      "unit": "Open",
       "aggregation_behaviour": "Use all available populated geography in current time window",
       "aggregation_method": "Aggregate data by sum all data."
     }
@@ -127,12 +184,10 @@
     "pk": 4,
     "fields": {
       "name": "Travel Restrictions - Roads",
-      "description": "",
       "group": 1,
       "frequency": 1,
       "show_in_traffic_light": false,
       "geometry_reporting_level": 1,
-      "unit": "Open",
       "aggregation_behaviour": "Use all available populated geography in current time window",
       "aggregation_method": "Aggregate data by sum all data."
     }
@@ -142,12 +197,10 @@
     "pk": 5,
     "fields": {
       "name": "IPC Phase",
-      "description": "",
       "group": 2,
       "frequency": 2,
       "show_in_traffic_light": true,
       "geometry_reporting_level": 3,
-      "unit": null,
       "aggregation_behaviour": "Use all available populated geography in current time window",
       "aggregation_method": "Aggregate data by majority data in the levels."
     }
@@ -523,6 +576,7 @@
     "model": "rir_data.program",
     "pk": 1,
     "fields": {
+      "instance": 1,
       "name": "Health",
       "description": ""
     }
@@ -531,6 +585,7 @@
     "model": "rir_data.program",
     "pk": 2,
     "fields": {
+      "instance": 1,
       "name": "CP",
       "description": ""
     }
@@ -539,6 +594,7 @@
     "model": "rir_data.program",
     "pk": 3,
     "fields": {
+      "instance": 1,
       "name": "Nutrition",
       "description": ""
     }
@@ -547,6 +603,7 @@
     "model": "rir_data.program",
     "pk": 4,
     "fields": {
+      "instance": 1,
       "name": "Wash",
       "description": ""
     }
@@ -555,6 +612,7 @@
     "model": "rir_data.program",
     "pk": 5,
     "fields": {
+      "instance": 1,
       "name": "Education",
       "description": ""
     }

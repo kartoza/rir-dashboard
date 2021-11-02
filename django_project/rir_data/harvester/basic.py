@@ -2,7 +2,7 @@ from datetime import date
 from rir_data.harvester.base import (
     BaseHarvester, HarvestingError
 )
-from core.models import Geometry
+from rir_data.models import Geometry
 
 
 class BasicAPI(BaseHarvester):

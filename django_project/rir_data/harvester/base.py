@@ -3,7 +3,7 @@ import requests
 import traceback
 from abc import ABC, abstractmethod
 from django.contrib.auth import get_user_model
-from core.models import Geometry
+from rir_data.models import Geometry
 from rir_data.models.harvester import (
     Harvester, HarvesterLog
 )

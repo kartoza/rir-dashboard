@@ -1,6 +1,6 @@
 from django.contrib.gis.db import models
 from django.utils.translation import ugettext_lazy as _
-from core.models import Geometry
+from rir_data.models.geometry import Geometry
 from rir_data.models.indicator.indicator import Indicator
 
 
@@ -27,7 +27,7 @@ class IndicatorValue(models.Model):
         ordering = ('-date',)
 
 
-class IndicatorValueExtraData(models.Model):
+class IndicatorExtraValue(models.Model):
     """
     Additional data for Indicator value data
     """

@@ -3,10 +3,11 @@ from datetime import date
 from django.db.models import Count, Sum
 from django.contrib.gis.db import models
 from django.utils.translation import ugettext_lazy as _
-from core.models import AbstractTerm, Geometry, GeometryLevel
+from rir_data.models.geometry import Geometry, GeometryLevelName
+from rir_data.models.indicator.indicator_attributes import (
+    IndicatorFrequency, IndicatorGroup
+)
 from rir_data.models.scenario import ScenarioLevel
-from rir_data.models.indicator.indicator_group import IndicatorGroup
-from rir_data.models.indicator.indicator_frequency import IndicatorFrequency
 
 
 # AGGREGATION BEHAVIOURS
@@ -22,11 +23,13 @@ class AggregationMethod(object):
     MAJORITY = 'Aggregate data by majority data in the levels.'
 
 
-class Indicator(AbstractTerm):
+class Indicator(models.Model):
     """
     The indicator of scenario
     """
-
+    name = models.CharField(
+        max_length=512
+    )
     group = models.ForeignKey(
         IndicatorGroup, on_delete=models.SET_NULL,
         blank=True, null=True
@@ -35,20 +38,15 @@ class Indicator(AbstractTerm):
         IndicatorFrequency, on_delete=models.SET_NULL,
         blank=True, null=True
     )
+    geometry_reporting_level = models.ForeignKey(
+        GeometryLevelName, on_delete=models.SET_NULL,
+        null=True, blank=True
+    )
     show_in_traffic_light = models.BooleanField(
         default=True,
         help_text=_(
             'Showing this indicator on traffic light.'
         )
-    )
-    geometry_reporting_level = models.ForeignKey(
-        GeometryLevel, on_delete=models.SET_NULL,
-        null=True, blank=True
-    )
-    unit = models.CharField(
-        max_length=256,
-        default='',
-        null=True, blank=True
     )
 
     aggregation_behaviour = models.CharField(
@@ -69,6 +67,9 @@ class Indicator(AbstractTerm):
             (AggregationMethod.MAJORITY, AggregationMethod.MAJORITY)
         )
     )
+
+    def __str__(self):
+        return self.name
 
     @property
     def allow_to_harvest_new_data(self):
@@ -92,13 +93,16 @@ class Indicator(AbstractTerm):
         """
         Return scenario rule for specific level
         """
-        scenario_rule = self.indicatorscenariorule_set.filter(scenario_level__level=level).first()
+        scenario_rule = self.indicatorscenariorule_set.filter(
+            scenario_level__level=level).first()
         if scenario_rule:
             return scenario_rule.rule
         return '-'
 
     def scenario_level(self, value) -> typing.Optional[ScenarioLevel]:
-        """ Return scenario level of the value """
+        """
+        Return scenario level of the value
+        """
         if value:
             # check the rule
             for indicator_rule in self.indicatorscenariorule_set.all():
@@ -110,7 +114,7 @@ class Indicator(AbstractTerm):
         else:
             return None
 
-    def values(self, geometry: Geometry, geometry_level: GeometryLevel, date_data: date):
+    def values(self, geometry: Geometry, geometry_level: GeometryLevelName, date_data: date):
         """
         Return geojson value of indicator by geometry, the target geometry level and the date
         """
@@ -163,7 +167,8 @@ class Indicator(AbstractTerm):
                     'geometry_name': geometry_target.name,
                     'value': value,
                     'scenario_value': scenario_value.level,
-                    'color': scenario_value.background_color
+                    'text_color': scenario_value.text_color,
+                    'background_color': scenario_value.background_color
                 })
             except IndexError:
                 pass

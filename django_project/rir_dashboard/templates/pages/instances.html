@@ -1,0 +1,30 @@
+{% extends 'pages/_base.html' %}
+{% load static %}
+{% load indicator_tags %}
+
+{% block title %}
+    Dashboard
+{% endblock %}
+
+{% block stylesheet %}
+    <link href="{% static 'libs/leaflet/1.5.1/leaflet.css' %}" rel="stylesheet" type="text/css" media="screen, projection"/>
+    <link href="{% static 'css/pages/instances.css' %}" rel="stylesheet" type="text/css" media="screen, projection"/>
+{% endblock %}
+
+{% block container %}
+    <div id="container" class="container">
+        <div id="instances" class="container-page box-shadow-bottom">
+            <h3>Select instance</h3>
+            <div class="row">
+                {% for instance in instances %}
+                    <div class="col-2">
+                        <a href="{% url 'dashboard-view' instance.slug %}" class="instance">
+                            <img src="{% if instance.icon %}{{ instance.icon.url }}{% endif %}">
+                            <span>{{ instance }}</span>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

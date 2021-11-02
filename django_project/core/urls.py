@@ -12,11 +12,12 @@ admin.autodiscover()
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^rir/', include('rir_data.urls')),
-    url(r'^', include('rir_dashboard.urls')),
-
 ]
 
 if settings.DEBUG:
     urlpatterns += static(
         settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+urlpatterns += [
+    url(r'^', include('rir_data.urls')),
+]

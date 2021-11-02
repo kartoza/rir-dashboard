@@ -1,13 +1,17 @@
 from django.contrib.gis.db import models
 from core.models import AbstractTerm
-from .scenario import ScenarioLevel
+from rir_data.models.instance import Instance
+from rir_data.models.scenario import ScenarioLevel
 
 
 class Program(AbstractTerm):
     """
     Program
     """
-    pass
+    instance = models.ForeignKey(
+        Instance,
+        on_delete=models.CASCADE
+    )
 
 
 class ProgramIntervention(models.Model):

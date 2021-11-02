@@ -6,10 +6,8 @@ from rir_data.models.harvester import (
     Harvester, HarvesterAttribute, HarvesterLog
 )
 
-BASICAPI = 'rir_data.harvester.basic.BasicAPI'
 POPULATION_TRACKING_TOOL = 'rir_data.harvester.ipc.PopulationTrackingTool'
 HARVESTERS = (
-    (BASICAPI, BASICAPI),
     (POPULATION_TRACKING_TOOL, POPULATION_TRACKING_TOOL),
 )
 

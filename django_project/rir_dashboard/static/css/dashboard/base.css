@@ -1,0 +1,127 @@
+html, body {
+    height: 100%;
+    font-size: 14px;
+}
+
+#page {
+    display: flex;
+    height: 100%;
+    padding-top: var(--navbar-height);
+    width: 100%;
+}
+
+#content {
+    flex-grow: 1;
+    height: 100%;
+    overflow-y: auto;
+}
+
+#content-view {
+    padding: 20px;
+}
+
+#content .header {
+    background: white;
+    font-weight: 600;
+    padding: 13px 20px;
+}
+
+#content .header .dashboard-icon {
+    margin-right: 2px;
+    padding: 7px;
+}
+
+#content .scenario-level {
+    display: inline-block;
+    margin-left: 5px;
+    font-weight: 300;
+    padding: 5px 10px;
+}
+
+#content .section {
+    background: white;
+    border-radius: 5px;
+}
+
+#content .section-nav {
+    margin-bottom: 30px;
+    margin-top: 30px;
+    padding: 0;
+    border-bottom: 1px solid var(--divider-color);
+}
+
+#content .section-nav li {
+    cursor: pointer;
+    list-style-type: none;
+    display: inline-block;
+    padding: 0 20px;
+}
+
+#content .section-nav li.active,
+#content .section-nav li:hover {
+    margin-bottom: -2px;
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+}
+
+#navigation {
+    background: white;
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+    width: 250px;
+    z-index: 1;
+}
+
+#navigation > div {
+    padding: 15px;
+}
+
+#navigation .content {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 0 !important;
+}
+
+#navigation .content .section div,
+#navigation .content .section a {
+    padding: 5px 15px;
+    text-decoration: none;
+    color: inherit;
+}
+
+#navigation .content .section .header {
+    opacity: 0.5;
+}
+
+#navigation .content .section .nav {
+    cursor: pointer;
+}
+
+
+#navigation .content .section .nav:hover {
+    background: var(--hovered-color);
+}
+
+#navigation .content .section .nav.active {
+    background-color: var(--primary-color) !important;
+    color: white !important;
+}
+
+#navigation .content .section .nav.active {
+    font-weight: 600;
+}
+
+#navigation .content .section .nav .icon {
+    text-align: center;
+    width: 37px;
+}
+
+#navigation .header {
+    padding: 13px 15px !important;
+}
+
+#navigation .footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    height: 100px;
+}

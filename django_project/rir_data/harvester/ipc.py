@@ -2,8 +2,8 @@ from datetime import datetime
 from rir_data.harvester.base import (
     BaseHarvester, HarvestingError
 )
-from core.models import Geometry, GeometryLevel
-from rir_data.models.indicator import IndicatorValueExtraData
+from rir_data.models import Geometry, GeometryLevelName
+from rir_data.models.indicator import IndicatorExtraValue
 
 
 class PopulationTrackingTool(BaseHarvester):
@@ -27,9 +27,9 @@ class PopulationTrackingTool(BaseHarvester):
         except KeyError as e:
             raise HarvestingError(f'{e} is not provided.')
 
-        country_level = GeometryLevel.objects.get(name__iexact='country')
-        region_level = GeometryLevel.objects.get(name__iexact='region')
-        district_level = GeometryLevel.objects.get(name__iexact='district')
+        country_level = GeometryLevelName.objects.get(name__iexact='country')
+        region_level = GeometryLevelName.objects.get(name__iexact='region')
+        district_level = GeometryLevelName.objects.get(name__iexact='district')
 
         country = Geometry.objects.get(
             geometry_level=country_level,
@@ -63,7 +63,7 @@ class PopulationTrackingTool(BaseHarvester):
                     'phase5_C_population': 'Phase 5 population',
                 }.items():
                     try:
-                        IndicatorValueExtraData.objects.get_or_create(
+                        IndicatorExtraValue.objects.get_or_create(
                             indicator_value=indicator_value,
                             name=name,
                             defaults={

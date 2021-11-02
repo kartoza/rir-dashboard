@@ -10,6 +10,8 @@ class ProgramInterventionInline(admin.TabularInline):
 
 
 class ProgramAdmin(admin.ModelAdmin):
+    list_display = ('name', 'instance')
+    list_filter = ('instance',)
     inlines = (ProgramInterventionInline,)
 
 
