@@ -38,27 +38,37 @@
     <div id="navigation" class="box-shadow-right">
         <div class="content">
             <div class="section">
-                <div class="header">{{ instance.name }}</div>
-                <a href="{% url "dashboard-view" instance.slug %}" class="nav {% if dashboard_title.lower == 'dashboard' %}active{% endif %}">
+                <div class="header">
+                    <img src="{{ instance.icon.url }}">
+                    {{ instance.name }}
+                </div>
+            </div>
+            {# Traffic Light #}
+            <div class="section">
+                <a href="{% url "dashboard-view" instance.slug %}#traffic-light" data-target="traffic-light" class="nav traffic-light-nav">
                     <table>
                         <tr>
                             <td class="icon"><i class="fa fa-home" aria-hidden="true"></i></td>
-                            <td>Dashboard</td>
+                            <td>Traffic Light</td>
                         </tr>
                     </table>
                 </a>
-{#                <a href="{% url "indicator-view" instance.slug %}" class="nav {% if dashboard_title.lower == 'indicator' %}active{% endif %}">#}
-{#                    <table>#}
-{#                        <tr>#}
-{#                            <td class="icon"><i class="fa fa-th" aria-hidden="true"></i></td>#}
-{#                            <td>Indicator</td>#}
-{#                        </tr>#}
-{#                    </table>#}
-{#                </a>#}
+                {% for program_instance in instance.programs_instance %}
+                    <a href="{% url "dashboard-view" instance.slug %}#{{ program_instance.program.slug }}" data-target="{{ program_instance.program.slug }}" class="nav traffic-light-nav">
+                        <table>
+                            <tr>
+                                <td class="icon">
+                                    {% if program_instance.program.icon and program_instance.program.white_icon %}
+                                        <img src="{{ program_instance.program.icon.url }}" class="icon">
+                                        <img src="{{ program_instance.program.white_icon.url }}" class="white-icon">
+                                    {% endif %}
+                                </td>
+                                <td>{{ program_instance.program.name }}</td>
+                            </tr>
+                        </table>
+                    </a>
+                {% endfor %}
             </div>
-        </div>
-        <div class="footer">
-
         </div>
     </div>
     <div id="content">

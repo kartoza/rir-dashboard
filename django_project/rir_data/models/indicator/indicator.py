@@ -3,6 +3,7 @@ from datetime import date
 from django.db.models import Count, Sum
 from django.contrib.gis.db import models
 from django.utils.translation import ugettext_lazy as _
+from core.models.general import AbstractTerm
 from rir_data.models.geometry import Geometry, GeometryLevelName
 from rir_data.models.indicator.indicator_attributes import (
     IndicatorFrequency, IndicatorGroup
@@ -23,13 +24,10 @@ class AggregationMethod(object):
     MAJORITY = 'Aggregate data by majority data in the levels.'
 
 
-class Indicator(models.Model):
+class Indicator(AbstractTerm):
     """
     The indicator of scenario
     """
-    name = models.CharField(
-        max_length=512
-    )
     group = models.ForeignKey(
         IndicatorGroup, on_delete=models.SET_NULL,
         blank=True, null=True
@@ -47,6 +45,10 @@ class Indicator(models.Model):
         help_text=_(
             'Showing this indicator on traffic light.'
         )
+    )
+    unit = models.CharField(
+        max_length=64,
+        default=''
     )
 
     aggregation_behaviour = models.CharField(

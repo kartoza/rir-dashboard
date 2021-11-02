@@ -24,14 +24,10 @@ class DashboardHomeView(BaseDashboardView):
 
         # intervention
         interventions = []
-        for program in self.instance.programs:
-            intervention = program.programintervention_set.filter(scenario_level__level=overall_scenario_level).first()
+        for program_instance in self.instance.programs_instance:
+            intervention = program_instance.programintervention_set.filter(scenario_level__level=overall_scenario_level).first()
             if intervention:
-                interventions.append({
-                    'program_id': intervention.program.id,
-                    'program_name': intervention.program.name,
-                    'url': intervention.intervention_url,
-                })
+                interventions.append(intervention)
         try:
             context['overall_scenario'] = context['scenarios'][overall_scenario_level - 1]
         except IndexError:

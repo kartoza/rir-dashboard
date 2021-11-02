@@ -15,81 +15,87 @@
     </style>
 {% endblock %}
 {% block content %}
-    <div id="traffic-light">
-        <div class="section scenario-header scenario-{{ overall_scenario.level }}">
-            {{ instance.name }}<br>
-            Scenario {{ overall_scenario.level }}: {{ overall_scenario.name }}
-        </div>
-
-        <ul class="section-nav">
-            <li data-target="table-section" class="active">Traffic Light</li>
-            {% for intervention in interventions %}
-                <li data-target="intervention-{{ intervention.program_id }}">{{ intervention.program_name }}</li>
-            {% endfor %}
-        </ul>
-
-        <div id="table-section" class="section scenario-section box-shadow-bottom" style="display: block">
-            <div id="toggle-table-section">
-                <button id="toggle-table" class="main-button content-button">Show all indicators</button>
+    <div id="dashboard">
+        <div class="section box-shadow-bottom table-section">
+            <div class="scenario-header scenario-{{ overall_scenario.level }}">
+                Scenario {% if overall_scenario.level %}{{ overall_scenario.level }}: {{ overall_scenario.name }}{% else %} <i>unknown</i> {% endif %}
             </div>
-            <table>
-                <tr>
-                    <th valign="top" style="width: 250px">Case Title</th>
-                    <th valign="top" style="width: 150px">Value</th>
-                    {% for scenario in scenarios %}
-                        <th class="scenario scenario-{{ scenario.level }}" valign="top">
-                            Scenario {{ scenario.level }}
-                            <div>
-                                {{ scenario.name }}
-                            </div>
-                        </th>
-                    {% endfor %}
-                </tr>
-                {% for indicator in indicators %}
-                    <tr class="indicator-row {% if indicator.show_in_traffic_light %}traffic-indicator{% endif %}">
-                        <td>
-                            <a href="{% url "indicator-mapview" instance.slug indicator.id %}">{{ indicator.name }}</a>
-                        </td>
-                        <td class="scenario-{{ indicator.scenario_value }}">{{ indicator.value }}</td>
+            <div data-program="traffic-light" class="scenario-section">
+                <table>
+                    <tr>
+                        <th valign="top" style="width: 250px">Case Title</th>
+                        <th valign="top" style="width: 150px">Value</th>
                         {% for scenario in scenarios %}
-                            <td class="scenario indicator {% if indicator.scenario_value == scenario.level %}scenario-{{ scenario.level }}{% endif %}">
-                                {% get_scenario_rule indicator scenario.level as rule %}
-                                {{ rule }}
-                            </td>
+                            <th class="scenario scenario-{{ scenario.level }}" valign="top">
+                                Scenario {{ scenario.level }}
+                                <div>
+                                    {{ scenario.name }}
+                                </div>
+                            </th>
                         {% endfor %}
                     </tr>
-                {% endfor %}
-            </table>
-        </div>
-        {% for intervention in interventions %}
-            <div id="intervention-{{ intervention.program_id }}" class="section intervention scenario-section">
-                <iframe src="{{ intervention.url }}" title="{{ intervention.program_name }}" frameBorder="0"></iframe>
+                    {% for indicator in indicators %}
+                        <tr class="indicator-row {% if indicator.show_in_traffic_light %}traffic-indicator{% endif %}">
+                            <td>
+                                <a href="{% url "indicator-mapview" instance.slug indicator.id %}">{{ indicator.name }}</a>
+                            </td>
+                            <td class="scenario-{{ indicator.scenario_value }}">{{ indicator.value }}</td>
+                            {% for scenario in scenarios %}
+                                <td class="scenario indicator {% if indicator.scenario_value == scenario.level %}scenario-{{ scenario.level }}{% endif %}">
+                                    {% get_scenario_rule indicator scenario.level as rule %}
+                                    {{ rule }}
+                                </td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </table>
+                <button id="toggle-table" class="main-button content-button">Show all indicators</button>
             </div>
-        {% endfor %}
+            {% for intervention in interventions %}
+                <div data-program="{{ intervention.program_instance.program.slug }}" class="scenario-section intervention">
+                    <iframe src="{{ intervention.intervention_url }}" title="{{ intervention.program_instance.program.name }}" frameBorder="0"></iframe>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}
 {% block scripts %}
     <script>
+        {# toogle the table#}
         $('#toggle-table').click(function () {
             $(this).toggleClass('all');
             if ($(this).hasClass('all')) {
-                $(this).html('Show just traffic light indicators')
+                $(this).html('Show just traffic light indicators');
                 $('.indicator-row').show();
             } else {
-                $(this).html('Show all indicators')
+                $(this).html('Show all indicators');
                 $('.indicator-row').hide();
                 $('.traffic-indicator').show();
             }
         });
-        const $list = $('.section-nav li');
+        const $list = $('.traffic-light-nav');
         $list.click(function () {
             $list.removeClass('active');
-            $('.scenario-section').hide();
             $(this).addClass('active');
+            $('.scenario-section').hide();
 
             const target = $(this).data('target');
-            $(`#${target}`).show();
-            $('html').scrollTop(0);
+            $(`div[data-program="${target}"]`).show();
+            $('#content').scrollTop(0);
         });
+
+        {# check hash #}
+        if (!window.location.hash) {
+            $($list[0]).click();
+        } else {
+            const hash = window.location.hash.replaceAll('#', '');
+            const $target = $(`.traffic-light-nav[data-target="${hash}"]`);
+            if ($target.length === 0) {
+                $($list[0]).click();
+            } else {
+                $target.click();
+            }
+
+        }
     </script>
 {% endblock %}

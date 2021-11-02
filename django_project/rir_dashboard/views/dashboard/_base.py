@@ -14,6 +14,7 @@ class BaseDashboardView(TemplateView):
         context = super().get_context_data(**kwargs)
         context.update(self.context_view)
         context['dashboard_title'] = self.dashboard_title
+        context['page_title'] = 'Dashboard'
         context['instance'] = self.instance
         return context
 

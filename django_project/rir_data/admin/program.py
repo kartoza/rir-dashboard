@@ -1,6 +1,6 @@
 from django.contrib import admin
 from rir_data.models.program import (
-    Program, ProgramIntervention
+    Program, ProgramInstance, ProgramIntervention
 )
 
 
@@ -10,9 +10,14 @@ class ProgramInterventionInline(admin.TabularInline):
 
 
 class ProgramAdmin(admin.ModelAdmin):
-    list_display = ('name', 'instance')
+    list_display = ('name', 'description', 'icon')
+
+
+class ProgramInstanceAdmin(admin.ModelAdmin):
+    list_display = ('instance', 'program')
     list_filter = ('instance',)
     inlines = (ProgramInterventionInline,)
 
 
 admin.site.register(Program, ProgramAdmin)
+admin.site.register(ProgramInstance, ProgramInstanceAdmin)

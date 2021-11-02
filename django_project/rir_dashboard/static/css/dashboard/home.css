@@ -1,63 +1,65 @@
-#traffic-light iframe {
+#dashboard iframe {
     width: 100%;
     height: 800px;
 }
 
-#traffic-light table {
+#dashboard table {
+    margin-top: 10px;
     width: 100%;
 }
 
-#traffic-light table th, #traffic-light table td {
-    padding: 10px;
+#dashboard table th, #dashboard table td {
+    padding: 10px 20px;
 }
 
-#traffic-light table th {
+#dashboard table th {
     border-bottom: 1px solid var(--divider-color);
 }
 
-#traffic-light .indicator {
+#dashboard .indicator {
     color: rgba(0, 0, 0, 0);
 }
 
-#traffic-light .indicator:hover {
+#dashboard .indicator:hover {
     color: rgba(0, 0, 0, 0.5);
 }
 
-#traffic-light .scenario {
+#dashboard .scenario {
     width: 200px;
 }
 
-#traffic-light .scenario-header {
-    padding: 20px;
+#dashboard .scenario-header {
+    padding: 24px;
 }
 
-#traffic-light .indicator-row {
+#dashboard .indicator-row {
     display: none;
 }
 
-#traffic-light .traffic-indicator {
+#dashboard .traffic-indicator {
     display: table-row;
 }
 
-#traffic-light #table-section {
+#dashboard .table-section {
     overflow-x: auto;
     width: 100%;
 }
 
-#traffic-light #toggle-table-section {
-    padding: 20px;
-    border-bottom: 1px solid var(--divider-color);
+#dashboard #toggle-table {
+    font-size: 10px;
+    margin-top: 10px;
+    padding: 5px;
+    width: 100%;
 }
 
-#traffic-light #toggle-table-section button {
-    border-radius: 20px;
-    font-size: 12px;
-}
-
-#traffic-light .scenario-section {
+#dashboard .scenario-section {
     display: none;
 }
 
-#traffic-light .intervention {
+#dashboard .intervention {
     padding: 20px;
+}
+
+#content .header {
+    display: none;
 }

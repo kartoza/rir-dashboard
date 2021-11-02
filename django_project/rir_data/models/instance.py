@@ -1,17 +1,11 @@
 from datetime import date
-from django.contrib.gis.db import models
-from core.models.general import SlugTerm
+from core.models.general import IconTerm, SlugTerm
 
 
-class Instance(SlugTerm):
+class Instance(SlugTerm, IconTerm):
     """
     Instance model
     """
-    icon = models.FileField(
-        upload_to='instance/icons',
-        null=True,
-        blank=True
-    )
 
     @property
     def scenario_levels(self):
@@ -51,11 +45,11 @@ class Instance(SlugTerm):
         return levels
 
     @property
-    def programs(self):
+    def programs_instance(self):
         """
         Return program of the instance
         """
-        return self.program_set.all()
+        return self.programinstance_set.all()
 
     @property
     def geometries(self):

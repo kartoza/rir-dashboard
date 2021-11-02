@@ -1,30 +1,46 @@
 from django.contrib.gis.db import models
-from core.models import AbstractTerm
+from core.models import SlugTerm, IconTerm
 from rir_data.models.instance import Instance
 from rir_data.models.scenario import ScenarioLevel
 
 
-class Program(AbstractTerm):
+class Program(SlugTerm, IconTerm):
     """
     Program
     """
+    pass
+
+
+class ProgramInstance(models.Model):
+    """
+    Program
+    """
+    program = models.ForeignKey(
+        Program,
+        on_delete=models.CASCADE
+    )
     instance = models.ForeignKey(
         Instance,
         on_delete=models.CASCADE
     )
+
+    class Meta:
+        unique_together = ('program', 'instance')
 
 
 class ProgramIntervention(models.Model):
     """
     Intervention of program
     """
-    program = models.ForeignKey(
-        Program, on_delete=models.CASCADE
+    program_instance = models.ForeignKey(
+        ProgramInstance,
+        on_delete=models.CASCADE
     )
     scenario_level = models.ForeignKey(
-        ScenarioLevel, on_delete=models.CASCADE
+        ScenarioLevel,
+        on_delete=models.CASCADE
     )
     intervention_url = models.TextField()
 
     class Meta:
-        unique_together = ('program', 'scenario_level')
+        unique_together = ('program_instance', 'scenario_level')

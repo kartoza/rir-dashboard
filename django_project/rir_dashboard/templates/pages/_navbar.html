@@ -3,7 +3,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light box-shadow-bottom">
     <a class="navbar-brand mr-auto" href="/">
         <img src="{% if preferences.icon %}{{ preferences.icon }}{% endif %}">
-        <div class="title">{{ preferences.site_title }} {% if instance %} - {{ instance.name }}{% endif %}</div>
+        <div class="title">{{ preferences.site_title }} {% if page_title %} - {{ page_title }}{% endif %}</div>
     </a>
     <select id="instance-selection">
     </select>
