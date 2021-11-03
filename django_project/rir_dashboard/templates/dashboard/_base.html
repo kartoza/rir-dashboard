@@ -82,11 +82,19 @@
                             </tr>
                         </table>
                     </div>
-                    <a id="nav-view-geography" href="{% url "geography-view" instance.slug %}" class="nav">
+                    <a id="nav-view-geography" href="{% url "geography-management-view" instance.slug %}" class="nav">
                         <table>
                             <tr>
                                 <td class="icon"></td>
                                 <td>View</td>
+                            </tr>
+                        </table>
+                    </a>
+                    <a id="nav-level-management" href="{% url "level-management-view" instance.slug %}" class="nav">
+                        <table>
+                            <tr>
+                                <td class="icon"></td>
+                                <td>Level Management</td>
                             </tr>
                         </table>
                     </a>

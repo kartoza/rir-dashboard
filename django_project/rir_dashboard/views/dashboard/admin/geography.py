@@ -7,7 +7,7 @@ class GeographyView(AdminView):
 
     @property
     def dashboard_title(self):
-        return 'Dashboard'
+        return 'Management: Geography View'
 
     @property
     def context_view(self) -> dict:

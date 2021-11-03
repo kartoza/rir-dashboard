@@ -3,6 +3,10 @@ html, body {
     font-size: 14px;
 }
 
+.row {
+    margin: 0;
+}
+
 #page {
     display: flex;
     height: 100%;
@@ -41,6 +45,7 @@ html, body {
 #content .section {
     background: white;
     border-radius: 5px;
+    overflow: hidden;
 }
 
 #content .section-nav {

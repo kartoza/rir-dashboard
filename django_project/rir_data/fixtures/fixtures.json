@@ -30,6 +30,20 @@
     }
   },
   {
+    "model": "rir_data.geometrylevelname",
+    "pk": 4,
+    "fields": {
+      "name": "Province"
+    }
+  },
+  {
+    "model": "rir_data.geometrylevelname",
+    "pk": 5,
+    "fields": {
+      "name": "Sub District"
+    }
+  },
+  {
     "model": "rir_data.geometrylevelinstance",
     "pk": 1,
     "fields": {
