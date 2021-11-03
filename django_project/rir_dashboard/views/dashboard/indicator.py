@@ -51,7 +51,7 @@ class IndicatorMapView(BaseDashboardView):
             country_level = self.instance.geometry_levels.filter(parent=None).first()
             if country_level:
                 country_level = country_level.level
-                geometry_country = self.instance.geometries.filter(
+                geometry_country = self.instance.geometries().filter(
                     geometry_level=country_level).first()
                 if geometry_country:
                     context['country_geometry'] = json.loads(
@@ -74,7 +74,7 @@ class IndicatorMapView(BaseDashboardView):
                     for level in levels:
                         level_with_url[level] = {
                             'level': level.name,
-                            'url': reverse('indicator-values-geojson', args=[
+                            'url': reverse('indicator-values-geojson-api', args=[
                                 self.instance.slug, indicator.pk, geometry_country.identifier, level, date.today()
                             ])
                         }

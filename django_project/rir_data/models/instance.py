@@ -51,12 +51,12 @@ class Instance(SlugTerm, IconTerm):
         """
         return self.programinstance_set.all()
 
-    @property
-    def geometries(self):
+    def geometries(self, date: date = date.today()):
         """
         Return geometries of the instance
         """
-        return self.geometry_set.all()
+        from rir_data.models.geometry import Geometry
+        return Geometry.objects.by_date(date).filter(instance=self)
 
     @property
     def get_indicators_and_overall_scenario(self):
@@ -74,7 +74,7 @@ class Instance(SlugTerm, IconTerm):
                 raise GeometryLevelName.DoesNotExist
 
             country_level = country_level.level
-            geometry_country = self.geometries.filter(geometry_level=country_level).first()
+            geometry_country = self.geometries().filter(geometry_level=country_level).first()
             if not geometry_country:
                 raise Geometry.DoesNotExist
 

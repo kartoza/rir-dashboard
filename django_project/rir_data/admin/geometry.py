@@ -3,7 +3,10 @@ from rir_data.models.geometry import Geometry, GeometryLevelName, GeometryLevelI
 
 
 class GeometryAdmin(admin.ModelAdmin):
-    list_display = ('identifier', 'instance', 'name', 'alias', 'geometry_level', 'child_of')
+    list_display = (
+        'identifier', 'instance', 'name', 'alias',
+        'geometry_level', 'child_of', 'active_date_from', 'active_date_to'
+    )
     list_filter = ('instance', 'geometry_level', 'child_of')
 
 

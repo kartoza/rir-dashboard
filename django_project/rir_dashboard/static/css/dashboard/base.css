@@ -136,6 +136,15 @@ html, body {
     display: inline-block;
 }
 
+#navigation .content .section .nav.sub-header {
+    color: black;
+    cursor: default;
+}
+
+#navigation .content .section .nav.sub-header:hover {
+    background: inherit;
+}
+
 #navigation .header {
     font-size: 14px;
     padding: 13px 15px !important;

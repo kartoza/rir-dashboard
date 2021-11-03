@@ -1,6 +1,6 @@
 import json
 from datetime import datetime
-from django.http import HttpResponseBadRequest
+from django.http import Http404, HttpResponseBadRequest
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -46,7 +46,7 @@ class IndicatorValues(APIView):
             Instance, slug=slug
         )
         indicator = instance.indicators.get(id=pk)
-        geometry = instance.geometries.get(identifier__iexact=geometry_identifier)
+        geometry = instance.geometries().get(identifier__iexact=geometry_identifier)
         geometry_level = GeometryLevelName.objects.get(name__iexact=geometry_level)
         date = datetime.strptime(date, "%Y-%m-%d").date()
         return indicator.values(geometry, geometry_level, date)
@@ -55,7 +55,7 @@ class IndicatorValues(APIView):
         try:
             return Response(self.values(slug, pk, geometry_identifier, geometry_level, date))
         except GeometryLevelName.DoesNotExist:
-            return HttpResponseBadRequest('The geometry level is not recognized')
+            raise Http404('The geometry level is not recognized')
         except ValueError:
             return HttpResponseBadRequest('Date format is not correct')
 

@@ -69,6 +69,35 @@
                     </a>
                 {% endfor %}
             </div>
+            {% if user.is_superuser %}
+                <div class="section">
+                    <div class="header">
+                        Management
+                    </div>
+                    <div class="nav sub-header">
+                        <table>
+                            <tr>
+                                <td class="icon"><i class="fa fa-globe" aria-hidden="true"></i></td>
+                                <td>Geometry</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <a id="nav-view-geography" href="{% url "geography-view" instance.slug %}" class="nav">
+                        <table>
+                            <tr>
+                                <td class="icon"></td>
+                                <td>View</td>
+                            </tr>
+                        </table>
+                    </a>
+                </div>
+            {% endif %}
+
+            {# TODO: #}
+            {#  temporary#}
+            <div style="height: 20px">
+
+            </div>
         </div>
     </div>
     <div id="content">
