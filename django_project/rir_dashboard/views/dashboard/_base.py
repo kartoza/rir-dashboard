@@ -7,7 +7,7 @@ class BaseDashboardView(View):
     instance = None
     template_name = ''
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict:
         self.instance = get_object_or_404(
             Instance, slug=kwargs.get('slug', '')
         )

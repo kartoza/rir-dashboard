@@ -49,7 +49,7 @@
                         </tr>
                     {% endfor %}
                 </table>
-                <button id="toggle-table" class="main-button content-button">Show all indicators</button>
+                <button id="toggle-table" class="main-button content-button scenario-{{ overall_scenario.level }}">Show all indicators</button>
             </div>
             {% for intervention in interventions %}
                 <div data-program="{{ intervention.program_instance.program.slug }}" class="scenario-section intervention">

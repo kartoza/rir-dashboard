@@ -2,7 +2,6 @@
     font-size: 14px;
 }
 
-#header,
 input[type=submit],
 .main-button,
 .main-button:active,
@@ -22,7 +21,7 @@ form input[type=submit], .main-button {
 }
 
 form input[type=submit]:hover,
-.main-button:hover {
+form .main-button:hover {
     background-color: var(--primary-color) !important;
     opacity: 0.7;
 }
@@ -31,9 +30,9 @@ form input {
     width: 100%;
 }
 
-input[type=text], input[type=password], input[type=email],
-input[type=url], input[type=number], input[type=tel],
-textarea, select, .vTextField {
+form input[type=text], form input[type=password], form input[type=email],
+form input[type=url], form input[type=number], form input[type=tel],
+form textarea, form select, .vTextField {
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
@@ -42,9 +41,9 @@ textarea, select, .vTextField {
     vertical-align: middle;
 }
 
-input[type=text]:focus-visible, input[type=password]:focus-visible, input[type=email]:focus-visible,
-input[type=url]:focus-visible, input[type=number]:focus-visible, input[type=tel]:focus-visible,
-textarea:focus-visible, select:focus-visible {
+form input[type=text]:focus-visible, form input[type=password]:focus-visible, form input[type=email]:focus-visible,
+form input[type=url]:focus-visible, form input[type=number]:focus-visible, form input[type=tel]:focus-visible,
+form textarea:focus-visible, form select:focus-visible {
     outline: none;
     border: 1px solid var(--primary-color);
 }
@@ -104,19 +103,6 @@ form .col {
     padding: 0;
 }
 
-#content .title {
-    font-weight: 700;
-    font-size: 25px;
-    margin-top: 10px;
-    margin-bottom: 30px;
-}
-
-.button, input[type=submit], input[type=button], .submit-row input, a.button {
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    color: #fff;
-}
 
 .error {
     color: red !important;
@@ -151,17 +137,6 @@ ul.errorlist li {
     margin-bottom: 4px;
 }
 
-.container .subtitle {
-    color: var(--primary-color);
-    margin-bottom: 20px;
-}
-
-.step {
-    color: white;
-    position: absolute;
-    top: -25px;
-    right: 0;
-}
 
 #login-form .form-row {
     background: white;
@@ -214,6 +189,6 @@ ul.errorlist li {
     min-height: 0;
 }
 
-.main-button {
+#login-form .main-button {
     margin-top: 20px;
 }

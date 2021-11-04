@@ -80,7 +80,7 @@ class IndicatorMapView(BaseDashboardView):
                         }
                         if indicator.geometry_reporting_level == level:
                             break
-                    context['levels'] = level_with_url
+                    context['instance_levels'] = level_with_url
 
             return context
         except Indicator.DoesNotExist:

@@ -12,8 +12,8 @@
 
         </div>
         <div id="level-selection" class="box-shadow-bottom">
-            {% for level in levels %}
-                <div data-level="{{ level.name }}">{{ level.name }}</div>
+            {% for level in instance_levels %}
+                <div id="level-{{ level.name }}" data-level="{{ level.name }}">{{ level.name }}</div>
             {% endfor %}
         </div>
     </div>
@@ -21,7 +21,7 @@
 {% block scripts %}
     <script>
         const url = "{{ url }}";
-        $('#nav-view-geography').addClass('active')
+        $('#nav-geography-view').addClass('active')
     </script>
     <script type="text/javascript" src="{% static 'libs/leaflet/1.5.1/leaflet.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/dashboard/admin/geography/view.js' %}"></script>

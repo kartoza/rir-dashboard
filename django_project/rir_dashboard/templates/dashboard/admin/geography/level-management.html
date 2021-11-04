@@ -8,7 +8,7 @@
     <div class="section box-shadow-bottom row">
         <div id="level-list">
             <h3>Available Levels</h3>
-            <div id="level-list-drop-area" style="padding: 10px">
+            <div id="level-list-drop-area">
                 {% for level in levels %}
                     <div id="level-{{ level.id }}" class="level-block level-block-value" data-id="{{ level.id }}">
                         <div class="level-block-content">{{ level.name }}</div>
@@ -37,6 +37,6 @@
         {% for level in instance_levels %}
             instanceLevels.push({{ level.id }});
         {% endfor %}
-        $('#nav-level-management').addClass('active')
+        $('#nav-geography-level-management').addClass('active')
     </script>
 {% endblock %}

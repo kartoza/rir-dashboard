@@ -1,2 +1,3 @@
-from .geography import GeographyView
-from .level_management import LevelManagementView
+from .geography import *
+from .level_management import *
+from .upload import *

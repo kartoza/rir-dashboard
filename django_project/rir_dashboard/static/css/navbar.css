@@ -12,6 +12,15 @@
     -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2);
 }
 
+.navbar a {
+    color: white;
+}
+
+.navbar a:hover {
+    text-decoration: none;
+    outline: none;
+}
+
 .navbar .navbar-brand {
     height: 34px;
     font-weight: 700;

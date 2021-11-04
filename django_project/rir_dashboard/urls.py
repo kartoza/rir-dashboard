@@ -1,7 +1,7 @@
 from django.conf.urls import url
 from django.urls import include
 from rir_dashboard.views.dashboard.admin import (
-    GeographyView, LevelManagementView
+    GeographyView, GeographyLevelManagementView, GeographyUploadView
 )
 from rir_dashboard.views.dashboard import (
     TrafficLightView, IndicatorView, IndicatorMapView
@@ -14,7 +14,8 @@ dashboard_url = [
 ]
 
 admin_geography_url = [
-    url(r'^level-management', LevelManagementView.as_view(), name='level-management-view'),
+    url(r'^upload', GeographyUploadView.as_view(), name='geography-upload-view'),
+    url(r'^level-management', GeographyLevelManagementView.as_view(), name='geography-level-management-view'),
     url(r'^', GeographyView.as_view(), name='geography-management-view'),
 ]
 

@@ -1,4 +1,5 @@
 import datetime
+import uuid
 from django.contrib.gis.db import models
 from django.db.models import Q
 from django.utils.translation import ugettext_lazy as _
@@ -106,7 +107,6 @@ class Geometry(models.Model):
     objects = FindGeometry()
 
     class Meta:
-        unique_together = ('instance', 'identifier')
         verbose_name_plural = 'geometries'
 
     def __str__(self):
@@ -128,3 +128,34 @@ class Geometry(models.Model):
             else:
                 current_geometry_level = geometry_level
         return geometries
+
+
+class GeometryUploader(models.Model):
+    """
+    Geometry uploader
+    """
+    unique_id = models.UUIDField(
+        default=uuid.uuid4, editable=False, unique=True
+    )
+    file = models.FileField(
+        upload_to='upload'
+    )
+    time = models.DateTimeField(
+        auto_now_add=True
+    )
+
+
+class GeometryUploaderLog(models.Model):
+    """
+    Log for geometry uploader
+    """
+    uploader = models.ForeignKey(
+        GeometryUploader,
+        on_delete=models.CASCADE
+    )
+    identifier = models.CharField(
+        max_length=512
+    )
+    note = models.TextField(
+        null=True, blank=True
+    )

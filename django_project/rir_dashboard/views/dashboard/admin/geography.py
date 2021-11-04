@@ -15,7 +15,7 @@ class GeographyView(AdminView):
         Return context for specific view by instance
         """
         context = {
-            'levels': self.instance.geometry_levels_in_order,
+            'instance_levels': self.instance.geometry_levels_in_order,
             'url': reverse(
                 'geometry-geojson-api', args=[
                     self.instance.slug, 'level', 'date'

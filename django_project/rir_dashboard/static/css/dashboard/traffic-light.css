@@ -9,7 +9,8 @@
 }
 
 #dashboard table th, #dashboard table td {
-    padding: 10px 20px;
+    border: 2px solid white;
+    padding: 10px 15px;
 }
 
 #dashboard table th {
@@ -33,7 +34,9 @@
 }
 
 #dashboard .scenario-header {
-    padding: 24px;
+    font-size: 16px;
+    padding: 15px;
+    font-weight: 600;
 }
 
 #dashboard .indicator-row {

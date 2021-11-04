@@ -8,23 +8,24 @@ $(document).ready(function () {
     }).addTo(map);
 
     // Indicator Layer
-    const indicatorGeojson = {};
-    const indicatorLayer = L.geoJSON(null, {
+    const onEachFeature = function onEachFeature(feature, layer) {
+        layer.bindPopup('' +
+            '<table>' +
+            `<tr><td style="text-align: right"><b>Name</b></td><td>${feature.properties.name} (${feature.properties.identifier})</td></tr>` +
+            `<tr><td style="text-align: right"><b>Alias</b></td><td>${feature.properties.alias}</td></tr>` +
+            '</table>');
+    }
+    const geometry = {};
+    const geometryLayer = L.geoJSON(null, {
             style: {
                 color: "#ff7800",
                 weight: 1,
                 fillOpacity: 0
             },
-            onEachFeature: function (feature, layer) {
-                layer.bindPopup('' +
-                    '<table>' +
-                    `<tr><td>Name</td><td>: ${feature.properties.name} (${feature.properties.identifier})</td></tr>` +
-                    `<tr><td>Alias</td><td>: ${feature.properties.alias}</td></tr>` +
-                    '</table>');
-            }
+            onEachFeature: onEachFeature
         }
     );
-    indicatorLayer.addTo(map);
+    geometryLayer.addTo(map);
 
     // LEVELS
     let init = true;
@@ -43,23 +44,23 @@ $(document).ready(function () {
         identifierSelected = identifier;
 
         // get geojson
-        indicatorLayer.clearLayers();
-        if (!indicatorGeojson[identifier]) {
+        geometryLayer.clearLayers();
+        if (!geometry[identifier]) {
             const urlRequest = url.replace('level', level).replace('date', date)
             $.ajax({
                 url: urlRequest,
                 dataType: 'json',
                 success: function (geojson, textStatus, request) {
-                    indicatorGeojson[identifier] = geojson;
+                    geometry[identifier] = geojson;
                     if (identifierSelected === identifier) {
                         selectLevel($level);
                     }
                 }
             });
         } else {
-            indicatorLayer.addData(indicatorGeojson[identifier]);
+            geometryLayer.addData(geometry[identifier]);
             if (init) {
-                map.fitBounds(indicatorLayer.getBounds());
+                map.fitBounds(geometryLayer.getBounds());
             }
             init = false;
         }

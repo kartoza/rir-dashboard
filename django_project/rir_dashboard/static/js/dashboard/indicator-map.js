@@ -32,9 +32,9 @@ $(document).ready(function () {
             onEachFeature: function (feature, layer) {
                 layer.bindPopup('' +
                     '<table>' +
-                    `<tr><td>Geography</td><td>: ${feature.properties.geometry_name} (${feature.properties.geometry_identifier})</td></tr>` +
-                    `<tr><td>Value</td><td>: ${feature.properties.value}</td></tr>` +
-                    `<tr style="background-color: ${feature.properties.background_color}; color: ${feature.properties.text_color}"><td>Scenario</td><td>: ${feature.properties.scenario_value}</td></tr>` +
+                    `<tr><td style="text-align: right"><b>Geography</b></td><td>${feature.properties.geometry_name} (${feature.properties.geometry_identifier})</td></tr>` +
+                    `<tr><td style="text-align: right"><b>Value</b></td><td>${feature.properties.value}</td></tr>` +
+                    `<tr style="background-color: ${feature.properties.background_color}; color: ${feature.properties.text_color}"><td style="text-align: right"><b>Scenario</b></td><td>${feature.properties.scenario_value}</td></tr>` +
                     '</table>');
             }
         }

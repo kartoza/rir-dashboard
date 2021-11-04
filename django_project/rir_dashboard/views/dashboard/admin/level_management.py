@@ -4,7 +4,7 @@ from rir_data.models.geometry import GeometryLevelName, GeometryLevelInstance
 from rir_data.models.instance import Instance
 
 
-class LevelManagementView(AdminView):
+class GeographyLevelManagementView(AdminView):
     template_name = 'dashboard/admin/geography/level-management.html'
 
     @property
@@ -41,6 +41,6 @@ class LevelManagementView(AdminView):
                 prev = level
         return redirect(
             reverse(
-                'level-management-view', args=[self.instance.slug]
+                'geography-level-management-view', args=[self.instance.slug]
             )
         )

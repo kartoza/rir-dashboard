@@ -7,6 +7,9 @@ class Instance(SlugTerm, IconTerm):
     Instance model
     """
 
+    class Meta:
+        ordering = ('name',)
+
     @property
     def scenario_levels(self):
         """
@@ -35,12 +38,14 @@ class Instance(SlugTerm, IconTerm):
         Return geometry levels of the instance
         """
         top = self.geometry_levels.filter(parent=None).first()
-        levels = [top.level]
-        child = self.geometry_levels.filter(parent=top.level).first()
-        while child is not None:
-            if child:
-                levels.append(child.level)
-            child = self.geometry_levels.filter(parent=child.level).first()
+        levels = []
+        if top:
+            levels = [top.level]
+            child = self.geometry_levels.filter(parent=top.level).first()
+            while child is not None:
+                if child:
+                    levels.append(child.level)
+                child = self.geometry_levels.filter(parent=child.level).first()
 
         return levels
 

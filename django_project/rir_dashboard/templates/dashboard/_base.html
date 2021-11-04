@@ -49,7 +49,7 @@
                     <table>
                         <tr>
                             <td class="icon"><i class="fa fa-home" aria-hidden="true"></i></td>
-                            <td>Traffic Light</td>
+                            <td>Traffic Lights</td>
                         </tr>
                     </table>
                 </a>
@@ -82,7 +82,7 @@
                             </tr>
                         </table>
                     </div>
-                    <a id="nav-view-geography" href="{% url "geography-management-view" instance.slug %}" class="nav">
+                    <a id="nav-geography-view" href="{% url "geography-management-view" instance.slug %}" class="nav">
                         <table>
                             <tr>
                                 <td class="icon"></td>
@@ -90,11 +90,19 @@
                             </tr>
                         </table>
                     </a>
-                    <a id="nav-level-management" href="{% url "level-management-view" instance.slug %}" class="nav">
+                    <a id="nav-geography-level-management" href="{% url "geography-level-management-view" instance.slug %}" class="nav">
                         <table>
                             <tr>
                                 <td class="icon"></td>
                                 <td>Level Management</td>
+                            </tr>
+                        </table>
+                    </a>
+                    <a id="nav-geography-upload" href="{% url "geography-upload-view" instance.slug %}" class="nav">
+                        <table>
+                            <tr>
+                                <td class="icon"></td>
+                                <td>Upload</td>
                             </tr>
                         </table>
                     </a>
