@@ -52,7 +52,9 @@
                         </tr>
                     {% endfor %}
                 </table>
-                <button id="toggle-table" class="main-button content-button scenario-{{ overall_scenario.level }}">Show all indicators</button>
+                {% if user.is_staff %}
+                    <button id="toggle-table" class="main-button content-button scenario-{{ overall_scenario.level }}">Show all indicators</button>
+                {% endif %}
             </div>
             {% for intervention in interventions %}
                 <div data-program="{{ intervention.program_instance.program.slug }}" class="scenario-section intervention">
