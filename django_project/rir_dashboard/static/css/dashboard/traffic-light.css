@@ -1,0 +1,72 @@
+#dashboard iframe {
+    width: 100%;
+    height: 800px;
+}
+
+#dashboard table {
+    margin-top: 10px;
+    width: 100%;
+}
+
+#dashboard table th, #dashboard table td {
+    border: 2px solid white;
+    padding: 10px 15px;
+}
+
+#dashboard table th {
+    border-bottom: 1px solid var(--divider-color);
+}
+
+#dashboard table a {
+    text-decoration: none;
+}
+
+#dashboard .indicator {
+    color: rgba(0, 0, 0, 0);
+}
+
+#dashboard .indicator:hover {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+#dashboard .scenario {
+    width: 200px;
+}
+
+#dashboard .scenario-header {
+    font-size: 16px;
+    padding: 15px;
+    font-weight: 600;
+}
+
+#dashboard .indicator-row {
+    display: none;
+}
+
+#dashboard .traffic-indicator {
+    display: table-row;
+}
+
+#dashboard .table-section {
+    overflow-x: auto;
+    width: 100%;
+}
+
+#dashboard #toggle-table {
+    font-size: 10px;
+    margin-top: 10px;
+    padding: 5px;
+    width: 100%;
+}
+
+#dashboard .scenario-section {
+    display: none;
+}
+
+#dashboard .intervention {
+    padding: 20px;
+}
+
+#content .header {
+    display: none;
+}

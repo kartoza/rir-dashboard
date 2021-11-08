@@ -22,7 +22,7 @@ class IndicatorMapView(BaseDashboardView):
     @property
     def dashboard_title(self):
         element = self.scenario_level.element if self.scenario_level else ''
-        return f'Indicator Map : {self.indicator.name} {element}'
+        return f'<span>Indicator Map</span> : {self.indicator.name} {element}'
 
     @property
     def context_view(self) -> dict:
@@ -51,7 +51,7 @@ class IndicatorMapView(BaseDashboardView):
             country_level = self.instance.geometry_levels.filter(parent=None).first()
             if country_level:
                 country_level = country_level.level
-                geometry_country = self.instance.geometries.filter(
+                geometry_country = self.instance.geometries().filter(
                     geometry_level=country_level).first()
                 if geometry_country:
                     context['country_geometry'] = json.loads(
@@ -74,13 +74,13 @@ class IndicatorMapView(BaseDashboardView):
                     for level in levels:
                         level_with_url[level] = {
                             'level': level.name,
-                            'url': reverse('indicator-values-geojson', args=[
+                            'url': reverse('indicator-values-geojson-api', args=[
                                 self.instance.slug, indicator.pk, geometry_country.identifier, level, date.today()
                             ])
                         }
                         if indicator.geometry_reporting_level == level:
                             break
-                    context['levels'] = level_with_url
+                    context['instance_levels'] = level_with_url
 
             return context
         except Indicator.DoesNotExist:

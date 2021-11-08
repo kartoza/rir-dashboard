@@ -3,10 +3,35 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light box-shadow-bottom">
     <a class="navbar-brand mr-auto" href="/">
         <img src="{% if preferences.icon %}{{ preferences.icon }}{% endif %}">
-        <div class="title">{{ preferences.site_title }} {% if instance %} - {{ instance.name }}{% endif %}</div>
+        <div class="title">{{ preferences.site_title }} {% if page_title %} - {{ page_title }}{% endif %}</div>
     </a>
-    <select id="instance-selection">
-    </select>
+    <div class="profile-button">
+        {% if user.is_authenticated %}
+            <div class="navbar-options">
+                <a data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    {{ user.username }}
+                </a>
+                <ul class="dropdown-menu box-shadow-bottom">
+                    {% if user.is_staff %}
+                        <li>
+                            <a href="/admin/">{% trans "Django admin" %}</a>
+                        </li>
+                    {% endif %}
+                    <li>
+                        <a href="{% url 'logout' %}?next=/">{% trans "Logout" %}</a>
+                    </li>
+                </ul>
+            </div>
+        {% else %}
+            <a href="{% url "login" %}">
+                Sign In
+            </a>
+        {% endif %}
+    </div>
+    <div id="instance-selection-wrapper">
+        <select id="instance-selection">
+        </select>
+    </div>
 </nav>
 <script>
     const $instanceSelection = $('#instance-selection');

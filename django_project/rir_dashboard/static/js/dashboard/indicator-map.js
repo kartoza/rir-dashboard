@@ -1,5 +1,6 @@
 $(document).ready(function () {
 
+    //create map
     let map = L.map('map').setView([0, 0], 13);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -22,47 +23,55 @@ $(document).ready(function () {
     const indicatorGeojson = {};
     const indicatorLayer = L.geoJSON(null, {
             style: function (feature) {
-                console.log(feature)
                 return {
                     color: "#ffffff",
                     weight: 2,
                     fillColor: feature.properties.background_color
                 };
+            },
+            onEachFeature: function (feature, layer) {
+                layer.bindPopup('' +
+                    '<table>' +
+                    `<tr><td style="text-align: right"><b>Geography</b></td><td>${feature.properties.geometry_name} (${feature.properties.geometry_identifier})</td></tr>` +
+                    `<tr><td style="text-align: right"><b>Value</b></td><td>${feature.properties.value}</td></tr>` +
+                    `<tr style="background-color: ${feature.properties.background_color}; color: ${feature.properties.text_color}"><td style="text-align: right"><b>Scenario</b></td><td>${feature.properties.scenario_value}</td></tr>` +
+                    '</table>');
             }
         }
     );
     indicatorLayer.addTo(map);
 
     // LEVELS
-    const $levelSelection = $('#level-selection')
+    let identifierSelected = null;
+    const $levelSelection = $('#level-selection');
     selectLevel($($levelSelection.find('div')[0]));
 
+    // Function when level selected
     function selectLevel($level) {
         const level = $level.data('level');
         const url = $level.data('url');
         $levelSelection.find('div').removeClass('active');
         $level.addClass('active');
 
+        // save identifier
+        const identifier = level;
+        identifierSelected = identifier;
+
         // get geojson
         indicatorLayer.clearLayers();
-        if (!indicatorGeojson[level]) {
+        if (!indicatorGeojson[identifier]) {
             $.ajax({
                 url: url,
                 dataType: 'json',
-                beforeSend: function (xhrObj) {
-
-                },
                 success: function (geojson, textStatus, request) {
-                    indicatorGeojson[level] = geojson;
-                    selectLevel($level);
-                },
-                error: function (error, textStatus, request) {
-
+                    indicatorGeojson[identifier] = geojson;
+                    if (identifierSelected === identifier) {
+                        selectLevel($level);
+                    }
                 }
             });
-
         } else {
-            indicatorLayer.addData(indicatorGeojson[level]);
+            indicatorLayer.addData(indicatorGeojson[identifier]);
         }
     }
 

@@ -25,10 +25,6 @@
     padding: 0;
 }
 
-.instance img {
-    border: 1px solid #ddd;
-}
-
 .instance span {
     color: var(--primary-color);
     display: block;

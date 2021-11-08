@@ -30,6 +30,20 @@
     }
   },
   {
+    "model": "rir_data.geometrylevelname",
+    "pk": 4,
+    "fields": {
+      "name": "Province"
+    }
+  },
+  {
+    "model": "rir_data.geometrylevelname",
+    "pk": 5,
+    "fields": {
+      "name": "Sub District"
+    }
+  },
+  {
     "model": "rir_data.geometrylevelinstance",
     "pk": 1,
     "fields": {
@@ -576,8 +590,8 @@
     "model": "rir_data.program",
     "pk": 1,
     "fields": {
-      "instance": 1,
       "name": "Health",
+      "slug": "health",
       "description": ""
     }
   },
@@ -585,8 +599,8 @@
     "model": "rir_data.program",
     "pk": 2,
     "fields": {
-      "instance": 1,
-      "name": "CP",
+      "name": "Child Protection",
+      "slug": "child-protection",
       "description": ""
     }
   },
@@ -594,8 +608,8 @@
     "model": "rir_data.program",
     "pk": 3,
     "fields": {
-      "instance": 1,
       "name": "Nutrition",
+      "slug": "nutrition",
       "description": ""
     }
   },
@@ -603,8 +617,8 @@
     "model": "rir_data.program",
     "pk": 4,
     "fields": {
-      "instance": 1,
       "name": "Wash",
+      "slug": "wash",
       "description": ""
     }
   },
@@ -612,16 +626,56 @@
     "model": "rir_data.program",
     "pk": 5,
     "fields": {
-      "instance": 1,
       "name": "Education",
+      "slug": "education",
       "description": ""
+    }
+  },
+  {
+    "model": "rir_data.programinstance",
+    "pk": 1,
+    "fields": {
+      "program": 1,
+      "instance": 1
+    }
+  },
+  {
+    "model": "rir_data.programinstance",
+    "pk": 2,
+    "fields": {
+      "program": 2,
+      "instance": 1
+    }
+  },
+  {
+    "model": "rir_data.programinstance",
+    "pk": 3,
+    "fields": {
+      "program": 3,
+      "instance": 1
+    }
+  },
+  {
+    "model": "rir_data.programinstance",
+    "pk": 4,
+    "fields": {
+      "program": 4,
+      "instance": 1
+    }
+  },
+  {
+    "model": "rir_data.programinstance",
+    "pk": 5,
+    "fields": {
+      "program": 5,
+      "instance": 1
     }
   },
   {
     "model": "rir_data.programintervention",
     "pk": 1,
     "fields": {
-      "program": 1,
+      "program_instance": 1,
       "scenario_level": 1,
       "intervention_url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ1HQNZ-zaiZ_NmywEKy9lEOxScdydgEU6e5fwqkb7uIwxDyenyORGDKDCE_UIHNPwIEtR6rGQPVWQ0/pubhtml?gid=0&single=true"
     }
@@ -630,7 +684,7 @@
     "model": "rir_data.programintervention",
     "pk": 2,
     "fields": {
-      "program": 1,
+      "program_instance": 1,
       "scenario_level": 2,
       "intervention_url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQPiLdv1BE8ujuxDkI79jABGZehjdPHRmDS5LQWAHc_NyZ4oWaTvBjXNcCCABriOs2gO8bPFHOLCqcJ/pubhtml?gid=0&single=true"
     }
@@ -639,7 +693,7 @@
     "model": "rir_data.programintervention",
     "pk": 3,
     "fields": {
-      "program": 1,
+      "program_instance": 1,
       "scenario_level": 3,
       "intervention_url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQXGWy9wfjiGhfK54-R7hwLwie8TP0w_dlRiHxlLpMPluzsIslXBZfi8hOddXdvG8TEQxJT_WHbatQ-/pubhtml?gid=0&single=true"
     }
@@ -648,7 +702,7 @@
     "model": "rir_data.programintervention",
     "pk": 4,
     "fields": {
-      "program": 1,
+      "program_instance": 1,
       "scenario_level": 4,
       "intervention_url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRNlNFdPE1kamLoEHJ5N3BLkfjQeOkzCtzxWSvJEKzjR0rdjAokAgfIHzcL1Hsql3dGWmLoJWpkKAQ0/pubhtml?gid=0&single=true"
     }
@@ -657,7 +711,7 @@
     "model": "rir_data.programintervention",
     "pk": 5,
     "fields": {
-      "program": 2,
+      "program_instance": 2,
       "scenario_level": 1,
       "intervention_url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRrCrJ-q7jlJ25t_slIQQheh2CXoWEhcTTdPfRapRu6BAWr4g9ramt2Gz5V6KXmHX7pSVnHantyPAkb/pubhtml?gid=0&single=true"
     }
@@ -666,7 +720,7 @@
     "model": "rir_data.programintervention",
     "pk": 6,
     "fields": {
-      "program": 2,
+      "program_instance": 2,
       "scenario_level": 2,
       "intervention_url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQy-N2xG7pant5nKkX6TjGzDgeEDUaWa4QMUfqKQ7NUB5Be3n3gP-kFq9Iq3hn2bZDzkBZSeDPO2rz7/pubhtml?gid=0&single=true"
     }
@@ -675,7 +729,7 @@
     "model": "rir_data.programintervention",
     "pk": 7,
     "fields": {
-      "program": 2,
+      "program_instance": 2,
       "scenario_level": 3,
       "intervention_url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vT7jOTJH7j1N3TepYVE1GZkn92EIsmNDWJud6vGXzUjjAu5ZrVpwxzZ3Y_c0Md0Kpm8zl886xZlS8nP/pubhtml?gid=0&single=true"
     }
@@ -684,7 +738,7 @@
     "model": "rir_data.programintervention",
     "pk": 8,
     "fields": {
-      "program": 2,
+      "program_instance": 2,
       "scenario_level": 4,
       "intervention_url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vTu3N_wMjYspSLoAl3j9qS7pi0lFd2aWbkMTYLVN5eRL2v5o2HobiUrC0JPYTTf2HpvhG6utExdPnXa/pubhtml?gid=0&single=true"
     }
@@ -693,7 +747,7 @@
     "model": "rir_data.programintervention",
     "pk": 9,
     "fields": {
-      "program": 3,
+      "program_instance": 3,
       "scenario_level": 1,
       "intervention_url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vTJFp60HvHEyIWNyEkWNRurzx0tllrRggn1pydbhkcvXQt-SKf6KfE7cct2Pt0wnaRPhYcfF5OcKFL8/pubhtml?gid=0&single=true"
     }
@@ -702,7 +756,7 @@
     "model": "rir_data.programintervention",
     "pk": 10,
     "fields": {
-      "program": 3,
+      "program_instance": 3,
       "scenario_level": 2,
       "intervention_url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQe-YC_rGqWbDVgALFzecPKNMYrm_aG7rNMHDLWGy7eGmM-Ea3jzITHog20c3qyyTkIukYwDeBl25RW/pubhtml?gid=0&single=true"
     }
@@ -711,7 +765,7 @@
     "model": "rir_data.programintervention",
     "pk": 11,
     "fields": {
-      "program": 3,
+      "program_instance": 3,
       "scenario_level": 3,
       "intervention_url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRqULFDb_5cZz4AqSluBLv24AfXGzXoyjXwVMdGzK_0a5ZtmpbOrKdq_1nkiQhAHth7ym2mno6Q3zUl/pubhtml?gid=0&single=true"
     }
@@ -720,7 +774,7 @@
     "model": "rir_data.programintervention",
     "pk": 12,
     "fields": {
-      "program": 3,
+      "program_instance": 3,
       "scenario_level": 4,
       "intervention_url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vTUL5Arjs1oTxnUjcoFzI1h6q_Gxyw0otTLcXG0o4iHTcGrXb6Rl6aC6plHAUgZcMKvrzDnKfsHPqex/pubhtml?gid=0&single=true"
     }
@@ -729,7 +783,7 @@
     "model": "rir_data.programintervention",
     "pk": 13,
     "fields": {
-      "program": 4,
+      "program_instance": 4,
       "scenario_level": 1,
       "intervention_url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vTuw56iblh01bMepXpzlWQdIbtapHbjxChhCF3T2XE3T_sWSy9UxEyaqYQFwuIn3xmfSch0HI6ZN35p/pubhtml?gid=0&single=true"
     }
@@ -738,7 +792,7 @@
     "model": "rir_data.programintervention",
     "pk": 14,
     "fields": {
-      "program": 4,
+      "program_instance": 4,
       "scenario_level": 2,
       "intervention_url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vSM7FZo-ybn5hYADhtTE2qyis11eaw1DkTtgpjFcw6X3jgTkwiox5H2ftrmepZQGHlqvEc7rYhYbA6t/pubhtml?gid=0&single=true"
     }
@@ -747,7 +801,7 @@
     "model": "rir_data.programintervention",
     "pk": 15,
     "fields": {
-      "program": 4,
+      "program_instance": 4,
       "scenario_level": 3,
       "intervention_url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vR11KNFSxTj0WqjA5GboNVV1rIFPtKUr6ndcoN9Y5jqbuFANJZFHQLXzM11UA1xoNkGXBm9-A-WS-Jv/pubhtml?gid=0&single=true"
     }
@@ -756,7 +810,7 @@
     "model": "rir_data.programintervention",
     "pk": 16,
     "fields": {
-      "program": 4,
+      "program_instance": 4,
       "scenario_level": 4,
       "intervention_url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vSjFXv_WB4wwQYdkL-O28fjI2I8-beggKWtQFPdLqBt-oGJpnEZFPI4fqysZ04xpysXtXR470YclsBW/pubhtml?gid=0&single=true"
     }
@@ -765,7 +819,7 @@
     "model": "rir_data.programintervention",
     "pk": 17,
     "fields": {
-      "program": 5,
+      "program_instance": 5,
       "scenario_level": 1,
       "intervention_url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vTaoQdReWlkl0c85QnMFCFjDHC-X5UjwKlP2Kq99Cw8zDb3PM0TmpactrQ7Z4v18ba_We7RVQNZH-91/pubhtml?gid=612987696&single=true"
     }
@@ -774,7 +828,7 @@
     "model": "rir_data.programintervention",
     "pk": 18,
     "fields": {
-      "program": 5,
+      "program_instance": 5,
       "scenario_level": 2,
       "intervention_url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQY2QGZ834R8kYPPrWnUp1jJYo0HYOVttj1OW-Vu6VDqwKPplekRDG7q1g1Kxcg0r1GwbZdUVgq2Aee/pubhtml?gid=539730413&single=true"
     }
@@ -783,7 +837,7 @@
     "model": "rir_data.programintervention",
     "pk": 19,
     "fields": {
-      "program": 5,
+      "program_instance": 5,
       "scenario_level": 3,
       "intervention_url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQOUMSOBMbKFYznPWaBY7GM9ZuHx38BRM50TC9xn2N1vxebjuaEetKGY2_HkX4cqYRFCTcHQ5_bXWK1/pubhtml?gid=1968750185&single=true"
     }
@@ -792,7 +846,7 @@
     "model": "rir_data.programintervention",
     "pk": 20,
     "fields": {
-      "program": 5,
+      "program_instance": 5,
       "scenario_level": 4,
       "intervention_url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vTPMEm7r3dXx_S_DN1U-uXX2fcuB9ATb3vZqDXa146U14xb8PamkfFzvVo6bOlL4YEthjXgdrprF3qx/pubhtml?gid=1788004967&single=true"
     }

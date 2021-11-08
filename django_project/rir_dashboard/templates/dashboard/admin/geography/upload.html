@@ -1,0 +1,41 @@
+{% extends 'dashboard/_base.html' %}
+{% load static %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'libs/leaflet/1.5.1/leaflet.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/form.css' %}" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="{% static 'css/dashboard/map.css' %}" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="{% static 'css/dashboard/admin/geography/upload.css' %}" type="text/css" media="screen, projection"/>
+{% endblock stylesheet %}
+{% block content %}
+    <div id="upload-section" class="section row">
+        <div id="upload-section-form" class="col">
+            <form id="shapefile-form" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="main-button">Submit</button>
+            </form>
+        </div>
+{#        <div class="col-6">#}
+{#            <h3>Upload Result</h3>#}
+{#            <table>#}
+{#                <tr>#}
+{#                    <th>Code</th>#}
+{#                    <th>Name</th>#}
+{#                    <th>Upload Status</th>#}
+{#                </tr>#}
+{#            </table>#}
+{#        </div>#}
+    </div>
+{% endblock %}
+{% block scripts %}
+    <script type="text/javascript" src="{% static 'libs/leaflet/1.5.1/leaflet.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/dashboard/admin/geography/upload.js' %}"></script>
+    <script>
+        const instanceLevels = [];
+        {% for level in instance_levels %}
+            instanceLevels.push({{ level.id }});
+        {% endfor %}
+        $('#nav-geography-upload').addClass('active')
+    </script>
+{% endblock %}

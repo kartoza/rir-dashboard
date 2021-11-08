@@ -12,6 +12,7 @@ admin.autodiscover()
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^auth/', include('django.contrib.auth.urls')),
 ]
 
 if settings.DEBUG:

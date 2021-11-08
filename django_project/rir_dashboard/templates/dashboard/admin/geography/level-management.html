@@ -1,0 +1,42 @@
+{% extends 'dashboard/_base.html' %}
+{% load static %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'css/dashboard/admin/geography/level-management.css' %}" type="text/css" media="screen, projection"/>
+{% endblock stylesheet %}
+{% block content %}
+    <div class="section box-shadow-bottom row">
+        <div id="level-list">
+            <h3>Available Levels</h3>
+            <div id="level-list-drop-area">
+                {% for level in levels %}
+                    <div id="level-{{ level.id }}" class="level-block level-block-value" data-id="{{ level.id }}">
+                        <div class="level-block-content">{{ level.name }}</div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div id="level-drop-area-section">
+            <div id="level-drop-area">
+                <div>
+                    <i>Drag and drop here to change the level from top to bottom</i><br><br>
+                </div>
+            </div>
+            <form method="post" id="login-form">
+                {% csrf_token %}
+                <input id="level-input" type="text" name="level" style="display: none">
+                <button class="main-button">Submit</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+{% block scripts %}
+    <script type="text/javascript" src="{% static 'js/dashboard/admin/geography/level-management.js' %}"></script>
+    <script>
+        const instanceLevels = [];
+        {% for level in instance_levels %}
+            instanceLevels.push({{ level.id }});
+        {% endfor %}
+        $('#nav-geography-level-management').addClass('active')
+    </script>
+{% endblock %}

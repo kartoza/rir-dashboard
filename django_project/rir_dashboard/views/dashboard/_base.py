@@ -1,21 +1,27 @@
-from django.shortcuts import get_object_or_404
-from django.views.generic.base import TemplateView
+from django.shortcuts import get_object_or_404, render
+from django.views.generic import View
 from rir_data.models.instance import Instance
 
 
-class BaseDashboardView(TemplateView):
+class BaseDashboardView(View):
     instance = None
+    template_name = ''
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict:
         self.instance = get_object_or_404(
             Instance, slug=kwargs.get('slug', '')
         )
-
-        context = super().get_context_data(**kwargs)
+        context = {}
         context.update(self.context_view)
         context['dashboard_title'] = self.dashboard_title
+        context['page_title'] = 'Dashboard'
         context['instance'] = self.instance
         return context
+
+    def get(self, request, **kwargs):
+        return render(
+            request, self.template_name, self.get_context_data(**kwargs)
+        )
 
     @property
     def dashboard_title(self):

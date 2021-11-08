@@ -1,17 +1,14 @@
 from datetime import date
-from django.contrib.gis.db import models
-from core.models.general import SlugTerm
+from core.models.general import IconTerm, SlugTerm
 
 
-class Instance(SlugTerm):
+class Instance(SlugTerm, IconTerm):
     """
     Instance model
     """
-    icon = models.FileField(
-        upload_to='instance/icons',
-        null=True,
-        blank=True
-    )
+
+    class Meta:
+        ordering = ('name',)
 
     @property
     def scenario_levels(self):
@@ -41,28 +38,30 @@ class Instance(SlugTerm):
         Return geometry levels of the instance
         """
         top = self.geometry_levels.filter(parent=None).first()
-        levels = [top.level]
-        child = self.geometry_levels.filter(parent=top.level).first()
-        while child is not None:
-            if child:
-                levels.append(child.level)
-            child = self.geometry_levels.filter(parent=child.level).first()
+        levels = []
+        if top:
+            levels = [top.level]
+            child = self.geometry_levels.filter(parent=top.level).first()
+            while child is not None:
+                if child:
+                    levels.append(child.level)
+                child = self.geometry_levels.filter(parent=child.level).first()
 
         return levels
 
     @property
-    def programs(self):
+    def programs_instance(self):
         """
         Return program of the instance
         """
-        return self.program_set.all()
+        return self.programinstance_set.all()
 
-    @property
-    def geometries(self):
+    def geometries(self, date: date = date.today()):
         """
         Return geometries of the instance
         """
-        return self.geometry_set.all()
+        from rir_data.models.geometry import Geometry
+        return Geometry.objects.by_date(date).filter(instance=self)
 
     @property
     def get_indicators_and_overall_scenario(self):
@@ -80,7 +79,7 @@ class Instance(SlugTerm):
                 raise GeometryLevelName.DoesNotExist
 
             country_level = country_level.level
-            geometry_country = self.geometries.filter(geometry_level=country_level).first()
+            geometry_country = self.geometries().filter(geometry_level=country_level).first()
             if not geometry_country:
                 raise Geometry.DoesNotExist
 

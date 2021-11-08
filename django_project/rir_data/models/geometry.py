@@ -1,3 +1,5 @@
+import datetime
+import uuid
 from django.contrib.gis.db import models
 from django.db.models import Q
 from django.utils.translation import ugettext_lazy as _
@@ -45,6 +47,20 @@ class FindGeometry(models.Manager):
             Q(alias__icontains=name)
         )
 
+    def by_date(self, date: datetime.date):
+        """
+        Filter dates by date
+        """
+        return super().filter(
+            Q(active_date_from__lte=date, active_date_to__isnull=True) |
+            Q(active_date_from__lte=date, active_date_to__gte=date)
+        )
+
+
+def default_active_date_from():
+    now = datetime.date.today()
+    return now.replace(year=1900, month=1, day=1)
+
 
 class Geometry(models.Model):
     """
@@ -76,11 +92,21 @@ class Geometry(models.Model):
         blank=True, null=True,
         related_name='geometry_child_of'
     )
+
     geometry = models.MultiPolygonField()
+
+    # geometry time active
+    active_date_from = models.DateField(
+        default=default_active_date_from
+    )
+    active_date_to = models.DateField(
+        blank=True,
+        null=True
+    )
+
     objects = FindGeometry()
 
     class Meta:
-        unique_together = ('instance', 'identifier')
         verbose_name_plural = 'geometries'
 
     def __str__(self):
@@ -102,3 +128,34 @@ class Geometry(models.Model):
             else:
                 current_geometry_level = geometry_level
         return geometries
+
+
+class GeometryUploader(models.Model):
+    """
+    Geometry uploader
+    """
+    unique_id = models.UUIDField(
+        default=uuid.uuid4, editable=False, unique=True
+    )
+    file = models.FileField(
+        upload_to='upload'
+    )
+    time = models.DateTimeField(
+        auto_now_add=True
+    )
+
+
+class GeometryUploaderLog(models.Model):
+    """
+    Log for geometry uploader
+    """
+    uploader = models.ForeignKey(
+        GeometryUploader,
+        on_delete=models.CASCADE
+    )
+    identifier = models.CharField(
+        max_length=512
+    )
+    note = models.TextField(
+        null=True, blank=True
+    )

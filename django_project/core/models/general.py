@@ -31,3 +31,20 @@ class SlugTerm(AbstractTerm):
 
     class Meta:
         abstract = True
+
+
+class IconTerm(models.Model):
+    """ Abstract model contains icon """
+    icon = models.FileField(
+        upload_to='icons',
+        null=True,
+        blank=True
+    )
+    white_icon = models.FileField(
+        upload_to='icons',
+        null=True,
+        blank=True
+    )
+
+    class Meta:
+        abstract = True
