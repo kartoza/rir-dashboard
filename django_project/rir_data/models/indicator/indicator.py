@@ -116,22 +116,28 @@ class Indicator(AbstractTerm):
         else:
             return None
 
+    def query_value(self, date_data: date):
+        """ Return query of value"""
+        query = self.indicatorvalue_set.filter(date__lte=date_data).filter(
+            geometry__geometry_level=self.geometry_reporting_level
+        )
+
+        # update query by behaviour
+        if self.aggregation_behaviour == AggregationBehaviour.USE_AVAILABLE:
+            if query.first():
+                last_date = query.first().date
+                query = query.filter(date=last_date)
+        return query
+
     def values(self, geometry: Geometry, geometry_level: GeometryLevelName, date_data: date):
         """
         Return geojson value of indicator by geometry, the target geometry level and the date
         """
         # get the geometries of data
         values = []
-        query = self.indicatorvalue_set.filter(date__lte=date_data).filter(
-            geometry__geometry_level=self.geometry_reporting_level
-        )
+        query = self.query_value(date_data)
         if not query.first():
             return values
-
-        # update query by behaviour
-        if self.aggregation_behaviour == AggregationBehaviour.USE_AVAILABLE:
-            last_date = query.first().date
-            query = query.filter(date=last_date)
 
         # get the geometries target by the level
         geometries_target = geometry.geometries_by_level(geometry_level)
@@ -168,9 +174,9 @@ class Indicator(AbstractTerm):
                     'geometry_identifier': geometry_target.identifier,
                     'geometry_name': geometry_target.name,
                     'value': value,
-                    'scenario_value': scenario_value.level,
-                    'text_color': scenario_value.text_color,
-                    'background_color': scenario_value.background_color
+                    'scenario_value': scenario_value.level if scenario_value else 0,
+                    'text_color': scenario_value.text_color if scenario_value else '',
+                    'background_color': scenario_value.background_color if scenario_value else ''
                 })
             except IndexError:
                 pass

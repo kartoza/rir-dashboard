@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from rir_data.models.indicator import Indicator
+from rir_data.models.indicator import Indicator, IndicatorValue
 
 
 class IndicatorSerializer(serializers.ModelSerializer):
@@ -17,3 +17,9 @@ class IndicatorSerializer(serializers.ModelSerializer):
         for indicator_rule in instance.indicatorscenariorule_set.all():
             data[f'scenario_{indicator_rule.scenario_level.level}'] = indicator_rule.name
         return data
+
+
+class IndicatorValueSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = IndicatorValue
+        fields = '__all__'

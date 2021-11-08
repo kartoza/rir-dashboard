@@ -70,3 +70,10 @@
 #content .header {
     display: none;
 }
+
+.green-button {
+    border-radius: 5px;
+    font-size: 14px;
+    padding: 5px;
+    margin-left: 5px;
+}

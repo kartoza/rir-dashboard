@@ -2,11 +2,16 @@ import json
 from datetime import datetime
 from django.http import Http404, HttpResponseBadRequest
 from django.shortcuts import get_object_or_404
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
+
+from core.permissions import AdminAuthenticationPermission
 from rir_data.serializer.indicator import IndicatorSerializer
 from rir_data.models.instance import Instance
+from rir_data.models.indicator import IndicatorValue
 from rir_data.models.geometry import Geometry, GeometryLevelName
+from rir_data.serializer.indicator import IndicatorValueSerializer
 
 
 class IndicatorsList(APIView):
@@ -23,6 +28,64 @@ class IndicatorsList(APIView):
                 instance.indicators, many=True
             ).data
         )
+
+
+class IndicatorValuesByGeometry(APIView):
+    """
+    Return Scenario value for the specific geometry
+    for all date
+    """
+    permission_classes = (IsAuthenticated, AdminAuthenticationPermission,)
+
+    def get(self, request, slug, pk, geometry_pk):
+        """
+        Return values of the indicator
+
+        :param slug: slug of the instance
+        :param pk: pk of the indicator
+        :param geometry_pk: the geometry id
+        :return:
+        """
+        instance = get_object_or_404(
+            Instance, slug=slug
+        )
+        geometry = get_object_or_404(
+            Geometry, id=geometry_pk
+        )
+        try:
+            indicator = instance.indicators.get(id=pk)
+            values = indicator.indicatorvalue_set.filter(geometry=geometry).order_by('-date')
+            return Response(IndicatorValueSerializer(values, many=True).data)
+        except GeometryLevelName.DoesNotExist:
+            raise Http404('The geometry level is not recognized')
+        except ValueError:
+            return HttpResponseBadRequest('Date format is not correct')
+
+    def post(self, request, slug, pk, geometry_pk):
+        """
+        Return values of the indicator
+
+        :param slug: slug of the instance
+        :param pk: pk of the indicator
+        :param geometry_pk: the geometry id
+        :return:
+        """
+        instance = get_object_or_404(
+            Instance, slug=slug
+        )
+        geometry = get_object_or_404(
+            Geometry, id=geometry_pk
+        )
+        indicator = instance.indicators.get(id=pk)
+        IndicatorValue.objects.get_or_create(
+            indicator=indicator,
+            geometry=geometry,
+            date=request.POST['date'],
+            defaults={
+                'value': request.POST['value']
+            }
+        )
+        return Response('OK')
 
 
 class IndicatorValues(APIView):

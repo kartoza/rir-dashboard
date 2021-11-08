@@ -27,7 +27,7 @@
 {% endblock %}
 {% block scripts %}
     <script>
-        const country_geometry = "{{ country_geometry|safe }}".replaceAll("'", '"');
+        const countryGeometry = {{ country_geometry|safe }};
     </script>
     <script type="text/javascript" src="{% static 'libs/leaflet/1.5.1/leaflet.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/dashboard/indicator-map.js' %}"></script>
