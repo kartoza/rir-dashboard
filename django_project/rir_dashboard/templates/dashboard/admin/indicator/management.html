@@ -17,6 +17,7 @@
                                     <div class="col">{{ indicator.name }}</div>
                                     <div class="col">
                                         <a href="{% url "indicator-value-mapview-manager" instance.slug indicator.id %}" class="green-button">Value Manager Map</a>
+                                        <a href="{% url "indicator-edit" instance.slug indicator.id %}" class="green-button">Edit</a>
                                     </div>
                                 </div>
                             </div>

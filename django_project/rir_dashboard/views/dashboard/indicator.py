@@ -3,7 +3,7 @@ from datetime import date
 from django.http import Http404
 from django.shortcuts import reverse
 from rir_dashboard.views.dashboard._base import BaseDashboardView
-from rir_data.models import Indicator
+from rir_data.models import Indicator, ScenarioLevel
 
 
 class IndicatorView(BaseDashboardView):
@@ -67,7 +67,7 @@ class IndicatorMapView(BaseDashboardView):
                         value = values[0]
                         self.scenario_level = self.instance.scenario_levels.get(
                             level=value['scenario_value'])
-                    except IndexError:
+                    except (IndexError, ScenarioLevel.DoesNotExist):
                         pass
 
                     # return the levels

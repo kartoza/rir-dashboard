@@ -10,7 +10,6 @@ from rir_data.serializer.geometry import GeometryContextSerializer
 class IndicatorValueManagementMapView(AdminView):
     template_name = 'dashboard/admin/indicator/value-management-map.html'
     indicator = None
-    scenario_level = None
 
     @property
     def dashboard_title(self):

@@ -1,4 +1,5 @@
 from django import forms
+from django.forms.models import model_to_dict
 from rir_data.models.instance import Instance
 from rir_data.models.indicator import (
     Indicator, IndicatorFrequency, IndicatorGroup, frequency_help_text,
@@ -23,7 +24,7 @@ class IndicatorForm(forms.ModelForm):
             level = kwargs.pop("level")
         except KeyError:
             pass
-        instance = kwargs.pop("instance")
+        instance = kwargs.pop("indicator_instance")
         super().__init__(*args, **kwargs)
         self.label_suffix = ""
         if level:
@@ -32,7 +33,7 @@ class IndicatorForm(forms.ModelForm):
 
     class Meta:
         model = Indicator
-        exclude = ('unit',)
+        exclude = ('unit', 'order')
 
     def clean_frequency(self):
         frequency = self.cleaned_data['frequency']
@@ -50,3 +51,18 @@ class IndicatorForm(forms.ModelForm):
             instance=instance
         )
         return indicator_group
+
+    @staticmethod
+    def model_to_initial(indicator: Indicator):
+        from rir_data.models.indicator import IndicatorGroup
+        from rir_data.models.indicator import IndicatorFrequency
+        initial = model_to_dict(indicator)
+        try:
+            initial['group'] = IndicatorGroup.objects.get(id=initial['group']).name
+        except IndicatorGroup.DoesNotExist:
+            initial['group'] = None
+        try:
+            initial['frequency'] = IndicatorFrequency.objects.get(id=initial['frequency']).frequency
+        except IndicatorGroup.DoesNotExist:
+            initial['frequency'] = None
+        return initial
