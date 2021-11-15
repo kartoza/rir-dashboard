@@ -55,9 +55,9 @@ class Indicator(AbstractTerm):
         max_length=256,
         default=AggregationBehaviour.USE_AVAILABLE,
         choices=(
-            (AggregationBehaviour.ALL_REQUIRED, AggregationBehaviour.ALL_REQUIRED),
+            # (AggregationBehaviour.ALL_REQUIRED, AggregationBehaviour.ALL_REQUIRED),
             (AggregationBehaviour.USE_AVAILABLE, AggregationBehaviour.USE_AVAILABLE),
-            (AggregationBehaviour.USE_MOST_RECENT, AggregationBehaviour.USE_MOST_RECENT)
+            # (AggregationBehaviour.USE_MOST_RECENT, AggregationBehaviour.USE_MOST_RECENT)
         )
     )
 
@@ -168,7 +168,7 @@ class Indicator(AbstractTerm):
                     ).order_by('-dcount')
                     value = output[0]['value']
                 elif self.aggregation_method == AggregationMethod.SUM:
-                    output = query_report.values('value').annotate(
+                    output = query_report.values('indicator').annotate(
                         sum=Sum('value')
                     )
                     value = output[0]['sum']
