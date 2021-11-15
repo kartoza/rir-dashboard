@@ -99,6 +99,8 @@ body {
 .main-button:hover,
 .white-button:hover,
 .green-button:hover {
+    outline: none;
+    text-decoration: none;
     opacity: 0.9;
 }
 

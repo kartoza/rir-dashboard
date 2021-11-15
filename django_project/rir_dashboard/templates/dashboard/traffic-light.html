@@ -37,9 +37,6 @@
                     {% for indicator in indicators %}
                         <tr class="indicator-row {% if indicator.show_in_traffic_light %}traffic-indicator{% endif %}">
                             <td>
-                                {% if user.is_staff %}
-                                    <a href="{% url "indicator-value-mapview-manager" instance.slug indicator.id %}" class="green-button"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                {% endif %}
                                 <a href="{% url "indicator-mapview" instance.slug indicator.id %}">{{ indicator.name }}</a>
                             </td>
                             <td class="scenario-{{ indicator.scenario_value }}">{{ indicator.value }}</td>

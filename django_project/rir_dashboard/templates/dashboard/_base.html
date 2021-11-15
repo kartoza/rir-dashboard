@@ -114,11 +114,19 @@
                             </tr>
                         </table>
                     </div>
+                    <a id="nav-indicator-management" href="{% url "indicator-management-view" instance.slug %}" class="nav">
+                        <table>
+                            <tr>
+                                <td class="icon"></td>
+                                <td>Management</td>
+                            </tr>
+                        </table>
+                    </a>
                     <a id="nav-indicator-new" href="{% url "indicator-management-new" instance.slug %}" class="nav">
                         <table>
                             <tr>
                                 <td class="icon"></td>
-                                <td>New</td>
+                                <td>Create New</td>
                             </tr>
                         </table>
                     </a>

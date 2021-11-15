@@ -69,9 +69,15 @@ class Indicator(AbstractTerm):
             (AggregationMethod.MAJORITY, AggregationMethod.MAJORITY)
         )
     )
+    order = models.IntegerField(
+        default=0
+    )
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        ordering = ('order',)
 
     @property
     def allow_to_harvest_new_data(self):
