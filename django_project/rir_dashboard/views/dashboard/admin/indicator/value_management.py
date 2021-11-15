@@ -7,8 +7,8 @@ from rir_data.models import Indicator
 from rir_data.serializer.geometry import GeometryContextSerializer
 
 
-class IndicatorValueManagerMapView(AdminView):
-    template_name = 'dashboard/admin/indicator-value-manager-map.html'
+class IndicatorValueManagementMapView(AdminView):
+    template_name = 'dashboard/admin/indicator/value-management-map.html'
     indicator = None
     scenario_level = None
 

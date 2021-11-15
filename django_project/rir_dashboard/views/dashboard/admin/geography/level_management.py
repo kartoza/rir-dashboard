@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404, redirect, reverse
-from ._base import AdminView
+from rir_dashboard.views.dashboard.admin._base import AdminView
 from rir_data.models.geometry import GeometryLevelName, GeometryLevelInstance
 from rir_data.models.instance import Instance
 

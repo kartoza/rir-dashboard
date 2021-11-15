@@ -26,7 +26,9 @@ form .main-button:hover {
     opacity: 0.7;
 }
 
-form input {
+form input[type=submit],
+form input[type=number],
+form input[type=text] {
     width: 100%;
 }
 

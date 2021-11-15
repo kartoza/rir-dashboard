@@ -3,16 +3,18 @@ from django.utils.translation import ugettext_lazy as _
 from core.models import AbstractTerm
 from rir_data.models.instance import Instance
 
+frequency_help_text = _(
+    'Frequency in days. '
+    'This is used by harvester as a frequency to get new indicator data.'
+)
+
 
 class IndicatorFrequency(AbstractTerm):
     """
     The frequency of data for the indicator
     """
     frequency = models.IntegerField(
-        help_text=_(
-            'Frequency in days. '
-            'This is used by harvester as a frequency to get new indicator data.'
-        )
+        help_text=frequency_help_text
     )
 
     class Meta:
