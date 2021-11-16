@@ -103,7 +103,7 @@
                     <div class="nav sub-header">
                         <table>
                             <tr>
-                                <td class="icon"><i class="fa fa-th-list" aria-hidden="true"></i></td>
+                                <td class="icon"><i class="fa fa-flag" aria-hidden="true"></i></td>
                                 <td>Instance</td>
                             </tr>
                         </table>
@@ -169,7 +169,7 @@
     </div>
     <div id="content">
         <div class="header box-shadow-bottom ">
-            {{ dashboard_title|safe }}
+            {% block dashboard_title %}{{ dashboard_title|safe }}{% endblock %}
         </div>
         <div id="content-view">
             {% block content %}{% endblock %}

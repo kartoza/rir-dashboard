@@ -4,7 +4,8 @@ from rir_dashboard.views.dashboard.admin.geography import (
     GeographyView, GeographyLevelManagementView, GeographyUploadView,
 )
 from rir_dashboard.views.dashboard.admin.indicator import (
-    IndicatorValueManagementMapView, IndicatorCreateView, IndicatorManagementView, IndicatorEditView
+    IndicatorValueManagementMapView, IndicatorCreateView,
+    IndicatorManagementView, IndicatorEditView, IndicatorReportingUnitView
 )
 from rir_dashboard.views.dashboard.admin.instance import (
     InstanceManagementView, InstanceCreateView, InstanceEditView
@@ -27,6 +28,7 @@ admin_geography_url = [
 ]
 
 admin_indicator_url = [
+    url(r'^(?P<pk>\d+)/reporting-unit', IndicatorReportingUnitView.as_view(), name='indicator-reporting-unit'),
     url(r'^(?P<pk>\d+)/edit', IndicatorEditView.as_view(), name='indicator-edit'),
     url(r'^creat', IndicatorCreateView.as_view(), name='indicator-management-new'),
     url(r'^', IndicatorManagementView.as_view(), name='indicator-management-view'),

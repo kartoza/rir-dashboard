@@ -44,7 +44,7 @@ class IndicatorValueManagementMapView(AdminView):
                 'geometry': json.loads(
                     json.dumps(
                         GeometryContextSerializer(
-                            self.instance.geometries().filter(geometry_level=self.indicator.geometry_reporting_level),
+                            self.indicator.reporting_units,
                             many=True).data
                     )
                 ),
