@@ -6,6 +6,9 @@ from rir_dashboard.views.dashboard.admin.geography import (
 from rir_dashboard.views.dashboard.admin.indicator import (
     IndicatorValueManagementMapView, IndicatorCreateView, IndicatorManagementView, IndicatorEditView
 )
+from rir_dashboard.views.dashboard.admin.instance import (
+    InstanceManagementView, InstanceCreateView, InstanceEditView
+)
 from rir_dashboard.views.dashboard import (
     TrafficLightView, IndicatorView, IndicatorMapView
 )
@@ -25,13 +28,19 @@ admin_geography_url = [
 
 admin_indicator_url = [
     url(r'^(?P<pk>\d+)/edit', IndicatorEditView.as_view(), name='indicator-edit'),
-    url(r'^new', IndicatorCreateView.as_view(), name='indicator-management-new'),
+    url(r'^creat', IndicatorCreateView.as_view(), name='indicator-management-new'),
     url(r'^', IndicatorManagementView.as_view(), name='indicator-management-view'),
+]
+admin_instance_url = [
+    url(r'^create', InstanceCreateView.as_view(), name='instance-management-create'),
+    url(r'^edit', InstanceEditView.as_view(), name='instance-management-edit'),
+    url(r'^', InstanceManagementView.as_view(), name='instance-management-view'),
 ]
 
 admin_url = [
     url(r'^geography/', include(admin_geography_url)),
     url(r'^indicator/', include(admin_indicator_url)),
+    url(r'^instance/', include(admin_instance_url)),
 ]
 
 urlpatterns = [

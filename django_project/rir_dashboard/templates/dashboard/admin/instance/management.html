@@ -1,0 +1,26 @@
+{% extends 'dashboard/_base.html' %}
+{% load static %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'css/dashboard/admin/instance/management.css' %}" type="text/css" media="screen, projection"/>
+{% endblock stylesheet %}
+{% block content %}
+    <div class="row">
+        {% for instance in instances %}
+            <div class="block box-shadow-bottom">
+                <div class="icon">
+                    <img src="{% if instance.icon %}{{ instance.icon.url }}{% else %}{% static "img/no-image-found.jpg" %}{% endif %}">
+                </div>
+                <div class="content">
+                    <div><h3>{{ instance.name }}</h3></div>
+                    <div><a href="{% url "instance-management-edit" instance.slug %}" class="green-button">Edit</a></div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+{% block scripts %}
+    <script>
+        $('#nav-instance-management').addClass('active')
+    </script>
+{% endblock %}

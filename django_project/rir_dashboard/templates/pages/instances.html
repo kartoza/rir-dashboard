@@ -20,7 +20,7 @@
         {% for instance in instances %}
             <div class="col-2">
                 <a href="{% url 'dashboard-view' instance.slug %}" class="instance">
-                    <img src="{% if instance.icon %}{{ instance.icon.url }}{% endif %}">
+                    <img src="{% if instance.icon %}{{ instance.icon.url }}{% else %}{% static "img/no-image-found.jpg" %}{% endif %}">
                     <span>{{ instance }}</span>
                 </a>
             </div>

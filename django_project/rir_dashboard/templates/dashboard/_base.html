@@ -39,7 +39,7 @@
         <div class="content">
             <div class="section">
                 <div class="header">
-                    <img src="{% if instance.icon %}{{ instance.icon.url }}{% endif %}">
+                    <img src="{% if instance.icon %}{{ instance.icon.url }}{% else %}{% static "img/no-image-found.jpg" %}{% endif %}">
                     {{ instance.name }}
                 </div>
             </div>
@@ -74,6 +74,7 @@
                     <div class="header">
                         Management
                     </div>
+                    {# ---------------- INDICATOR ----------------#}
                     <div class="nav sub-header">
                         <table>
                             <tr>
@@ -90,7 +91,7 @@
                             </tr>
                         </table>
                     </a>
-                    <a id="nav-indicator-new" href="{% url "indicator-management-new" instance.slug %}" class="nav">
+                    <a id="nav-indicator-create" href="{% url "indicator-management-new" instance.slug %}" class="nav">
                         <table>
                             <tr>
                                 <td class="icon"></td>
@@ -98,6 +99,32 @@
                             </tr>
                         </table>
                     </a>
+                    {# ---------------- INSTANCE ----------------#}
+                    <div class="nav sub-header">
+                        <table>
+                            <tr>
+                                <td class="icon"><i class="fa fa-th-list" aria-hidden="true"></i></td>
+                                <td>Instance</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <a id="nav-instance-management" href="{% url "instance-management-view" instance.slug %}" class="nav">
+                        <table>
+                            <tr>
+                                <td class="icon"></td>
+                                <td>Management</td>
+                            </tr>
+                        </table>
+                    </a>
+                    <a id="nav-instance-create" href="{% url "instance-management-create" instance.slug %}" class="nav">
+                        <table>
+                            <tr>
+                                <td class="icon"></td>
+                                <td>Create New</td>
+                            </tr>
+                        </table>
+                    </a>
+                    {# ---------------- GEOMETRY ----------------#}
                     <div class="nav sub-header">
                         <table>
                             <tr>

@@ -1,0 +1,31 @@
+#content-view .section {
+    padding: 30px;
+}
+
+#content-view .row {
+    padding: 10px;
+}
+
+
+#content-view .block {
+    background: white;
+    flex: 0 0 150px;
+    margin: 10px;
+}
+
+#content-view .block .icon {
+    width: 100%;
+}
+
+#content-view .block img {
+    width: 100%;
+}
+
+#content-view .block .content {
+    padding: 10px;
+    text-align: center;
+}
+
+#content-view .block .content h3 {
+    margin-bottom: 10px;
+}

@@ -26,11 +26,19 @@ class SlugTerm(AbstractTerm):
     )
 
     def save(self, *args, **kwargs):
-        self.slug = self.slug or slugify(self.name)
+        self.slug = slugify(self.name)
         return super().save(*args, **kwargs)
 
     class Meta:
         abstract = True
+
+    def name_is_exist(self, name: str) -> bool:
+        """
+        Check of name is exist
+        """
+        return self._meta.model.objects.exclude(pk=self.pk).filter(
+            slug=slugify(name)
+        ).first() is not None
 
 
 class IconTerm(models.Model):

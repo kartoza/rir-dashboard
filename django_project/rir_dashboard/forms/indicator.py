@@ -8,8 +8,9 @@ from rir_data.models.indicator import (
 
 class IndicatorForm(forms.ModelForm):
     """
-    Form to upload CSV file.
+    Indicator form
     """
+    label_suffix = ""
     instance = forms.ModelChoiceField(
         Instance.objects.all()
     )
@@ -26,7 +27,6 @@ class IndicatorForm(forms.ModelForm):
             pass
         instance = kwargs.pop("indicator_instance")
         super().__init__(*args, **kwargs)
-        self.label_suffix = ""
         if level:
             self.fields['geometry_reporting_level'].choices = [(u.id, u.name) for u in level]
         self.fields['instance'].initial = instance
