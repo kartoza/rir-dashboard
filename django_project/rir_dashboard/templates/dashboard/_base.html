@@ -39,7 +39,7 @@
         <div class="content">
             <div class="section">
                 <div class="header">
-                    <img src="{{ instance.icon.url }}">
+                    <img src="{% if instance.icon %}{{ instance.icon.url }}{% endif %}">
                     {{ instance.name }}
                 </div>
             </div>
@@ -74,6 +74,30 @@
                     <div class="header">
                         Management
                     </div>
+                    <div class="nav sub-header">
+                        <table>
+                            <tr>
+                                <td class="icon"><i class="fa fa-th-list" aria-hidden="true"></i></td>
+                                <td>Indicator</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <a id="nav-indicator-management" href="{% url "indicator-management-view" instance.slug %}" class="nav">
+                        <table>
+                            <tr>
+                                <td class="icon"></td>
+                                <td>Management</td>
+                            </tr>
+                        </table>
+                    </a>
+                    <a id="nav-indicator-new" href="{% url "indicator-management-new" instance.slug %}" class="nav">
+                        <table>
+                            <tr>
+                                <td class="icon"></td>
+                                <td>Create New</td>
+                            </tr>
+                        </table>
+                    </a>
                     <div class="nav sub-header">
                         <table>
                             <tr>

@@ -1,5 +1,5 @@
 from django.shortcuts import reverse
-from ._base import AdminView
+from rir_dashboard.views.dashboard.admin._base import AdminView
 
 
 class GeographyView(AdminView):

@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="{% static 'libs/leaflet/1.5.1/leaflet.css' %}"/>
     <link rel="stylesheet" href="{% static 'css/form.css' %}" type="text/css" media="screen, projection"/>
     <link rel="stylesheet" href="{% static 'css/dashboard/map.css' %}" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="{% static 'css/dashboard/admin/form.css' %}" type="text/css" media="screen, projection"/>
     <link rel="stylesheet" href="{% static 'css/dashboard/admin/geography/upload.css' %}" type="text/css" media="screen, projection"/>
 {% endblock stylesheet %}
 {% block content %}
@@ -12,20 +13,27 @@
         <div id="upload-section-form" class="col">
             <form id="shapefile-form" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                {{ form.as_p }}
+                {% for field in form %}
+                    <p>
+                        <label class="label{% if field.field.required %} required{% endif %}" for="{{ field.name }}">{{ field.label }}</label>
+                        {% if field.errors %}<span class="error">{{ field.errors }}</span>{% endif %}
+                        {{ field }}<br/>
+                        {% if field.help_text %}<span class="helptext">{{ field.help_text|safe }}</span>{% endif %}
+                    </p>
+                {% endfor %}
                 <button class="main-button">Submit</button>
             </form>
         </div>
-{#        <div class="col-6">#}
-{#            <h3>Upload Result</h3>#}
-{#            <table>#}
-{#                <tr>#}
-{#                    <th>Code</th>#}
-{#                    <th>Name</th>#}
-{#                    <th>Upload Status</th>#}
-{#                </tr>#}
-{#            </table>#}
-{#        </div>#}
+        {#        <div class="col-6">#}
+        {#            <h3>Upload Result</h3>#}
+        {#            <table>#}
+        {#                <tr>#}
+        {#                    <th>Code</th>#}
+        {#                    <th>Name</th>#}
+        {#                    <th>Upload Status</th>#}
+        {#                </tr>#}
+        {#            </table>#}
+        {#        </div>#}
     </div>
 {% endblock %}
 {% block scripts %}

@@ -1,0 +1,88 @@
+#content-view {
+    position: relative;
+}
+
+#list {
+    border-right: 1px solid var(--primary-color);
+    width: 220px;
+}
+
+#list h3 {
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 14px;
+    margin: 0;
+    padding: 10px;
+    text-align: center;
+}
+
+.block {
+    background: white;
+    cursor: pointer;
+}
+
+.block-content {
+    border-bottom: 1px solid var(--primary-color);
+    border-left: 1px dashed var(--primary-color);
+    border-right: 1px dashed var(--primary-color);
+    margin-bottom: -1px;
+    margin-left: -1px;
+    margin-right: -1px;
+    background: white;
+    padding: 10px;
+}
+
+.block.disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+#drop-area-section {
+    margin: 50px;
+}
+
+#drop-area-section .main-button {
+    width: 100%;
+}
+
+#drop-area {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border: 1px dashed var(--primary-color);
+    min-height: 100px;
+    text-align: center;
+    padding: 20px 0;
+}
+
+#drop-area.ui-state-hovered {
+    background: var(--hovered-color);
+}
+
+#drop-area i {
+    font-size: 12px;
+    color: #aaa;
+}
+
+#list-drop-area {
+    padding: 20px;
+}
+
+#temporary {
+    color: white;
+}
+
+#content .header {
+    display: none;
+}
+
+#drop-area .block {
+    width: 100%;
+    text-align: left;
+    border-top: 1px solid var(--primary-color);
+}
+
+.ui-draggable-dragging {
+    height: 0 !important;
+    z-index: 9999 !important;
+    margin-bottom: -1px;
+}

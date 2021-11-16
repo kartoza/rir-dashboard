@@ -3,7 +3,7 @@ from datetime import date
 from django.http import Http404
 from django.shortcuts import reverse
 from rir_dashboard.views.dashboard._base import BaseDashboardView
-from rir_data.models import Indicator
+from rir_data.models import Indicator, ScenarioLevel
 
 
 class IndicatorView(BaseDashboardView):
@@ -37,7 +37,8 @@ class IndicatorMapView(BaseDashboardView):
             levels = self.instance.geometry_levels_in_order
 
             legends = []
-            for rule in indicator.indicatorscenariorule_set.order_by('scenario_level__level'):
+            for rule in indicator.indicatorscenariorule_set.order_by(
+                    'scenario_level__level'):
                 legends.append({
                     'name': rule.name,
                     'background_color': rule.scenario_level.background_color,
@@ -64,8 +65,9 @@ class IndicatorMapView(BaseDashboardView):
                     )
                     try:
                         value = values[0]
-                        self.scenario_level = self.instance.scenario_levels.get(level=value['scenario_value'])
-                    except IndexError:
+                        self.scenario_level = self.instance.scenario_levels.get(
+                            level=value['scenario_value'])
+                    except (IndexError, ScenarioLevel.DoesNotExist):
                         pass
 
                     # return the levels
@@ -75,7 +77,8 @@ class IndicatorMapView(BaseDashboardView):
                         level_with_url[level] = {
                             'level': level.name,
                             'url': reverse('indicator-values-geojson-api', args=[
-                                self.instance.slug, indicator.pk, geometry_country.identifier, level, date.today()
+                                self.instance.slug, indicator.pk,
+                                geometry_country.identifier, level, date.today()
                             ])
                         }
                         if indicator.geometry_reporting_level == level:

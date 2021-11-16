@@ -70,3 +70,11 @@
 #content .header {
     display: none;
 }
+
+.green-button {
+    background: black;
+    border-radius: 5px;
+    font-size: 14px;
+    padding: 5px;
+    margin-right: 5px;
+}

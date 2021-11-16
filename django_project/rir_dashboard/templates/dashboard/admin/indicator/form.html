@@ -1,0 +1,46 @@
+{% extends 'dashboard/_base.html' %}
+{% load static %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'libs/leaflet/1.5.1/leaflet.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/form.css' %}" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="{% static 'css/dashboard/admin/form.css' %}" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="{% static 'css/dashboard/admin/indicator/form.css' %}" type="text/css" media="screen, projection"/>
+{% endblock stylesheet %}
+{% block content %}
+    <form id="form" method="post" class="section" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for field in form %}
+            <p data-field-name="{{ field.name }}">
+                <label class="label{% if field.field.required %} required{% endif %}" for="{{ field.name }}">{{ field.label }}</label>
+                {% if field.errors %}<span class="error">{{ field.errors }}</span>{% endif %}
+                {{ field }}<br/>
+                {% if field.help_text %}<span class="helptext">{{ field.help_text|safe }}</span>{% endif %}
+            </p>
+        {% endfor %}
+        <br>
+        <h3>Scenario Rules</h3>
+        <table id="rule-table">
+            <tr>
+                <th>Scenario</th>
+                <th>Name</th>
+                <th>Rule<br>
+                    <span class="helptext">Use formula to create the rule and use x as the value. Example: x<100. It will replace x with the value and will check the condition.</span>
+                </th>
+            </tr>
+            {% for scenario in scenarios %}
+                <tr>
+                    <td>{{ scenario.name }}</td>
+                    <td><input type="text" name="scenario_{{ scenario.id }}_name" value="{{ scenario.rule_name }}"></td>
+                    <td><input type="text" name="scenario_{{ scenario.id }}_rule" value="{{ scenario.rule_value }}"></td>
+                </tr>
+            {% endfor %}
+        </table>
+        <button class="main-button">Submit</button>
+    </form>
+{% endblock %}
+{% block scripts %}
+    <script>
+        $('#nav-indicator-new').addClass('active')
+    </script>
+{% endblock %}

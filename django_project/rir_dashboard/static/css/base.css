@@ -55,7 +55,8 @@ body {
 
 /* BUTTONS */
 .main-button,
-.white-button {
+.white-button,
+.green-button {
     border: none;
     outline: none;
     padding: 5px 15px;
@@ -72,14 +73,40 @@ body {
     color: var(--primary-color);
 }
 
+.green-button {
+    background-color: green;
+    color: white;
+}
+
+.green-button {
+    background-color: green;
+    color: white;
+}
+
+.green-button:hover {
+    color: white;
+}
+
 .main-button:focus-visible,
 .main-button:focus,
 .white-button:focus-visible,
+.white-button:focus,
+.green-button:focus-visible,
 .white-button:focus {
     outline: none;
 }
 
 .main-button:hover,
-.white-button:hover {
+.white-button:hover,
+.green-button:hover {
+    outline: none;
+    text-decoration: none;
     opacity: 0.9;
+}
+
+.main-button:disabled,
+.white-button:disabled,
+.green-button:disabled {
+    opacity: 0.5;
+    cursor: progress;
 }

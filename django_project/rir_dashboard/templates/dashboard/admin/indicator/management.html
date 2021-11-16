@@ -1,0 +1,45 @@
+{% extends 'dashboard/_base.html' %}
+{% load static %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'css/dashboard/admin/indicator/management.css' %}" type="text/css" media="screen, projection"/>
+{% endblock stylesheet %}
+{% block content %}
+    <div class="section box-shadow-bottom">
+        <div id="drop-area-section">
+            <div id="drop-area">
+                <div>
+                    <i>Drag and drop here to change the order of indicator</i><br><br>
+                    <div>
+                        {% for indicator in indicators %}
+                            <div id="data-{{ indicator.id }}" class="block block-value" data-id="{{ indicator.id }}">
+                                <div class="block-content row">
+                                    <div class="col">{{ indicator.name }}</div>
+                                    <div class="col">
+                                        <a href="{% url "indicator-value-mapview-manager" instance.slug indicator.id %}" class="green-button">Value Manager Map</a>
+                                        <a href="{% url "indicator-edit" instance.slug indicator.id %}" class="green-button">Edit</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <form method="post">
+                {% csrf_token %}
+                <input id="order-input" type="text" name="orders" style="display: none">
+                <button class="main-button">Save New Order</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+{% block scripts %}
+    <script type="text/javascript" src="{% static 'js/dashboard/admin/indicator/management.js' %}"></script>
+    <script>
+        const orders = [];
+        {% for indicator in indicators %}
+            orders.push({{ indicator.id }});
+        {% endfor %}
+        $('#nav-indicator-management').addClass('active')
+    </script>
+{% endblock %}

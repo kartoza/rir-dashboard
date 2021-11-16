@@ -23,7 +23,7 @@
             <div data-program="traffic-light" class="scenario-section">
                 <table>
                     <tr>
-                        <th valign="top" style="width: 250px">Case Title</th>
+                        <th valign="top" style="width: 250px">Indicator</th>
                         <th valign="top" style="width: 150px">Value</th>
                         {% for scenario in scenarios %}
                             <th class="scenario scenario-{{ scenario.level }}" valign="top">
@@ -49,7 +49,9 @@
                         </tr>
                     {% endfor %}
                 </table>
-                <button id="toggle-table" class="main-button content-button scenario-{{ overall_scenario.level }}">Show all indicators</button>
+                {% if user.is_staff %}
+                    <button id="toggle-table" class="main-button content-button scenario-{{ overall_scenario.level }}">Show all indicators</button>
+                {% endif %}
             </div>
             {% for intervention in interventions %}
                 <div data-program="{{ intervention.program_instance.program.slug }}" class="scenario-section intervention">
