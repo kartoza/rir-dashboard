@@ -167,14 +167,16 @@
             </div>
         </div>
     </div>
-    <div id="content">
-        <div class="header box-shadow-bottom ">
-            {% block dashboard_title %}{{ dashboard_title|safe }}{% endblock %}
+    {% block contentview %}
+        <div id="content">
+            <div class="header box-shadow-bottom ">
+                {% block dashboard_title %}{{ dashboard_title|safe }}{% endblock %}
+            </div>
+            <div id="content-view">
+                {% block content %}{% endblock %}
+            </div>
         </div>
-        <div id="content-view">
-            {% block content %}{% endblock %}
-        </div>
-    </div>
+    {% endblock %}
 </div>
 {% block scripts %}{% endblock %}
 </body>

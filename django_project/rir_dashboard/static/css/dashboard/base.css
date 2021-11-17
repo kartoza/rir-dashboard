@@ -17,17 +17,25 @@ html, body {
 #content {
     flex-grow: 1;
     height: 100%;
-    overflow-y: auto;
+    position: relative;
+    padding-top: 52px;
 }
 
 #content-view {
+    max-height: 100%;
+    overflow-y: auto;
     padding: 20px;
 }
 
 #content .header {
     background: white;
+    height: 52px;
     font-weight: 600;
     padding: 13px 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
 }
 
 #content .header .dashboard-icon {

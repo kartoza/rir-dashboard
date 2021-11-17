@@ -1,5 +1,9 @@
-#content-view {
-    position: relative;
+#content {
+    padding-top: 0;
+}
+
+#content .header {
+    display: none;
 }
 
 #list {

@@ -4,8 +4,9 @@ from rir_dashboard.views.dashboard.admin.geography import (
     GeographyView, GeographyLevelManagementView, GeographyUploadView,
 )
 from rir_dashboard.views.dashboard.admin.indicator import (
-    IndicatorValueManagementMapView, IndicatorCreateView,
-    IndicatorManagementView, IndicatorEditView, IndicatorReportingUnitView
+    IndicatorCreateView,
+    IndicatorManagementView, IndicatorEditView, IndicatorReportingUnitView,
+    IndicatorValueManagementMapView, IndicatorValueManagementTableView,
 )
 from rir_dashboard.views.dashboard.admin.instance import (
     InstanceManagementView, InstanceCreateView, InstanceEditView
@@ -15,7 +16,8 @@ from rir_dashboard.views.dashboard import (
 )
 
 dashboard_url = [
-    url(r'^indicator/(?P<pk>\d+)/value-manager', IndicatorValueManagementMapView.as_view(), name='indicator-value-mapview-manager'),
+    url(r'^indicator/(?P<pk>\d+)/value-manager-map', IndicatorValueManagementMapView.as_view(), name='indicator-value-mapview-manager'),
+    url(r'^indicator/(?P<pk>\d+)/value-manager-form', IndicatorValueManagementTableView.as_view(), name='indicator-value-form-manager'),
     url(r'^indicator/(?P<pk>\d+)', IndicatorMapView.as_view(), name='indicator-mapview'),
     url(r'^indicator', IndicatorView.as_view(), name='indicator-view'),
     url(r'^', TrafficLightView.as_view(), name='dashboard-view'),
