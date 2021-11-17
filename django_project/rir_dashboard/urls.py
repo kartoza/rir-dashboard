@@ -32,7 +32,7 @@ admin_geography_url = [
 admin_indicator_url = [
     url(r'^(?P<pk>\d+)/reporting-unit', IndicatorReportingUnitView.as_view(), name='indicator-reporting-unit'),
     url(r'^(?P<pk>\d+)/edit', IndicatorEditView.as_view(), name='indicator-edit'),
-    url(r'^creat', IndicatorCreateView.as_view(), name='indicator-management-new'),
+    url(r'^create', IndicatorCreateView.as_view(), name='indicator-management-new'),
     url(r'^', IndicatorManagementView.as_view(), name='indicator-management-view'),
 ]
 admin_instance_url = [

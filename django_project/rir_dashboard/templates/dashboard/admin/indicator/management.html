@@ -9,17 +9,17 @@
         <div id="drop-area-section">
             <div id="drop-area">
                 <div>
-                    <i>Drag and drop here to change the order of indicator</i><br><br>
+                    <i>Drag and drop here to change the indicators order</i><br><br>
                     <div>
                         {% for indicator in indicators %}
                             <div id="data-{{ indicator.id }}" class="block block-value" data-id="{{ indicator.id }}">
                                 <div class="block-content row">
                                     <div class="col">{{ indicator.name }}</div>
                                     <div class="col">
-                                        <a href="{% url "indicator-edit" instance.slug indicator.id %}" class="green-button">Edit</a>
-                                        <a href="{% url "indicator-reporting-unit" instance.slug indicator.id %}" class="green-button">Reporting Units</a>
-                                        <a href="{% url "indicator-value-mapview-manager" instance.slug indicator.id %}" class="green-button">Value Manager Map</a>
-                                        <a href="{% url "indicator-value-form-manager" instance.slug indicator.id %}" class="green-button">Value Manager Form</a>
+                                        <a href="{% url "indicator-edit" instance.slug indicator.id %}"><button class="green-button">Edit</button></a>
+                                        <a href="{% url "indicator-reporting-unit" instance.slug indicator.id %}"><button class="green-button">Reporting Units</button></a>
+                                        <a href="{% url "indicator-value-mapview-manager" instance.slug indicator.id %}"><button class="green-button">Value Manager Map</button></a>
+                                        <a href="{% url "indicator-value-form-manager" instance.slug indicator.id %}"><button class="green-button">Value Manager Form</button></a>
                                     </div>
                                 </div>
                             </div>
@@ -34,6 +34,10 @@
             </form>
         </div>
     </div>
+{% endblock %}
+{% block dashboard_title %}
+    {{ dashboard_title|safe }}
+    <a href="{% url "indicator-management-new" instance.slug %}"><button class=" main-button pull-right"><i class="fa fa-plus-circle" aria-hidden="true"></i> Create new</button></a>
 {% endblock %}
 {% block scripts %}
     <script type="text/javascript" src="{% static 'js/dashboard/admin/indicator/management.js' %}"></script>

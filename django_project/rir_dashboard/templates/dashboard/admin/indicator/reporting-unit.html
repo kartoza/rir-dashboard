@@ -15,7 +15,7 @@
     </div>
 {% endblock %}
 {% block dashboard_title %}
-    Indicator Reporting Units : {{ indicator.name }}
+    {{ dashboard_title|safe }}
     <button id="uncheck-all" class="main-button pull-right">Uncheck All</button>
     <button id="check-all" class="main-button pull-right" style="margin-right: 1px">Check All</button>
 {% endblock %}

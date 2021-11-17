@@ -77,6 +77,10 @@ html, body {
     border-bottom: 2px solid var(--primary-color);
 }
 
+#content .header .main-button {
+    margin-top: -3px;
+}
+
 #navigation {
     background: white;
     display: flex;
@@ -98,7 +102,7 @@ html, body {
 
 #navigation .content .section div,
 #navigation .content .section a {
-    padding: 5px 15px;
+    padding: 5px 5px 5px 15px;
     text-decoration: none;
     color: inherit;
 }
@@ -116,10 +120,19 @@ html, body {
 #navigation .content .section .nav.active {
     background-color: var(--primary-color) !important;
     color: white !important;
+    font-weight: 600;
 }
 
-#navigation .content .section .nav.active {
-    font-weight: 600;
+#navigation .content .section .nav .fa-plus-circle {
+    font-size: 14px;
+}
+
+#navigation .content .section .nav table {
+    width: 100%;
+}
+
+#navigation .content .section .nav table a:hover {
+    opacity: 0.5;
 }
 
 #navigation .content .section .nav .icon {

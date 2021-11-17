@@ -1,11 +1,3 @@
-#content {
-    padding-top: 0;
-}
-
-#content .header {
-    display: none;
-}
-
 #list {
     border-right: 1px solid var(--primary-color);
     width: 220px;
@@ -46,6 +38,7 @@
 }
 
 #drop-area-section .main-button {
+    margin-top: -1px;
     width: 100%;
 }
 
@@ -75,10 +68,6 @@
     color: white;
 }
 
-#content .header {
-    display: none;
-}
-
 #drop-area .block {
     width: 100%;
     text-align: left;
@@ -89,4 +78,8 @@
     height: 0 !important;
     z-index: 9999 !important;
     margin-bottom: -1px;
+}
+
+.green-button {
+    margin-bottom: 1px;
 }
