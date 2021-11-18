@@ -110,6 +110,9 @@ class Geometry(models.Model):
         verbose_name_plural = 'geometries'
 
     def __str__(self):
+        return self.str()
+
+    def str(self):
         return f'{self.name} ({self.identifier})'
 
     def geometries_by_level(self, geometry_level: GeometryLevelName):

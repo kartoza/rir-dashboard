@@ -3,7 +3,7 @@ from django.urls import include
 from rir_data.api.geometry import GeometryGeojsonAPI
 from rir_data.api.indicator import (
     IndicatorsList, IndicatorValuesGeojson, IndicatorValues,
-    IndicatorValuesByGeometry
+    IndicatorValuesByGeometry, IndicatorReportingUnits
 )
 from rir_dashboard.views.instances import InstancesView
 
@@ -16,13 +16,20 @@ geometry_api = [
 indicator_api = [
     url(
         r'^(?P<pk>\d+)/values/by-geometry/(?P<geometry_pk>\d+)/',
-        IndicatorValuesByGeometry.as_view(), name='indicator-values-by-geometry'),
+        IndicatorValuesByGeometry.as_view(), name='indicator-values-by-geometry'
+    ),
     url(
         r'^(?P<pk>\d+)/values/(?P<geometry_identifier>.+)/(?P<geometry_level>.+)/(?P<date>.+).geojson',
-        IndicatorValuesGeojson.as_view(), name='indicator-values-geojson-api'),
+        IndicatorValuesGeojson.as_view(), name='indicator-values-geojson-api'
+    ),
     url(
         r'^(?P<pk>\d+)/values/(?P<geometry_identifier>.+)/(?P<geometry_level>.+)/(?P<date>.+)',
-        IndicatorValues.as_view(), name='indicator_values-api'),
+        IndicatorValues.as_view(), name='indicator-values-api'
+    ),
+    url(
+        r'^(?P<pk>\d+)/reporting-units',
+        IndicatorReportingUnits.as_view(), name='indicator-reporting-units-api'
+    ),
     url(r'^', IndicatorsList.as_view(), name='indicator-list-api'),
 ]
 api = [

@@ -41,6 +41,8 @@
 {% endblock %}
 {% block scripts %}
     <script>
-        $('#nav-indicator-new').addClass('active')
+        {% if is_create %}
+            $('#nav-indicator-create').addClass('active')
+        {% endif %}
     </script>
 {% endblock %}

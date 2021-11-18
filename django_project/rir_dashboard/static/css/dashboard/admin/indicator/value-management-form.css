@@ -1,0 +1,40 @@
+#content form {
+    height: 100%;
+}
+
+#content-view .row-data {
+    border-bottom: 1px solid var(--primary-color);
+    min-height: 46px;
+    padding: 10px 20px;
+}
+
+#content-view .col {
+    padding: 0;
+}
+
+
+#content-view .geometry-name {
+    padding-top: 13px;
+}
+
+#content-view .row input[type="number"],
+#datepicker {
+    border: 1px solid var(--primary-color);
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#content-view .row input[type="number"]:focus,
+#content-view .row input[type="number"]:focus-visible,
+#datepicker:focus,
+#datepicker:focus-visible {
+    outline: 1px solid var(--primary-color);
+}
+
+#content-view .row-data:last-child {
+    border: none;
+}
+
+#content .header .main-button {
+    margin-top: -5px;
+}

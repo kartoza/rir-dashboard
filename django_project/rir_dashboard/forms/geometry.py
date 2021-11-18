@@ -15,6 +15,7 @@ class GeometryForm(forms.Form):
     """
     Form to upload CSV file.
     """
+    label_suffix = ""
 
     level = forms.ModelChoiceField(
         GeometryLevelName.objects.all()
@@ -41,7 +42,6 @@ class GeometryForm(forms.Form):
         except KeyError:
             pass
         super().__init__(*args, **kwargs)
-        self.label_suffix = ""
         if level:
             self.fields['level'].choices = [(u.id, u.name) for u in level]
 

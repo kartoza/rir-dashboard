@@ -1,0 +1,55 @@
+{% extends 'dashboard/_base.html' %}main-button
+{% load static %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'css/dashboard/admin/indicator/value-management-form.css' %}" type="text/css" media="screen, projection"/>
+{% endblock stylesheet %}
+
+{% block contentview %}
+    <div id="content">
+        <form id="form" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="header box-shadow-bottom ">
+                Indicator Value Manager Form : {{ indicator.name }}
+                <div class="pull-right">
+                    Date: <input type="text" id="datepicker" name="date">
+                    <button id="submit" class="main-button">Submit</button>
+                </div>
+            </div>
+            <div id="content-view">
+                <div class="section box-shadow-bottom">
+                    <div class="row">
+                        <div>
+                            {% for geometry in geometry_reporting_units %}
+                                <div class="row-data geometry-name">{{ geometry.str }}</div>
+                            {% endfor %}
+                        </div>
+                        <div class="col">
+                            {% for geometry in geometry_reporting_units %}
+                                <div class="row-data">
+                                    <input id="input-{{ geometry.id }}" data-id="{{ geometry.id }}" type="number" name="{{ geometry.id }}" placeholder="New value">
+                                    <i id="value-{{ geometry.id }}"></i>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        $("#datepicker").datepicker({
+            "setDate": new Date(),
+            "autoclose": true
+        });
+        var myDate = new Date();
+        var date = myDate.getFullYear() + '-' + ('0' + (myDate.getMonth() + 1)).slice(-2) + '-' + ('0' + myDate.getDate()).slice(-2);
+        $("#datepicker").val(date);
+        {% for value in values %}
+            $(`#value-{{ value.geometry.id }}`).html('Last value : <b>{{ value.value }}</b> at <b>{{ value.date }}</b>')
+        {% endfor %}
+    </script>
+{% endblock %}

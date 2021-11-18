@@ -9,7 +9,7 @@ from rest_framework.views import APIView
 from core.permissions import AdminAuthenticationPermission
 from rir_data.serializer.indicator import IndicatorSerializer
 from rir_data.models.instance import Instance
-from rir_data.models.indicator import IndicatorValue
+from rir_data.models.indicator import Indicator, IndicatorValue
 from rir_data.models.geometry import Geometry, GeometryLevelName
 from rir_data.serializer.indicator import IndicatorValueSerializer
 
@@ -159,3 +159,34 @@ class IndicatorValuesGeojson(IndicatorValues):
             return HttpResponseBadRequest('The geometry level is not recognized')
         except ValueError:
             return HttpResponseBadRequest('Date format is not correct')
+
+
+class IndicatorReportingUnits(APIView):
+    """
+    Change reporting units of indicator
+    """
+    permission_classes = (IsAuthenticated, AdminAuthenticationPermission,)
+
+    def post(self, request, slug, pk):
+        """
+        Save reporting units of indicator
+
+        :param slug: slug of the instance
+        :param pk: pk of the indicator
+        :return:
+        """
+        try:
+            instance = get_object_or_404(
+                Instance, slug=slug
+            )
+            indicator = instance.indicators.get(id=pk)
+            indicator.geometry_reporting_units.clear()
+            ids = request.POST['ids'].split(',')
+            if len(ids) > 0:
+                if ids[0]:
+                    indicator.geometry_reporting_units.add(*Geometry.objects.filter(id__in=ids))
+            return Response('OK')
+        except Indicator.DoesNotExist:
+            raise Http404('Indicator does not exist')
+        except KeyError:
+            return HttpResponseBadRequest('ids is needed in data')

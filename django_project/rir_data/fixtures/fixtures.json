@@ -140,6 +140,15 @@
     "model": "rir_data.indicatorfrequency",
     "pk": 1,
     "fields": {
+      "name": "Weekly",
+      "description": "",
+      "frequency": 31
+    }
+  },
+  {
+    "model": "rir_data.indicatorfrequency",
+    "pk": 2,
+    "fields": {
       "name": "Biweekly",
       "description": "",
       "frequency": 14
@@ -147,11 +156,20 @@
   },
   {
     "model": "rir_data.indicatorfrequency",
-    "pk": 2,
+    "pk": 3,
     "fields": {
       "name": "Monthly",
       "description": "",
       "frequency": 31
+    }
+  },
+  {
+    "model": "rir_data.indicatorfrequency",
+    "pk": 4,
+    "fields": {
+      "name": "Yearly",
+      "description": "",
+      "frequency": 	365
     }
   },
   {
@@ -160,7 +178,7 @@
     "fields": {
       "name": "Biweekly change in Confirmed COVID-19 cases",
       "group": 1,
-      "frequency": 1,
+      "frequency": 2,
       "show_in_traffic_light": true,
       "geometry_reporting_level": 1,
       "aggregation_behaviour": "Use all available populated geography in current time window",
@@ -173,7 +191,7 @@
     "fields": {
       "name": "Travel Restrictions - Air",
       "group": 1,
-      "frequency": 1,
+      "frequency": 2,
       "show_in_traffic_light": false,
       "geometry_reporting_level": 1,
       "aggregation_behaviour": "Use all available populated geography in current time window",
@@ -186,7 +204,7 @@
     "fields": {
       "name": "Travel Restrictions - Sea",
       "group": 1,
-      "frequency": 1,
+      "frequency": 2,
       "show_in_traffic_light": false,
       "geometry_reporting_level": 1,
       "aggregation_behaviour": "Use all available populated geography in current time window",
@@ -199,7 +217,7 @@
     "fields": {
       "name": "Travel Restrictions - Roads",
       "group": 1,
-      "frequency": 1,
+      "frequency": 2,
       "show_in_traffic_light": false,
       "geometry_reporting_level": 1,
       "aggregation_behaviour": "Use all available populated geography in current time window",
@@ -212,7 +230,7 @@
     "fields": {
       "name": "IPC Phase",
       "group": 2,
-      "frequency": 2,
+      "frequency": 3,
       "show_in_traffic_light": true,
       "geometry_reporting_level": 3,
       "aggregation_behaviour": "Use all available populated geography in current time window",

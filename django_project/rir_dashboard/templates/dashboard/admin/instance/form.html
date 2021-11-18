@@ -1,0 +1,49 @@
+{% extends 'dashboard/_base.html' %}
+{% load static %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'libs/leaflet/1.5.1/leaflet.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/form.css' %}" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="{% static 'css/dashboard/admin/form.css' %}" type="text/css" media="screen, projection"/>
+{% endblock stylesheet %}
+{% block content %}
+    <form id="form" method="post" class="section" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for field in form %}
+            {% if is_create or field.name != 'icon' %}
+                <p data-field-name="{{ field.name }}">
+                    <label class="label{% if field.field.required %} required{% endif %}" for="{{ field.name }}">{{ field.label }}</label>
+                    {% if field.errors %}<span class="error">{{ field.errors }}</span>{% endif %}
+                    {{ field }}<br/>
+                    {% if field.help_text %}<span class="helptext">{{ field.help_text|safe }}</span>{% endif %}
+                </p>
+            {% endif %}
+        {% endfor %}
+        {% if not is_create %}
+            <p data-field-name="icon_field">
+                <label class="label" for="icon_field">Icon</label>
+            <div class="row">
+                <div style="width: 110px">
+                    <img style="width: 100px" src="{% if instance.icon %}{{ instance.icon.url }}{% else %}{% static "img/no-image-found.jpg" %}{% endif %}">
+                </div>
+                <div class="col">
+                    <input type="file" name="icon" id="id_icon">
+                    <div style="padding: 5px;margin-top: 10px">
+                        <input type="checkbox" name="icon_delete" value="true">
+                        <span> Delete the image</span><br>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        </p>
+        <button class="main-button">Submit</button>
+    </form>
+{% endblock %}
+{% block scripts %}
+    <script>
+        {% if is_create %}
+            $('#nav-instance-create').addClass('active')
+        {% endif %}
+    </script>
+{% endblock %}

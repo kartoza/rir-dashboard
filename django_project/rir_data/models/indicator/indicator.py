@@ -40,6 +40,9 @@ class Indicator(AbstractTerm):
         GeometryLevelName, on_delete=models.SET_NULL,
         null=True, blank=True
     )
+    geometry_reporting_units = models.ManyToManyField(
+        Geometry, blank=True
+    )
     show_in_traffic_light = models.BooleanField(
         default=True,
         help_text=_(
@@ -147,6 +150,7 @@ class Indicator(AbstractTerm):
 
         # get the geometries target by the level
         geometries_target = geometry.geometries_by_level(geometry_level)
+        reporting_units = list(self.reporting_units.values_list('id', flat=True))
 
         # get the data for every geometry target
         for geometry_target in geometries_target:
@@ -157,6 +161,8 @@ class Indicator(AbstractTerm):
             # filter data just by geometry target
             query_report = query.filter(
                 geometry__in=geometries_report
+            ).filter(
+                geometry__id__in=reporting_units
             )
             try:
                 value = None
@@ -188,3 +194,14 @@ class Indicator(AbstractTerm):
                 pass
 
         return values
+
+    @property
+    def reporting_units(self):
+        """
+        Return geometry of instance in the level when does not have geometry_reporting_units
+        """
+        if self.geometry_reporting_units.count() == 0:
+            return self.group.instance.geometries().filter(
+                geometry_level=self.geometry_reporting_level)
+        else:
+            return self.geometry_reporting_units.all()

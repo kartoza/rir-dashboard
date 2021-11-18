@@ -82,7 +82,7 @@ class IndicatorEditView(AdminView):
                     scenario_rule.save()
             return redirect(
                 reverse(
-                    'dashboard-view', args=[self.instance.slug]
+                    'indicator-management-view', args=[self.instance.slug]
                 )
             )
         context = self.get_context_data(**kwargs)

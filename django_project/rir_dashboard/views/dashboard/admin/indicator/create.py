@@ -27,7 +27,8 @@ class IndicatorCreateView(AdminView):
                 level=self.instance.geometry_levels_in_order,
                 indicator_instance=self.instance
             ),
-            'scenarios': scenarios
+            'scenarios': scenarios,
+            'is_create': True
         }
         return context
 
@@ -55,11 +56,12 @@ class IndicatorCreateView(AdminView):
                     scenario_rule.save()
             return redirect(
                 reverse(
-                    'dashboard-view', args=[self.instance.slug]
+                    'indicator-management-view', args=[self.instance.slug]
                 )
             )
         context = self.get_context_data(**kwargs)
         context['form'] = form
+        context['is_create'] = True
         return render(
             request,
             self.template_name,
