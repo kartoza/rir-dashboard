@@ -51,5 +51,6 @@ LOCALE_PATHS = (ABS_PATH('locale'),)
 INSTALLED_APPS = INSTALLED_APPS + (
     'core',
     'rir_data',
+    'rir_harvester',
     'rir_dashboard',
 )

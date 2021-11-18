@@ -11,7 +11,8 @@ $(document).ready(function () {
     const onEachFeature = function onEachFeature(feature, layer) {
         layer.bindPopup('' +
             '<table>' +
-            `<tr><td style="text-align: right"><b>Name</b></td><td>${feature.properties.name} (${feature.properties.identifier})</td></tr>` +
+            `<tr><td style="text-align: right"><b>Identifier</b></td><td>${feature.properties.identifier}</td></tr>` +
+            `<tr><td style="text-align: right"><b>Name</b></td><td>${feature.properties.name}</td></tr>` +
             `<tr><td style="text-align: right"><b>Alias</b></td><td>${feature.properties.alias}</td></tr>` +
             '</table>');
     }

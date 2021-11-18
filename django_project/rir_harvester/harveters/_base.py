@@ -3,12 +3,10 @@ import requests
 import traceback
 from abc import ABC, abstractmethod
 from django.contrib.auth import get_user_model
-from rir_data.models import Geometry
-from rir_data.models.harvester import (
-    Harvester, HarvesterLog
+from rir_data.models import Geometry, IndicatorValue
+from rir_harvester.models import (
+    Harvester, HarvesterLog, LogStatus
 )
-from rir_data.models.harvester.harvester_log import LogStatus
-from rir_data.models.indicator import IndicatorValue
 
 User = get_user_model()
 
@@ -22,13 +20,18 @@ class HarvestingError(Exception):
 class BaseHarvester(ABC):
     """ Abstract class for harvester """
 
+    description = ""
     attributes = {}
+    mapping = {}
 
     def __init__(self, harvester: Harvester):
         self.harvester = harvester
+        self.reporting_units = harvester.indicator.reporting_units
         self.log = HarvesterLog.objects.create(harvester=harvester)
         for attribute in harvester.harvesterattribute_set.all():
             self.attributes[attribute.name] = attribute.value
+        for attribute in harvester.harvestermappingvalue_set.all():
+            self.mapping[attribute.remote_value] = attribute.platform_value
 
     @staticmethod
     def additional_attributes() -> dict:
@@ -43,6 +46,9 @@ class BaseHarvester(ABC):
     def _headers(self) -> dict:
         return {}
 
+    def eval_json(self, json, str) -> dict:
+        return eval(str.replace('x', 'json'))
+
     @abstractmethod
     def _process(self):
         """ Run the harvester process"""
@@ -50,11 +56,16 @@ class BaseHarvester(ABC):
     def run(self):
         # run the process
         try:
-            if self.harvester.indicator.allow_to_harvest_new_data:
-                self._process()
-                self._done()
-            else:
-                self._done("Harvesting can't be executed : still in the indicator frequency with last harvest time.")
+            self._process()
+            self._done()
+
+            # TODO:
+            #  We need to make it forceable
+            # if self.harvester.indicator.allow_to_harvest_new_data:
+            #     self._process()
+            #     self._done()
+            # else:
+            #     self._done("Harvesting can't be executed : still in the indicator frequency with last harvest time.")
         except HarvestingError as e:
             self._error(f'{e}')
         except Exception:
@@ -106,4 +117,6 @@ class BaseHarvester(ABC):
                 'value': value
             }
         )
+        indicator_value.value = value
+        indicator_value.save()
         return indicator_value

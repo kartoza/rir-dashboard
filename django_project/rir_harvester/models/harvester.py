@@ -3,15 +3,24 @@ from django.utils.module_loading import import_string
 from django.utils.translation import ugettext_lazy as _
 from rir_data.models.indicator import Indicator
 
+APIListWithGeographyAndDate = (
+    'rir_harvester.harveters.api_with_geography_and_date.APIWithGeographyAndDate',
+    'API With Geography And Date',
+)
+HARVESTERS = (
+    APIListWithGeographyAndDate,
+)
+
 
 class Harvester(models.Model):
     """ Harvester of indicator data
     """
     harvester_class = models.CharField(
-        max_length=100,
+        max_length=256,
         help_text=_(
             "The type of harvester that will be used."
-            "Use class with full package.")
+            "Use class with full package."),
+        choices=HARVESTERS
     )
     indicator = models.OneToOneField(
         Indicator, on_delete=models.CASCADE
@@ -32,16 +41,18 @@ class Harvester(models.Model):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        from rir_data.models.harvester import HarvesterAttribute
+        self.save_attributes()
 
+    def save_attributes(self):
+        """
+        Save attributes for the harvesters
+        """
+        from rir_harvester.models import HarvesterAttribute
         harvester = self.get_harvester_class
-        for key, value in harvester.additional_attributes().items():
+        for key in harvester.additional_attributes().keys():
             HarvesterAttribute.objects.get_or_create(
                 harvester=self,
-                name=key,
-                defaults={
-                    'value': value
-                }
+                name=key
             )
 
     def run(self):
