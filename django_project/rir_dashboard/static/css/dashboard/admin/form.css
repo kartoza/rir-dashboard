@@ -1,36 +1,5 @@
-#content h3 {
-    background: var(--primary-color);
-    color: white;
-    font-weight: 600;
-    font-size: 14px;
-    padding: 10px;
-    margin: 0;
-    width: 100%;
-}
-
 #content input {
     padding: 5px !important;
-}
-
-#content label {
-    display: block;
-}
-
-#content label.required {
-    font-weight: 600;
-}
-
-#content label.required:after {
-    content: " *";
-}
-
-#content table {
-    width: 100%;
-}
-
-#content table th, #content table tr {
-    border: 1px solid var(--primary-color);
-    padding: 5px 10px;
 }
 
 #form {

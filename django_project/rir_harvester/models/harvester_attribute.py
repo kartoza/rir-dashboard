@@ -30,6 +30,10 @@ class HarvesterAttribute(models.Model):
     def __str__(self):
         return f'{self.name}'
 
+    @property
+    def human_name(self):
+        return self.name.replace('_', ' ').capitalize()
+
 
 class HarvesterMappingValue(models.Model):
     """

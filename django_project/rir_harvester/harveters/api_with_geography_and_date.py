@@ -38,7 +38,8 @@ class APIWithGeographyAndDate(BaseHarvester):
             ),
             'date_format': (
                 "Format of the date from the data. "
-                "Check a href='https://strftime.org/'>here</a>"
+                "Check a href='https://strftime.org/'>here</a>."
+                "Let it empty to use timestamp instead."
             ),
         }
 
@@ -59,22 +60,30 @@ class APIWithGeographyAndDate(BaseHarvester):
             if not keys_for_date:
                 raise KeyError('keys_for_date ')
             date_format = self.attributes['date_format']
-            if not date_format:
-                raise KeyError('date_format ')
-
             keys_for_list = self.attributes['keys_for_list']
         except KeyError as e:
             raise HarvestingError(f'{e} is not provided.')
 
         response = self._request_api(api_url)
+        self._update(f'Request API : {api_url}')
+
         data_list = response.json()
         if keys_for_list:
-            data_list = self.eval_json(data_list, keys_for_list)
+            try:
+                data_list = self.eval_json(data_list, keys_for_list)
+            except KeyError as e:
+                raise HarvestingError(f'{e} is found.')
         for row in data_list:
             try:
                 value = self.eval_json(row, keys_for_value)
                 date_data = self.eval_json(row, keys_for_date)
-                date_data = datetime.strptime(date_data, "%Y%m%d").date()
+                if date_format:
+                    date_data = datetime.strptime(date_data, date_format).date()
+                else:
+                    try:
+                        date_data = datetime.fromtimestamp(date_data).date()
+                    except ValueError:
+                        date_data = datetime.fromtimestamp(int(date_data)/1000).date()
 
                 geography_name = self.eval_json(row, keys_for_geography_identifier)
                 geography_identifier = self.mapping[geography_name]
@@ -83,9 +92,12 @@ class APIWithGeographyAndDate(BaseHarvester):
                 ).first()
 
                 if geometry:
+                    self._update(f'Save data for {geometry.identifier} with date {date_data} and value {value}')
                     self.save_indicator_data(
                         value, date_data, geometry
                     )
+                else:
+                    self._update(f'Geometry {geography_identifier} does not found')
 
-            except KeyError:
-                pass
+            except KeyError as e:
+                self._update(f'{e} is found.')

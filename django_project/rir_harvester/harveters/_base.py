@@ -53,7 +53,7 @@ class BaseHarvester(ABC):
     def _process(self):
         """ Run the harvester process"""
 
-    def run(self):
+    def run(self, force=False):
         # run the process
         try:
             self._process()
@@ -61,11 +61,11 @@ class BaseHarvester(ABC):
 
             # TODO:
             #  We need to make it forceable
-            # if self.harvester.indicator.allow_to_harvest_new_data:
-            #     self._process()
-            #     self._done()
-            # else:
-            #     self._done("Harvesting can't be executed : still in the indicator frequency with last harvest time.")
+            if self.harvester.indicator.allow_to_harvest_new_data or force:
+                self._process()
+                self._done()
+            else:
+                self._done("Harvesting can't be executed : still in the indicator frequency with last harvest time.")
         except HarvestingError as e:
             self._error(f'{e}')
         except Exception:

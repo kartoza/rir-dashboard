@@ -1,0 +1,81 @@
+{% extends 'dashboard/_base.html' %}
+{% load static %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'css/form.css' %}" type="text/css" media="screen, projection"/>
+    <style>
+        #content-view .section {
+            padding: 20px;
+        }
+    </style>
+{% endblock stylesheet %}
+{% block contentview %}
+    <div id="content">
+        <div class="header box-shadow-bottom ">
+            {{ dashboard_title|safe }}
+            <form method="post" enctype="multipart/form-data" class="pull-right">
+                {% csrf_token %}
+                <button class="main-button" type="submit">Run</button>
+            </form>
+            <a href="{% url "harvester-api-with-geography-and-date" instance.slug indicator.id %}" class="pull-right" style="margin-right: 1px">
+                <button class="main-button">Edit</button>
+            </a>
+        </div>
+        <div id="content-view">
+            <div class="section box-shadow-bottom">
+                <div class="line"><b>Harvester Class</b> {{ harvester.harvester_class }}</div>
+                <h3>Log</h3>
+                <table class="content-table">
+                    <tr>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <th>Status</th>
+                        <th>Note</th>
+                    </tr>
+                    {% for log in harvester.harvesterlog_set.all %}
+                        <tr>
+                            <td>{{ log.start_time }}</td>
+                            <td>{{ log.end_time }}</td>
+                            <td>{{ log.status }}</td>
+                            <td>{{ log.note }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                <br>
+                <h3>Attributes</h3>
+                <table class="content-table">
+                    <tr>
+                        <th>Name</th>
+                        <th>Value</th>
+                    </tr>
+                    {% for attribute in harvester.harvesterattribute_set.all %}
+                        <tr>
+                            <td>{{ attribute.human_name }}</td>
+                            <td>{% if attribute.value %}{{ attribute.value }}{% endif %}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                <br>
+                <h3>Mapping Data</h3>
+                <table id="mapping-table" class="content-table">
+                    <tr>
+                        <th>From</th>
+                        <th>To</th>
+                    </tr>
+                    {% for mapping_value in harvester.harvestermappingvalue_set.all %}
+                        <tr>
+                            <td>{{ mapping_value.remote_value }}</td>
+                            <td>{{ mapping_value.platform_value }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block scripts %}
+    <script>
+    </script>
+    {% block extrascripts %}
+    {% endblock %}
+{% endblock %}

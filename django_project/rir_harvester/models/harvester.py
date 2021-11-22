@@ -55,9 +55,9 @@ class Harvester(models.Model):
                 name=key
             )
 
-    def run(self):
+    def run(self, force=False):
         """
         Run the harvester
         """
         if self.active:
-            self.get_harvester_class(self).run()
+            self.get_harvester_class(self).run(force)

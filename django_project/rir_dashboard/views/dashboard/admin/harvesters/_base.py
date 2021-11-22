@@ -29,12 +29,28 @@ class HarvesterFormView(AdminView):
             raise Http404('Indicator does not found')
 
         attributes = []
-        harvester = self.indicator.harvester
+        mapping = []
+        harvester = None
+        try:
+            harvester = self.indicator.harvester
+            for _map in harvester.harvestermappingvalue_set.all():
+                mapping.append(
+                    {
+                        'remote_value': _map.remote_value,
+                        'platform_value': _map.platform_value
+                    }
+                )
+        except Harvester.DoesNotExist:
+            pass
+
+        harvester_class = str(self.harvester_class).split("'")[1]
+        if harvester and harvester.harvester_class != harvester_class:
+            raise Http404('Harvester does not match')
+
         for name, description in self.harvester_class.additional_attributes().items():
-            try:
+            value = ''
+            if harvester:
                 value = harvester.harvesterattribute_set.get(name=name).value
-            except HarvesterAttribute.DoesNotExist:
-                value = ''
             attributes.append(
                 {
                     'name': name,
@@ -43,14 +59,7 @@ class HarvesterFormView(AdminView):
                     'description': description
                 }
             )
-        mapping = []
-        for _map in harvester.harvestermappingvalue_set.all():
-            mapping.append(
-                {
-                    'remote_value': _map.remote_value,
-                    'platform_value': _map.platform_value
-                }
-            )
+
         context = {
             'indicator': self.indicator,
             'harvesters': [
@@ -60,7 +69,7 @@ class HarvesterFormView(AdminView):
                     'description': import_string(harvester[0]).description
                 } for harvester in HARVESTERS
             ],
-            'harvester_class': str(self.harvester_class).split("'")[1],
+            'harvester_class': harvester_class,
             'attributes': attributes,
             'mapping': mapping
         }

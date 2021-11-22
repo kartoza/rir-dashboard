@@ -31,8 +31,11 @@
                                     </div>
                                     <div class="col">
                                         {% if indicator.harvester %}
-                                            <a href="{% url "harvester-api-with-geography-and-date" instance.slug indicator.id %}">
-                                                <button class="main-button">Edit Harvester</button>
+{#                                            <a href="{% url "run-harvester" instance.slug indicator.harvester.id %}">#}
+{#                                                <button class="main-button">Run Harvester</button>#}
+{#                                            </a>#}
+                                            <a href="{% url "harvester-detail" instance.slug indicator.id %}">
+                                                <button class="main-button">Harvester</button>
                                             </a>
                                         {% else %}
                                             <a href="{% url "harvester-api-with-geography-and-date" instance.slug indicator.id %}">
