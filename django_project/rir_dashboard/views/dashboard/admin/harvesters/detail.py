@@ -52,7 +52,7 @@ class HarvesterDetail(AdminView):
             raise Http404('Indicator does not found')
         try:
             harvester = self.indicator.harvester
-            run_harvester(harvester.pk)
+            run_harvester.delay(harvester.pk)
 
             return redirect(
                 reverse(
