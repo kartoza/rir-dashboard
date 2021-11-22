@@ -53,6 +53,10 @@ body {
     position: relative;
 }
 
+a:hover {
+    text-decoration: none !important;
+}
+
 /* BUTTONS */
 .main-button,
 .white-button,
