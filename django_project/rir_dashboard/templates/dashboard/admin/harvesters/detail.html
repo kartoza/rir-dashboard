@@ -24,24 +24,6 @@
         <div id="content-view">
             <div class="section box-shadow-bottom">
                 <div class="line"><b>Harvester Class</b> {{ harvester.harvester_class }}</div>
-                <h3>Log</h3>
-                <table class="content-table">
-                    <tr>
-                        <th>Start Time</th>
-                        <th>End Time</th>
-                        <th>Status</th>
-                        <th>Note</th>
-                    </tr>
-                    {% for log in harvester.harvesterlog_set.all %}
-                        <tr>
-                            <td>{{ log.start_time }}</td>
-                            <td>{{ log.end_time }}</td>
-                            <td>{{ log.status }}</td>
-                            <td>{{ log.note }}</td>
-                        </tr>
-                    {% endfor %}
-                </table>
-                <br>
                 <h3>Attributes</h3>
                 <table class="content-table">
                     <tr>
@@ -66,6 +48,24 @@
                         <tr>
                             <td>{{ mapping_value.remote_value }}</td>
                             <td>{{ mapping_value.platform_value }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                <br>
+                <h3>Log</h3>
+                <table class="content-table">
+                    <tr>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <th>Status</th>
+                        <th>Note</th>
+                    </tr>
+                    {% for log in harvester.harvesterlog_set.all %}
+                        <tr>
+                            <td>{{ log.start_time }}</td>
+                            <td>{{ log.end_time }}</td>
+                            <td>{{ log.status }}</td>
+                            <td>{{ log.note }}</td>
                         </tr>
                     {% endfor %}
                 </table>
