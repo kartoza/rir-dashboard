@@ -32,6 +32,10 @@
     font-weight: 700;
 }
 
+.instance img {
+    width: 100%;
+}
+
 .instance:hover {
     background: var(--hovered-color);
     text-decoration: none;

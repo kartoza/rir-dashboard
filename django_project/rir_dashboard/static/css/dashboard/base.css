@@ -21,6 +21,17 @@ html, body {
     padding-top: 52px;
 }
 
+#content h3 {
+    background: var(--primary-color);
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 10px;
+    margin: 0;
+    width: 100%;
+}
+
+
 #content-view {
     max-height: 100%;
     overflow-y: auto;
@@ -56,6 +67,10 @@ html, body {
     overflow: hidden;
 }
 
+#content .section .line {
+    padding: 20px 0;
+}
+
 #content .section-nav {
     margin-bottom: 30px;
     margin-top: 30px;
@@ -79,6 +94,30 @@ html, body {
 
 #content .header .main-button {
     margin-top: -3px;
+}
+
+#content label {
+    display: block;
+}
+
+#content label.required {
+    font-weight: 600;
+}
+
+#content label.required:after {
+    content: " *";
+}
+
+#content .content-table {
+    width: 100%;
+}
+
+#content .content-table tr {
+    border: 1px solid var(--primary-color);
+}
+
+#content .content-table th, #content .content-table td {
+    padding: 10px;
 }
 
 #navigation {

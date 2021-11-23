@@ -80,6 +80,12 @@
     margin-bottom: -1px;
 }
 
-.green-button {
+.green-button,
+.main-button {
     margin-bottom: 1px;
+}
+
+.col .green-button,
+.col .main-button {
+    width: fit-content !important;
 }

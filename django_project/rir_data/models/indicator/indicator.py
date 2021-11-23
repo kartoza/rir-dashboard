@@ -114,7 +114,7 @@ class Indicator(AbstractTerm):
         """
         Return scenario level of the value
         """
-        if value:
+        if value is not None:
             # check the rule
             for indicator_rule in self.indicatorscenariorule_set.all():
                 try:

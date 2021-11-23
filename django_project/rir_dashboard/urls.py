@@ -14,8 +14,16 @@ from rir_dashboard.views.dashboard.admin.instance import (
 from rir_dashboard.views.dashboard import (
     TrafficLightView, IndicatorView, IndicatorMapView
 )
+from rir_dashboard.views.dashboard.admin.harvesters import (
+    HarvesterAPIWithGeographyAndDateView, HarvesterDetail
+)
 
+harvester_form_url = [
+    url(r'^update/api-with-geography-and-date', HarvesterAPIWithGeographyAndDateView.as_view(), name='harvester-api-with-geography-and-date'),
+]
 dashboard_url = [
+    url(r'^indicator/(?P<pk>\d+)/harvester/', include(harvester_form_url)),
+    url(r'^indicator/(?P<pk>\d+)/harvester', HarvesterDetail.as_view(), name='harvester-detail'),
     url(r'^indicator/(?P<pk>\d+)/value-manager-map', IndicatorValueManagementMapView.as_view(), name='indicator-value-mapview-manager'),
     url(r'^indicator/(?P<pk>\d+)/value-manager-form', IndicatorValueManagementTableView.as_view(), name='indicator-value-form-manager'),
     url(r'^indicator/(?P<pk>\d+)', IndicatorMapView.as_view(), name='indicator-mapview'),

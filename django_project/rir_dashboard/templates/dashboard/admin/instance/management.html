@@ -12,7 +12,7 @@
                     <img src="{% if instance.icon %}{{ instance.icon.url }}{% else %}{% static "img/no-image-found.jpg" %}{% endif %}">
                 </div>
                 <div class="content">
-                    <div><h3>{{ instance.name }}</h3></div>
+                    <div><h2>{{ instance.name }}</h2></div>
                     <div><a href="{% url "instance-management-edit" instance.slug %}" class="green-button">Edit</a></div>
                 </div>
             </div>

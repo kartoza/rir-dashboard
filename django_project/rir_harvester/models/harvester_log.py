@@ -1,6 +1,6 @@
 from django.contrib.gis.db import models
 from django.utils.translation import ugettext_lazy as _
-from rir_data.models.harvester import Harvester
+from rir_harvester.models.harvester import Harvester
 
 
 class LogStatus(object):

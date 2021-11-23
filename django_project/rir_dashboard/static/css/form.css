@@ -28,6 +28,7 @@ form .main-button:hover {
 
 textarea,
 form input[type=submit],
+form input[type=password],
 form input[type=number],
 form input[type=text] {
     width: 100%;
