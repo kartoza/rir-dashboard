@@ -6,18 +6,18 @@
     <h3>Geometry Mapping</h3>
     <table id="mapping-table" class="content-table">
         <tr>
-            <th>Remote Name</th>
-            <th>Geometry</th>
+            <th>From (Remote Name)</th>
+            <th>To (Geometry ID)</th>
         </tr>
         {% for reporting_unit in reporting_units %}
             <tr>
-                <td>
+                <td style="width: 50%">
+                    <input type="text" data-identifier="{{ reporting_unit.identifier }}" name="mapping_remote_{{ reporting_unit.pk }}" value="{{ attribute.value }}">
+                </td>
+                <td style="width: 50%">
                     {{ reporting_unit.str }}
                     <input type="text" name="mapping_platform_{{ reporting_unit.pk }}" value="{{ reporting_unit.identifier }}" style="display: none">
 
-                </td>
-                <td>
-                    <input type="text" data-identifier="{{ reporting_unit.identifier }}" name="mapping_remote_{{ reporting_unit.pk }}" value="{{ attribute.value }}">
                 </td>
             </tr>
         {% endfor %}

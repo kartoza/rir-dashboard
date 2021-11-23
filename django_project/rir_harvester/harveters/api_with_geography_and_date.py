@@ -38,7 +38,7 @@ class APIWithGeographyAndDate(BaseHarvester):
             ),
             'date_format': (
                 "Format of the date from the data. "
-                "Check a href='https://strftime.org/'>here</a>."
+                "Check <a href='https://strftime.org/'>here</a>."
                 "Let it empty to use timestamp instead."
             ),
         }

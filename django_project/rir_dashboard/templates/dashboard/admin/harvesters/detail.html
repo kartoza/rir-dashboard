@@ -46,8 +46,8 @@
                     </tr>
                     {% for mapping_value in harvester.harvestermappingvalue_set.all %}
                         <tr>
-                            <td>{{ mapping_value.remote_value }}</td>
-                            <td>{{ mapping_value.platform_value }}</td>
+                            <td style="width: 50%">{{ mapping_value.remote_value }}</td>
+                            <td style="width: 50%">{{ mapping_value.platform_value }}</td>
                         </tr>
                     {% endfor %}
                 </table>
