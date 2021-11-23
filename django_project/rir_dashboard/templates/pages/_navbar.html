@@ -14,7 +14,10 @@
                 <ul class="dropdown-menu box-shadow-bottom">
                     {% if user.is_staff %}
                         <li>
-                            <a href="/admin/">{% trans "Django admin" %}</a>
+                            <a href="/admin/">{% trans "Django Admin" %}</a>
+                        </li>
+                        <li>
+                            <a href="/node-red/">{% trans "Node Red" %}</a>
                         </li>
                     {% endif %}
                     <li>

@@ -1,4 +1,4 @@
-FROM kartoza/rir_dashboard_django
+FROM kartoza/rir_dashboard_django:0.0.1
 MAINTAINER Irwan Fathurrahman<meomancer@gmail.com>
 
 # This section taken on 2 July 2015 from

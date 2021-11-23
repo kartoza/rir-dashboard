@@ -5,24 +5,15 @@ volumes:
   media-data:
   database:
   rabbitmq:
+  node-red-data:
 
 x-common-django:
   &default-common-django
   image: kartoza/${COMPOSE_PROJECT_NAME}_django:${DJANGO_TAG:-latest}
-  environment:
-    - DATABASE_NAME=${DATABASE_NAME}
-    - DATABASE_HOST=${DATABASE_HOST}
-    - DATABASE_USERNAME=${DATABASE_USERNAME}
-    - DATABASE_PASSWORD=${DATABASE_PASSWORD}
-    - ADMIN_USERNAME=${ADMIN_USERNAME}
-    - ADMIN_PASSWORD=${ADMIN_PASSWORD}
-    - ADMIN_EMAIL=${ADMIN_EMAIL}
-
-    # hardcoded
-    - RABBITMQ_HOST=rabbitmq
-    - DJANGO_SETTINGS_MODULE=core.settings.prod
-    - VIRTUAL_HOST=project.com
-    - VIRTUAL_PORT=8080
+  build:
+    context: ../
+    dockerfile: deployment/docker/Dockerfile
+  env_file: .env
   volumes:
     - static-data:/home/web/static
     - media-data:/home/web/media
@@ -53,9 +44,6 @@ services:
     <<: *default-common-django
     container_name: "${COMPOSE_PROJECT_NAME}_django"
     command: 'uwsgi --ini /uwsgi.conf'
-  # TODO:
-  #  Can't run the entrypoint
-  #    entrypoint: ["/entrypoint.sh"]
 
   # Celery worker that executes celery tasks created by Django.
   worker:
@@ -65,7 +53,10 @@ services:
     entrypoint: []
 
   nginx:
-    image: nginx
+    image: kartoza/${COMPOSE_PROJECT_NAME}_nginx:${NGINX_TAG:-latest}
+    build:
+      context: ../
+      dockerfile: deployment/nginx/Dockerfile
     container_name: "${COMPOSE_PROJECT_NAME}_nginx"
     hostname: nginx
     volumes:
@@ -74,3 +65,10 @@ services:
     ports:
       - "${HTTP_PORT}:8080"
     restart: on-failure:5
+
+
+  node-red:
+    image: nodered/node-red:${NODE_RED_TAG:-latest}
+    env_file: .env
+    volumes:
+      - node-red-data:/data

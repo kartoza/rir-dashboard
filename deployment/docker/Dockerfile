@@ -24,11 +24,10 @@ RUN pip install -r /REQUIREMENTS.txt
 RUN ln -s /usr/bin/python3 /usr/local/bin/python
 
 ADD django_project /home/web/django_project
-ADD deployment/docker/entrypoint.sh /entrypoint.sh
-ADD deployment/docker/initialize.py /initialize.py
 
 # Open port 8080 as we will be running our uwsgi socket on that
 EXPOSE 8080
 
 WORKDIR /home/web/django_project
+ENTRYPOINT ["/home/web/django_project/entrypoint.sh"]
 CMD ["uwsgi", "--ini", "/uwsgi.conf"]

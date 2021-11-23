@@ -10,11 +10,12 @@ echo "-----------------------------------------------------"
 
 # Run migrations
 echo 'Running initialize.py...'
-python -u /initialize.py
+python -u initialize.py
 
 echo "-----------------------------------------------------"
 echo "FINISHED DJANGO ENTRYPOINT --------------------------"
 echo "-----------------------------------------------------"
 
-# Run the CMD 
+# Run the CMD
 exec "$@"
+
