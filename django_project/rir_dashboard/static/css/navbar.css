@@ -73,14 +73,17 @@ select:focus-visible {
     margin-left: 10px;
 }
 
-.dropdown-menu {
+.navbar .dropdown-menu {
     font-size: 14px;
     right: 0 !important;
-    padding: 0 !important;
     top: 34px !important;
     border: 1px solid #ddd;
     left: auto !important;
     transform: none !important;
+}
+
+.dropdown-menu {
+    padding: 0 !important;
 }
 
 .dropdown-menu li {

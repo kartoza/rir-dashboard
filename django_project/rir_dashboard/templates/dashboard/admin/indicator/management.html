@@ -14,34 +14,49 @@
                         {% for indicator in indicators %}
                             <div id="data-{{ indicator.id }}" class="block block-value" data-id="{{ indicator.id }}">
                                 <div class="block-content row">
-                                    <div class="col">{{ indicator.name }}</div>
                                     <div class="col">
-                                        <a href="{% url "indicator-edit" instance.slug indicator.id %}">
-                                            <button class="green-button">Edit</button>
-                                        </a>
-                                        <a href="{% url "indicator-reporting-unit" instance.slug indicator.id %}">
-                                            <button class="green-button">Reporting Units</button>
-                                        </a>
-                                        <a href="{% url "indicator-value-mapview-manager" instance.slug indicator.id %}">
-                                            <button class="green-button">Value Manager Map</button>
-                                        </a>
-                                        <a href="{% url "indicator-value-form-manager" instance.slug indicator.id %}">
-                                            <button class="green-button">Value Manager Form</button>
-                                        </a>
+                                        <i class="fa fa-bars" aria-hidden="true"></i>
+                                        {{ indicator.name }}
+
+                                        <div class="navbar-options">
+                                            <a data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+                                                <i class="fa fa-cog" aria-hidden="true"></i>
+                                            </a>
+                                            <ul class="dropdown-menu box-shadow-bottom">
+                                                <li>
+                                                    <a href="{% url "indicator-edit" instance.slug indicator.id %}">
+                                                        Edit
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="{% url "indicator-reporting-unit" instance.slug indicator.id %}">
+                                                        Reporting Units
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="{% url "indicator-value-mapview-manager" instance.slug indicator.id %}">
+                                                        Value Manager Map
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="{% url "indicator-value-form-manager" instance.slug indicator.id %}">
+                                                        Value Manager Form
+                                                    </a>
+                                                </li>
+                                                <li>
+
+                                                    {% if indicator.harvester %}
+                                                        <a href="{% url "harvester-detail" instance.slug indicator.id %}">Harvester</a>
+                                                    {% else %}
+                                                        <a href="{% url "harvester-api-with-geography-and-date" instance.slug indicator.id %}">Create Harvester</a>
+                                                    {% endif %}
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
                                     <div class="col">
-                                        {% if indicator.harvester %}
-{#                                            <a href="{% url "run-harvester" instance.slug indicator.harvester.id %}">#}
-{#                                                <button class="main-button">Run Harvester</button>#}
-{#                                            </a>#}
-                                            <a href="{% url "harvester-detail" instance.slug indicator.id %}">
-                                                <button class="main-button">Harvester</button>
-                                            </a>
-                                        {% else %}
-                                            <a href="{% url "harvester-api-with-geography-and-date" instance.slug indicator.id %}">
-                                                <button class="green-button">Create Harvester</button>
-                                            </a>
-                                        {% endif %}
+                                    </div>
+                                    <div class="col">
                                     </div>
                                 </div>
                             </div>

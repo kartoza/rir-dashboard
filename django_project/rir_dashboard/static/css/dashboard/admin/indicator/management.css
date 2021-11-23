@@ -57,7 +57,6 @@
 
 #drop-area i {
     font-size: 12px;
-    color: #aaa;
 }
 
 #list-drop-area {
@@ -72,6 +71,11 @@
     width: 100%;
     text-align: left;
     border-top: 1px solid var(--primary-color);
+}
+
+#drop-area .block .navbar-options {
+    position: relative;
+    display: inline-block;
 }
 
 .ui-draggable-dragging {
