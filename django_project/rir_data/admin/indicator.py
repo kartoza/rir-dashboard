@@ -26,12 +26,12 @@ class IndicatorAdmin(admin.ModelAdmin):
         extra = 0
 
     list_display = (
-        'name', 'group', 'frequency', 'show_in_traffic_light',
+        'name', 'group', 'frequency', 'show_in_context_analysis',
         'geometry_reporting_level',)
     filter_horizontal = ('geometry_reporting_units',)
-    list_editable = ('show_in_traffic_light',)
+    list_editable = ('show_in_context_analysis',)
     inlines = (IndicatorScenarioRuleInline,)
-    list_filter = ('group', 'show_in_traffic_light')
+    list_filter = ('group', 'show_in_context_analysis')
 
 
 class IndicatorGroupAdmin(admin.ModelAdmin):

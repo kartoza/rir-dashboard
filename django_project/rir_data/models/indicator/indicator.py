@@ -43,10 +43,10 @@ class Indicator(AbstractTerm):
     geometry_reporting_units = models.ManyToManyField(
         Geometry, blank=True
     )
-    show_in_traffic_light = models.BooleanField(
+    show_in_context_analysis = models.BooleanField(
         default=True,
         help_text=_(
-            'Showing this indicator on traffic light.'
+            'Showing this indicator on Context Analysis.'
         )
     )
     unit = models.CharField(
@@ -98,7 +98,7 @@ class Indicator(AbstractTerm):
     @staticmethod
     def list():
         """ Return list of indicators """
-        return Indicator.objects.filter(show_in_traffic_light=True)
+        return Indicator.objects.filter(show_in_context_analysis=True)
 
     def scenario_rule(self, level):
         """

@@ -100,7 +100,7 @@ class Instance(SlugTerm, IconTerm):
                 indicators.append(data)
 
                 # create overall scenarios
-                if indicator.show_in_traffic_light and scenario_value:
+                if indicator.show_in_context_analysis and scenario_value:
                     if scenario_value not in scenario_values:
                         scenario_values[scenario_value] = 0
                     scenario_values[scenario_value] += 1

@@ -43,18 +43,18 @@
                     {{ instance.name }}
                 </div>
             </div>
-            {# Traffic Light #}
+            {# Context Analysis #}
             <div class="section">
-                <a href="{% url "dashboard-view" instance.slug %}#traffic-light" data-target="traffic-light" class="nav traffic-light-nav">
+                <a href="{% url "dashboard-view" instance.slug %}#context-analysis" data-target="context-analysis" class="nav context-analysis-nav">
                     <table>
                         <tr>
                             <td class="icon"><i class="fa fa-home" aria-hidden="true"></i></td>
-                            <td>Traffic Lights</td>
+                            <td>Context Analysis</td>
                         </tr>
                     </table>
                 </a>
                 {% for program_instance in instance.programs_instance %}
-                    <a href="{% url "dashboard-view" instance.slug %}#{{ program_instance.program.slug }}" data-target="{{ program_instance.program.slug }}" class="nav traffic-light-nav">
+                    <a href="{% url "dashboard-view" instance.slug %}#{{ program_instance.program.slug }}" data-target="{{ program_instance.program.slug }}" class="nav context-analysis-nav">
                         <table>
                             <tr>
                                 <td class="icon">

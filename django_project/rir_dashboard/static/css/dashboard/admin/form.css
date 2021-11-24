@@ -2,8 +2,23 @@
     padding: 5px !important;
 }
 
-#form {
+#content .section {
     padding: 30px;
+}
+
+#form {
+    height: 100%;
+    padding: 0;
+}
+
+#form table td,
+#form table th {
+    border: none !important;
+    padding: 10px;
+}
+
+#form table tr {
+    border: 1px solid var(--primary-color);
 }
 
 .helptext {
@@ -18,4 +33,15 @@
 
 p[data-field-name="instance"] {
     display: none;
+}
+
+input[type="text"]:disabled {
+    background: white;
+    border: none;
+}
+
+form .header span {
+    font-size: 14px;
+    clear: both;
+    color: black;
 }

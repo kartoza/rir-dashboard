@@ -3,8 +3,8 @@ from rir_dashboard.views.dashboard._base import BaseDashboardView
 from rir_data.serializer.scenario import ScenarioLevelSerializer
 
 
-class TrafficLightView(BaseDashboardView):
-    template_name = 'dashboard/traffic-light.html'
+class ContextAnalysisView(BaseDashboardView):
+    template_name = 'dashboard/context-analysis.html'
 
     @property
     def dashboard_title(self):

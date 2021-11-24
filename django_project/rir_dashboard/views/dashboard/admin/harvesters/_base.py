@@ -129,7 +129,7 @@ class HarvesterFormView(AdminView):
 
             return redirect(
                 reverse(
-                    'indicator-management-view', args=[self.instance.slug]
+                    'harvester-detail', args=[self.instance.slug, indicator.id]
                 )
             )
         except KeyError as e:

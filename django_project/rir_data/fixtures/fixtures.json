@@ -179,7 +179,7 @@
       "name": "Biweekly change in Confirmed COVID-19 cases",
       "group": 1,
       "frequency": 2,
-      "show_in_traffic_light": true,
+      "show_in_context_analysis": true,
       "geometry_reporting_level": 1,
       "aggregation_behaviour": "Use all available populated geography in current time window",
       "aggregation_method": "Aggregate data by sum all data."
@@ -192,7 +192,7 @@
       "name": "Travel Restrictions - Air",
       "group": 1,
       "frequency": 2,
-      "show_in_traffic_light": false,
+      "show_in_context_analysis": false,
       "geometry_reporting_level": 1,
       "aggregation_behaviour": "Use all available populated geography in current time window",
       "aggregation_method": "Aggregate data by sum all data."
@@ -205,7 +205,7 @@
       "name": "Travel Restrictions - Sea",
       "group": 1,
       "frequency": 2,
-      "show_in_traffic_light": false,
+      "show_in_context_analysis": false,
       "geometry_reporting_level": 1,
       "aggregation_behaviour": "Use all available populated geography in current time window",
       "aggregation_method": "Aggregate data by sum all data."
@@ -218,7 +218,7 @@
       "name": "Travel Restrictions - Roads",
       "group": 1,
       "frequency": 2,
-      "show_in_traffic_light": false,
+      "show_in_context_analysis": false,
       "geometry_reporting_level": 1,
       "aggregation_behaviour": "Use all available populated geography in current time window",
       "aggregation_method": "Aggregate data by sum all data."
@@ -231,7 +231,7 @@
       "name": "IPC Phase",
       "group": 2,
       "frequency": 3,
-      "show_in_traffic_light": true,
+      "show_in_context_analysis": true,
       "geometry_reporting_level": 3,
       "aggregation_behaviour": "Use all available populated geography in current time window",
       "aggregation_method": "Aggregate data by majority data in the levels."
