@@ -9,10 +9,7 @@ volumes:
 
 x-common-django:
   &default-common-django
-  image: kartoza/${COMPOSE_PROJECT_NAME}_django:${DJANGO_TAG:-latest}
-  build:
-    context: ../
-    dockerfile: deployment/docker/Dockerfile
+  image: kartoza/${COMPOSE_PROJECT_NAME}_django:${DJANGO_TAG}
   env_file: .env
   volumes:
     - static-data:/home/web/static
@@ -53,10 +50,7 @@ services:
     entrypoint: []
 
   nginx:
-    image: kartoza/${COMPOSE_PROJECT_NAME}_nginx:${NGINX_TAG:-latest}
-    build:
-      context: ../
-      dockerfile: deployment/nginx/Dockerfile
+    image: kartoza/${COMPOSE_PROJECT_NAME}_nginx:${NGINX_TAG}
     container_name: "${COMPOSE_PROJECT_NAME}_nginx"
     hostname: nginx
     volumes:
@@ -66,9 +60,8 @@ services:
       - "${HTTP_PORT}:8080"
     restart: on-failure:5
 
-
   node-red:
-    image: nodered/node-red:${NODE_RED_TAG:-latest}
+    image: nodered/node-red:${NODE_RED_TAG}
     env_file: .env
     volumes:
       - node-red-data:/data
