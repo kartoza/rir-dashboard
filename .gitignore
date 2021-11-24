@@ -1,4 +1,5 @@
 .idea
+.venv
 deployment/.env
 deployment/backups
 deployment/docker-compose.override.yml

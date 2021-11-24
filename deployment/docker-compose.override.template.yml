@@ -8,6 +8,7 @@ services:
     build:
       context: ../
       dockerfile: deployment/docker/Dockerfile
+      target: prod
     volumes:
       - ../django_project:/home/web/django_project
       - ./volumes/static:/home/web/static
@@ -30,7 +31,8 @@ services:
   dev:
     build:
       context: ../
-      dockerfile: deployment/docker/Dockerfile-dev
+      dockerfile: deployment/docker/Dockerfile
+      target: dev
     container_name: "${COMPOSE_PROJECT_NAME}_dev"
     volumes:
       - ../django_project:/home/web/django_project
