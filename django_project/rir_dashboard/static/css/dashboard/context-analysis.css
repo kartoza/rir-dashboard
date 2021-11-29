@@ -82,3 +82,55 @@
 #dashboard .intervention {
     padding: 20px;
 }
+
+/* FOR MAP */
+#map-wrapper {
+    border: 1px solid var(--primary-color);
+    height: 700px;
+    margin-top: 20px;
+    position: relative;
+}
+
+#map {
+    height: 100%;
+    width: 100%;
+}
+
+#map .leaflet-popup-content {
+    max-height: 100px;
+    overflow-y: auto;
+}
+
+#legend {
+    left: 10px;
+    bottom: 10px;
+    max-height: 50%;
+    position: absolute;
+    z-index: 9999;
+    background-color: white;
+    overflow-y: auto;
+}
+
+#legend .legend {
+    display: none;
+    padding: 10px;
+}
+
+#legend .legend .title {
+    font-weight: 700;
+}
+
+#legend .legend .circle {
+    border-radius: 50%;
+}
+
+#legend .legend .line {
+    padding: 0 !important;
+    width: 50px;
+}
+
+#legend .legend .polygon {
+    padding: 0 !important;
+    height: 20px;
+    width: 20px;
+}

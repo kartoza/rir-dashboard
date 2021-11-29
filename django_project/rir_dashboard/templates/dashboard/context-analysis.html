@@ -16,49 +16,55 @@
 {% endblock %}
 {% block content %}
     <div id="dashboard">
-        <div data-program="context-analysis" class="section box-shadow-bottom table-section scenario-section">
-            <div class="scenario-header scenario-{{ overall_scenario.level }}">
-                <div>Overall Scenario</div>
-                <div>
-                    Scenario {% if overall_scenario.level %}{{ overall_scenario.level }}: {{ overall_scenario.name }}{% else %} <i>unknown</i> {% endif %}
+        <div data-program="context-analysis" class="table-section scenario-section">
+            <div class="section box-shadow-bottom ">
+                <div class="scenario-header scenario-{{ overall_scenario.level }}">
+                    <div>Overall Scenario</div>
+                    <div>
+                        Scenario {% if overall_scenario.level %}{{ overall_scenario.level }}: {{ overall_scenario.name }}{% else %} <i>unknown</i> {% endif %}
+                    </div>
                 </div>
-            </div>
-            <div>
-                <table>
-                    <tr>
-                        <th valign="top" style="width: 250px">Indicator</th>
-                        {% for scenario in scenarios %}
-                            <th class="scenario scenario-{{ scenario.level }}" valign="top">
-                                Scenario {{ scenario.level }}
-                                <div>
-                                    {{ scenario.name }}
-                                </div>
-                            </th>
-                        {% endfor %}
-                    </tr>
-                    {% for indicator in indicators %}
-                        <tr class="indicator-row {% if indicator.show_in_context_analysis %}context-analysis{% endif %}">
-                            <td>
-                                <a href="{% url "indicator-mapview" instance.slug indicator.id %}">{{ indicator.name }}</a>
-                            </td>
+                <div>
+                    <table>
+                        <tr>
+                            <th valign="top" style="width: 250px">Indicator</th>
                             {% for scenario in scenarios %}
-                                {% if indicator.scenario_value == scenario.level %}
-                                    <td class="scenario indicator scenario-{{ scenario.level }}">
-                                        {{ indicator.value }}
-                                    </td>
-                                {% else %}
-                                    <td class="scenario indicator">
-                                        {% get_scenario_rule indicator scenario.level as rule %}
-                                        {{ rule }}
-                                    </td>
-                                {% endif %}
+                                <th class="scenario scenario-{{ scenario.level }}" valign="top">
+                                    Scenario {{ scenario.level }}
+                                    <div>
+                                        {{ scenario.name }}
+                                    </div>
+                                </th>
                             {% endfor %}
                         </tr>
-                    {% endfor %}
-                </table>
-                {% if user.is_staff %}
-                    <button id="toggle-table" class="main-button content-button scenario-{{ overall_scenario.level }}">Show all indicators</button>
-                {% endif %}
+                        {% for indicator in indicators %}
+                            <tr class="indicator-row {% if indicator.show_in_context_analysis %}context-analysis{% endif %}">
+                                <td>
+                                    <a href="{% url "indicator-mapview" instance.slug indicator.id %}">{{ indicator.name }}</a>
+                                </td>
+                                {% for scenario in scenarios %}
+                                    {% if indicator.scenario_value == scenario.level %}
+                                        <td class="scenario indicator scenario-{{ scenario.level }}">
+                                            {{ indicator.value }}
+                                        </td>
+                                    {% else %}
+                                        <td class="scenario indicator">
+                                            {% get_scenario_rule indicator scenario.level as rule %}
+                                            {{ rule }}
+                                        </td>
+                                    {% endif %}
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    </table>
+                    {% if user.is_staff %}
+                        <button id="toggle-table" class="main-button content-button scenario-{{ overall_scenario.level }}">Show all indicators</button>
+                    {% endif %}
+                </div>
+            </div>
+            <div id="map-wrapper"  class="section box-shadow-bottom ">
+                <div id="map"></div>
+                <div id="legend" class="box-shadow-bottom"></div>
             </div>
         </div>
         {% for intervention in interventions %}
@@ -74,6 +80,12 @@
     </div>
 {% endblock %}
 {% block scripts %}
+    <script type="text/javascript" src="{% static 'libs/leaflet/1.5.1/leaflet.js' %}"></script>
+    <script type="text/javascript" src="{% static 'libs/esri-leaflet/esri-leaflet.js' %}"></script>
+    <script type="text/javascript" src="{% static 'libs/esri-leaflet/esri-leaflet-vector.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/dashboard/context-analysis/map.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/dashboard/context-analysis/esri/leaflet-esri-layer.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/dashboard/context-analysis/esri/leaflet-esri-style.js' %}"></script>
     <script>
         {# toogle the table#}
         $('#toggle-table').click(function () {
