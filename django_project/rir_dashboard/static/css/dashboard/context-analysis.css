@@ -72,7 +72,7 @@
 #indicator table.full-screen .col {
     padding: 0;
     background-color: white !important;
-    color: black;
+    color: black !important;
 }
 
 #indicator table .indicator-checkbox {
