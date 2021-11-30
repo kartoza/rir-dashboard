@@ -17,6 +17,11 @@
 {% block content %}
     <div id="map-wrapper" data-program="context-analysis" class="section table-section scenario-section">
         <div id="map"></div>
+        <div id="level-selection" class="box-shadow-bottom">
+            {% for level in instance_levels %}
+                <div id="level-{{ level.name }}" data-level="{{ level.name }}">{{ level.name }}</div>
+            {% endfor %}
+        </div>
         <div id="left-side" class="side-panel box-shadow-bottom" data-hidden="false">
             <div class="inner">
                 <div class="side-panel-button">
@@ -61,7 +66,8 @@
                                         <tr class="indicator-row {% if indicator.show_in_context_analysis %}context-analysis{% endif %}">
                                             <td class="indicator-name">
                                                 <div class="row">
-                                                    <div class="indicator-checkbox"><input type="checkbox" data-id="{{ indicator.id }}" data-url="{{ indicator.object.geojson_url }}" {% if not indicator.object.geojson_url %}disabled{% endif %}></div>
+                                                    <div class="indicator-checkbox"><input type="checkbox" data-id="{{ indicator.id }}" data-url="{{ indicator.object.geojson_url_template }}"
+                                                                                           {% if not indicator.object.geojson_url_template %}disabled{% endif %}></div>
                                                     <div class="col scenario-{{ indicator.scenario_value }}">
                                                         {{ indicator.name }}
                                                     </div>
@@ -122,7 +128,7 @@
 {% endblock %}
 {% block scripts %}
     <script>
-        const countryGeometry = {{ country_geometry|safe }};
+        const url = "{{ url }}";
     </script>
     <script>
         let contextLayers = "{{ context_layers|safe }}";
@@ -133,6 +139,7 @@
     <script type="text/javascript" src="{% static 'libs/esri-leaflet/esri-leaflet.js' %}"></script>
     <script type="text/javascript" src="{% static 'libs/esri-leaflet/esri-leaflet-vector.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/dashboard/context-analysis/map.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/dashboard/context-analysis/geometry-level.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/dashboard/context-analysis/esri/leaflet-esri-layer.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/dashboard/context-analysis/esri/leaflet-esri-style.js' %}"></script>
     <script>

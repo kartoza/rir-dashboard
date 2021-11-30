@@ -3,20 +3,7 @@ $(document).ready(function () {
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         noWrap: true,
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map)
-
-    // country geometry
-    const countryLayer = L.geoJSON(
-        countryGeometry, {
-            style: {
-                color: "#ff7800",
-                weight: 1,
-                fillOpacity: 0
-            }
-        });
-    countryLayer.addTo(map);
-    map.fitBounds(countryLayer.getBounds());
-
+    }).addTo(map);
 
     // -------------------------------------------------
     // THIS IS FOR LAYER ROW
@@ -107,23 +94,40 @@ $(document).ready(function () {
     const indicatorsLayer = {}
 
     $inputs.click(function () {
-        inputIndicatorClicked(this);
+        inputIndicatorClicked(this, currentLevel);
     })
 
-    function inputIndicatorClicked(input) {
+    let currentLevel = null;
+
+    function inputIndicatorClicked(input, level) {
         $(input).attr('disabled', 'disabled');
-        const url = $(input).data('url');
+        const url = $(input).data('url').replaceAll('level', currentLevel);
         const id = $(input).data('id');
         let layer = null;
-        if (indicatorsLayer[id]) {
-            layer = indicatorsLayer[id];
+        if (!indicatorsLayer[id]) {
+            indicatorsLayer[id] = {}
+        }
+
+        // we need to make sure all layer are turned off
+        $.each(indicatorsLayer[id], function (idx, layer) {
+            try {
+                layer.removeFrom(map);
+            } catch (e) {
+
+            }
+        });
+
+        // we get the saved layer
+        // if not there we request to API
+        if (indicatorsLayer[id][level]) {
+            layer = indicatorsLayer[id][level];
         } else {
             if (url) {
                 $.ajax({
                     url: url,
                     dataType: 'json',
                     success: function (geojson, textStatus, request) {
-                        indicatorsLayer[id] = L.geoJSON(
+                        indicatorsLayer[id][level] = L.geoJSON(
                             geojson, {
                                 style: function (feature) {
                                     return {
@@ -143,18 +147,29 @@ $(document).ready(function () {
                                 }
                             }
                         )
-                        inputIndicatorClicked(input)
+                        inputIndicatorClicked(input, level)
                     }
                 });
             }
             return false;
         }
+
+        // by checking input state, we show/hide the layer
         $(input).removeAttr('disabled');
         if (input.checked) {
-            layer.addTo(map);
+            if (level === currentLevel) {
+                layer.addTo(map);
+            }
         } else {
             layer.removeFrom(map);
         }
-
     }
+
+    // For the level management
+    initGeometryLevel(map, function onLevelChanged(level) {
+        currentLevel = level;
+        $('#indicator input:checkbox:checked').each(function (index) {
+            inputIndicatorClicked(this, level);
+        });
+    });
 });
