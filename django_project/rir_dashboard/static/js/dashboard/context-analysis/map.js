@@ -66,7 +66,13 @@ $(document).ready(function () {
     function initLayer(layerData, idx) {
         const name = layerData.name;
         const url = layerData.url;
-        const params = layerData.parameters;
+        const params = {}
+        $.each(layerData.parameters, function (index, value) {
+            params[index] = value
+            if (!Number.isInteger(value)) {
+                params[index] = decodeURIComponent(value);
+            }
+        });
         const options = {
             token: layerData.token
         };

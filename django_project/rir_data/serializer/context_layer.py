@@ -1,3 +1,4 @@
+import urllib.parse
 from rest_framework import serializers
 from rir_data.models.context_layer import ContextLayer, ContextLayerParameter
 
@@ -14,7 +15,7 @@ class ContextLayerSerializer(serializers.ModelSerializer):
                     value = ''
                 value = int(parameter.value)
             except (ValueError, TypeError):
-                pass
+                value = urllib.parse.quote(value)
             parameters[parameter.name] = value
         return parameters
 
