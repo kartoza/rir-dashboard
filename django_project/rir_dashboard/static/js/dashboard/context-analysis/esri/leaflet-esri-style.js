@@ -15,6 +15,14 @@ const parseArcRESTStyle = (data) => {
                 geometryType: data.geometryType,
                 classifications: []
             };
+
+            // CHeck which field need to check as classification
+            if (drawingInfo.renderer.field1) {
+                info['fieldName'] = drawingInfo.renderer.field1
+            } else if (drawingInfo.renderer.field) {
+                info['fieldName'] = drawingInfo.renderer.field
+            }
+
             let list = []
             if (drawingInfo.renderer.type === "classBreaks") {
                 list = drawingInfo.renderer.classBreakInfos;

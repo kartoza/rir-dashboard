@@ -1,10 +1,8 @@
 class EsriLeafletLayer {
 
-    constructor(map, name, url, fieldName, params, options) {
-        this.map = map;
+    constructor(name, url, params, options) {
         this.name = name;
         this.url = url;
-        this.fieldName = fieldName;
         this.params = params;
 
         // for the options
@@ -89,7 +87,7 @@ class EsriLeafletLayer {
             case "esriGeometryPolygon":
             case "esriGeometryPolyline": {
                 params.style = function (geojson) {
-                    const value = geojson['properties'][that.fieldName];
+                    const value = geojson['properties'][style.fieldName];
                     let leafletStyle = null;
                     switch (style.classificationValueMethod) {
                         case "classMaxValue":
@@ -138,7 +136,7 @@ class EsriLeafletLayer {
             // This is for point
             case 'esriGeometryPoint': {
                 params.pointToLayer = function (geojson, latlng) {
-                    const value = geojson['properties'][that.fieldName];
+                    const value = geojson['properties'][style.fieldName];
                     let leafletStyle = null;
 
                     switch (style.classificationValueMethod) {
@@ -184,13 +182,6 @@ class EsriLeafletLayer {
                     }
                 };
 
-                //  add legend
-                try {
-                    that.addLegend();
-                } catch (e) {
-                    console.log(e)
-                }
-
                 params['onEachFeature'] = function (f, l) {
                     l.bindPopup('<pre>' + JSON.stringify(f.properties, null, ' ').replace(/[\{\}"]/g, '') + '</pre>');
                 }
@@ -205,7 +196,7 @@ class EsriLeafletLayer {
      * Add Legend
      */
 
-    addLegend() {
+    getLegend() {
         const style = this.style;
         const that = this;
         let legend = '';
@@ -292,11 +283,12 @@ class EsriLeafletLayer {
             }
         }
 
-        that.$legend.append(
-            `<div data-layer="${this.name}" class="legend">` +
-            `<div class="title">${this.name}</div>` +
-            `<table>${legend}</table>` +
-            '</div>'
-        )
+        return `<table>${legend}</table>`;
+        // that.$legend.append(
+        //     `<div data-layer="${this.name}" class="legend">` +
+        //     `<div class="title">${this.name}</div>` +
+        //     `<table>${legend}</table>` +
+        //     '</div>'
+        // )
     }
 }

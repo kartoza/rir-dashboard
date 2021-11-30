@@ -2,6 +2,7 @@ import typing
 from datetime import date
 from django.db.models import Count, Sum
 from django.contrib.gis.db import models
+from django.shortcuts import reverse
 from django.utils.translation import ugettext_lazy as _
 from core.models.general import AbstractTerm
 from rir_data.models.geometry import Geometry, GeometryLevelName
@@ -205,3 +206,20 @@ class Indicator(AbstractTerm):
                 geometry_level=self.geometry_reporting_level)
         else:
             return self.geometry_reporting_units.all()
+
+    @property
+    def geojson_url(self):
+        instance = self.group.instance
+        country_level = instance.geometry_levels.filter(parent=None).first()
+        if country_level:
+            country_level = country_level.level
+            geometry_country = instance.geometries().filter(
+                geometry_level=country_level).first()
+            if geometry_country:
+                return reverse('indicator-values-geojson-api', args=[
+                    self.group.instance.slug, self.pk,
+                    geometry_country.identifier,
+                    self.geometry_reporting_level.name,
+                    date.today()
+                ])
+        return None
