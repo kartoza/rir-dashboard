@@ -49,7 +49,7 @@ class IndicatorMapView(BaseDashboardView):
                 'indicator': indicator,
                 'legends': legends
             }
-            country_level = self.instance.geometry_levels.filter(parent=None).first()
+            country_level = self.instance.geometry_instance_levels.filter(parent=None).first()
             if country_level:
                 country_level = country_level.level
                 geometry_country = self.instance.geometries().filter(

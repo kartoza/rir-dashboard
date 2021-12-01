@@ -1,40 +1,28 @@
+jQuery.fn.outerHTML = function () {
+    return jQuery('<div />').append(this.eq(0).clone()).html();
+};
 $(document).ready(function () {
-    const $dropLevelArea = $('#level-drop-area');
-    const $dropLevelListArea = $('#level-list-drop-area');
+    const $dropLevelArea = $('#content-view .section');
     let $temporary = null;
     let $dropAreaOver = null;
+    let draggedId = null;
 
     function dragFunction(evt) {
         $(evt.target).css('z-index', 9999);
         $(evt.target).css('height', 0);
-        if ($dropAreaOver) {
-            removeTemporary();
-            var relY = $(evt.target).position().top - $dropAreaOver.offset().top;
-            let $blockElement = null;
-            $dropAreaOver.find('.level-block-value').each(function (index) {
-                const levelY = $(this).position().top - $dropAreaOver.offset().top
-                if (relY < levelY) {
-                    $blockElement = $(this);
-                    return false
-                }
-            });
-            const htmlTemporary = `<div id="level-temporary" class="level-block"><div class="level-block-content">Temporary</div></div>`
-            if (!$blockElement) {
-                $dropAreaOver.append(htmlTemporary);
-            } else {
-                $blockElement.before(htmlTemporary)
-            }
-            $temporary = $('#level-temporary')
-        }
+        draggedId = $(evt.target).attr('id');
+
     }
 
     $('.level-block').draggable({
+        cursorAt: { left: -10, top: -10 },
         drag: dragFunction
     });
     $dropLevelArea.droppable({
         hoverClass: "ui-state-hovered",
         drop: function (e, ui) {
-            onDropArea($(ui.draggable), $dropLevelArea);
+            console.log('drop')
+            onDropArea($(ui.draggable));
         },
         over: function () {
             $dropAreaOver = $dropLevelArea;
@@ -60,33 +48,93 @@ $(document).ready(function () {
     /**
      * When the element dropped
      */
-    function onDropArea($elm, $dropArea) {
+    function onDropArea($elm) {
         const id = $elm.data('id');
         const htmlNewElement = `<div id="level-${id}" class="level-block level-block-value" data-id="${id}">${$elm.html()}</div>`;
-        if ($temporary) {
-            $temporary.replaceWith(htmlNewElement)
+        if ($temporary && $temporary.length > 0) {
+            $temporary.replaceWith(htmlNewElement);
+            $elm.remove();
+            dragInit(id);
         } else {
-            $dropArea.append(htmlNewElement)
+            $('#level-list > .row').append(htmlNewElement);
+            $elm.remove();
+            dragInit(id);
         }
-        $elm.remove()
-        $(`#level-${id}`).draggable({
-            drag: dragFunction,
-            stop: function () {
-                if ($dropArea === $dropLevelArea && !$temporary) {
-                    onDropArea($(`#level-${id}`), $dropLevelListArea)
-                }
-            }
-        });
+        $dropAreaOver = null;
 
-        const levels = [];
-        $dropLevelArea.find('.level-block-value').each(function () {
-            levels.push($(this).data('id'));
-        });
-        $('#level-input').val(levels.join(','))
+        // prepare data
+        saveData();
+    }
+
+    function saveData() {
+        const data = getData(
+            $($('#level-0').children('.row')[0])
+        );
+        $('#level-input').val(JSON.stringify(data))
+    }
+
+    function getData($element) {
+        const data = {}
+        $($element.children('.level-block-value').each(function () {
+            data[$(this).data('id')] = {
+                'child': getData(
+                    $($(this).children('.row')[0])
+                )
+            }
+        }))
+        return data;
     }
 
     // init instance level
-    $(instanceLevels).each(function (idx, level) {
-        onDropArea($(`#level-${level}`), $dropLevelArea)
-    })
+    renderLevelTree(instanceLevelTree);
+
+    function dragInit(id) {
+        // make draggable
+        const $newElmt = $(`#level-${id}`);
+        $newElmt.draggable({
+            cursorAt: { left: -10, top: -10 },
+            drag: dragFunction
+        });
+        $newElmt.find('.level-block-content').hover(onHover)
+
+        // make draggable for child
+        $newElmt.find('.level-block-value').draggable({
+            cursorAt: { left: -10, top: -10 },
+            drag: dragFunction
+        });
+        $newElmt.find('.level-block-content').hover(onHover)
+
+    }
+
+    function renderLevelTree(levels) {
+        $.each(levels, function (id, level) {
+            const $element = $(`#level-${id}`);
+            const $target = $(`#level-${level.parent} > .row`);
+            $element.remove()
+            $target.append($element.outerHTML());
+            if (level.child) {
+                renderLevelTree(level.child);
+            }
+            dragInit(id);
+        });
+        $('#level-drop-area .level-block-content').hover(onHover);
+        saveData();
+    }
+
+    function onHover() {
+        const $wrapper = $(this).closest('.level-block-value');
+        const $blockElement = $wrapper.find('.row').first();
+        removeTemporary();
+        if ($dropLevelArea.attr('class').indexOf('ui-droppable-active') < 0) {
+            return false;
+        }
+        const htmlTemporary = `<div id="level-temporary" class="col level-block"><div class="level-block-content">Temporary</div></div>`
+        $blockElement.append(htmlTemporary)
+        $temporary = $('#level-temporary');
+        if ($temporary.parents(`#${draggedId}`).length > 0) {
+            removeTemporary();
+        }
+        return false
+    }
+
 });
