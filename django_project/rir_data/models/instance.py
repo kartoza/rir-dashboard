@@ -30,6 +30,18 @@ class Instance(SlugTerm, IconTerm):
         """
         Return geometry levels of the instance
         """
+        from rir_data.models import GeometryLevelName
+        return GeometryLevelName.objects.filter(
+            pk__in=list(
+                self.geometrylevelinstance_set.values_list('level', flat=True)
+            )
+        )
+
+    @property
+    def geometry_instance_levels(self):
+        """
+        Return geometry levels of the instance
+        """
         return self.geometrylevelinstance_set.all()
 
     @property
@@ -37,17 +49,31 @@ class Instance(SlugTerm, IconTerm):
         """
         Return geometry levels of the instance
         """
-        top = self.geometry_levels.filter(parent=None).first()
         levels = []
-        if top:
-            levels = [top.level]
-            child = self.geometry_levels.filter(parent=top.level).first()
-            while child is not None:
-                if child:
-                    levels.append(child.level)
-                child = self.geometry_levels.filter(parent=child.level).first()
-
+        levels += self.get_geometry_child(
+            self.geometry_instance_levels.filter(parent=None)
+        )
         return levels
+
+    def get_geometry_child(self, instance_levels):
+        levels = []
+        for instance_level in instance_levels:
+            levels.append(instance_level.level)
+            levels += self.get_geometry_child(
+                self.geometry_instance_levels.filter(parent=instance_level.level)
+            )
+        return levels
+
+    @property
+    def geometry_levels_in_tree(self):
+        """
+        Return geometry levels of the instance
+        """
+        from rir_data.utils import get_level_instance_in_tree
+        return get_level_instance_in_tree(
+            self,
+            self.geometry_instance_levels.filter(parent=None)
+        )
 
     @property
     def programs_instance(self):
@@ -74,7 +100,7 @@ class Instance(SlugTerm, IconTerm):
         indicators = []
         scenario_values = {}
         try:
-            country_level = self.geometry_levels.filter(parent=None).first()
+            country_level = self.geometry_instance_levels.filter(parent=None).first()
             if not country_level:
                 raise GeometryLevelName.DoesNotExist
 

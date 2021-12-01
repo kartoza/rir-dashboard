@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import get_object_or_404, redirect, reverse
 from rir_dashboard.views.dashboard.admin._base import AdminView
 from rir_data.models.geometry import GeometryLevelName, GeometryLevelInstance
@@ -16,8 +17,9 @@ class GeographyLevelManagementView(AdminView):
         """
         Return context for specific view by instance
         """
+        level_in_tree = self.instance.geometry_levels_in_tree
         context = {
-            'instance_levels': self.instance.geometry_levels_in_order,
+            'level_in_tree': level_in_tree,
             'levels': GeometryLevelName.objects.all()
         }
         return context
@@ -28,19 +30,21 @@ class GeographyLevelManagementView(AdminView):
         )
         levels = request.POST.get('level', None)
         if levels:
-            levels = levels.split(',')
-            self.instance.geometry_levels.delete()
+            levels = json.loads(levels)
+            self.instance.geometry_instance_levels.delete()
 
-            prev = None
-            for level in levels:
-                GeometryLevelInstance.objects.get_or_create(
-                    instance=self.instance,
-                    level_id=level,
-                    parent_id=prev
-                )
-                prev = level
+            self.save_level_tree(None, levels)
         return redirect(
             reverse(
                 'geography-level-management-view', args=[self.instance.slug]
             )
         )
+
+    def save_level_tree(self, parent_id, level_data):
+        for id, value in level_data.items():
+            GeometryLevelInstance.objects.get_or_create(
+                instance=self.instance,
+                level_id=id,
+                parent_id=parent_id
+            )
+            self.save_level_tree(id, value['child'])

@@ -210,7 +210,7 @@ class Indicator(AbstractTerm):
     @property
     def geojson_url_template(self):
         instance = self.group.instance
-        country_level = instance.geometry_levels.filter(parent=None).first()
+        country_level = instance.geometry_instance_levels.filter(parent=None).first()
         if country_level:
             country_level = country_level.level
             geometry_country = instance.geometries().filter(
