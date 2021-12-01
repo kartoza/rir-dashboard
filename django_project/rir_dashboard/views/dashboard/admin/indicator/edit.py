@@ -1,4 +1,3 @@
-from django.forms.models import model_to_dict
 from django.http import Http404
 from django.shortcuts import redirect, reverse, render, get_object_or_404
 from rir_dashboard.forms.indicator import IndicatorForm
@@ -39,6 +38,7 @@ class IndicatorEditView(AdminView):
                 'name': scenario.name,
                 'rule_name': scenario_rule.name if scenario_rule else '',
                 'rule_value': scenario_rule.rule if scenario_rule else '',
+                'rule_color': scenario_rule.color if scenario_rule else '',
             })
         context = {
             'form': IndicatorForm(
@@ -72,6 +72,7 @@ class IndicatorEditView(AdminView):
             for scenario in ScenarioLevel.objects.order_by('level'):
                 rule = request.POST.get(f'scenario_{scenario.id}_rule', None)
                 name = request.POST.get(f'scenario_{scenario.id}_name', None)
+                color = request.POST.get(f'scenario_{scenario.id}_color', None)
                 if rule and name:
                     scenario_rule, created = IndicatorScenarioRule.objects.get_or_create(
                         indicator=indicator,
@@ -79,6 +80,7 @@ class IndicatorEditView(AdminView):
                     )
                     scenario_rule.name = name
                     scenario_rule.rule = rule
+                    scenario_rule.color = color
                     scenario_rule.save()
             return redirect(
                 reverse(

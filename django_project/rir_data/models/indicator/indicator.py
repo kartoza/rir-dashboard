@@ -101,15 +101,21 @@ class Indicator(AbstractTerm):
         """ Return list of indicators """
         return Indicator.objects.filter(show_in_context_analysis=True)
 
+    def legends(self):
+        """
+        Return legend of indicator
+        """
+        output = {}
+        for indicator_rule in self.indicatorscenariorule_set.all():
+            output[indicator_rule.name] = indicator_rule.color if indicator_rule.color else indicator_rule.scenario_level.background_color
+        return output
+
     def scenario_rule(self, level):
         """
         Return scenario rule for specific level
         """
-        scenario_rule = self.indicatorscenariorule_set.filter(
+        return self.indicatorscenariorule_set.filter(
             scenario_level__level=level).first()
-        if scenario_rule:
-            return scenario_rule.rule
-        return '-'
 
     def scenario_level(self, value) -> typing.Optional[ScenarioLevel]:
         """
@@ -182,6 +188,11 @@ class Indicator(AbstractTerm):
 
                 # return data
                 scenario_value = self.scenario_level(value)
+                background_color = scenario_value.background_color if scenario_value else ''
+                scenario_rule = self.scenario_rule(scenario_value.level)
+                if scenario_rule:
+                    background_color = scenario_rule.color
+
                 values.append({
                     'geometry_id': geometry_target.id,
                     'geometry_identifier': geometry_target.identifier,
@@ -189,7 +200,7 @@ class Indicator(AbstractTerm):
                     'value': value,
                     'scenario_value': scenario_value.level if scenario_value else 0,
                     'text_color': scenario_value.text_color if scenario_value else '',
-                    'background_color': scenario_value.background_color if scenario_value else ''
+                    'background_color': background_color
                 })
             except IndexError:
                 pass

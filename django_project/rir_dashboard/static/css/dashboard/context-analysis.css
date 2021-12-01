@@ -65,21 +65,27 @@
 }
 
 #indicator table .col {
+    padding: 0;
+}
+
+#indicator table .name {
     padding: 5px 10px;
     border-radius: 5px;
 }
 
-#indicator table.full-screen .col {
+#indicator table.full-screen .name {
     padding: 0;
     background-color: white !important;
     color: black !important;
 }
 
-#indicator table .indicator-checkbox {
+#indicator table .indicator-checkbox,
+#indicator table .indicator-legend {
     padding-top: 5px
 }
 
-#indicator table.full-screen .indicator-checkbox {
+#indicator table.full-screen .indicator-checkbox,
+#indicator table.full-screen .indicator-legend {
     display: none;
 }
 
@@ -250,15 +256,17 @@
 
 .layer-row .legend {
     padding-left: 20px;
-}
-
-.layer-row .fa-list-ul {
-    cursor: pointer;
-    margin-top: 2px;
+    margin-top: 3px;
+    margin-bottom: 3px;
 }
 
 .layer-row .context-layer-title {
     margin-top: 5px;
+}
+
+.fa-list-ul {
+    cursor: pointer;
+    margin-top: 2px;
 }
 
 /* Legend */

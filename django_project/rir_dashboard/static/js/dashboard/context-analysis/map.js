@@ -35,8 +35,8 @@ $(document).ready(function () {
         }
     })
 
-    $('.layer-row .fa-list-ul').click(function () {
-        $(this).closest('.layer-row').find('.legend').toggle();
+    $('.fa-list-ul').click(function () {
+        $(this).closest('.layer-row, .row').find('.legend').toggle();
     })
 
     function addLayer(layerData, idx, layer) {
@@ -132,7 +132,7 @@ $(document).ready(function () {
                                 style: function (feature) {
                                     return {
                                         color: "#ffffff",
-                                        weight: 2,
+                                        weight: 1,
                                         fillColor: feature.properties.background_color,
                                         fillOpacity: 0.7
                                     };

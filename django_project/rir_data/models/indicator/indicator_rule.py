@@ -27,6 +27,13 @@ class IndicatorScenarioRule(models.Model):
             'It will replace x with the value and will check the condition.'
         )
     )
+    color = models.CharField(
+        max_length=16,
+        null=True, blank=True,
+        help_text=_(
+            'Color that override the scenario level color'
+        )
+    )
 
     class Meta:
         unique_together = ('indicator', 'scenario_level')

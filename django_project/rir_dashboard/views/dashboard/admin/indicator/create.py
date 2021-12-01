@@ -46,6 +46,7 @@ class IndicatorCreateView(AdminView):
             for scenario in ScenarioLevel.objects.order_by('level'):
                 rule = request.POST.get(f'scenario_{scenario.id}_rule', None)
                 name = request.POST.get(f'scenario_{scenario.id}_name', None)
+                color = request.POST.get(f'scenario_{scenario.id}_color', None)
                 if rule and name:
                     scenario_rule, created = IndicatorScenarioRule.objects.get_or_create(
                         indicator=indicator,
@@ -53,6 +54,7 @@ class IndicatorCreateView(AdminView):
                     )
                     scenario_rule.name = name
                     scenario_rule.rule = rule
+                    scenario_rule.color = color
                     scenario_rule.save()
             return redirect(
                 reverse(

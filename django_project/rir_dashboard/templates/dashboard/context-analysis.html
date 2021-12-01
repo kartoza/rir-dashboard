@@ -66,10 +66,25 @@
                                         <tr class="indicator-row {% if indicator.show_in_context_analysis %}context-analysis{% endif %}">
                                             <td class="indicator-name">
                                                 <div class="row">
-                                                    <div class="indicator-checkbox"><input type="checkbox" data-id="{{ indicator.id }}" data-url="{{ indicator.object.geojson_url_template }}"
-                                                                                           {% if not indicator.object.geojson_url_template %}disabled{% endif %}></div>
-                                                    <div class="col scenario-{{ indicator.scenario_value }}">
-                                                        {{ indicator.name }}
+                                                    <div class="indicator-checkbox">
+                                                        <input type="checkbox" data-id="{{ indicator.id }}" data-url="{{ indicator.object.geojson_url_template }}"
+                                                               {% if not indicator.object.geojson_url_template %}disabled{% endif %}>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="name scenario-{{ indicator.scenario_value }}">{{ indicator.name }}</div>
+                                                        <div class="legend">
+                                                            <table>
+                                                                {% for name, color in indicator.object.legends.items %}
+                                                                    <tr>
+                                                                        <td><div class="polygon" style="background-color: {{ color }}"></div>
+                                                                        <td>{{ name }}</td>
+                                                                    </tr>
+                                                                {% endfor %}
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                    <div class="indicator-legend">
+                                                        <i class="fa fa-list-ul pull-right" aria-hidden="true"></i>
                                                     </div>
                                                 </div>
                                             </td>

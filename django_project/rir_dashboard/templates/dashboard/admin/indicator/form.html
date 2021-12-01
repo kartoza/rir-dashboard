@@ -1,5 +1,14 @@
 {% extends 'dashboard/admin/form.html' %}
 {% load static %}
+{% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'css/form.css' %}" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="{% static 'css/dashboard/admin/form.css' %}" type="text/css" media="screen, projection"/>
+    <style>
+        table {
+            width: 100%;
+        }
+    </style>
+{% endblock stylesheet %}
 
 {% block content %}
     {% csrf_token %}
@@ -20,12 +29,16 @@
             <th>Rule<br>
                 <span class="helptext">Use formula to create the rule and use x as the value. Example: x<100. It will replace x with the value and will check the condition.</span>
             </th>
+            <th>Color<br>
+                <span class="helptext">Put the hex color with # (e.g. #ffffff) or put the text of color. (e.g. blue).</span>
+            </th>
         </tr>
         {% for scenario in scenarios %}
             <tr>
                 <td>{{ scenario.name }}</td>
                 <td><input type="text" name="scenario_{{ scenario.id }}_name" value="{{ scenario.rule_name }}"></td>
                 <td><input type="text" name="scenario_{{ scenario.id }}_rule" value="{{ scenario.rule_value }}"></td>
+                <td><input type="text" name="scenario_{{ scenario.id }}_color" value="{{ scenario.rule_color }}"></td>
             </tr>
         {% endfor %}
     </table>
