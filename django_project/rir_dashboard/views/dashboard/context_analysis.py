@@ -1,6 +1,9 @@
+import json
 from datetime import date
+from django.shortcuts import reverse
 from rir_dashboard.views.dashboard._base import BaseDashboardView
 from rir_data.serializer.scenario import ScenarioLevelSerializer
+from rir_data.serializer.context_layer import ContextLayerSerializer
 
 
 class ContextAnalysisView(BaseDashboardView):
@@ -15,7 +18,15 @@ class ContextAnalysisView(BaseDashboardView):
         """
         Return context for specific view by instance
         """
-        context = {}
+        context = {
+            'instance_levels': self.instance.geometry_levels_in_order,
+            'url': reverse(
+                'geometry-geojson-api', args=[
+                    self.instance.slug, 'level', 'date'
+                ]
+            )
+        }
+
         context['scenarios'] = ScenarioLevelSerializer(
             self.instance.scenario_levels, many=True
         ).data
@@ -25,7 +36,8 @@ class ContextAnalysisView(BaseDashboardView):
         # intervention
         interventions = []
         for program_instance in self.instance.programs_instance:
-            intervention = program_instance.programintervention_set.filter(scenario_level__level=overall_scenario_level).first()
+            intervention = program_instance.programintervention_set.filter(
+                scenario_level__level=overall_scenario_level).first()
             if intervention:
                 interventions.append(intervention)
         try:
@@ -35,4 +47,7 @@ class ContextAnalysisView(BaseDashboardView):
         context['indicators'] = indicators
         context['interventions'] = interventions
         context['today_date'] = date.today().strftime('%Y-%m-%d')
+        context['context_layers'] = json.loads(
+            json.dumps(ContextLayerSerializer(self.instance.context_layers, many=True).data)
+        )
         return context

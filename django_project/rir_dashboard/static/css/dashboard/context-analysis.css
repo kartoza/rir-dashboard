@@ -6,6 +6,10 @@
     display: none;
 }
 
+#content-view {
+    height: 100%;
+}
+
 .green-button {
     background: black;
     border-radius: 5px;
@@ -14,71 +18,305 @@
     margin-right: 5px;
 }
 
-#dashboard iframe {
+#content-view iframe {
     width: 100%;
     height: 800px;
 }
 
-#dashboard table {
+
+#indicator table {
     margin-top: 10px;
     width: 100%;
 }
 
-#dashboard table th, #dashboard table td {
+#indicator table input {
+    margin-right: 5px;
+}
+
+#indicator table .table-header {
+    display: none;
+}
+
+#indicator table.full-screen .table-header {
+    display: table-row;
+}
+
+#indicator table.full-screen .indicator-name {
+    width: 250px;
+}
+
+#indicator table.full-screen th,
+#indicator table.full-screen td {
     border: 2px solid white;
     padding: 10px 15px;
 }
 
-#dashboard table th {
+
+#indicator table td {
+    padding: 5px 10px;
+}
+
+#indicator table th {
     border-bottom: 1px solid var(--divider-color);
 }
 
-#dashboard table a {
+#indicator table a {
     text-decoration: none;
 }
 
-#dashboard .indicator {
-    color: rgba(0, 0, 0, 0);
+#indicator table .col {
+    padding: 5px 10px;
+    border-radius: 5px;
 }
 
-#dashboard .indicator:hover {
-    color: rgba(0, 0, 0, 0.5);
+#indicator table.full-screen .col {
+    padding: 0;
+    background-color: white !important;
+    color: black !important;
 }
 
-#dashboard .scenario {
-    width: 200px;
+#indicator table .indicator-checkbox {
+    padding-top: 5px
 }
 
-#dashboard .scenario-header {
-    font-size: 16px;
-    padding: 15px;
-    font-weight: 600;
-}
-
-#dashboard .indicator-row {
+#indicator table.full-screen .indicator-checkbox {
     display: none;
 }
 
-#dashboard .context-analysis {
+#indicator table .indicator {
+    color: rgba(0, 0, 0, 0);
+    display: none;
+}
+
+#indicator table.full-screen .indicator {
+    display: table-cell;
+}
+
+#content-view .indicator:hover {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+#content-view .scenario {
+    width: 200px;
+}
+
+#content-view .scenario-header {
+    font-size: 14px;
+    padding: 10px;
+    font-weight: 600;
+}
+
+#content-view .indicator-row {
+    display: none;
+}
+
+#content-view .context-analysis {
     display: table-row;
 }
 
-#dashboard .table-section {
+#content-view .table-section {
     overflow-x: auto;
     width: 100%;
 }
 
-#dashboard #toggle-table {
-    font-size: 10px;
-    margin-top: 10px;
-    padding: 5px;
+#content-view #toggle-table {
+    font-size: 14px;
+    padding: 10px 20px;
     width: 100%;
 }
 
-#dashboard .scenario-section {
+#content-view .scenario-section {
     display: none;
 }
 
-#dashboard .intervention {
+#content-view .intervention {
     padding: 20px;
+}
+
+/* FOR MAP */
+#map-wrapper {
+    height: 100%;
+    position: relative;
+    overflow: hidden !important;
+}
+
+#map {
+    height: 100%;
+    width: 100%;
+}
+
+#map .leaflet-popup-content {
+    max-height: 100px;
+    overflow-y: auto;
+}
+
+#left-side {
+    top: 0;
+    left: 0;
+}
+
+#left-side .side-panel-button {
+    right: -26px;
+    position: absolute;
+    top: 62px;
+}
+
+#left-side .side-panel-toggle-button {
+    border-bottom-right-radius: 4px;
+    border-top-right-radius: 4px;
+    box-shadow: -1px 0px 4px rgb(0 0 0 / 30%);
+    overflow: hidden;
+}
+
+
+.side-panel {
+    position: absolute;
+    z-index: 9999;
+    height: 100%;
+    width: 300px;
+}
+
+.side-panel .inner {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+.side-panel .content-wrapper {
+    height: 100%;
+    width: 100%;
+    background-color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+}
+
+.side-panel .content {
+    height: 100%;
+    width: 100%;
+}
+
+.side-panel .inner-content {
+    height: 100%;
+    width: 100%;
+    flex-flow: column;
+    display: flex;
+}
+
+
+.side-panel .inner-content .side-panel-content {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.side-panel-toggle-button .toggle-button {
+    background: var(--primary-color);
+    color: var(--white);
+    cursor: pointer;
+    font-size: 14px;
+    padding: 15px 8px;
+    position: relative;
+    width: 26px;
+}
+
+.side-panel-toggle-button .toggle-button img {
+    margin-left: -1px;
+    width: 120%;
+}
+
+.side-panel-toggle-button .toggle-button.hidden {
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: none;
+    color: #aaa;
+}
+
+.side-panel-toggle-button .toggle-button:last-child {
+    border-bottom-right-radius: 4px;
+    margin-top: 0 !important;
+}
+
+.layer-row {
+    padding: 5px 10px;
+}
+
+.layer-row label {
+    display: inline-block !important;
+}
+
+.layer-row input {
+    cursor: pointer;
+}
+
+.layer-row .legend {
+    padding-left: 20px;
+}
+
+.layer-row .fa-list-ul {
+    cursor: pointer;
+    margin-top: 2px;
+}
+
+.layer-row .context-layer-title {
+    margin-top: 5px;
+}
+
+/* Legend */
+.legend {
+    display: none;
+}
+
+.legend td {
+    margin: 0 !important;
+    padding: 0 5px !important;
+}
+
+.legend .title {
+    font-weight: 700;
+}
+
+.legend .circle {
+    border-radius: 50%;
+}
+
+.legend .line {
+    padding: 0 !important;
+    width: 50px;
+}
+
+.legend .polygon {
+    padding: 0 !important;
+    height: 20px;
+    width: 20px;
+}
+
+.side-panel-control i {
+    cursor: pointer;
+}
+
+/* level selection */
+#level-selection {
+    right: 10px;
+    top: 10px;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    background-clip: padding-box;
+    background: white;
+    border-radius: 5px;
+    position: absolute;
+    z-index: 1000;
+}
+
+#level-selection > div {
+    cursor: pointer;
+    padding: 10px;
+}
+
+#level-selection > div:hover {
+    background: var(--hovered-color);
+}
+
+#level-selection > div.active {
+    background-color: var(--hovered-color);
+    color: var(--primary-color);
+    font-weight: 600;
 }

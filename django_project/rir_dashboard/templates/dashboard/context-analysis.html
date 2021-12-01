@@ -15,65 +15,133 @@
     </style>
 {% endblock %}
 {% block content %}
-    <div id="dashboard">
-        <div data-program="context-analysis" class="section box-shadow-bottom table-section scenario-section">
-            <div class="scenario-header scenario-{{ overall_scenario.level }}">
-                <div>Overall Scenario</div>
-                <div>
-                    Scenario {% if overall_scenario.level %}{{ overall_scenario.level }}: {{ overall_scenario.name }}{% else %} <i>unknown</i> {% endif %}
+    <div id="map-wrapper" data-program="context-analysis" class="section table-section scenario-section">
+        <div id="map"></div>
+        <div id="level-selection" class="box-shadow-bottom">
+            {% for level in instance_levels %}
+                <div id="level-{{ level.name }}" data-level="{{ level.name }}">{{ level.name }}</div>
+            {% endfor %}
+        </div>
+        <div id="left-side" class="side-panel box-shadow-bottom" data-hidden="false">
+            <div class="inner">
+                <div class="side-panel-button">
+                    <div class="side-panel-toggle-button">
+                        <div id="indicator-toggle-button" class="toggle-button hidden" data-target="indicator">
+                            <i class="fa fa-home" aria-hidden="true"></i>
+                        </div>
+                        <div id="layer-list-toggle-button" class="toggle-button hidden" data-target="layer-list">
+                            <img src="{% static "libs/leaflet/1.5.1/images/layers-2x.png" %}">
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div>
-                <table>
-                    <tr>
-                        <th valign="top" style="width: 250px">Indicator</th>
-                        {% for scenario in scenarios %}
-                            <th class="scenario scenario-{{ scenario.level }}" valign="top">
-                                Scenario {{ scenario.level }}
-                                <div>
-                                    {{ scenario.name }}
+
+                {# content #}
+                <div class="content-wrapper">
+                    {# indicator #}
+                    <div id="indicator" class="content">
+                        <div class="inner-content">
+                            <div class="scenario-header scenario-{{ overall_scenario.level }} side-panel-header">
+                                Overall Scenario
+                                <div class="pull-right side-panel-control">
+                                    <i class="left-side-fullscreen fa fa-arrows-alt" aria-hidden="true" title="Fullscreen"></i>
+                                    <i class="left-side-exit-fullscreen fa fa-minus" aria-hidden="true" title="Exit Fullscreen" style="display: none"></i>
                                 </div>
-                            </th>
-                        {% endfor %}
-                    </tr>
-                    {% for indicator in indicators %}
-                        <tr class="indicator-row {% if indicator.show_in_context_analysis %}context-analysis{% endif %}">
-                            <td>
-                                <a href="{% url "indicator-mapview" instance.slug indicator.id %}">{{ indicator.name }}</a>
-                            </td>
-                            {% for scenario in scenarios %}
-                                {% if indicator.scenario_value == scenario.level %}
-                                    <td class="scenario indicator scenario-{{ scenario.level }}">
-                                        {{ indicator.value }}
-                                    </td>
-                                {% else %}
-                                    <td class="scenario indicator">
-                                        {% get_scenario_rule indicator scenario.level as rule %}
-                                        {{ rule }}
-                                    </td>
+                                <br>
+                                Scenario {% if overall_scenario.level %}{{ overall_scenario.level }}: {{ overall_scenario.name }}{% else %} <i>unknown</i> {% endif %}
+                            </div>
+                            <div class="side-panel-content">
+                                <table>
+                                    <tr class="table-header">
+                                        <th valign="top" class="indicator-name">Indicator</th>
+                                        {% for scenario in scenarios %}
+                                            <th class="scenario scenario-{{ scenario.level }}" valign="top">
+                                                Scenario {{ scenario.level }}
+                                                <div>
+                                                    {{ scenario.name }}
+                                                </div>
+                                            </th>
+                                        {% endfor %}
+                                    </tr>
+                                    {% for indicator in indicators %}
+                                        <tr class="indicator-row {% if indicator.show_in_context_analysis %}context-analysis{% endif %}">
+                                            <td class="indicator-name">
+                                                <div class="row">
+                                                    <div class="indicator-checkbox"><input type="checkbox" data-id="{{ indicator.id }}" data-url="{{ indicator.object.geojson_url_template }}"
+                                                                                           {% if not indicator.object.geojson_url_template %}disabled{% endif %}></div>
+                                                    <div class="col scenario-{{ indicator.scenario_value }}">
+                                                        {{ indicator.name }}
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            {% for scenario in scenarios %}
+                                                {% if indicator.scenario_value == scenario.level %}
+                                                    <td class="scenario indicator scenario-{{ scenario.level }}">
+                                                        {{ indicator.value }}
+                                                    </td>
+                                                {% else %}
+                                                    <td class="scenario indicator">
+                                                        {% get_scenario_rule indicator scenario.level as rule %}
+                                                        {{ rule }}
+                                                    </td>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </tr>
+                                    {% endfor %}
+                                </table>
+                            </div>
+                            <div class="side-panel-footer">
+                                {% if user.is_staff %}
+                                    <button id="toggle-table" class="main-button content-button scenario-{{ overall_scenario.level }}">Show all indicators</button>
                                 {% endif %}
-                            {% endfor %}
-                        </tr>
-                    {% endfor %}
-                </table>
-                {% if user.is_staff %}
-                    <button id="toggle-table" class="main-button content-button scenario-{{ overall_scenario.level }}">Show all indicators</button>
-                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {# layer list #}
+                    <div id="layer-list" class="content">
+                        <div class="inner-content">
+                            <div class="side-panel-header">
+                                <h3>Layers
+                                    <div class="pull-right side-panel-control">
+                                        <i class="left-side-fullscreen fa fa-arrows-alt" aria-hidden="true" title="Fullscreen"></i>
+                                        <i class="left-side-exit-fullscreen fa fa-minus" aria-hidden="true" title="Exit Fullscreen" style="display: none"></i>
+                                    </div>
+                                </h3>
+                            </div>
+                            <div class="side-panel-content">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        {% for intervention in interventions %}
-            <div data-program="{{ intervention.program_instance.program.slug }}" class="section box-shadow-bottom table-section scenario-section">
-                <div class="scenario-header scenario-{{ overall_scenario.level }}">
-                    <div>{{ intervention.program_instance.program.name }} Intervention</div>
-                </div>
-                <div class="intervention">
-                    <iframe src="{{ intervention.intervention_url }}" title="{{ intervention.program_instance.program.name }}" frameBorder="0"></iframe>
-                </div>
-            </div>
-        {% endfor %}
     </div>
+    {% for intervention in interventions %}
+        <div data-program="{{ intervention.program_instance.program.slug }}" class="section box-shadow-bottom table-section scenario-section">
+            <div class="scenario-header scenario-{{ overall_scenario.level }}">
+                <div>{{ intervention.program_instance.program.name }} Intervention</div>
+            </div>
+            <div class="intervention">
+                <iframe src="{{ intervention.intervention_url }}" title="{{ intervention.program_instance.program.name }}" frameBorder="0"></iframe>
+            </div>
+        </div>
+    {% endfor %}
 {% endblock %}
 {% block scripts %}
+    <script>
+        const url = "{{ url }}";
+    </script>
+    <script>
+        let contextLayers = "{{ context_layers|safe }}";
+        contextLayers = contextLayers.replaceAll('None', null).replaceAll('True', true).replaceAll('False', false).replaceAll('\'', '"');
+        contextLayers = JSON.parse(contextLayers);
+    </script>
+    <script type="text/javascript" src="{% static 'libs/leaflet/1.5.1/leaflet.js' %}"></script>
+    <script type="text/javascript" src="{% static 'libs/esri-leaflet/esri-leaflet.js' %}"></script>
+    <script type="text/javascript" src="{% static 'libs/esri-leaflet/esri-leaflet-vector.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/dashboard/context-analysis/map.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/dashboard/context-analysis/geometry-level.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/dashboard/context-analysis/esri/leaflet-esri-layer.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/dashboard/context-analysis/esri/leaflet-esri-style.js' %}"></script>
     <script>
         {# toogle the table#}
         $('#toggle-table').click(function () {
@@ -109,7 +177,61 @@
             } else {
                 $target.click();
             }
-
         }
+
+        {# Left side panel of map #}
+        const $leftSide = $('#left-side');
+        const width = $leftSide.width();
+        $('#left-side .toggle-button').click(function () {
+            const isHidden = $(this).hasClass('hidden');
+            $('#left-side .content').hide();
+            $('#left-side .toggle-button').addClass('hidden');
+
+
+            $(this).removeClass('hidden');
+            $(`#${$(this).data('target')}`).show();
+
+            {# doing toggle side panel#}
+            const $sidePanel = $('#left-side');
+            if (!isHidden) {
+                if (!$sidePanel.data('hidden')) {
+                    $sidePanel.animate({
+                        left: `-${width}px`
+                    }, 100, function () {
+                        $sidePanel.data('hidden', true)
+                    });
+                } else {
+                    $sidePanel.animate({
+                        left: `0`
+                    }, 100, function () {
+                        $sidePanel.data('hidden', false)
+                    });
+                }
+            } else {
+                $sidePanel.animate({
+                    left: `0`
+                }, 100, function () {
+                    $sidePanel.data('hidden', false)
+                });
+            }
+        });
+        $('#indicator-toggle-button').click();
+
+        {# full screen toggle #}
+        const $fullScreen = $('.left-side-fullscreen');
+        const $indicator = $('#indicator');
+        const $exitFullScreen = $('.left-side-exit-fullscreen');
+        $fullScreen.click(function () {
+            $leftSide.width('100%');
+            $exitFullScreen.show();
+            $fullScreen.hide();
+            $indicator.find('table').addClass('full-screen');
+        });
+        $exitFullScreen.click(function () {
+            $leftSide.width(width);
+            $exitFullScreen.hide();
+            $fullScreen.show();
+            $indicator.find('table').removeClass('full-screen');
+        });
     </script>
 {% endblock %}

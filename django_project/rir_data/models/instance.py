@@ -115,3 +115,10 @@ class Instance(SlugTerm, IconTerm):
             overall_scenario_level = 1
 
         return indicators, overall_scenario_level
+
+    @property
+    def context_layers(self):
+        """
+        Return context layers of the instance
+        """
+        return self.contextlayer_set.filter(show_on_map=True)
