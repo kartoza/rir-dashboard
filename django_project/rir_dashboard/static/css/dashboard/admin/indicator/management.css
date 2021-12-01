@@ -78,6 +78,10 @@
     display: inline-block;
 }
 
+#drop-area .block .navbar-options ul {
+    width: 163px;
+}
+
 .ui-draggable-dragging {
     height: 0 !important;
     z-index: 9999 !important;
