@@ -190,7 +190,7 @@ class Indicator(AbstractTerm):
                 scenario_value = self.scenario_level(value)
                 background_color = scenario_value.background_color if scenario_value else ''
                 scenario_rule = self.scenario_rule(scenario_value.level)
-                if scenario_rule:
+                if scenario_rule and scenario_rule.color:
                     background_color = scenario_rule.color
 
                 values.append({

@@ -72,25 +72,25 @@ except get_user_model().DoesNotExist:
     print('superuser successfully created')
 
 
+# #########################################################
+# # 4. Loading fixtures
+# #########################################################
+#
+# print("-----------------------------------------------------")
+# print("4. Loading fixtures")
+#
+# # Disable fixtures loading in prod by including environment variable:
+# #  INITIAL_FIXTURES=False
+# import ast
+# _load_initial_fixtures = ast.literal_eval(
+#     os.getenv('INITIAL_FIXTURES', 'True'))
+# if _load_initial_fixtures:
+#     call_command('load_fixtures')
+
 #########################################################
-# 4. Loading fixtures
+# 4. Collecting static files
 #########################################################
 
 print("-----------------------------------------------------")
-print("4. Loading fixtures")
-
-# Disable fixtures loading in prod by including environment variable:
-#  INITIAL_FIXTURES=False
-import ast
-_load_initial_fixtures = ast.literal_eval(
-    os.getenv('INITIAL_FIXTURES', 'True'))
-if _load_initial_fixtures:
-    call_command('load_fixtures')
-
-#########################################################
-# 3. Collecting static files
-#########################################################
-
-print("-----------------------------------------------------")
-print("5. Collecting static files")
+print("4. Collecting static files")
 call_command('collectstatic', '--noinput', verbosity=0)

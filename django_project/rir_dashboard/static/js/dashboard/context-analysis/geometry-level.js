@@ -48,8 +48,14 @@ function initGeometryLevel(map, onLevelSelected) {
                     if (identifierSelected === identifier) {
                         selectLevel($level);
                     }
+                },
+                error: function () {
+                    if (identifierSelected === identifier) {
+                        selectLevel($level);
+                    }
                 }
             });
+            return false
         } else {
             geometryLayer.addData(geometry[identifier]);
             if (init) {
