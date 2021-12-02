@@ -306,6 +306,10 @@
     width: 20px;
 }
 
+.legend img {
+    max-width: 100%;
+}
+
 .side-panel-control i {
     cursor: pointer;
 }
