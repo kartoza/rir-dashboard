@@ -108,15 +108,6 @@ $(document).ready(function () {
             indicatorsLayer[id] = {}
         }
 
-        // we need to make sure all layer are turned off
-        $.each(indicatorsLayer[id], function (idx, layer) {
-            try {
-                layer.removeFrom(map);
-            } catch (e) {
-
-            }
-        });
-
         // we get the saved layer
         // if not there we request to API
         if (indicatorsLayer[id][level]) {
@@ -146,7 +137,7 @@ $(document).ready(function () {
                                         '</table>');
                                 }
                             }
-                        )
+                        );
                         inputIndicatorClicked(input, level)
                     }
                 });
@@ -158,10 +149,25 @@ $(document).ready(function () {
         $(input).removeAttr('disabled');
         if (input.checked) {
             if (level === currentLevel) {
+                // we need to make sure all layer are turned off
+                $.each(indicatorsLayer[id], function (idx, layer) {
+                    try {
+                        layer.removeFrom(map);
+                    } catch (e) {
+
+                    }
+                });
                 layer.addTo(map);
             }
         } else {
-            layer.removeFrom(map);
+            // we need to make sure all layer are turned off
+            $.each(indicatorsLayer[id], function (idx, layer) {
+                try {
+                    layer.removeFrom(map);
+                } catch (e) {
+
+                }
+            });
         }
     }
 
