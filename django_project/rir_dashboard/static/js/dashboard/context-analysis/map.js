@@ -95,7 +95,7 @@ $(document).ready(function () {
 
     $inputs.click(function () {
         inputIndicatorClicked(this, currentLevel);
-    })
+    });
 
     let currentLevel = null;
 

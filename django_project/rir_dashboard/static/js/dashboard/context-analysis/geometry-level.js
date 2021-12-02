@@ -25,7 +25,13 @@ function initGeometryLevel(map, onLevelSelected) {
     let identifierSelected = null;
     const $levelSelection = $('#level-selection');
     const date = `${new Date().getUTCFullYear()}-${new Date().getUTCMonth() + 1}-${new Date().getUTCDate()}`;
-    selectLevel($($levelSelection.find('div')[0]));
+
+    // check if it is district
+    let $defaultSelected = $levelSelection.find('*[data-level="District"]');
+    if ($defaultSelected.length === 0) {
+        $defaultSelected = $($levelSelection.find('div')[0]);
+    }
+    selectLevel($defaultSelected);
 
     function selectLevel($level) {
         const level = $level.data('level');
