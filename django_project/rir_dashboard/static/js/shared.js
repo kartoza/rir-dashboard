@@ -78,7 +78,6 @@ function csvToJson(csv) {
     var lines = csv.split("\n");
     var result = [];
     var headers = lines[0].split(",");
-    console.log(lines[0])
     for (var i = 1; i < lines.length; i++) {
         var obj = {};
         var currentline = lines[i].split(",");
@@ -89,4 +88,12 @@ function csvToJson(csv) {
     }
 
     return result;
+}
+
+function numberWithCommas(x) {
+    if (isNaN(x)) {
+        return x;
+    } else {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
 }

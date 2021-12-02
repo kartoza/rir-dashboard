@@ -135,7 +135,7 @@ $(document).ready(function () {
                                     // check others properties
                                     $.each(feature.properties, function (key, value) {
                                         if (!['background_color', 'text_color', 'scenario_text', 'scenario_value', 'geometry_id'].includes(key)) {
-                                            defaultHtml += `<tr><td><b>${key.capitalize()}</b></td><td>${value}</td></tr>`
+                                            defaultHtml += `<tr><td><b>${key.capitalize()}</b></td><td>${numberWithCommas(value)}</td></tr>`
                                         }
                                     });
                                     layer.bindPopup('' +
