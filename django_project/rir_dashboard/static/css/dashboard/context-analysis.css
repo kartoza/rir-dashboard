@@ -25,7 +25,6 @@
 
 
 #indicator table {
-    margin-top: 10px;
     width: 100%;
 }
 
@@ -62,6 +61,10 @@
 
 #indicator table a {
     text-decoration: none;
+}
+
+#indicator table .row {
+    margin: 0;
 }
 
 #indicator table .col {
@@ -114,10 +117,6 @@
 
 #content-view .indicator-row {
     display: none;
-}
-
-#content-view .context-analysis {
-    display: table-row;
 }
 
 #content-view .table-section {
@@ -278,6 +277,10 @@
     display: none;
 }
 
+.legend table {
+    margin-top: 10px;
+}
+
 .legend td {
     margin: 0 !important;
     padding: 0 5px !important;
@@ -339,4 +342,41 @@
     background-color: var(--hovered-color);
     color: var(--primary-color);
     font-weight: 600;
+}
+
+.group-name .row {
+    font-weight: 700;
+}
+
+.group-row {
+    display: none;
+}
+
+#indicator .group-name {
+    cursor: pointer;
+}
+
+.group-name {
+    padding: 10px 10px 5px 10px;
+}
+
+.group-toggle {
+    cursor: pointer;
+}
+
+.group-name .col {
+    padding: 0;
+}
+
+#indicator .group-name:hover {
+    opacity: 0.5;
+}
+
+.no-context-analysis.hide {
+    display: none !important;;
+}
+
+.layer-list-group {
+    padding-left: 17px;
+    display: none;
 }

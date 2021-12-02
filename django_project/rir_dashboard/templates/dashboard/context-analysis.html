@@ -62,45 +62,56 @@
                                             </th>
                                         {% endfor %}
                                     </tr>
-                                    {% for indicator in indicators %}
-                                        <tr class="indicator-row {% if indicator.show_in_context_analysis %}context-analysis{% endif %}">
-                                            <td class="indicator-name">
-                                                <div class="row">
-                                                    <div class="indicator-checkbox">
-                                                        <input type="checkbox" data-id="{{ indicator.id }}" data-url="{{ indicator.object.geojson_url_template }}"
-                                                               {% if not indicator.object.geojson_url_template %}disabled{% endif %}>
-                                                    </div>
-                                                    <div class="col">
-                                                        <div class="name scenario-{{ indicator.scenario_value }}">{{ indicator.name }}</div>
-                                                        <div class="legend">
-                                                            <table>
-                                                                {% for name, color in indicator.object.legends.items %}
-                                                                    <tr>
-                                                                        <td><div class="polygon" style="background-color: {{ color }}"></div>
-                                                                        <td>{{ name }}</td>
-                                                                    </tr>
-                                                                {% endfor %}
-                                                            </table>
+                                    {% for group, indicators in indicators_in_groups.items %}
+                                        <tbody class="group">
+                                        <tr class="group-name hidden">
+                                            <td class="row">
+                                                <div class="col">{{ group }}</div>
+                                                <div><i class="group-toggle fa fa-caret-down" aria-hidden="true"></i></div>
+                                            </td>
+                                        </tr>
+                                        {% for indicator in indicators %}
+                                            <tr data-group="{{ group }}" class="group-row indicator-row {% if not indicator.show_in_context_analysis %}no-context-analysis hide{% endif %}">
+                                                <td class="indicator-name">
+                                                    <div class="row">
+                                                        <div class="indicator-checkbox">
+                                                            <input type="checkbox" data-id="{{ indicator.id }}" data-url="{{ indicator.object.geojson_url_template }}"
+                                                                   {% if not indicator.object.geojson_url_template %}disabled{% endif %}>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="name scenario-{{ indicator.scenario_value }}">{{ indicator.name }}</div>
+                                                            <div class="legend">
+                                                                <table>
+                                                                    {% for name, color in indicator.object.legends.items %}
+                                                                        <tr>
+                                                                            <td>
+                                                                                <div class="polygon" style="background-color: {{ color }}"></div>
+                                                                            <td>{{ name }}</td>
+                                                                        </tr>
+                                                                    {% endfor %}
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                        <div class="indicator-legend">
+                                                            <i class="fa fa-list-ul pull-right" aria-hidden="true"></i>
                                                         </div>
                                                     </div>
-                                                    <div class="indicator-legend">
-                                                        <i class="fa fa-list-ul pull-right" aria-hidden="true"></i>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            {% for scenario in scenarios %}
-                                                {% if indicator.scenario_value == scenario.level %}
-                                                    <td class="scenario indicator scenario-{{ scenario.level }}">
-                                                        {{ indicator.value }}
-                                                    </td>
-                                                {% else %}
-                                                    <td class="scenario indicator">
-                                                        {% get_scenario_rule indicator scenario.level as rule %}
-                                                        {{ rule }}
-                                                    </td>
-                                                {% endif %}
-                                            {% endfor %}
-                                        </tr>
+                                                </td>
+                                                {% for scenario in scenarios %}
+                                                    {% if indicator.scenario_value == scenario.level %}
+                                                        <td class="scenario indicator scenario-{{ scenario.level }}">
+                                                            {{ indicator.value }}
+                                                        </td>
+                                                    {% else %}
+                                                        <td class="scenario indicator">
+                                                            {% get_scenario_rule indicator scenario.level as rule %}
+                                                            {{ rule }}
+                                                        </td>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
                                     {% endfor %}
                                 </table>
                             </div>
@@ -163,12 +174,12 @@
             $(this).toggleClass('all');
             if ($(this).hasClass('all')) {
                 $(this).html('Show just context analysis indicators');
-                $('.indicator-row').show();
+                $('.no-context-analysis').removeClass('hide');
             } else {
                 $(this).html('Show all indicators');
-                $('.indicator-row').hide();
-                $('.context-analysis').show();
+                $('.no-context-analysis').addClass('hide');
             }
+            $('#indicator .group-name.hidden').click();
         });
         const $list = $('.context-analysis-nav');
         $list.click(function () {
@@ -248,5 +259,18 @@
             $fullScreen.show();
             $indicator.find('table').removeClass('full-screen');
         });
+
+        $('#indicator .group-name').click(function () {
+            const $row = $(this).closest('tbody');
+            const $i = $(this).find('.group-toggle');
+            $i.toggleClass('fa-caret-down');
+            $i.toggleClass('fa-caret-up');
+            $(this).toggleClass('hidden');
+            if (!$i.hasClass('fa-caret-down')) {
+                $row.find('tr').show();
+            } else {
+                $row.find('.group-row').hide();
+            }
+        })
     </script>
 {% endblock %}

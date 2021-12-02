@@ -119,13 +119,6 @@ class EsriLeafletLayer {
                     }
                 }
 
-                //  add legend
-                try {
-                    that.addLegend();
-                } catch (e) {
-                    console.log(e)
-                }
-
                 params['onEachFeature'] = function (f, l) {
                     l.bindPopup('<pre>' + JSON.stringify(f.properties, null, ' ').replace(/[\{\}"]/g, '') + '</pre>');
                 }
@@ -284,11 +277,5 @@ class EsriLeafletLayer {
         }
 
         return `<table>${legend}</table>`;
-        // that.$legend.append(
-        //     `<div data-layer="${this.name}" class="legend">` +
-        //     `<div class="title">${this.name}</div>` +
-        //     `<table>${legend}</table>` +
-        //     '</div>'
-        // )
     }
 }

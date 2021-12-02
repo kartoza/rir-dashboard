@@ -44,7 +44,16 @@ class ContextAnalysisView(BaseDashboardView):
             context['overall_scenario'] = context['scenarios'][overall_scenario_level - 1]
         except IndexError:
             context['overall_scenario'] = 1
-        context['indicators'] = indicators
+
+        # group the indicators
+        indicators_in_groups = {}
+        for indicator in indicators:
+            group_name = indicator['group']
+            if group_name not in indicators_in_groups:
+                indicators_in_groups[group_name] = []
+            indicators_in_groups[group_name].append(indicator)
+
+        context['indicators_in_groups'] = indicators_in_groups
         context['interventions'] = interventions
         context['today_date'] = date.today().strftime('%Y-%m-%d')
         context['context_layers'] = json.loads(

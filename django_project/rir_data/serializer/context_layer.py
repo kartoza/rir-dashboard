@@ -5,6 +5,7 @@ from rir_data.models.context_layer import ContextLayer, ContextLayerParameter
 
 class ContextLayerSerializer(serializers.ModelSerializer):
     parameters = serializers.SerializerMethodField()
+    group_name = serializers.SerializerMethodField()
 
     def get_parameters(self, obj: ContextLayer):
         parameters = {}
@@ -18,6 +19,9 @@ class ContextLayerSerializer(serializers.ModelSerializer):
                 value = urllib.parse.quote(value)
             parameters[parameter.name] = value
         return parameters
+
+    def get_group_name(self, obj: ContextLayer):
+        return obj.group.name if obj.group else ''
 
     class Meta:
         model = ContextLayer
