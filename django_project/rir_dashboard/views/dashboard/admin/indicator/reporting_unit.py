@@ -1,10 +1,7 @@
-import datetime
-import json
 from django.http import Http404
 from django.shortcuts import reverse
 from rir_dashboard.views.dashboard.admin._base import AdminView
 from rir_data.models import Indicator
-from rir_data.serializer.geometry import GeometryContextSerializer
 
 
 class IndicatorReportingUnitView(AdminView):

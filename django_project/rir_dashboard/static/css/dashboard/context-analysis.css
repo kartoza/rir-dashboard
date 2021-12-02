@@ -152,8 +152,12 @@
 }
 
 #map .leaflet-popup-content {
-    max-height: 100px;
+    max-height: 250px;
     overflow-y: auto;
+}
+
+#map .leaflet-popup-content td {
+    padding: 5px 10px;
 }
 
 #left-side {
@@ -277,6 +281,10 @@
 .legend td {
     margin: 0 !important;
     padding: 0 5px !important;
+}
+
+.legend tr td:first-child {
+    width: 1%;
 }
 
 .legend .title {

@@ -18,21 +18,34 @@
             </div>
             <div id="content-view">
                 <div class="section box-shadow-bottom">
-                    <div class="row">
-                        <div>
-                            {% for geometry in geometry_reporting_units %}
-                                <div class="row-data geometry-name">{{ geometry.str }}</div>
-                            {% endfor %}
-                        </div>
-                        <div class="col">
-                            {% for geometry in geometry_reporting_units %}
-                                <div class="row-data">
-                                    <input id="input-{{ geometry.id }}" data-id="{{ geometry.id }}" type="number" name="{{ geometry.id }}" placeholder="New value">
-                                    <i id="value-{{ geometry.id }}"></i>
-                                </div>
-                            {% endfor %}
-                        </div>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="file-data" accept="text/csv" d>
+                        <label class="custom-file-label" for="validatedCustomFile">Choose file to refill automatically...</label>
                     </div>
+                    <table>
+                        {% for geometry in geometry_reporting_units %}
+                            <tr data-id="{{ geometry.id }}" data-code="{{ geometry.identifier }}" data-extra-idx="0">
+                                <td class="geometry-name" valign="top">
+                                    {{ geometry.str }}
+                                </td>
+                                <td valign="top">
+                                    <div>
+                                        New Value : <input id="input-{{ geometry.id }}" data-id="{{ geometry.id }}" class="value-input" data-code="{{ geometry.identifier }}" type="number" name="{{ geometry.id }}">
+                                        <i id="value-{{ geometry.id }}"></i>
+                                    </div>
+                                    <div class="extra-value-wrapper">
+                                        <span class="extra-value-button">&nbsp;<i class="toggle-indicator fa fa-caret-down" aria-hidden="true"></i> Extra Value (<span class="extra-value-number">0</span>)
+                                            <i class="add-new fa fa-plus" aria-hidden="true"></i>
+                                        </span>
+                                        <div class="extra-value">
+
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+
+                    </table>
                 </div>
             </div>
         </form>
@@ -50,7 +63,76 @@
         var date = myDate.getFullYear() + '-' + ('0' + (myDate.getMonth() + 1)).slice(-2) + '-' + ('0' + myDate.getDate()).slice(-2);
         $("#datepicker").val(date);
         {% for value in values %}
-            $(`#value-{{ value.geometry.id }}`).html('Last value : <b>{{ value.value }}</b> at <b>{{ value.date }}</b>')
+            $(`#value-{{ value.geometry.id }}`).html('<div class="pull-right"> Last value : <b>{{ value.value }}</b> at <b>{{ value.date }}</b></div>')
         {% endfor %}
+
+        $('.extra-value-button').click(function () {
+            const $row = $(this).closest('tr')
+            const $extraValue = $row.find('.extra-value');
+            const $i = $(this).find('.toggle-indicator');
+            $i.toggleClass('fa-caret-down');
+            $i.toggleClass('fa-caret-up');
+            if (!$i.hasClass('fa-caret-down')) {
+                $extraValue.show();
+            } else {
+                $extraValue.hide();
+            }
+        })
+        $('#content-view .add-new').click(function () {
+            const $row = $(this).closest('tr');
+            addNewExtraValue($row, '', '')
+            return false;
+        })
+
+        function addNewExtraValue($row, name, value) {
+            $row.data('extra-idx', parseInt($row.data('extra-idx')) + 1);
+            const idx = $row.data('extra-idx');
+            const id = $row.data('id');
+
+            const $number = $row.find('.extra-value-number');
+            const $extraValue = $row.find('.extra-value');
+            $extraValue.append(
+                `<div class="extra-value-row">
+                    <input type="text" name="${id}-${idx}-extra-name" placeholder="Name" value="${name}"> =
+                    <input type="text"  name="${id}-${idx}-extra-value"  placeholder="Value" value="${value}"> <i class="fa fa-times" aria-hidden="true"></i>
+                </div>`);
+            $extraValue.show();
+            $number.html(parseInt($number.html()) + 1);
+
+            {# if the row is deleted#}
+            $extraValue.find('.fa-times').last().click(function () {
+                $(this).closest('.extra-value-row').remove();
+                $number.html(parseInt($number.html()) - 1);
+            })
+        }
+
+        {# when file input changed #}
+        $('#file-data').change(function () {
+            var file = this.files[0];
+            var fr = new FileReader();
+            fr.onload = function () {
+                const data = csvToJson(fr.result);
+                $('.value-input').val('');
+                $('.fa-times').click();
+                $.each(data, function (index, values) {
+                    const $row = $(`tr[data-code='${values.Pcode}']`);
+                    if ($row.length > 0) {
+                        const severity = values.Severity;
+                        if (severity) {
+                            $row.find('.value-input').val(severity);
+                            // check others properties
+                            $.each(values, function (key, value) {
+                                if (!['Severity', 'District', 'Pcode'].includes(key)) {
+                                    if (value) {
+                                        addNewExtraValue($row, key, value)
+                                    }
+                                }
+                            });
+                        }
+                    }
+                });
+            };
+            fr.readAsText(file);
+        })
     </script>
 {% endblock %}

@@ -145,6 +145,33 @@ class Indicator(AbstractTerm):
                 query = query.filter(date=last_date)
         return query
 
+    def serialize(self, geometry, value, attributes=None):
+        # return data
+        scenario_value = self.scenario_level(value)
+        background_color = scenario_value.background_color if scenario_value else ''
+
+        scenario_text = scenario_value.level if scenario_value else 0
+        try:
+            scenario_rule = self.scenario_rule(scenario_value.level)
+            scenario_text= scenario_rule.name
+            if scenario_rule and scenario_rule.color:
+                background_color = scenario_rule.color
+        except AttributeError:
+            pass
+
+        values = attributes if attributes else {}
+        values.update({
+            'geometry_id': geometry.id,
+            'geometry_identifier': geometry.identifier,
+            'geometry_name': geometry.name,
+            'value': value,
+            'scenario_value': scenario_value.level if scenario_value else 0,
+            'scenario_text': scenario_text,
+            'text_color': scenario_value.text_color if scenario_value else '',
+            'background_color': background_color,
+        })
+        return values
+
     def values(self, geometry: Geometry, geometry_level: GeometryLevelName, date_data: date):
         """
         Return geojson value of indicator by geometry, the target geometry level and the date
@@ -152,58 +179,63 @@ class Indicator(AbstractTerm):
         # get the geometries of data
         values = []
         query = self.query_value(date_data)
+        reporting_units = list(self.reporting_units.values_list('id', flat=True))
         if not query.first():
             return values
 
-        # get the geometries target by the level
-        geometries_target = geometry.geometries_by_level(geometry_level)
-        reporting_units = list(self.reporting_units.values_list('id', flat=True))
-
-        # get the data for every geometry target
-        for geometry_target in geometries_target:
-            geometries_report = list(
-                geometry_target.geometries_by_level(
-                    self.geometry_reporting_level).values_list('id', flat=True)
-            )
-            # filter data just by geometry target
+        if geometry_level == self.geometry_reporting_level:
+            # this is for returning real data
             query_report = query.filter(
-                geometry__in=geometries_report
-            ).filter(
                 geometry__id__in=reporting_units
             )
-            try:
-                value = None
-
-                # aggregate the data by method
-                if self.aggregation_method == AggregationMethod.MAJORITY:
-                    output = query_report.values('value').annotate(
-                        dcount=Count('value')
-                    ).order_by('-dcount')
-                    value = output[0]['value']
-                elif self.aggregation_method == AggregationMethod.SUM:
-                    output = query_report.values('indicator').annotate(
-                        sum=Sum('value')
-                    )
-                    value = output[0]['sum']
-
-                # return data
-                scenario_value = self.scenario_level(value)
-                background_color = scenario_value.background_color if scenario_value else ''
-                scenario_rule = self.scenario_rule(scenario_value.level)
-                if scenario_rule and scenario_rule.color:
-                    background_color = scenario_rule.color
-
-                values.append({
-                    'geometry_id': geometry_target.id,
-                    'geometry_identifier': geometry_target.identifier,
-                    'geometry_name': geometry_target.name,
-                    'value': value,
-                    'scenario_value': scenario_value.level if scenario_value else 0,
-                    'text_color': scenario_value.text_color if scenario_value else '',
-                    'background_color': background_color
+            for indicator_value in query_report:
+                attributes = {
+                    'date': indicator_value.date
+                }
+                attributes.update({
+                    extra.name: extra.value for extra in indicator_value.indicatorextravalue_set.all()
                 })
-            except IndexError:
-                pass
+                values.append(
+                    self.serialize(
+                        indicator_value.geometry,
+                        indicator_value.value,
+                        attributes
+                    )
+                )
+
+        else:
+            # this is for returning non real data
+            # get the geometries target by the level
+            geometries_target = geometry.geometries_by_level(geometry_level)
+
+            # get the data for every geometry target
+            for geometry_target in geometries_target:
+                geometries_report = list(
+                    geometry_target.geometries_by_level(
+                        self.geometry_reporting_level).values_list('id', flat=True)
+                )
+                # filter data just by geometry target
+                query_report = query.filter(
+                    geometry__in=geometries_report
+                ).filter(
+                    geometry__id__in=reporting_units
+                )
+                try:
+                    value = None
+                    # aggregate the data by method
+                    if self.aggregation_method == AggregationMethod.MAJORITY:
+                        output = query_report.values('value').annotate(
+                            dcount=Count('value')
+                        ).order_by('-dcount')
+                        value = output[0]['value']
+                    elif self.aggregation_method == AggregationMethod.SUM:
+                        output = query_report.values('indicator').annotate(
+                            sum=Sum('value')
+                        )
+                        value = output[0]['sum']
+                    values.append(self.serialize(geometry_target, value))
+                except IndexError:
+                    pass
 
         return values
 

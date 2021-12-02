@@ -3,7 +3,7 @@ import json
 from django.http import Http404
 from django.shortcuts import redirect, reverse, render, get_object_or_404
 from rir_dashboard.views.dashboard.admin._base import AdminView
-from rir_data.models import Indicator, Instance, IndicatorValue
+from rir_data.models import Indicator, Instance, IndicatorValue, IndicatorExtraValue
 from rir_data.serializer.geometry import GeometryContextSerializer
 
 
@@ -97,12 +97,14 @@ class IndicatorValueManagementTableView(AdminView):
             )
             date = request.POST.get('date', None)
             if date:
+                indicator_values = {}
                 for reporting_unit in indicator.reporting_units:
                     try:
                         value = float(request.POST.get(f'{reporting_unit.id}', None))
                     except ValueError:
                         pass
                     else:
+                        pass
                         try:
                             indicator_value = IndicatorValue.objects.get(
                                 indicator=indicator,
@@ -117,7 +119,25 @@ class IndicatorValueManagementTableView(AdminView):
                             )
                         indicator_value.value = value
                         indicator_value.save()
+                        indicator_values[f'{reporting_unit.id}'] = indicator_value
 
+                # we need to check extra value
+                for key, extra_value in request.POST.dict().items():
+                    if 'extra-value' in key:
+                        keys = key.split('-')
+                        reporting_id = keys[0]
+                        extra_name = request.POST.get(f'{"-".join(keys[:3])}-name', None)
+                        if extra_name and extra_value:
+                            try:
+                                indicator_value = indicator_values[reporting_id]
+                                indicator_extra_value, created = IndicatorExtraValue.objects.get_or_create(
+                                    indicator_value=indicator_value,
+                                    name=extra_name
+                                )
+                                indicator_extra_value.value = extra_value
+                                indicator_extra_value.save()
+                            except KeyError:
+                                pass
 
             return redirect(
                 reverse(

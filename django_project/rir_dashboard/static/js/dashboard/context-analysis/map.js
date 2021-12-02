@@ -129,12 +129,17 @@ $(document).ready(function () {
                                     };
                                 },
                                 onEachFeature: function (feature, layer) {
+                                    let defaultHtml =
+                                        `<tr style="background-color: ${feature.properties.background_color}; color: ${feature.properties.text_color}"><td><b>Scenario</b></td><td>${feature.properties.scenario_text}</td></tr>`
+
+                                    // check others properties
+                                    $.each(feature.properties, function (key, value) {
+                                        if (!['background_color', 'text_color', 'scenario_text', 'scenario_value', 'geometry_id'].includes(key)) {
+                                            defaultHtml += `<tr><td><b>${key.capitalize()}</b></td><td>${value}</td></tr>`
+                                        }
+                                    });
                                     layer.bindPopup('' +
-                                        '<table>' +
-                                        `<tr><td><b>Geography</b></td><td>${feature.properties.geometry_name} (${feature.properties.geometry_identifier})</td></tr>` +
-                                        `<tr><td><b>Value</b></td><td>${feature.properties.value}</td></tr>` +
-                                        `<tr style="background-color: ${feature.properties.background_color}; color: ${feature.properties.text_color}"><td><b>Scenario</b></td><td>${feature.properties.scenario_value}</td></tr>` +
-                                        '</table>');
+                                        '<table>' + defaultHtml + '</table>');
                                 }
                             }
                         );

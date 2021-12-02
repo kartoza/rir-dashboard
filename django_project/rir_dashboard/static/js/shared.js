@@ -11,7 +11,7 @@ String.prototype.replaceAll = function (search, replacement) {
 
 String.prototype.capitalize = function () {
     let target = this;
-    return target.charAt(0).toUpperCase() + target.slice(1);
+    return (target.charAt(0).toUpperCase() + target.slice(1)).replaceAll('_', ' ');
 }
 
 /**
@@ -72,4 +72,21 @@ function getCookie(name) {
  */
 function copyToClipboard(elmt) {
     navigator.clipboard.writeText(window.location.host + $(elmt).data('url'));
+}
+
+function csvToJson(csv) {
+    var lines = csv.split("\n");
+    var result = [];
+    var headers = lines[0].split(",");
+    console.log(lines[0])
+    for (var i = 1; i < lines.length; i++) {
+        var obj = {};
+        var currentline = lines[i].split(",");
+        for (var j = 0; j < headers.length; j++) {
+            obj[headers[j]] = currentline[j];
+        }
+        result.push(obj);
+    }
+
+    return result;
 }
