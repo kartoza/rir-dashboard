@@ -107,7 +107,11 @@ class Indicator(AbstractTerm):
         """
         output = {}
         for indicator_rule in self.indicatorscenariorule_set.all():
-            output[indicator_rule.name] = indicator_rule.color if indicator_rule.color else indicator_rule.scenario_level.background_color
+            output[indicator_rule.name] = {
+                'color': indicator_rule.color if indicator_rule.color else indicator_rule.scenario_level.background_color,
+                'level': indicator_rule.scenario_level.level
+
+            }
         return output
 
     def scenario_rule(self, level):
@@ -153,7 +157,7 @@ class Indicator(AbstractTerm):
         scenario_text = scenario_value.level if scenario_value else 0
         try:
             scenario_rule = self.scenario_rule(scenario_value.level)
-            scenario_text= scenario_rule.name
+            scenario_text = scenario_rule.name
             if scenario_rule and scenario_rule.color:
                 background_color = scenario_rule.color
         except AttributeError:

@@ -75,17 +75,18 @@
                                                 <td class="indicator-name">
                                                     <div class="row">
                                                         <div class="indicator-checkbox">
-                                                            <input type="checkbox" data-id="{{ indicator.id }}" data-url="{{ indicator.object.geojson_url_template }}"
+                                                            <input type="checkbox" id="indicator-checkbox-{{ indicator.id }}" data-id="{{ indicator.id }}" data-url="{{ indicator.object.geojson_url_template }}"
                                                                    {% if not indicator.object.geojson_url_template %}disabled{% endif %}>
                                                         </div>
                                                         <div class="col">
                                                             <div class="name scenario-{{ indicator.scenario_value }}">{{ indicator.name }}</div>
                                                             <div class="legend">
                                                                 <table>
-                                                                    {% for name, color in indicator.object.legends.items %}
-                                                                        <tr>
+                                                                    {% for name, value in indicator.object.legends.items %}
+                                                                        <tr class="legend-row active" data-id="{{ indicator.id }}" data-level="{{ value.level }}">
                                                                             <td>
-                                                                                <div class="polygon" style="background-color: {{ color }}"></div>
+                                                                                <div class="polygon" style="background-color: {{ value.color }}"></div>
+                                                                            </td>
                                                                             <td>{{ name }}</td>
                                                                         </tr>
                                                                     {% endfor %}
@@ -166,6 +167,8 @@
     <script type="text/javascript" src="{% static 'libs/esri-leaflet/esri-leaflet-vector.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/dashboard/context-analysis/map.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/dashboard/context-analysis/geometry-level.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/dashboard/context-analysis/indicator-control.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/dashboard/context-analysis/context-layer-control.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/dashboard/context-analysis/esri/leaflet-esri-layer.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/dashboard/context-analysis/esri/leaflet-esri-style.js' %}"></script>
     <script>

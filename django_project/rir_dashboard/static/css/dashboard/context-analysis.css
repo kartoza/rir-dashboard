@@ -376,3 +376,16 @@
     padding-left: 17px;
     display: none;
 }
+
+.legend-row {
+    cursor: pointer;
+    opacity: 0.1;
+}
+
+.legend-row.active:hover {
+    opacity: 0.8;
+}
+
+.legend-row.active {
+    opacity: 1;
+}
