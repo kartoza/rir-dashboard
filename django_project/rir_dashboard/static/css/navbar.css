@@ -102,12 +102,15 @@ select:focus-visible {
     opacity: 0.5;
 }
 
+.profile-button {
+    margin-right: 20px;
+}
+
 #instance-selection {
     color: var(--primary-color);
     border: 1px solid white;
     display: none;
     font-weight: 600;
-    margin-left: 10px;
 }
 
 #instance-selection-wrapper {
