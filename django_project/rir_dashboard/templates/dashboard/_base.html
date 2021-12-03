@@ -36,104 +36,89 @@
 {% include "pages/_navbar.html" %}
 <div id="page">
     <div id="navigation" class="box-shadow-right">
-        <div class="content">
-            <div class="section">
-                <div class="header">
-                    <img src="{% if instance.icon %}{{ instance.icon.url }}{% else %}{% static "img/no-image-found.jpg" %}{% endif %}">
-                    {{ instance.name }}
-                </div>
+        <div id="inner-navigation">
+            <div class="toggle-button">
+                <i class="fa fa-caret-left" aria-hidden="true"></i>
+                <i class="fa fa-caret-right" aria-hidden="true"></i>
             </div>
-            {# Context Analysis #}
-            <div class="section">
-                <a href="{% url "dashboard-view" instance.slug %}#context-analysis" data-target="context-analysis" class="nav context-analysis-nav">
-                    <table>
-                        <tr>
-                            <td class="icon"><i class="fa fa-home" aria-hidden="true"></i></td>
-                            <td>Context Analysis</td>
-                        </tr>
-                    </table>
-                </a>
-                {% for program_instance in instance.programs_instance %}
-                    <a href="{% url "dashboard-view" instance.slug %}#{{ program_instance.program.slug }}" data-target="{{ program_instance.program.slug }}" class="nav context-analysis-nav">
-                        <table>
-                            <tr>
-                                <td class="icon">
-                                    {% if program_instance.program.icon and program_instance.program.white_icon %}
-                                        <img src="{{ program_instance.program.icon.url }}" class="icon">
-                                        <img src="{{ program_instance.program.white_icon.url }}" class="white-icon">
-                                    {% endif %}
-                                </td>
-                                <td>{{ program_instance.program.name }}</td>
-                            </tr>
-                        </table>
-                    </a>
-                {% endfor %}
-            </div>
-            {% if user.is_superuser %}
-                <div class="section">
-                    <div class="header">
-                        Management
+            <div id="navigation-content">
+                <div class="content">
+                    {#            <div class="section">#}
+                    {#                <div class="header">#}
+                    {#                    <img src="{% if instance.icon %}{{ instance.icon.url }}{% else %}{% static "img/no-image-found.jpg" %}{% endif %}">#}
+                    {#                    {{ instance.name }}#}
+                    {#                </div>#}
+                    {#            </div>#}
+                    {# Context Analysis #}
+                    <div class="section">
+                        <a href="{% url "dashboard-view" instance.slug %}#context-analysis" data-target="context-analysis" class="nav context-analysis-nav">
+                            <table>
+                                <tr>
+                                    <td class="icon"><i class="fa fa-home" aria-hidden="true"></i></td>
+                                    <td>Context Analysis</td>
+                                </tr>
+                            </table>
+                        </a>
+                        {% for program_instance in instance.programs_instance %}
+                            <a href="{% url "dashboard-view" instance.slug %}#{{ program_instance.program.slug }}" data-target="{{ program_instance.program.slug }}" class="nav context-analysis-nav">
+                                <table>
+                                    <tr>
+                                        <td class="icon">
+                                            {% if program_instance.program.icon and program_instance.program.white_icon %}
+                                                <img src="{{ program_instance.program.icon.url }}" class="icon">
+                                                <img src="{{ program_instance.program.white_icon.url }}" class="white-icon">
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ program_instance.program.name }}</td>
+                                    </tr>
+                                </table>
+                            </a>
+                        {% endfor %}
                     </div>
-                    {# ---------------- INDICATOR ----------------#}
-                    <a id="nav-indicator-management" href="{% url "indicator-management-view" instance.slug %}" class="nav">
-                        <table>
-                            <tr>
-                                <td class="icon"><i class="fa fa-th-list" aria-hidden="true"></i></td>
-                                <td>Indicator</td>
-                                <td class="icon"><a href="{% url "indicator-management-new" instance.slug %}"><i class="fa fa-plus-circle" aria-hidden="true"></i></a></td>
-                            </tr>
-                        </table>
-                    </a>
-                    {# ---------------- INSTANCE ----------------#}
-                    <a id="nav-instance-management" href="{% url "instance-management-view" instance.slug %}" class="nav">
-                        <table>
-                            <tr>
-                                <td class="icon"><i class="fa fa-flag" aria-hidden="true"></i></td>
-                                <td>Instance</td>
-                                <td class="icon"><a href="{% url "instance-management-create" instance.slug %}"><i class="fa fa-plus-circle" aria-hidden="true"></i></a></td>
-                            </tr>
-                        </table>
-                    </a>
-                    {# ---------------- GEOMETRY ----------------#}
-                    <div class="nav sub-header">
-                        <table>
-                            <tr>
-                                <td class="icon"><i class="fa fa-globe" aria-hidden="true"></i></td>
-                                <td>Geometry</td>
-                            </tr>
-                        </table>
+                    {% if user.is_superuser %}
+                        <div class="section">
+                            <div class="sub-header">
+                                Management
+                            </div>
+                            {# ---------------- INDICATOR ----------------#}
+                            <a id="nav-indicator-management" href="{% url "indicator-management-view" instance.slug %}" class="nav">
+                                <table>
+                                    <tr>
+                                        <td class="icon"><i class="fa fa-th-list" aria-hidden="true"></i></td>
+                                        <td>Indicator</td>
+                                        <td class="right-icon"><a href="{% url "indicator-management-new" instance.slug %}"><i class="fa fa-plus-circle" aria-hidden="true"></i></a></td>
+                                    </tr>
+                                </table>
+                            </a>
+                            {# ---------------- INSTANCE ----------------#}
+                            <a id="nav-instance-management" href="{% url "instance-management-view" instance.slug %}" class="nav">
+                                <table>
+                                    <tr>
+                                        <td class="icon"><i class="fa fa-flag" aria-hidden="true"></i></td>
+                                        <td>Instance</td>
+                                        <td class="right-icon"><a href="{% url "instance-management-create" instance.slug %}"><i class="fa fa-plus-circle" aria-hidden="true"></i></a></td>
+                                    </tr>
+                                </table>
+                            </a>
+                            {# ---------------- GEOMETRY ----------------#}
+                            <a id="nav-geography-view" href="{% url "geography-management-view" instance.slug %}" class="nav">
+                                <table>
+                                    <tr>
+                                        <td class="icon"><i class="fa fa-globe" aria-hidden="true"></i></td>
+                                        <td>Geography</td>
+                                        <td class="right-icon"><a href="{% url "geography-upload-view" instance.slug %}"><i class="fa fa-plus-circle" aria-hidden="true"></i></a></td>
+                                    </tr>
+                                </table>
+                            </a>
+                        </div>
+                    {% endif %}
+
+                    {# TODO: #}
+                    {#  temporary#}
+                    <div style="height: 20px">
+
                     </div>
-                    <a id="nav-geography-view" href="{% url "geography-management-view" instance.slug %}" class="nav">
-                        <table>
-                            <tr>
-                                <td class="icon"></td>
-                                <td>View</td>
-                            </tr>
-                        </table>
-                    </a>
-                    <a id="nav-geography-level-management" href="{% url "geography-level-management-view" instance.slug %}" class="nav">
-                        <table>
-                            <tr>
-                                <td class="icon"></td>
-                                <td>Level Management</td>
-                            </tr>
-                        </table>
-                    </a>
-                    <a id="nav-geography-upload" href="{% url "geography-upload-view" instance.slug %}" class="nav">
-                        <table>
-                            <tr>
-                                <td class="icon"></td>
-                                <td>Upload</td>
-                            </tr>
-                        </table>
-                    </a>
                 </div>
-            {% endif %}
-
-            {# TODO: #}
-            {#  temporary#}
-            <div style="height: 20px">
-
             </div>
         </div>
     </div>
@@ -148,6 +133,11 @@
         </div>
     {% endblock %}
 </div>
+<script>
+    $('#navigation .toggle-button').click(function () {
+        $('#navigation').toggleClass('shrink')
+    })
+</script>
 {% block scripts %}{% endblock %}
 </body>
 </html>

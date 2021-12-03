@@ -18,6 +18,15 @@
         </div>
     </div>
 {% endblock %}
+{% block dashboard_title %}
+    {{ dashboard_title|safe }}
+    <a href="{% url "geography-upload-view" instance.slug %}">
+        <button class=" main-button pull-right"><i class="fa fa-plus-circle" aria-hidden="true"></i> Uploader</button>
+    </a>
+    <a id="nav-geography-level-management" href="{% url "geography-level-management-view" instance.slug %}">
+        <button class=" main-button pull-right">Level Management</button>
+    </a>
+{% endblock %}
 {% block scripts %}
     <script>
         const url = "{{ url }}";
