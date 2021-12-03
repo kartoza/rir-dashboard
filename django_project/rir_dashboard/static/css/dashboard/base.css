@@ -5,6 +5,7 @@ html, body {
 
 :root {
     --navigation-width: 200px;
+    --header-height: 62px;
 }
 
 .row {
@@ -22,7 +23,7 @@ html, body {
     flex-grow: 1;
     height: 100%;
     position: relative;
-    padding-top: 52px;
+    padding-top: var(--header-height);
 }
 
 #content h3 {
@@ -44,9 +45,9 @@ html, body {
 
 #content .header {
     background: white;
-    height: 52px;
+    height: var(--header-height);
     font-weight: 600;
-    padding: 13px 20px 13px 30px;
+    padding: 18px 20px 18px 30px;
     position: absolute;
     top: 0;
     left: 0;

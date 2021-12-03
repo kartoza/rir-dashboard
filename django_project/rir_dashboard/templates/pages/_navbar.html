@@ -31,22 +31,28 @@
             </a>
         {% endif %}
     </div>
-    <div id="instance-selection-wrapper">
-        <select id="instance-selection">
-        </select>
-    </div>
+    {% if instance %}
+        <div id="instance-selection-wrapper">
+            <div class="navbar-options">
+                <a data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    {{ instance }}
+                    <img src="{% if instance.icon %}{{ instance.icon.url }}{% else %}{% static "img/no-image-found.jpg" %}{% endif %}">
+                </a>
+                <ul class="dropdown-menu box-shadow-bottom">
+                    {% for instance in instances %}
+                        <li data-slug="{{ instance.slug }}">
+                            {{ instance.name }}
+                            <img src="{% if instance.icon %}{{ instance.icon.url }}{% else %}{% static "img/no-image-found.jpg" %}{% endif %}">
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    {% endif %}
 </nav>
 <script>
-    const $instanceSelection = $('#instance-selection');
     const currentInstance = {% if instance %} "{{ instance.slug }}" {% else %} "" {% endif %};
-    if (currentInstance) {
-        $instanceSelection.show();
-        {% for instance in instances %}
-            $instanceSelection.append('<option value="{{ instance.slug }}">{{ instance.name }}</option>')
-        {% endfor %}
-        $instanceSelection.val(currentInstance);
-        $instanceSelection.change(function () {
-            window.location = window.location.href.replaceAll(currentInstance, $(this).val())
-        })
-    }
+    $('#instance-selection-wrapper li').click(function () {
+        window.location = window.location.href.replaceAll(currentInstance, $(this).data('slug'))
+    })
 </script>
