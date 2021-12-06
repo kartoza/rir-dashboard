@@ -59,16 +59,21 @@ $(document).ready(function () {
                     success: function (data, textStatus, request) {
                         // process data
                         // we need to make sure all layer are turned off
+                        const cleanGeojson = {
+                            type: "FeatureCollection",
+                            features: []
+                        }
                         $.each(geojson.features, function (idx, feature) {
                             $.each(data, function (idx, rowData) {
                                 if (feature.id === rowData.geometry_id) {
                                     feature['properties'] = rowData;
+                                    cleanGeojson['features'].push(feature)
                                     return false;
                                 }
                             })
                         });
                         indicatorsLayer[id][level] = L.geoJSON(
-                            geojson, {
+                            cleanGeojson, {
                                 onEachFeature: function (feature, layer) {
                                     if (feature.properties.background_color) {
                                         let defaultHtml =
