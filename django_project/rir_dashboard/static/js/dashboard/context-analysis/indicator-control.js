@@ -130,7 +130,7 @@ $(document).ready(function () {
         $(this).toggleClass('active');
         inputIndicatorClicked(
             $('#indicator-checkbox-' + $(this).data('id'))[0],
-            currentLevel
+            currentLevelIdentifier
         );
     })
 
