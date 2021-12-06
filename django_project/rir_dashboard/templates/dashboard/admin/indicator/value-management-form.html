@@ -19,8 +19,15 @@
             <div id="content-view">
                 <div class="section box-shadow-bottom">
                     <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="file-data" accept="text/csv" d>
-                        <label class="custom-file-label" for="validatedCustomFile">Choose file to refill automatically...</label>
+                        <input type="file" class="custom-file-input" id="file-data" accept="text/csv">
+                        <label class="custom-file-label" for="validatedCustomFile">
+                            Choose file to refill automatically...
+                        </label>
+                        <div class="custom-file-loading">
+                            <div class="custom-file-loading-text">
+                                Choose file to refill automatically...
+                            </div>
+                        </div>
                     </div>
                     <table>
                         {% for geometry in geometry_reporting_units %}
@@ -107,30 +114,46 @@
         }
 
         {# when file input changed #}
+        const loadingWidth = $('#content-view .custom-file-loading').width() + 0;
+        const $loading = $('#content-view .custom-file-loading');
         $('#file-data').change(function () {
             var file = this.files[0];
             var fr = new FileReader();
+            $('.value-input').val('');
+            $('.fa-times').click();
             fr.onload = function () {
                 const data = csvToJson(fr.result);
-                $('.value-input').val('');
-                $('.fa-times').click();
-                $.each(data, function (index, values) {
-                    const $row = $(`tr[data-code='${values.Pcode}']`);
-                    if ($row.length > 0) {
-                        const severity = values.Severity;
-                        if (severity) {
-                            $row.find('.value-input').val(severity);
-                            // check others properties
-                            $.each(values, function (key, value) {
-                                if (!['Severity', 'District', 'Pcode'].includes(key)) {
+                $loading.show();
+                $loading.width(0);
+                setTimeout(function () {
+                    $.each(data, function (index, values) {
+                        setTimeout(function () {
+                            $('#content-view tr').each(function () {
+                                if ($(this).data('code') === values.geometry) {
+                                    const $row = $(this);
+                                    const value = values.value;
                                     if (value) {
-                                        addNewExtraValue($row, key, value)
+                                        $row.find('.value-input').val(value);
+                                        // check others properties
+                                        $.each(values, function (key, value) {
+                                            if (!['severity', 'district', 'pcode', 'geometry', 'value', 'id'].includes(key)) {
+                                                if (value) {
+                                                    addNewExtraValue($row, key, value)
+                                                }
+                                            }
+                                        });
                                     }
+
                                 }
                             });
-                        }
-                    }
-                });
+                            $loading.show();
+                            $loading.width((index / data.length) * loadingWidth);
+                            if (index === data.length - 1) {
+                                $loading.hide();
+                            }
+                        }, 10)
+                    });
+                })
             };
             fr.readAsText(file);
         })

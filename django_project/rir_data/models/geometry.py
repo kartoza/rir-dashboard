@@ -113,7 +113,10 @@ class Geometry(models.Model):
         return self.str()
 
     def str(self):
-        return f'{self.name} ({self.identifier})'
+        name = f'{self.name}'
+        if self.name != self.identifier:
+            name += f' ({self.identifier})'
+        return name
 
     def geometries_by_level(self, geometry_level: GeometryLevelName):
         """
@@ -127,6 +130,11 @@ class Geometry(models.Model):
             geometries = Geometry.objects.filter(child_of__in=geometry_ids)
 
             if geometries.first():
+                levels = geometries.values_list('geometry_level', flat=True).distinct()
+                for level in levels:
+                    if level == geometry_level.id:
+                        return geometries.filter(geometry_level=level)
+
                 current_geometry_level = geometries.first().geometry_level
             else:
                 current_geometry_level = geometry_level

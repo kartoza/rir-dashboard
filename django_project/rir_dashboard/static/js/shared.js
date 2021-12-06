@@ -74,20 +74,28 @@ function copyToClipboard(elmt) {
     navigator.clipboard.writeText(window.location.host + $(elmt).data('url'));
 }
 
-function csvToJson(csv) {
-    var lines = csv.split("\n");
-    var result = [];
-    var headers = lines[0].split(",");
-    for (var i = 1; i < lines.length; i++) {
-        var obj = {};
-        var currentline = lines[i].split(",");
-        for (var j = 0; j < headers.length; j++) {
-            obj[headers[j]] = currentline[j];
-        }
-        result.push(obj);
-    }
+/**
+ * Takes a raw CSV string and converts it to a JavaScript object.
+ * @param {string} string The raw CSV string.
+ * @param {string[]} headers An optional array of headers to use. If none are
+ * given, they are pulled from the file.
+ * @param {string} quoteChar A character to use as the encapsulating character.
+ * @param {string} delimiter A character to use between columns.
+ * @returns {object[]} An array of JavaScript objects containing headers as keys
+ * and row entries as values.
+ */
+const csvToJson = (string, headers, quoteChar = '"', delimiter = ',') => {
+    const regex = new RegExp(`\\s*(${quoteChar})?(.*?)\\1\\s*(?:${delimiter}|$)`, 'gs');
+    const match = string => [...string.matchAll(regex)].map(match => match[2])
+        .filter((_, i, a) => i < a.length - 1); // cut off blank match at end
 
-    return result;
+    const lines = string.split('\n');
+    const heads = headers || match(lines.splice(0, 1)[0]);
+
+    return lines.map(line => match(line).reduce((acc, cur, i) => ({
+        ...acc,
+        [heads[i] || `extra_${i}`]: (cur.length > 0) ? (Number(cur) || cur) : null
+    }), {}));
 }
 
 function numberWithCommas(x) {

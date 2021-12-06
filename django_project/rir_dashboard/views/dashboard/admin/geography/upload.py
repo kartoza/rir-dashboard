@@ -2,7 +2,10 @@ from django.contrib.gis.geos import GEOSGeometry, MultiPolygon, Polygon
 from django.shortcuts import redirect, reverse, render, get_object_or_404
 from rir_dashboard.views.dashboard.admin._base import AdminView
 from rir_dashboard.forms.geometry import GeometryForm, ADD_JUST_NEW, REPLACE_AND_ADD
-from rir_data.models.geometry import Geometry, GeometryUploader, GeometryUploaderLog
+from rir_data.models.geometry import (
+    Geometry, GeometryUploader, GeometryUploaderLog,
+    GeometryLevelInstance
+)
 from rir_data.models.instance import Instance
 
 
@@ -40,9 +43,15 @@ class GeographyUploadView(AdminView):
             geometries = instance_geometries.filter(
                 geometry_level=form.cleaned_data['level']
             )
-            levels = self.instance.geometry_levels_in_order
-            level_idx = levels.index(form.cleaned_data['level'])
-            is_most_top_level = level_idx == 0
+            try:
+                instance_levels = self.instance.geometry_instance_levels
+                instance_level = instance_levels.get(
+                    level=form.cleaned_data['level']
+                )
+                is_most_top_level = instance_level.parent is None
+            except GeometryLevelInstance.DoesNotExist as e:
+                print(f'{e}')
+                return
 
             # save data
             uploader = GeometryUploader.objects.create(
@@ -68,7 +77,7 @@ class GeographyUploadView(AdminView):
                                 if not is_most_top_level:
                                     parent = instance_geometries.get(
                                         identifier__iexact=parent_identifier,
-                                        geometry_level=levels[level_idx - 1]
+                                        geometry_level=instance_level.parent
                                     )
                                 geometry = GEOSGeometry(str(feature['geometry']))
                                 if isinstance(geometry, Polygon):

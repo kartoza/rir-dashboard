@@ -51,8 +51,7 @@
     font-weight: 700;
     border-right: 1px solid var(--primary-color);
     color: var(--primary-color);
-    width: 1%;
-    white-space: nowrap;
+    width: 30%;
 }
 
 #content-view table tr {
@@ -102,9 +101,33 @@
     right: 0;
 }
 
-.custom-file label {
+.custom-file .custom-file-loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 233px;
+    height: 100%;
+    background-color: green;
+    color: white;
+    z-index: 9999;
+    overflow: hidden;
+    display: none;
+}
+
+.custom-file .custom-file-loading-text {
+    width: 233px;
+    height: 100%;
+    padding: 5px;
+}
+
+.custom-file-label {
+    padding: 0;
     border: 1px solid var(--primary-color);
     border-bottom-right-radius: 0;
+}
+
+.custom-file-label {
+    padding: 5px;
 }
 
 #content-view {
