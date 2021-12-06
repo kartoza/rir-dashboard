@@ -79,11 +79,10 @@ const readSymbol = (symbol) => {
                 iconUrl: `data:image/png;base64,${symbol.imageData}`,
                 rotation: symbol.angle,
             };
-            if (symbol.height) {
+            if (symbol.height && symbol.width) {
                 icon['height'] = symbol.height;
-            }
-            if (symbol.width) {
                 icon['width'] = symbol.width;
+                icon['iconSize'] = [symbol.width, symbol.height];
             }
             return {
                 type: 'icon',

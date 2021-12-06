@@ -1,6 +1,6 @@
 class EsriLeafletLayer {
 
-    constructor(name, url, params, options) {
+    constructor(name, url, params, options, style) {
         this.name = name;
         this.url = url;
         this.params = params;
@@ -14,10 +14,7 @@ class EsriLeafletLayer {
         this.password = options.password;
         this.$legend = $('#legend');
         this.layer = null;
-    }
-
-    defaultStyle() {
-        return null;
+        this.defaultStyle = style;
     }
 
     preFetch(url) {
@@ -49,9 +46,6 @@ class EsriLeafletLayer {
          */
         const url = this.url;
         const that = this;
-        if (this.defaultStyle()) {
-            return that.toLeafletLayer(this.defaultStyle());
-        }
         return fetch(...this.preFetch(url + '?f=json'))
             .then(response => response.json())
             .then(data => {
@@ -68,6 +62,15 @@ class EsriLeafletLayer {
             })
     }
 
+    overrideStyle() {
+        try {
+            if (this.defaultStyle.icon) {
+                this.style.style.style.iconUrl = this.defaultStyle.icon
+            }
+        } catch (e) {
+
+        }
+    }
 
     /**
      * get leaflet layer
@@ -76,6 +79,7 @@ class EsriLeafletLayer {
         this.style = parseArcRESTStyle(data);
         const style = this.style;
         const that = this;
+        this.overrideStyle();
 
         const params = JSON.parse(JSON.stringify(this.params));
         params.url = this.url;

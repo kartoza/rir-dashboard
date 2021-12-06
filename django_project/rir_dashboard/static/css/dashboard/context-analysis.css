@@ -309,8 +309,12 @@
     width: 20px;
 }
 
-.legend img {
+.legend > img {
     max-width: 100%;
+}
+
+.legend table img {
+    height: 20px;
 }
 
 .side-panel-control i {

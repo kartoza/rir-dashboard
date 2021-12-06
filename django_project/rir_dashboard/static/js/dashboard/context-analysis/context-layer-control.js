@@ -114,13 +114,14 @@ $(document).ready(function () {
         const options = {
             token: layerData.token
         };
+        const style = layerData.style;
         const layerType = layerData.layer_type;
         const $element = $(`#context-layer-${idx}`);
         const $legend = $element.find('.legend');
         switch (layerType) {
             case 'ARCGIS':
                 const argisLayer = (new EsriLeafletLayer(
-                    name, url, params, options
+                    name, url, params, options, style
                 ))
                 argisLayer.load().then(layer => {
                     addLayer(layerData, idx, layer);

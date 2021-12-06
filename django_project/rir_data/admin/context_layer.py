@@ -1,6 +1,6 @@
 from django.contrib import admin
 from rir_data.models.context_layer import (
-    ContextLayerGroup, ContextLayer, ContextLayerParameter
+    ContextLayerGroup, ContextLayer, ContextLayerParameter, ContextLayerStyle
 )
 
 
@@ -9,9 +9,14 @@ class ContextLayerParameterInline(admin.TabularInline):
     extra = 0
 
 
+class ContextLayerStyleInline(admin.TabularInline):
+    model = ContextLayerStyle
+    extra = 0
+
+
 class ContextLayerAdmin(admin.ModelAdmin):
     list_display = ('name', 'url', 'group', 'show_on_map', 'enable_by_default', 'order')
-    inlines = (ContextLayerParameterInline,)
+    inlines = (ContextLayerParameterInline, ContextLayerStyleInline)
     list_editable = ('show_on_map', 'enable_by_default', 'order')
 
 

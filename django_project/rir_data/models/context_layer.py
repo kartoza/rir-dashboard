@@ -15,7 +15,7 @@ class ContextLayerGroup(AbstractTerm):
     )
 
     class Meta:
-        ordering = ('order',)
+        ordering = ('name',)
 
 
 class ContextLayer(AbstractTerm):
@@ -96,6 +96,41 @@ class ContextLayerParameter(models.Model):
         null=True, blank=True,
         help_text=_(
             "The value of parameter"
+        )
+    )
+
+    class Meta:
+        unique_together = ('context_layer', 'name')
+
+    def __str__(self):
+        return f'{self.name}'
+
+
+
+class ContextLayerStyle(models.Model):
+    """
+    Overridden style of leaflet
+    """
+    context_layer = models.ForeignKey(
+        ContextLayer, on_delete=models.CASCADE
+    )
+    name = models.CharField(
+        max_length=128,
+        help_text=_(
+            "The name of style"
+        )
+    )
+    value = models.CharField(
+        max_length=1024,
+        null=True, blank=True,
+        help_text=_(
+            "The value of style"
+        )
+    )
+    icon = models.FileField(
+        null=True, blank=True,
+        help_text=_(
+            "The icon of the style"
         )
     )
 
