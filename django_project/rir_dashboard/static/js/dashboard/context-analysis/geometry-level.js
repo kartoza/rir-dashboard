@@ -1,3 +1,5 @@
+const geojsonLevel = {};
+
 function initGeometryLevel(map, onLevelSelected) {
     // GEOMETRY LAYER
     const onEachFeature = function onEachFeature(feature, layer) {
@@ -8,7 +10,6 @@ function initGeometryLevel(map, onLevelSelected) {
             `<tr><td style="text-align: right"><b>Alias</b></td><td>${feature.properties.alias}</td></tr>` +
             '</table>');
     }
-    const geometry = {};
     const geometryLayer = L.geoJSON(null, {
             style: {
                 color: "#ff7800",
@@ -44,13 +45,13 @@ function initGeometryLevel(map, onLevelSelected) {
 
         // get geojson
         geometryLayer.clearLayers();
-        if (!geometry[identifier]) {
+        if (!geojsonLevel[identifier]) {
             const urlRequest = url.replace('level', level).replace('date', date)
             $.ajax({
                 url: urlRequest,
                 dataType: 'json',
                 success: function (geojson, textStatus, request) {
-                    geometry[identifier] = geojson;
+                    geojsonLevel[identifier] = geojson;
                     if (identifierSelected === identifier) {
                         selectLevel($level);
                     }
@@ -63,13 +64,13 @@ function initGeometryLevel(map, onLevelSelected) {
             });
             return false
         } else {
-            geometryLayer.addData(geometry[identifier]);
+            geometryLayer.addData(geojsonLevel[identifier]);
             if (init) {
                 map.fitBounds(geometryLayer.getBounds());
             }
             init = false;
         }
-        onLevelSelected(level);
+        onLevelSelected(identifier);
     }
 
     $levelSelection.find('div').click(function () {

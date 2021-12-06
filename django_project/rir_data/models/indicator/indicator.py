@@ -255,7 +255,7 @@ class Indicator(AbstractTerm):
             return self.geometry_reporting_units.all()
 
     @property
-    def geojson_url_template(self):
+    def url_geojson_template(self):
         instance = self.group.instance
         country_level = instance.geometry_instance_levels.filter(parent=None).first()
         if country_level:
@@ -264,6 +264,23 @@ class Indicator(AbstractTerm):
                 geometry_level=country_level).first()
             if geometry_country:
                 return reverse('indicator-values-geojson-api', args=[
+                    self.group.instance.slug, self.pk,
+                    geometry_country.identifier,
+                    'level',
+                    date.today()
+                ])
+        return None
+
+    @property
+    def url_data_template(self):
+        instance = self.group.instance
+        country_level = instance.geometry_instance_levels.filter(parent=None).first()
+        if country_level:
+            country_level = country_level.level
+            geometry_country = instance.geometries().filter(
+                geometry_level=country_level).first()
+            if geometry_country:
+                return reverse('indicator-values-api', args=[
                     self.group.instance.slug, self.pk,
                     geometry_country.identifier,
                     'level',

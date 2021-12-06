@@ -6,15 +6,20 @@ $(document).ready(function () {
     const indicatorsLayer = {}
 
     $inputs.click(function () {
-        inputIndicatorClicked(this, currentLevel);
+        inputIndicatorClicked(this, currentLevelIdentifier);
     });
 
-    let currentLevel = null;
+    let currentLevelIdentifier = null;
 
     function inputIndicatorClicked(input, level) {
         const $row = $(input).closest('.indicator-row');
+        if (!geojsonLevel[level]) {
+            return
+        }
+        const geojson = JSON.parse(JSON.stringify(geojsonLevel[level]));
         $(input).attr('disabled', 'disabled');
-        const url = $(input).data('url').replaceAll('level', currentLevel);
+        const levelName = level.split('-')[0]
+        const url = $(input).data('url').replaceAll('level', levelName);
         const id = $(input).data('id');
         let layer = null;
         if (!indicatorsLayer[id]) {
@@ -51,21 +56,33 @@ $(document).ready(function () {
                 $.ajax({
                     url: url,
                     dataType: 'json',
-                    success: function (geojson, textStatus, request) {
+                    success: function (data, textStatus, request) {
+                        // process data
+                        // we need to make sure all layer are turned off
+                        $.each(geojson.features, function (idx, feature) {
+                            $.each(data, function (idx, rowData) {
+                                if (feature.id === rowData.geometry_id) {
+                                    feature['properties'] = rowData;
+                                    return false;
+                                }
+                            })
+                        });
                         indicatorsLayer[id][level] = L.geoJSON(
                             geojson, {
                                 onEachFeature: function (feature, layer) {
-                                    let defaultHtml =
-                                        `<tr style="background-color: ${feature.properties.background_color}; color: ${feature.properties.text_color}"><td><b>Scenario</b></td><td>${feature.properties.scenario_text}</td></tr>`
+                                    if (feature.properties.background_color) {
+                                        let defaultHtml =
+                                            `<tr style="background-color: ${feature.properties.background_color}; color: ${feature.properties.text_color}"><td><b>Scenario</b></td><td>${feature.properties.scenario_text}</td></tr>`
 
-                                    // check others properties
-                                    $.each(feature.properties, function (key, value) {
-                                        if (!['background_color', 'text_color', 'scenario_text', 'scenario_value', 'geometry_id'].includes(key)) {
-                                            defaultHtml += `<tr><td><b>${key.capitalize()}</b></td><td>${numberWithCommas(value)}</td></tr>`
-                                        }
-                                    });
-                                    layer.bindPopup('' +
-                                        '<table>' + defaultHtml + '</table>');
+                                        // check others properties
+                                        $.each(feature.properties, function (key, value) {
+                                            if (!['background_color', 'text_color', 'scenario_text', 'scenario_value', 'geometry_id'].includes(key)) {
+                                                defaultHtml += `<tr><td><b>${key.capitalize()}</b></td><td>${numberWithCommas(value)}</td></tr>`
+                                            }
+                                        });
+                                        layer.bindPopup('' +
+                                            '<table>' + defaultHtml + '</table>');
+                                    }
                                 }
                             }
                         );
@@ -78,9 +95,8 @@ $(document).ready(function () {
 
         // by checking input state, we show/hide the layer
         $(input).removeAttr('disabled');
-        console.log(layer)
         if (input.checked) {
-            if (level === currentLevel) {
+            if (level === currentLevelIdentifier) {
                 // we need to make sure all layer are turned off
                 $.each(indicatorsLayer[id], function (idx, layer) {
                     try {
@@ -115,7 +131,7 @@ $(document).ready(function () {
 
     // For the level management
     initGeometryLevel(map, function onLevelChanged(level) {
-        currentLevel = level;
+        currentLevelIdentifier = level;
         $('#indicator input:checkbox:checked').each(function (index) {
             inputIndicatorClicked(this, level);
         });
