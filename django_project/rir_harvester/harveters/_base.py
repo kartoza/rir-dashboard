@@ -3,6 +3,7 @@ import requests
 import traceback
 from abc import ABC, abstractmethod
 from django.contrib.auth import get_user_model
+from django.utils import timezone
 from rir_data.models import Geometry, IndicatorValue
 from rir_harvester.models import (
     Harvester, HarvesterLog, LogStatus
@@ -20,6 +21,7 @@ class HarvestingError(Exception):
 class BaseHarvester(ABC):
     """ Abstract class for harvester """
 
+    log = None
     description = ""
     attributes = {}
     mapping = {}
@@ -27,7 +29,6 @@ class BaseHarvester(ABC):
     def __init__(self, harvester: Harvester):
         self.harvester = harvester
         self.reporting_units = harvester.indicator.reporting_units
-        self.log = HarvesterLog.objects.create(harvester=harvester)
         for attribute in harvester.harvesterattribute_set.all():
             self.attributes[attribute.name] = attribute.value
         for attribute in harvester.harvestermappingvalue_set.all():
@@ -53,23 +54,30 @@ class BaseHarvester(ABC):
     def _process(self):
         """ Run the harvester process"""
 
+    @property
+    def allow_to_harvest_new_data(self):
+        """
+        Allowing if the new data can be harvested
+        It will check based on the frequency
+        """
+        last_data = self.harvester.harvesterlog_set.all().first()
+        if not last_data:
+            return True
+
+        difference = timezone.now() - last_data.start_time
+        return difference.days >= self.harvester.indicator.frequency.frequency
+
     def run(self, force=False):
         # run the process
-        try:
-            self._process()
-            self._done()
-
-            # TODO:
-            #  We need to make it forceable
-            if self.harvester.indicator.allow_to_harvest_new_data or force:
+        if self.allow_to_harvest_new_data or force:
+            try:
+                self.log = HarvesterLog.objects.create(harvester=self.harvester)
                 self._process()
                 self._done()
-            else:
-                self._done("Harvesting can't be executed : still in the indicator frequency with last harvest time.")
-        except HarvestingError as e:
-            self._error(f'{e}')
-        except Exception:
-            self._error(f'{traceback.format_exc()}')
+            except HarvestingError as e:
+                self._error(f'{e}')
+            except Exception:
+                self._error(f'{traceback.format_exc()}')
 
     def _request_api(self, url: str):
         """ Request function"""

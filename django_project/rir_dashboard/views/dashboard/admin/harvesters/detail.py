@@ -4,7 +4,6 @@ from rir_dashboard.views.dashboard.admin._base import AdminView
 from rir_data.models import Indicator, Instance
 from rir_harvester.models import Harvester
 from rir_harvester.tasks import run_harvester
-from django.conf import settings
 
 
 class HarvesterDetail(AdminView):
@@ -42,7 +41,6 @@ class HarvesterDetail(AdminView):
         instance = get_object_or_404(
             Instance, slug=slug
         )
-        print(settings.CELERY_BROKER_URL)
 
         try:
             self.indicator = instance.indicators.get(
