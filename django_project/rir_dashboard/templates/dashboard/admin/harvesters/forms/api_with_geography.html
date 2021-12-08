@@ -62,6 +62,10 @@
         #apply-modal {
             margin-top: 0;
         }
+
+        .modal-dialog {
+            max-width: 1000px;
+        }
     </style>
 {% endblock %}
 {% block additional_field %}
@@ -266,7 +270,7 @@
             $dateInput.prop('disabled', true);
 
             $applyModal.prop('disabled', true);
-            $('.mapping-remote').prop('disabled', false);
+            $('.mapping-remote').prop('disabled', true);
 
             $.ajax({
                 url: $(this).val()
