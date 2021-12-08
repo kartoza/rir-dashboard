@@ -97,3 +97,7 @@
 .col .main-button {
     width: fit-content !important;
 }
+
+.delete-harvester {
+    color: red !important;
+}

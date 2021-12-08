@@ -12,7 +12,7 @@ from rir_dashboard.views.dashboard.admin.instance import (
     InstanceManagementView, InstanceCreateView, InstanceEditView
 )
 from rir_dashboard.views.dashboard import (
-    ContextAnalysisView, IndicatorView, IndicatorMapView
+    ContextAnalysisView, IndicatorView, indicator_detail_view
 )
 from rir_dashboard.views.dashboard.admin.harvesters import (
     HarvesterDetail
@@ -29,7 +29,7 @@ dashboard_url = [
     url(r'^indicator/(?P<pk>\d+)/harvester', HarvesterDetail.as_view(), name='harvester-detail'),
     url(r'^indicator/(?P<pk>\d+)/value-manager-map', IndicatorValueManagementMapView.as_view(), name='indicator-value-mapview-manager'),
     url(r'^indicator/(?P<pk>\d+)/value-manager-form', IndicatorValueManagementTableView.as_view(), name='indicator-value-form-manager'),
-    url(r'^indicator/(?P<pk>\d+)', IndicatorMapView.as_view(), name='indicator-mapview'),
+    url(r'^indicator/(?P<pk>\d+)', indicator_detail_view, name='indicator-detail'),
     url(r'^indicator', IndicatorView.as_view(), name='indicator-view'),
     url(r'^', ContextAnalysisView.as_view(), name='dashboard-view'),
 ]

@@ -78,7 +78,7 @@ select:focus-visible {
 }
 
 .dropdown-menu li a {
-    color: black !important;
+    color: black;
     display: block;
     padding: 5px 15px;
     width: 100%;
