@@ -33,7 +33,7 @@ class GeometryForm(forms.Form):
     replace_method = forms.ChoiceField(
         choices=CHOICES
     )
-    geojson = forms.FileField()
+    geojson = forms.FileField(widget=forms.FileInput(attrs={'accept': '.geojson'}))
 
     def __init__(self, *args, **kwargs):
         level = None

@@ -24,16 +24,6 @@
                 <button class="main-button">Submit</button>
             </form>
         </div>
-        {#        <div class="col-6">#}
-        {#            <h3>Upload Result</h3>#}
-        {#            <table>#}
-        {#                <tr>#}
-        {#                    <th>Code</th>#}
-        {#                    <th>Name</th>#}
-        {#                    <th>Upload Status</th>#}
-        {#                </tr>#}
-        {#            </table>#}
-        {#        </div>#}
     </div>
 {% endblock %}
 {% block scripts %}
@@ -45,5 +35,28 @@
             instanceLevels.push({{ level.id }});
         {% endfor %}
         $('#nav-geography-upload').addClass('active')
+
+        let $selectInput = $('#id_code_column, #id_name_column, #id_parent_code_column');
+        $('#id_code_column, #id_name_column, #id_parent_code_column').each(function () {
+            $(this).replaceWith(`<select name="${$(this).attr('name')}" id="${$(this).attr('id')}" disabled=""></select>`)
+        })
+        $selectInput = $('#id_code_column, #id_name_column, #id_parent_code_column');
+        $selectInput.prop('disabled', true);
+
+        $('#id_geojson').change(function () {
+            var file = this.files[0];
+            var fr = new FileReader();
+            $selectInput.prop('disabled', true);
+            $selectInput.html('');
+            fr.onload = function () {
+                const json = JSON.parse(fr.result)
+                const properties = json['features'][0]['properties'];
+                $selectInput.prop('disabled', false);
+                $.each(properties, function (key, values) {
+                    $selectInput.append(`<option value="${key}">${key}</option`);
+                })
+            };
+            fr.readAsText(file);
+        })
     </script>
 {% endblock %}
