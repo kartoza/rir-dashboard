@@ -312,9 +312,17 @@
 
             {# autofill the mapping #}
             const mappingList = eval($listInput.val().replaceAll('x', 'currentJson'));
-            const options = ["<option></option>"]
+            const adminNames = []
             $.each(mappingList, function (idx, value) {
                 const geometryIdentifier = eval($geographyInput.val().replaceAll('x', 'value'));
+                if (!adminNames.includes(geometryIdentifier)) {
+                    adminNames.push(geometryIdentifier);
+                }
+            })
+            adminNames.sort();
+
+            const options = ["<option></option>"];
+            $.each(adminNames, function (idx, geometryIdentifier) {
                 options.push(`<option val="${geometryIdentifier}">${geometryIdentifier}</option>`);
             })
             $('.mapping-remote').each(function () {
