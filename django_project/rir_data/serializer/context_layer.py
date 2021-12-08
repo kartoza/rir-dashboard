@@ -1,4 +1,3 @@
-import base64
 import urllib.parse
 from rest_framework import serializers
 from rir_data.models.context_layer import (

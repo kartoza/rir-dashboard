@@ -26,10 +26,13 @@
             <div class="inner">
                 <div class="side-panel-button">
                     <div class="side-panel-toggle-button">
-                        <div id="indicator-toggle-button" class="toggle-button hidden" data-target="indicator">
+                        <div id="basemap-list-toggle-button" class="toggle-button hidden" data-target="basemap-list" title="Basemaps">
+                            <i class="fa fa-globe" aria-hidden="true"></i>
+                        </div>
+                        <div id="indicator-toggle-button" class="toggle-button hidden" data-target="indicator" title="Indicators">
                             <i class="fa fa-home" aria-hidden="true"></i>
                         </div>
-                        <div id="layer-list-toggle-button" class="toggle-button hidden" data-target="layer-list">
+                        <div id="layer-list-toggle-button" class="toggle-button hidden" data-target="layer-list" title="Context Layers">
                             <img src="{% static "libs/leaflet/1.5.1/images/layers-2x.png" %}">
                         </div>
                     </div>
@@ -37,6 +40,29 @@
 
                 {# content #}
                 <div class="content-wrapper">
+                    {# basemap #}
+                    <div id="basemap-list" class="content">
+                        <div class="inner-content">
+                            <div class="side-panel-header">
+                                <h3>Basemaps
+                                    <div class="pull-right side-panel-control">
+                                        <i class="left-side-fullscreen fa fa-arrows-alt" aria-hidden="true" title="Fullscreen"></i>
+                                        <i class="left-side-exit-fullscreen fa fa-minus" aria-hidden="true" title="Exit Fullscreen" style="display: none"></i>
+                                    </div>
+                                </h3>
+                            </div>
+                            <div class="side-panel-content">
+                                {% for basemap_layer in basemap_layers %}
+                                    <div style="padding: 5px 10px">
+                                        <div class="basemap-box box-shadow-bottom" data-id="{{ basemap_layer.id }}">
+                                            <img src="{{ basemap_layer.icon }}">
+                                            <span>{{ basemap_layer.name }}</span>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
                     {# indicator #}
                     <div id="indicator" class="content">
                         <div class="inner-content">
@@ -161,6 +187,19 @@
         let contextLayers = "{{ context_layers|safe }}";
         contextLayers = contextLayers.replaceAll('None', null).replaceAll('True', true).replaceAll('False', false).replaceAll('\'', '"');
         contextLayers = JSON.parse(contextLayers);
+
+        {# basemap #}
+        let basemapLayers = {};
+        let basemapDefault = null;
+        {% for basemap_layer in basemap_layers %}
+            basemapLayers["{{ basemap_layer.id }}"] = JSON.parse("{{ basemap_layer|safe }}".replaceAll('None', null).replaceAll('True', true).replaceAll('False', false).replaceAll('\'', '"'));
+            if (!basemapDefault) {
+                basemapDefault = "{{ basemap_layer.id }}";
+            }
+            {% if basemap_layer.enable_by_default %}
+                basemapDefault = "{{ basemap_layer.id }}";
+            {% endif %}
+        {% endfor %}
     </script>
     <script type="text/javascript" src="{% static 'libs/leaflet/1.5.1/leaflet.js' %}"></script>
     <script type="text/javascript" src="{% static 'libs/esri-leaflet/esri-leaflet.js' %}"></script>

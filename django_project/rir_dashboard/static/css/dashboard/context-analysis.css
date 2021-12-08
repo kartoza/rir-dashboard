@@ -393,3 +393,46 @@
 .legend-row.active {
     opacity: 1;
 }
+
+/* MAPBOX SELECTION */
+.basemap-box {
+    width: 100%;
+    position: relative;
+    border: 3px solid white;
+    border-radius: 3px;
+    opacity: 0.5;
+    cursor: pointer;
+    max-height: 100px;
+    overflow: hidden;
+}
+
+.basemap-box:hover {
+    opacity: 0.8;
+}
+
+.basemap-box:hover img {
+    filter: grayscale(0);
+}
+
+.basemap-box.active {
+    opacity: 1;
+}
+
+.basemap-box img {
+    width: 100%;
+    filter: grayscale(100%);
+}
+
+.basemap-box.active img {
+    filter: grayscale(0);
+}
+
+.basemap-box span {
+    position: absolute;
+    display: block;
+    background: white;
+    font-weight: 600;
+    left: 0;
+    bottom: 0;
+    padding: 5px;
+}

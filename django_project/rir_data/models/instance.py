@@ -148,3 +148,10 @@ class Instance(SlugTerm, IconTerm):
         Return context layers of the instance
         """
         return self.contextlayer_set.filter(show_on_map=True)
+
+    @property
+    def basemap_layers(self):
+        """
+        Return context layers of the instance
+        """
+        return self.basemaplayer_set.filter(show_on_map=True)

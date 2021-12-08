@@ -1,9 +1,21 @@
 let map = null;
+let basemapLayer = null;
 $(document).ready(function () {
     map = L.map('map', { zoomControl: false });
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        noWrap: true,
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
+    $('#basemap-list .basemap-box').click(function () {
+        $('#basemap-list .basemap-box').removeClass('active');
+        $(this).addClass('active');
+        basemapChange(basemapLayers[$(this).data('id')])
+    })
+    $(`#basemap-list .basemap-box[data-id="${basemapDefault}"]`).click()
 
+    function basemapChange(basemapDetail) {
+        try {
+            map.removeLayer(basemapLayer)
+        } catch (e) {
+
+        }
+        basemapLayer = L.tileLayer(basemapDetail.url, basemapDetail.parameters);
+        basemapLayer.addTo(map);
+    }
 });
