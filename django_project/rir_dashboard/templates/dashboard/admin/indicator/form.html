@@ -1,4 +1,35 @@
 {% extends 'dashboard/admin/form.html' %}
+
+{% block additional_field %}
+    <br>
+    <h3>Geometry Mapping</h3>
+    <table id="mapping-table" class="content-table">
+        <tr>
+            <th>From (Remote Name)</th>
+            <th>To (Geometry ID)</th>
+        </tr>
+        {% for reporting_unit in reporting_units %}
+            <tr>
+                <td style="width: 50%">
+                    <input type="text" data-identifier="{{ reporting_unit.identifier }}" name="mapping_remote_{{ reporting_unit.pk }}" value="{{ attribute.value }}">
+                </td>
+                <td style="width: 50%">
+                    {{ reporting_unit.str }}
+                    <input type="text" name="mapping_platform_{{ reporting_unit.pk }}" value="{{ reporting_unit.identifier }}" style="display: none">
+
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
+{% block extrascripts %}
+    <script>
+        {% for map in mapping %}
+            $('*[data-identifier="{{ map.platform_value }}"]').val("{{ map.remote_value }}");
+        {% endfor %}
+    </script>
+{% endblock %}
+
 {% load static %}
 {% block stylesheet %}
     <link rel="stylesheet" href="{% static 'css/form.css' %}" type="text/css" media="screen, projection"/>

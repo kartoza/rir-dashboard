@@ -4,7 +4,7 @@ from ._base import HarvesterFormView
 
 class HarvesterAPIWithGeographyAndDateView(HarvesterFormView):
     harvester_class = APIWithGeographyAndDate
-    template_name = 'dashboard/admin/harvesters/api_with_geography_and_date.html'
+    template_name = 'dashboard/admin/harvesters/forms/api_with_geography.html'
 
     @property
     def context_view(self) -> dict:

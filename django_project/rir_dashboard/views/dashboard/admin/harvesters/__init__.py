@@ -1,2 +1,2 @@
-from .api_with_geography_and_date import *
+from .forms import *
 from .detail import *

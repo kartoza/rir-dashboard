@@ -40,7 +40,7 @@ html, body {
 #content-view {
     max-height: 100%;
     overflow-y: auto;
-    padding: 20px;
+    padding: 10px;
 }
 
 #content .header {
@@ -149,7 +149,6 @@ html, body {
     height: 100%;
     width: 100%;
     direction: ltr;
-    padding-top: 2px;
 }
 
 #navigation .toggle-button {
@@ -158,7 +157,7 @@ html, body {
     color: white;
     background-color: var(--primary-color);
     padding: 8px 5px;
-    z-index: 9999;
+    z-index: 999;
     cursor: pointer;
     right: 0;
     width: 17px;

@@ -15,7 +15,10 @@ from rir_dashboard.views.dashboard import (
     ContextAnalysisView, IndicatorView, IndicatorMapView
 )
 from rir_dashboard.views.dashboard.admin.harvesters import (
-    HarvesterAPIWithGeographyAndDateView, HarvesterDetail
+    HarvesterDetail
+)
+from rir_dashboard.views.dashboard.admin.harvesters.forms import (
+    HarvesterAPIWithGeographyAndDateView
 )
 
 harvester_form_url = [

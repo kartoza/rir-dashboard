@@ -36,8 +36,13 @@ p[data-field-name="instance"] {
 }
 
 input[type="text"]:disabled {
-    background: white;
-    border: none;
+    background: #eee;
+    border: 1px solid #ccc;
+}
+
+select:disabled {
+    background: #eee;
+    border: 1px solid #ccc;
 }
 
 form .header span {
