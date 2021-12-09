@@ -1,0 +1,40 @@
+<script type='text/template' id='_context-layer-group'>
+    <div data-group="<%= group_name %>" class="group">
+        <div class="group-name row">
+            <div class="col">
+                <input class="group-checkbox" type="checkbox">&nbsp;<%= group_name %>
+            </div>
+            <div>
+                <i class="group-toggle fa fa-caret-down" aria-hidden="true"></i>
+            </div>
+        </div>
+        <div class="layer-list-group">
+
+        </div>
+    </div>
+</script>
+<script type='text/template' id='_context-layer'>
+    <div id="context-layer-<%= id %>" class="layer-row">
+        <div class="context-layer-title">
+            <input type="checkbox" data-id="<%= id %>" disabled>
+            <%= name %>
+        </div>
+        <div class="legend"></div>
+    </div>
+</script>
+<script type='text/template' id='_administrative-popup'>
+    <table>
+        <tr>
+            <td style="text-align: right"><b>Identifier</b></td>
+            <td><%= identifier %></td>
+        </tr>
+        <tr>
+            <td style="text-align: right"><b>Name</b></td>
+            <td><%= name %></td>
+        </tr>
+        <tr>
+            <td style="text-align: right"><b>Alias</b></td>
+            <td><%= alias %></td>
+        </tr>
+    </table>
+</script>

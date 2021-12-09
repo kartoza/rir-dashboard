@@ -5,7 +5,6 @@ const parseArcRESTStyle = (data) => {
      * @param  {json} data ArcREST response as json
      * @return {ol.style.Style}     Style to apply
      */
-    console.log(data);
     const drawingInfo = data.drawingInfo;
     switch (drawingInfo.renderer.type) {
         case "classBreaks":
