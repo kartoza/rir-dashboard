@@ -284,6 +284,21 @@ class Indicator(AbstractTerm):
                     self.group.instance.slug, self.pk,
                     geometry_country.identifier,
                     'level',
-                    date.today()
+                    'date'
                 ])
         return None
+
+    @property
+    def levels(self):
+        """
+        Return levels of indicators in tree
+        """
+        from rir_data.models import GeometryLevelInstance
+        level_instance = GeometryLevelInstance.objects.filter(
+            instance=self.group.instance,
+            level=self.geometry_reporting_level
+        ).first()
+        if level_instance:
+            return level_instance.get_level_tree()
+        else:
+            return []

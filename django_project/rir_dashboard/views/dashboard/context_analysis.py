@@ -8,7 +8,7 @@ from rir_data.serializer.context_layer import ContextLayerSerializer
 
 
 class ContextAnalysisView(BaseDashboardView):
-    template_name = 'dashboard/context-analysis.html'
+    template_name = 'dashboard/context-analysis/main.html'
 
     @property
     def dashboard_title(self):

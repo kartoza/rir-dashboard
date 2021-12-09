@@ -49,15 +49,19 @@ class EsriLeafletLayer {
         return fetch(...this.preFetch(url + '?f=json'))
             .then(response => response.json())
             .then(data => {
+                console.log(data);
+                if (data.error) {
+                    return null
+                }
                 if (data.drawingInfo === undefined) {
                     if (data.type === "Raster Layer" || (data.layers && data.layers[0] && data.layers[0].type === "Raster Layer")) {
                         return null;
                     }
                 }
                 return that.toLeafletLayer(data);
-
             })
             .catch(error => {
+                console.log(error)
                 return null;
             })
     }
@@ -195,6 +199,9 @@ class EsriLeafletLayer {
 
     getLegend() {
         const style = this.style;
+        if (!style) {
+            return null
+        }
         const that = this;
         let legend = '';
         switch (style.geometryType) {

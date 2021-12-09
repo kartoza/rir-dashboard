@@ -17,11 +17,13 @@
 {% block content %}
     <div id="map-wrapper" data-program="context-analysis" class="section table-section scenario-section">
         <div id="map"></div>
-        <div id="level-selection" class="box-shadow-bottom">
-            {% for level in instance_levels %}
-                <div id="level-{{ level.name }}" data-level="{{ level.name }}">{{ level.name }}</div>
-            {% endfor %}
+        <div id="indicator-right-pane-level-selection" class="box-shadow-bottom level-selection">
         </div>
+
+        {# indicator of swiper #}
+        <div id="indicator-left-pane-text" class="indicator-name-swiper box-shadow-bottom"></div>
+        <div id="indicator-right-pane-text" class="indicator-name-swiper box-shadow-bottom"></div>
+
         <div id="left-side" class="side-panel box-shadow-bottom" data-hidden="false">
             <div class="inner">
                 <div class="side-panel-button">
@@ -36,6 +38,9 @@
                             <img src="{% static "libs/leaflet/1.5.1/images/layers-2x.png" %}">
                         </div>
                     </div>
+                </div>
+
+                <div id="indicator-left-pane-level-selection" class="level-selection box-shadow-bottom">
                 </div>
 
                 {# content #}
@@ -97,11 +102,16 @@
                                             </td>
                                         </tr>
                                         {% for indicator in indicators %}
-                                            <tr data-group="{{ group }}" class="group-row indicator-row {% if not indicator.show_in_context_analysis %}no-context-analysis hide{% endif %}">
+                                            <tr id="indicator-{{ indicator.id }}" data-group="{{ group }}" class="group-row indicator-row {% if not indicator.show_in_context_analysis %}no-context-analysis hide{% endif %}">
                                                 <td class="indicator-name">
                                                     <div class="row">
                                                         <div class="indicator-checkbox">
-                                                            <input type="checkbox" id="indicator-checkbox-{{ indicator.id }}" data-id="{{ indicator.id }}" data-url="{{ indicator.object.url_data_template }}"
+                                                            <input type="checkbox" id="indicator-checkbox-{{ indicator.id }}"
+                                                                   data-id="{{ indicator.id }}"
+                                                                   data-name="{{ indicator.name }}"
+                                                                   data-scenario="{{ indicator.scenario_value }}"
+                                                                   data-url="{{ indicator.object.url_data_template }}"
+                                                                   data-levels="{{ indicator.object.levels }}"
                                                                    {% if not indicator.object.url_data_template %}disabled{% endif %}>
                                                         </div>
                                                         <div class="col">
@@ -118,9 +128,6 @@
                                                                     {% endfor %}
                                                                 </table>
                                                             </div>
-                                                        </div>
-                                                        <div class="indicator-legend">
-                                                            <i class="fa fa-list-ul pull-right" aria-hidden="true"></i>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -180,12 +187,11 @@
     {% endfor %}
 {% endblock %}
 {% block scripts %}
+    {% include 'dashboard/context-analysis/_template-context-layer.html' %}
+
     <script>
         const url = "{{ url }}";
-    </script>
-    <script>
-        let contextLayers = "{{ context_layers|safe }}";
-        contextLayers = contextLayers.replaceAll('None', null).replaceAll('True', true).replaceAll('False', false).replaceAll('\'', '"');
+        let contextLayers = "{{ context_layers|safe }}".replaceAll('None', null).replaceAll('True', true).replaceAll('False', false).replaceAll('\'', '"');
         contextLayers = JSON.parse(contextLayers);
 
         {# basemap #}
@@ -200,119 +206,42 @@
                 basemapDefault = "{{ basemap_layer.id }}";
             {% endif %}
         {% endfor %}
-    </script>
-    <script type="text/javascript" src="{% static 'libs/leaflet/1.5.1/leaflet.js' %}"></script>
-    <script type="text/javascript" src="{% static 'libs/esri-leaflet/esri-leaflet.js' %}"></script>
-    <script type="text/javascript" src="{% static 'libs/esri-leaflet/esri-leaflet-vector.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/dashboard/context-analysis/map.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/dashboard/context-analysis/geometry-level.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/dashboard/context-analysis/indicator-control.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/dashboard/context-analysis/context-layer-control.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/dashboard/context-analysis/esri/leaflet-esri-layer.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/dashboard/context-analysis/esri/leaflet-esri-style.js' %}"></script>
-    <script>
-        {# toogle the table#}
-        $('#toggle-table').click(function () {
-            $(this).toggleClass('all');
-            if ($(this).hasClass('all')) {
-                $(this).html('Show just context analysis indicators');
-                $('.no-context-analysis').removeClass('hide');
-            } else {
-                $(this).html('Show all indicators');
-                $('.no-context-analysis').addClass('hide');
-            }
-            $('#indicator .group-name.hidden').click();
-        });
-        const $list = $('.context-analysis-nav');
-        $list.click(function () {
-            $list.removeClass('active');
-            $(this).addClass('active');
-            $('.scenario-section').hide();
+        const requireConfig = {
+            paths: {
+                'jquery': '{% static 'libs/jquery.js/3.4.1/jquery.min.js' %}?',
+                'jqueryUI': '{% static 'libs/jquery-ui/1.12.1/jquery-ui.js' %}?',
+                'backbone': '{% static 'libs/backbone.js/1.4.0/backbone-min.js' %}?',
+                'underscore': '{% static 'libs/underscore.js/1.9.1/underscore-min.js' %}?',
 
-            const target = $(this).data('target');
-            $(`div[data-program="${target}"]`).show();
-            $('#content').scrollTop(0);
-        });
-
-        {# check hash #}
-        if (!window.location.hash) {
-            $($list[0]).click();
-        } else {
-            const hash = window.location.hash.replaceAll('#', '');
-            const $target = $(`.context-analysis-nav[data-target="${hash}"]`);
-            if ($target.length === 0) {
-                $($list[0]).click();
-            } else {
-                $target.click();
+                {# project static #}
+                'js/request': '{% static 'js/request.js' %}?',
+                'js/templates': '{% static 'js/dashboard/context-analysis/templates.js' %}?',
+                'js/event': '{% static 'js/dashboard/context-analysis/event.js' %}?',
+                'js/views/map': '{% static 'js/dashboard/context-analysis/views/map.js' %}?',
+                'js/views/layers/control': '{% static 'js/dashboard/context-analysis/views/layers/control.js' %}?',
+                'js/views/layers/context-layers': '{% static 'js/dashboard/context-analysis/views/layers/context-layers.js' %}?',
+                'js/views/layers/indicator-layer': '{% static 'js/dashboard/context-analysis/views/layers/indicator-layer.js' %}?',
+                'js/views/layers/administrative-level': '{% static 'js/dashboard/context-analysis/views/layers/administrative-level.js' %}?',
+            },
+            shim: {
+                jqueryUI: {
+                    deps: ["jquery"]
+                },
+                rangeSlider: {
+                    deps: ["jquery"]
+                },
+                templates: {
+                    deps: ['underscore']
+                },
             }
         }
-
-        {# Left side panel of map #}
-        const $leftSide = $('#left-side');
-        const width = $leftSide.width();
-        $('#left-side .toggle-button').click(function () {
-            const isHidden = $(this).hasClass('hidden');
-            $('#left-side .content').hide();
-            $('#left-side .toggle-button').addClass('hidden');
-
-
-            $(this).removeClass('hidden');
-            $(`#${$(this).data('target')}`).show();
-
-            {# doing toggle side panel#}
-            const $sidePanel = $('#left-side');
-            if (!isHidden) {
-                if (!$sidePanel.data('hidden')) {
-                    $sidePanel.animate({
-                        left: `-${width}px`
-                    }, 100, function () {
-                        $sidePanel.data('hidden', true)
-                    });
-                } else {
-                    $sidePanel.animate({
-                        left: `0`
-                    }, 100, function () {
-                        $sidePanel.data('hidden', false)
-                    });
-                }
-            } else {
-                $sidePanel.animate({
-                    left: `0`
-                }, 100, function () {
-                    $sidePanel.data('hidden', false)
-                });
-            }
-        });
-        $('#indicator-toggle-button').click();
-
-        {# full screen toggle #}
-        const $fullScreen = $('.left-side-fullscreen');
-        const $indicator = $('#indicator');
-        const $exitFullScreen = $('.left-side-exit-fullscreen');
-        $fullScreen.click(function () {
-            $leftSide.width('100%');
-            $exitFullScreen.show();
-            $fullScreen.hide();
-            $indicator.find('table').addClass('full-screen');
-        });
-        $exitFullScreen.click(function () {
-            $leftSide.width(width);
-            $exitFullScreen.hide();
-            $fullScreen.show();
-            $indicator.find('table').removeClass('full-screen');
-        });
-
-        $('#indicator .group-name').click(function () {
-            const $row = $(this).closest('tbody');
-            const $i = $(this).find('.group-toggle');
-            $i.toggleClass('fa-caret-down');
-            $i.toggleClass('fa-caret-up');
-            $(this).toggleClass('hidden');
-            if (!$i.hasClass('fa-caret-down')) {
-                $row.find('tr').show();
-            } else {
-                $row.find('.group-row').hide();
-            }
-        })
     </script>
+    <script type="text/javascript" src="{% static 'libs/leaflet/1.5.1/leaflet.js' %}"></script>
+    <script type="text/javascript" src="{% static 'libs/leaflet-side-by-side.js' %}"></script>
+    <script type="text/javascript" src="{% static 'libs/esri-leaflet/esri-leaflet.js' %}"></script>
+    <script type="text/javascript" src="{% static 'libs/esri-leaflet/esri-leaflet-vector.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/dashboard/context-analysis/esri/leaflet-esri-layer.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/dashboard/context-analysis/esri/leaflet-esri-style.js' %}"></script>
+
+    <script data-main="{% static 'js/dashboard/context-analysis/config.js' %}" src="{% static 'libs/require.js/2.3.6/require.min.js' %}"></script>
 {% endblock %}

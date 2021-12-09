@@ -36,6 +36,20 @@ class GeometryLevelInstance(models.Model):
     class Meta:
         unique_together = ('instance', 'level')
 
+    def get_level_tree(self):
+        tree = []
+        level_instance = self
+        parent = True
+        while parent:
+            tree.append(level_instance.level.name)
+            parent = level_instance.parent
+            if parent:
+                level_instance = GeometryLevelInstance.objects.filter(
+                    instance=self.instance,
+                    level=parent
+                ).first()
+        return tree
+
 
 class FindGeometry(models.Manager):
     def get_by(self, name, geometry_level, child_of=None):
