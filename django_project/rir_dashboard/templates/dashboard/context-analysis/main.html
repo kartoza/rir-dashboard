@@ -17,8 +17,13 @@
 {% block content %}
     <div id="map-wrapper" data-program="context-analysis" class="section table-section scenario-section">
         <div id="map"></div>
-        <div id="level-selection" class="box-shadow-bottom">
+        <div id="indicator-right-pane-level-selection" class="box-shadow-bottom level-selection">
         </div>
+
+        {# indicator of swiper #}
+        <div id="indicator-left-pane-text" class="indicator-name-swiper box-shadow-bottom"></div>
+        <div id="indicator-right-pane-text" class="indicator-name-swiper box-shadow-bottom"></div>
+
         <div id="left-side" class="side-panel box-shadow-bottom" data-hidden="false">
             <div class="inner">
                 <div class="side-panel-button">
@@ -33,6 +38,9 @@
                             <img src="{% static "libs/leaflet/1.5.1/images/layers-2x.png" %}">
                         </div>
                     </div>
+                </div>
+
+                <div id="indicator-left-pane-level-selection" class="level-selection box-shadow-bottom">
                 </div>
 
                 {# content #}
@@ -98,7 +106,11 @@
                                                 <td class="indicator-name">
                                                     <div class="row">
                                                         <div class="indicator-checkbox">
-                                                            <input type="checkbox" id="indicator-checkbox-{{ indicator.id }}" data-id="{{ indicator.id }}" data-url="{{ indicator.object.url_data_template }}"
+                                                            <input type="checkbox" id="indicator-checkbox-{{ indicator.id }}"
+                                                                   data-id="{{ indicator.id }}"
+                                                                   data-name="{{ indicator.name }}"
+                                                                   data-scenario="{{ indicator.scenario_value }}"
+                                                                   data-url="{{ indicator.object.url_data_template }}"
                                                                    data-levels="{{ indicator.object.levels }}"
                                                                    {% if not indicator.object.url_data_template %}disabled{% endif %}>
                                                         </div>
@@ -225,9 +237,9 @@
         }
     </script>
     <script type="text/javascript" src="{% static 'libs/leaflet/1.5.1/leaflet.js' %}"></script>
+    <script type="text/javascript" src="{% static 'libs/leaflet-side-by-side.js' %}"></script>
     <script type="text/javascript" src="{% static 'libs/esri-leaflet/esri-leaflet.js' %}"></script>
     <script type="text/javascript" src="{% static 'libs/esri-leaflet/esri-leaflet-vector.js' %}"></script>
-    <script type="text/javascript" src="{% static 'libs/leaflet.plugin.layerswiper.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/dashboard/context-analysis/esri/leaflet-esri-layer.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/dashboard/context-analysis/esri/leaflet-esri-style.js' %}"></script>
 

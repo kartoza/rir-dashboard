@@ -129,6 +129,7 @@ define([
          */
         addLayerToData: function (layerData, layer, legend) {
             if (layer) {
+                layer.options.pane = evt.CONTEXT_LAYER_PANE;
                 const $element = $(`#context-layer-${layerData.id}`);
                 const $legend = $element.find('.legend');
                 const $input = $element.find('input');

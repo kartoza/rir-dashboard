@@ -182,7 +182,7 @@
     position: absolute;
     z-index: 9999;
     height: 100%;
-    width: 300px;
+    width: 250px;
 }
 
 .side-panel .inner {
@@ -321,28 +321,45 @@
     cursor: pointer;
 }
 
-/* level selection */
-#level-selection {
-    right: 10px;
+.indicator-name-swiper {
+    position: absolute;
     top: 10px;
-    border: 2px solid rgba(0, 0, 0, 0.2);
-    background-clip: padding-box;
+    font-size: 12px;
+    border-radius: 5px;
+    overflow: hidden;
+    z-index: 999;
+}
+
+.indicator-name-swiper > div {
+    white-space: nowrap;
+    padding: 5px 10px;
+}
+
+/* level selection */
+#indicator-right-pane-level-selection {
+    right: 10px;
+}
+
+.level-selection {
+    bottom: 10px;
+    border: 1px solid var(--primary-color);
     background: white;
     border-radius: 5px;
     position: absolute;
     z-index: 1000;
+    font-size: 12px;
 }
 
-#level-selection > div {
+.level-selection > div {
     cursor: pointer;
-    padding: 10px;
+    padding: 5px;
 }
 
-#level-selection > div:hover {
+.level-selection > div:hover {
     background: var(--hovered-color);
 }
 
-#level-selection > div.active {
+.level-selection > div.active {
     background-color: var(--hovered-color);
     color: var(--primary-color);
     font-weight: 600;
@@ -440,4 +457,12 @@
     left: 0;
     bottom: 0;
     padding: 5px;
+}
+
+.leaflet-indicator-left-pane {
+    z-index: 190;
+}
+
+.leaflet-indicator-right-pane {
+    z-index: 190;
 }

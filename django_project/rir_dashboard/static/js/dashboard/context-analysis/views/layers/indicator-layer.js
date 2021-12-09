@@ -10,7 +10,8 @@ define([
     return Backbone.View.extend({
         /** Initialization
          */
-        initialize: function (administrativeLevelLayer, id, url, levels) {
+        initialize: function (administrativeLevelLayer, id, name, url, levels, scenario) {
+            this.name = name;
             this.administrativeLevelLayer = administrativeLevelLayer;
             this.$el = $(`#indicator-` + id);
             this.$input = this.$el.find('input');
@@ -22,6 +23,7 @@ define([
             this.id = id;
             this.layers = {};
             this.layer = null;
+            this.scenario = scenario;
 
 
             // for the legend
@@ -68,42 +70,46 @@ define([
                                         }
                                     })
                                 });
-                                self.layers[id][identifier] = L.geoJSON(
-                                    cleanGeojson, {
-                                        onEachFeature: function (feature, layer) {
-                                            if (feature.properties.background_color) {
-                                                let defaultHtml =
-                                                    `<tr style="background-color: ${feature.properties.background_color}; color: ${feature.properties.text_color}"><td><b>Scenario</b></td><td>${feature.properties.scenario_text}</td></tr>`
-
-                                                // check others properties
-                                                $.each(feature.properties, function (key, value) {
-                                                    if (!['background_color', 'text_color', 'scenario_text', 'scenario_value', 'geometry_id'].includes(key)) {
-                                                        defaultHtml += `<tr><td><b>${key.capitalize()}</b></td><td>${numberWithCommas(value)}</td></tr>`
-                                                    }
-                                                });
-                                                layer.bindPopup('' +
-                                                    '<table>' + defaultHtml + '</table>');
-                                            }
-                                        }
-                                    }
-                                );
+                                self.layers[id][identifier] = cleanGeojson;
                                 self.getLayer(callback);
                             } else {
-                                callback(layer);
+                                callback(null);
                             }
                         });
                     }, function () {
-                        callback(layer);
+                        callback(null);
                     })
             } else {
-                callback(layer)
+                callback(L.geoJSON(
+                    layer, {
+                        pane: self.side,
+                        paneID: self.side,
+                        name: self.name,
+                        onEachFeature: function (feature, layer) {
+                            if (feature.properties.background_color) {
+                                let defaultHtml =
+                                    `<tr style="background-color: ${feature.properties.background_color}; color: ${feature.properties.text_color}"><td><b>Scenario</b></td><td>${feature.properties.scenario_text}</td></tr>`
+
+                                // check others properties
+                                $.each(feature.properties, function (key, value) {
+                                    if (!['background_color', 'text_color', 'scenario_text', 'scenario_value', 'geometry_id'].includes(key)) {
+                                        defaultHtml += `<tr><td><b>${key.capitalize()}</b></td><td>${numberWithCommas(value)}</td></tr>`
+                                    }
+                                });
+                                layer.bindPopup('' +
+                                    '<table>' + defaultHtml + '</table>');
+                            }
+                        }
+                    }
+                ))
             }
         },
 
         /**
          * Show this indicator
          */
-        show: function () {
+        show: function (side) {
+            this.side = side;
             this.initLevelSelection();
             this._addLayer();
         },
@@ -119,14 +125,16 @@ define([
                 $('.indicator-checkbox input').prop('disabled', false);
                 self.setStyle();
                 self.$legend.show();
+                self.layer.options['pane'] = map.getPane(self.side);
                 mapView.addLayer(self.layer);
+                event.trigger(evt.INDICATOR_CHANGED);
             });
         },
         /**
          * hide this indicator
          */
         hide: function () {
-            const $levelSelection = $('#level-selection');
+            const $levelSelection = $(`#${this.side}-level-selection`);
             $levelSelection.html('');
             this.level = this.levels[0];
             this.$legend.hide();
@@ -137,6 +145,7 @@ define([
          */
         _removeLayer: function () {
             mapView.removeLayer(this.layer);
+            event.trigger(evt.INDICATOR_CHANGED);
         },
 
         /**
@@ -144,7 +153,7 @@ define([
          */
         initLevelSelection: function () {
             const self = this;
-            const $levelSelection = $('#level-selection');
+            const $levelSelection = $(`#${this.side}-level-selection`);
             $levelSelection.html('');
             $.each(this.levels, function (key, level) {
                 let active = ''
@@ -159,6 +168,11 @@ define([
                 $(this).addClass('active');
                 self._addLayer();
             })
+
+            if (this.side === evt.INDICATOR_LEFT_PANE) {
+                const width = $levelSelection.width()
+                $levelSelection.css('right', '-' + (width + 10) + 'px')
+            }
         },
 
         /**

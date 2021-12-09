@@ -8,7 +8,12 @@ const evt = {
     MAP_REMOVE_LAYER: 'map:layer:remove', // remove layer from map
 
     RERENDER_CONTEXT_LAYER: 'layers:context-layer:rerender', // When layers changed
-    ADMINISTRATIVE_GET_LAYER: 'administrative:get-layer', // When layers changed
+    ADMINISTRATIVE_GET_LAYER: 'administrative:get-layer', // Get administrative layer
+
+    INDICATOR_LEFT_PANE: 'indicator-left-pane', // Indicator left
+    INDICATOR_RIGHT_PANE: 'indicator-right-pane', // Indicator right
+    CONTEXT_LAYER_PANE: 'context-layer-pane', // Indicator right
+    INDICATOR_CHANGED: 'indicator:changed',
 }
 define([
     'backbone'], function (Backbone) {
