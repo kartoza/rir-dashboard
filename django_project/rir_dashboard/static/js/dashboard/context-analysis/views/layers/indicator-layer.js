@@ -112,6 +112,7 @@ define([
             this.side = side;
             this.initLevelSelection();
             this._addLayer();
+            $(`#${this.side}-text`).html(`<div class="scenario-${this.scenario}">${this.name}</div>`);
         },
         /**
          * Add specific layer to map
@@ -139,6 +140,7 @@ define([
             this.level = this.levels[0];
             this.$legend.hide();
             this._removeLayer();
+            $(`#${this.side}-text`).html(``);
         },
         /**
          * Remove specific layer from map
@@ -168,11 +170,6 @@ define([
                 $(this).addClass('active');
                 self._addLayer();
             })
-
-            if (this.side === evt.INDICATOR_LEFT_PANE) {
-                const width = $levelSelection.width()
-                $levelSelection.css('right', '-' + (width + 10) + 'px')
-            }
         },
 
         /**

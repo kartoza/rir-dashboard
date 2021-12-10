@@ -68,38 +68,6 @@ require([
             $('#indicator .group-name.hidden').click();
         });
 
-        // Left side panel of map
-        // Event for toggling side panel
-        const $leftSide = $('#left-side');
-        const $leftSideToggleButton = $('#left-side .toggle-button');
-        const width = $leftSide.width();
-        $leftSideToggleButton.click(function () {
-            const isHidden = $(this).hasClass('hidden');
-            $leftSideToggleButton.addClass('hidden');
-            $('#left-side .content').hide();
-            $(this).removeClass('hidden');
-            $(`#${$(this).data('target')}`).show();
-
-            // doing toggle side panel
-            if (!isHidden) {
-                if (!$leftSide.data('hidden')) {
-                    $leftSide.animate({ left: `-${width}px` }, 100, function () {
-                        $leftSide.data('hidden', true)
-                    });
-                } else {
-                    $leftSide.animate({ left: `0` }, 100, function () {
-                        $leftSide.data('hidden', false)
-                    });
-                }
-            } else {
-                $leftSide.animate({ left: `0` }, 100, function () {
-                    $leftSide.data('hidden', false)
-                });
-            }
-        });
-        // indicator shows by default
-        $('#indicator-toggle-button').click();
-
         // Event for toggling full screen
         const $fullScreen = $('.left-side-fullscreen');
         const $indicator = $('#indicator');
@@ -127,5 +95,64 @@ require([
             if (!$i.hasClass('fa-caret-down')) $row.find('tr').show();
             else $row.find('.group-row').hide();
         })
+        {
+            // ---------------------------------------------------
+            // LEFT SIDE
+            // ---------------------------------------------------
+            // Left side panel of map
+            // Event for toggling side panel
+            const $leftSide = $('#left-side');
+            const $toggleButton = $('#left-side .toggle-button');
+            const width = $leftSide.width();
+            $toggleButton.click(function () {
+                const isHidden = $(this).hasClass('hidden');
+                $toggleButton.addClass('hidden');
+                $('#left-side .content').hide();
+                $(this).removeClass('hidden');
+                $(`#${$(this).data('target')}`).show();
+
+                // doing toggle side panel
+                if (!isHidden) {
+                    if (!$leftSide.data('hidden')) {
+                        $leftSide.animate({ left: `-${width}px` }, 100, function () {
+                            $leftSide.data('hidden', true)
+                        });
+                    } else {
+                        $leftSide.animate({ left: `0` }, 100, function () {
+                            $leftSide.data('hidden', false)
+                        });
+                    }
+                } else {
+                    $leftSide.animate({ left: `0` }, 100, function () {
+                        $leftSide.data('hidden', false)
+                    });
+                }
+            });
+            // indicator shows by default
+            $('#indicator-toggle-button').click();
+        }
+
+        {
+            // ---------------------------------------------------
+            // RIGHT SIDE
+            // ---------------------------------------------------
+            // Right side panel of map
+            // Event for toggling side panel
+            const $rigthSide = $('#right-side');
+            const $toggleButton = $('#right-side .toggle-button');
+            const width = $rigthSide.width();
+            $toggleButton.click(function () {
+                // doing toggle side panel
+                if (!$rigthSide.data('hidden')) {
+                    $rigthSide.animate({ right: `-${width}px` }, 100, function () {
+                        $rigthSide.data('hidden', true)
+                    });
+                } else {
+                    $rigthSide.animate({ right: `0` }, 100, function () {
+                        $rigthSide.data('hidden', false)
+                    });
+                }
+            });
+        }
     }
 });

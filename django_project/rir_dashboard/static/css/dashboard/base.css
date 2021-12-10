@@ -174,7 +174,7 @@ html, body {
 }
 
 #navigation.shrink .toggle-button {
-    opacity: 0.4;
+    opacity: 0.2;
 }
 
 #navigation.shrink .toggle-button:hover {

@@ -102,10 +102,6 @@ define([
         indicatorChanged: function () {
             let position = null;
             let value = null;
-            const $indicatorLeftPaneText = $(`#indicator-left-pane-text`)
-            const $indicatorRightPaneText = $(`#indicator-right-pane-text`)
-            $indicatorLeftPaneText.html('');
-            $indicatorRightPaneText.html('');
             if (this.controlComparison) {
                 position = this.controlComparison.getPosition();
                 value = $('.leaflet-sbs-range').val();
@@ -114,10 +110,10 @@ define([
                 this.map.getPane(evt.INDICATOR_LEFT_PANE).style.clip = '';
                 this.map.getPane(evt.INDICATOR_RIGHT_PANE).style.clip = '';
             }
-            if (this.indicatorRight && this.indicatorLeft) {
-                $indicatorLeftPaneText.html(`<div class="scenario-${this.indicatorLeft.scenario}">${this.indicatorLeft.name}</div>`);
-                $indicatorRightPaneText.html(`<div class="scenario-${this.indicatorRight.scenario}">${this.indicatorRight.name}</div>`);
 
+            $('#info-toggle').show();
+
+            if (this.indicatorRight && this.indicatorLeft) {
                 this.controlComparison = L.control.sideBySide(
                     this.indicatorLeft.layer, this.indicatorRight.layer
                 ).addTo(this.map);
@@ -125,12 +121,13 @@ define([
                     $('.leaflet-sbs-divider').css('left', position + 'px')
                     $('.leaflet-sbs-range').val(value);
                     this.controlComparison._updateLayers();
-                    $indicatorLeftPaneText.css('left', (position - ($indicatorLeftPaneText.width() + 10)) + 'px');
-                    $indicatorRightPaneText.css('left', (position + 10) + 'px');
                 } else {
                     const position = this.controlComparison.getPosition();
-                    $indicatorLeftPaneText.css('left', (position - ($indicatorLeftPaneText.width() + 10)) + 'px');
-                    $indicatorRightPaneText.css('left', (position + 10) + 'px');
+                }
+            } else if (!this.indicatorRight && !this.indicatorLeft) {
+                $('#info-toggle').hide();
+                if (!$('#right-side').data('hidden')) {
+                    $('#info-toggle').click();
                 }
             }
         },

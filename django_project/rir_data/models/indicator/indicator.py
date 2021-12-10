@@ -176,13 +176,16 @@ class Indicator(AbstractTerm):
         })
         return values
 
-    def values(self, geometry: Geometry, geometry_level: GeometryLevelName, date_data: date):
+    def values(self, geometry: Geometry, geometry_level: GeometryLevelName, date_data: date, use_exact_date=False):
         """
         Return geojson value of indicator by geometry, the target geometry level and the date
         """
         # get the geometries of data
         values = []
         query = self.query_value(date_data)
+        if use_exact_date:
+            query = query.filter(date=date_data)
+
         reporting_units = list(self.reporting_units.values_list('id', flat=True))
         if not query.first():
             return values
@@ -237,7 +240,11 @@ class Indicator(AbstractTerm):
                             sum=Sum('value')
                         )
                         value = output[0]['sum']
-                    values.append(self.serialize(geometry_target, value))
+
+                    data = self.serialize(geometry_target, value)
+                    if use_exact_date:
+                        data['date'] = date_data
+                    values.append(data)
                 except IndexError:
                     pass
 
@@ -263,7 +270,7 @@ class Indicator(AbstractTerm):
             geometry_country = instance.geometries().filter(
                 geometry_level=country_level).first()
             if geometry_country:
-                return reverse('indicator-values-geojson-api', args=[
+                return reverse('indicator-values-by-date-geojson-api', args=[
                     self.group.instance.slug, self.pk,
                     geometry_country.identifier,
                     'level',
@@ -280,7 +287,7 @@ class Indicator(AbstractTerm):
             geometry_country = instance.geometries().filter(
                 geometry_level=country_level).first()
             if geometry_country:
-                return reverse('indicator-values-api', args=[
+                return reverse('indicator-values-by-date-api', args=[
                     self.group.instance.slug, self.pk,
                     geometry_country.identifier,
                     'level',

@@ -1,3 +1,8 @@
+:root {
+    --left-side-width: 250px;
+    --left-side-width-minus: -250px;
+}
+
 #content {
     padding-top: 0;
 }
@@ -173,12 +178,32 @@
     overflow: hidden;
 }
 
+#right-side {
+    top: 0;
+    right: var(--left-side-width-minus);
+}
+
+#right-side .side-panel-toggle-button {
+    left: -26px;
+    position: absolute;
+    top: 50%;
+    margin-top: -26px;
+    writing-mode: vertical-rl;
+    border-bottom-left-radius: 4px;
+    border-top-left-radius: 4px;
+    box-shadow: -1px 0px 4px rgb(0 0 0 / 30%);
+    overflow: hidden;
+}
+
+#right-side .side-panel-toggle-button .toggle-button {
+    padding: 14px 3px;
+}
 
 .side-panel {
     position: absolute;
     z-index: 9999;
     height: 100%;
-    width: 250px;
+    width: var(--left-side-width);
 }
 
 .side-panel .inner {
@@ -318,12 +343,13 @@
 }
 
 .indicator-name-swiper {
+    right: var(--left-side-width);
     position: absolute;
-    top: 10px;
     font-size: 12px;
-    border-radius: 5px;
     overflow: hidden;
-    z-index: 999;
+    z-index: 1000;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
 }
 
 .indicator-name-swiper > div {
@@ -332,15 +358,29 @@
 }
 
 /* level selection */
+/* TOP LAYER*/
+#indicator-right-pane-text {
+    top: 10px;
+}
+
 #indicator-right-pane-level-selection {
-    right: 10px;
+    top: 40px;
+}
+
+/* BOTTOM LAYER*/
+#indicator-left-pane-text {
+    bottom: 10px;
+}
+
+#indicator-left-pane-level-selection {
+    bottom: 40px;
 }
 
 .level-selection {
-    bottom: 10px;
-    border: 1px solid var(--primary-color);
+    right: var(--left-side-width);
     background: white;
-    border-radius: 5px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
     position: absolute;
     z-index: 1000;
     font-size: 12px;
