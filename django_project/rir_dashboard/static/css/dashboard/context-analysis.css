@@ -205,7 +205,7 @@
     height: 100%;
     flex-flow: column;
     display: flex;
-    padding-bottom: 30px;
+    padding-bottom: 47px;
 }
 
 #right-side .content-wrapper .indicator-info {
@@ -226,6 +226,24 @@
 #right-side .content-wrapper .indicator-info-content {
     flex: 1;
     overflow-y: auto;
+}
+
+#right-side .content-wrapper .indicator-info-content b {
+    font-size: 10px;
+}
+
+#right-side .content-wrapper .indicator-info-content .value-table {
+    width: 100%;
+    font-size: 10px;
+}
+
+#right-side .content-wrapper .indicator-info-content .value-table table {
+    width: 100%;
+}
+
+#right-side .content-wrapper .indicator-info-content .value-table table td {
+    width: 50%;
+    padding: 2px 10px;
 }
 
 .side-panel {
@@ -553,15 +571,14 @@
 /* TIME SLIDER */
 /*-------------------------------------------*/
 #time-slider-wrapper {
-    border-bottom-left-radius: 4px;
     border-top-left-radius: 4px;
     position: absolute;
-    bottom: 5px;
+    bottom: 0;
     padding: 5px 10px;
     width: 300px;
     background: white;
     right: 0;
-    z-index: 1000;
+    z-index: 10000;
     font-size: 12px;
     cursor: pointer;
     display: none;

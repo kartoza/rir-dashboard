@@ -125,7 +125,11 @@ define([
             const self = this;
             this._removeLayer();
             $('.indicator-checkbox input').prop('disabled', true);
+            $(`#${this.side}-info .value-table`).html('<div style="margin-left: 10px; margin-bottom: 30px"><i>Loading</i></div>');
             this.getLayer(function (layer) {
+                $(`#${self.side}-info .value-table`).html('<table></table>');
+
+
                 self._removeLayer();
                 self.layer = layer;
                 $('.indicator-checkbox input').prop('disabled', false);
@@ -135,7 +139,7 @@ define([
                 mapView.addLayer(self.layer);
                 event.trigger(evt.INDICATOR_CHANGED);
 
-                // disabled this after we add more content
+                // // disabled this after we add more content
                 // $('#info-toggle').show();
                 // if ($('#right-side').data('hidden')) {
                 //     $('#info-toggle').click();
@@ -189,6 +193,7 @@ define([
          * Set Style
          */
         setStyle: function () {
+            const self = this;
             if (this.layer) {
                 const levelActivated = [];
                 this.$el.find('.legend-row.active').each(function () {
@@ -196,6 +201,9 @@ define([
                 });
                 const style = function (feature) {
                     if (levelActivated.includes(feature.properties.scenario_value)) {
+                        $(`#${self.side}-info .value-table table`).append(
+                            `<tr style="background-color: ${feature.properties.background_color}"><td valign="top">${feature.properties.geometry_name}</td><td valign="top">${feature.properties.scenario_text}</td></tr>
+                        `);
                         return {
                             color: "#ffffff",
                             weight: 1,
