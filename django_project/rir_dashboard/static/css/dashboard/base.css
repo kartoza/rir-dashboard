@@ -156,7 +156,7 @@ html, body {
     top: 8px;
     color: white;
     background-color: var(--primary-color);
-    padding: 8px 5px;
+    padding: 5px;
     z-index: 999;
     cursor: pointer;
     right: 0;
@@ -171,6 +171,14 @@ html, body {
 #navigation.shrink .toggle-button {
     margin-right: -17px;
     border-radius: 0 5px 5px 0;
+}
+
+#navigation.shrink .toggle-button {
+    opacity: 0.4;
+}
+
+#navigation.shrink .toggle-button:hover {
+    opacity: 1;
 }
 
 #navigation .toggle-button .fa-caret-right {

@@ -88,12 +88,12 @@ define([
                         onEachFeature: function (feature, layer) {
                             if (feature.properties.background_color) {
                                 let defaultHtml =
-                                    `<tr style="background-color: ${feature.properties.background_color}; color: ${feature.properties.text_color}"><td><b>Scenario</b></td><td>${feature.properties.scenario_text}</td></tr>`
+                                    `<tr style="background-color: ${feature.properties.background_color}; color: ${feature.properties.text_color}"><td>${feature.properties.scenario_text}</td><td valign="top"><b>Scenario</b></td valign="top"></tr>`
 
                                 // check others properties
                                 $.each(feature.properties, function (key, value) {
                                     if (!['background_color', 'text_color', 'scenario_text', 'scenario_value', 'geometry_id'].includes(key)) {
-                                        defaultHtml += `<tr><td><b>${key.capitalize()}</b></td><td>${numberWithCommas(value)}</td></tr>`
+                                        defaultHtml += `<tr><td valign="top">${numberWithCommas(value)}</td><td valign="top"><b>${key.capitalize()}</b></td></tr>`
                                     }
                                 });
                                 layer.bindPopup('' +

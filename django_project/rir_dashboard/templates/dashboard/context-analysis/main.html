@@ -72,12 +72,10 @@
                     <div id="indicator" class="content">
                         <div class="inner-content">
                             <div class="scenario-header scenario-{{ overall_scenario.level }} side-panel-header">
-                                Overall Scenario
                                 <div class="pull-right side-panel-control">
                                     <i class="left-side-fullscreen fa fa-arrows-alt" aria-hidden="true" title="Fullscreen"></i>
                                     <i class="left-side-exit-fullscreen fa fa-minus" aria-hidden="true" title="Exit Fullscreen" style="display: none"></i>
                                 </div>
-                                <br>
                                 Scenario {% if overall_scenario.level %}{{ overall_scenario.level }}: {{ overall_scenario.name }}{% else %} <i>unknown</i> {% endif %}
                             </div>
                             <div class="side-panel-content">

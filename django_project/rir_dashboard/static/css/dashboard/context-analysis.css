@@ -109,10 +109,15 @@
     width: 200px;
 }
 
-#content-view .scenario-header {
+#content-view .scenario-header,
+#content h3 {
     font-size: 14px;
-    padding: 10px;
+    padding: 10px 10px 11px 10px;
     font-weight: 600;
+}
+
+#content h3 {
+    padding: 13px 12px 12px 12px;
 }
 
 #content-view .indicator-row {
@@ -148,15 +153,6 @@
 #map {
     height: 100%;
     width: 100%;
-}
-
-#map .leaflet-popup-content {
-    max-height: 250px;
-    overflow-y: auto;
-}
-
-#map .leaflet-popup-content td {
-    padding: 5px 10px;
 }
 
 #left-side {
@@ -465,4 +461,21 @@
 
 .leaflet-indicator-right-pane {
     z-index: 190;
+}
+
+/* Overriden style */
+#content-view {
+    padding: 0;
+}
+
+#content .section {
+    border-radius: 0;
+}
+
+#navigation {
+    z-index: 10000;
+}
+
+.navbar {
+    z-index: 10001;
 }

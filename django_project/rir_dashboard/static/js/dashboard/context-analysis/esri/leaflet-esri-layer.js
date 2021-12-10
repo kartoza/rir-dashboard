@@ -183,8 +183,14 @@ class EsriLeafletLayer {
                     }
                 };
 
-                params['onEachFeature'] = function (f, l) {
-                    l.bindPopup('<pre>' + JSON.stringify(f.properties, null, ' ').replace(/[\{\}"]/g, '') + '</pre>');
+                params['onEachFeature'] = function (feature, layer) {
+                    // check others properties
+                    let defaultHtml = '';
+                    $.each(feature.properties, function (key, value) {
+                        defaultHtml += `<tr><td valign="top">${numberWithCommas(value)}</td><td valign="top"><b>${key.capitalize()}</b></td></tr>`
+                    });
+                    layer.bindPopup('' +
+                        '<table>' + defaultHtml + '</table>');
                 }
                 return L.esri.featureLayer(params);
             }
