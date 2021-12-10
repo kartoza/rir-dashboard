@@ -39,15 +39,10 @@ define([
          */
         getLayer: function (callback) {
             const self = this;
-            const id = this.id;
             const level = this.level;
             const date = this.date;
             const identifier = `${level}-${date}`;
-            if (!self.layers[id]) {
-                self.layers[id] = {}
-            }
-
-            const layer = self.layers[id][identifier];
+            const layer = self.layers[identifier];
             if (!layer) {
                 Request.get(
                     self.url.replace('level', level).replace('date', date), {}, {},
@@ -70,7 +65,7 @@ define([
                                         }
                                     })
                                 });
-                                self.layers[id][identifier] = cleanGeojson;
+                                self.layers[identifier] = cleanGeojson;
                                 self.getLayer(callback);
                             } else {
                                 callback(null);
@@ -113,6 +108,15 @@ define([
             this.initLevelSelection();
             this._addLayer();
             $(`#${this.side}-text`).html(`<div class="scenario-${this.scenario}">${this.name}</div>`);
+            $(`#${this.side}-info`).show();
+            $(`#${this.side}-info`).html(templates.INDICATOR_INFO({
+                name: this.name,
+                classname: `scenario-${this.scenario}`,
+                side: this.side
+            }));
+
+            this.renderValues();
+            event.trigger(evt.INDICATOR_VALUES_CHANGED);
         },
         /**
          * Add specific layer to map
@@ -122,6 +126,7 @@ define([
             this._removeLayer();
             $('.indicator-checkbox input').prop('disabled', true);
             this.getLayer(function (layer) {
+                self._removeLayer();
                 self.layer = layer;
                 $('.indicator-checkbox input').prop('disabled', false);
                 self.setStyle();
@@ -129,6 +134,12 @@ define([
                 self.layer.options['pane'] = map.getPane(self.side);
                 mapView.addLayer(self.layer);
                 event.trigger(evt.INDICATOR_CHANGED);
+
+                // disabled this after we add more content
+                // $('#info-toggle').show();
+                // if ($('#right-side').data('hidden')) {
+                //     $('#info-toggle').click();
+                // }
             });
         },
         /**
@@ -141,6 +152,8 @@ define([
             this.$legend.hide();
             this._removeLayer();
             $(`#${this.side}-text`).html(``);
+            $(`#${this.side}-info`).hide();
+            event.trigger(evt.INDICATOR_VALUES_CHANGED);
         },
         /**
          * Remove specific layer from map
@@ -197,6 +210,106 @@ define([
                     }
                 }
                 this.layer.setStyle(style)
+            }
+        },
+
+        /**
+         * Render all value of layer
+         */
+        renderValues: function () {
+            const self = this;
+            $(`#${this.side}-info .value-chart`).html('<i>Loading</i>')
+            if (!self.values) {
+                Request.get(
+                    self.url.replace('level', self.levels[self.levels.length - 1]).replace('/date', ''), {}, {},
+                    function (data) {
+                        self.values = data;
+                        self.renderValues();
+                        event.trigger(evt.INDICATOR_VALUES_CHANGED);
+                    }, function () {
+                        $(`#${self.side}-info .value-chart`).html('<span class="error">Error</span>')
+                        event.trigger(evt.INDICATOR_VALUES_CHANGED);
+                        self.values = [];
+                    }
+                )
+            } else {
+                const data = [];
+                $.each(this.values, function (idx, value) {
+                    data.push([
+                        new Date(value.date).getTime(),
+                        value.value,
+                    ])
+                });
+                const title = 'Value';
+                const options = {
+                    chart: {
+                        zoomType: 'x'
+                    },
+                    title: {
+                        text: title
+                    },
+                    xAxis: {
+                        type: 'datetime',
+                        title: {
+                            text: 'date'
+                        },
+                        labels: {
+                            format: '{%Y-%b-%e}'
+                        },
+                    },
+                    legend: {
+                        enabled: true
+                    },
+                    rangeSelector: {
+                        buttons: [{
+                            type: 'day',
+                            count: 3,
+                            text: '3d'
+                        }, {
+                            type: 'week',
+                            count: 1,
+                            text: '1w'
+                        }, {
+                            type: 'month',
+                            count: 1,
+                            text: '1m'
+                        }, {
+                            type: 'month',
+                            count: 6,
+                            text: '6m'
+                        }, {
+                            type: 'year',
+                            count: 1,
+                            text: '1y'
+                        }, {
+                            type: 'all',
+                            text: 'All'
+                        }]
+                    },
+                    plotOptions: {
+                        series: {
+                            showInLegend: false
+                        }
+                    },
+                    series: [
+                        {
+                            type: 'line',
+                            name: title,
+                            data: data,
+                            lineWidth: 1,
+                            states: {
+                                hover: {
+                                    lineWidth: 1
+                                }
+                            },
+                            color: '#F48020',
+                            tooltip: {
+                                valueDecimals: 0
+                            }
+                        }
+                    ]
+                };
+                self.chart = Highcharts.stockChart(`${self.side}-value-chart`, options);
             }
         },
     })

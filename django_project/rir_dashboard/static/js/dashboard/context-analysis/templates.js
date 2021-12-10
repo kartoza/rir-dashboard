@@ -3,6 +3,7 @@ const templates = {
     CONTEXT_LAYER_GROUP: '#_context-layer-group',
     CONTEXT_LAYER: '#_context-layer',
     ADMINISTRATIVE_POPUP: '#_administrative-popup',
+    INDICATOR_INFO: '#_indicator-info',
 }
 define([
     'backbone'], function (Backbone) {

@@ -186,10 +186,8 @@ class IndicatorValues(APIView):
             'date', flat=True).order_by('date').distinct()
         values = []
         for date in dates:
-            values.append(
-                indicator.values(
-                    geometry, geometry_level, date, True
-                )
+            values += indicator.values(
+                geometry, geometry_level, date, True
             )
         return values
 
