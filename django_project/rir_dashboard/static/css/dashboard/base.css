@@ -97,7 +97,8 @@ html, body {
     border-bottom: 2px solid var(--primary-color);
 }
 
-#content .header .main-button {
+#content .header .main-button,
+#content .header .empty-button {
     margin-top: -3px;
 }
 

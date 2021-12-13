@@ -101,3 +101,7 @@
 .delete-harvester {
     color: red !important;
 }
+
+.create-harvester {
+    color: darkgreen !important;
+}

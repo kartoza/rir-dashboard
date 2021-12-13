@@ -13,11 +13,15 @@
     <div id="content">
         <div class="header box-shadow-bottom ">
             {{ dashboard_title|safe }}
-            <form method="post" enctype="multipart/form-data" class="pull-right">
-                {% csrf_token %}
-                <button class="main-button" type="submit">Run</button>
-            </form>
-            <a href="{% url "harvester-api-with-geography-and-date" instance.slug indicator.id %}" class="pull-right" style="margin-right: 1px">
+            {% if harvester.is_run %}
+                <button class="empty-button pull-right">Is Harvesting</button>
+            {% else %}
+                <form method="post" enctype="multipart/form-data" class="pull-right">
+                    {% csrf_token %}
+                    <button class="main-button" type="submit" style="margin-left: 1px">Harvest Now</button>
+                </form>
+            {% endif %}
+            <a href="{% url "harvester-api-with-geography-and-date" instance.slug indicator.id %}" class="pull-right">
                 <button class="main-button">Edit</button>
             </a>
         </div>

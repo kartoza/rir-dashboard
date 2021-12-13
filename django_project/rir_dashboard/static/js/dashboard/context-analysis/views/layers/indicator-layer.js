@@ -124,8 +124,6 @@ define([], function () {
             $(`.${this.side}-info .value-table`).html('<div style="margin-left: 10px; margin-bottom: 30px"><i>Loading</i></div>');
             this.getLayer(function (layer) {
                 $(`.${self.side}-info .value-table`).html('<table></table>');
-
-
                 self._removeLayer();
                 self.layer = layer;
                 $('.indicator-checkbox input').prop('disabled', false);

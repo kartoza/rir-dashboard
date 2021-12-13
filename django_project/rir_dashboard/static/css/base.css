@@ -57,6 +57,7 @@ a:hover {
 }
 
 /* BUTTONS */
+.empty-button,
 .main-button,
 .white-button,
 .green-button {
@@ -65,6 +66,13 @@ a:hover {
     padding: 5px 15px;
     font-weight: 500;
     cursor: pointer;
+}
+
+.empty-button {
+    background: white;
+    border: 1px solid var(--primary-color);
+    cursor: not-allowed !important;
+    padding: 4px 14px;
 }
 
 .main-button {
@@ -92,6 +100,8 @@ a:hover {
     color: white;
 }
 
+.empty-button:focus-visible,
+.empty-button:focus,
 .main-button:focus-visible,
 .main-button:focus,
 .white-button:focus-visible,
