@@ -68,23 +68,6 @@ require([
             $('#indicator .group-name.hidden').click();
         });
 
-        // Event for toggling full screen
-        const $fullScreen = $('.left-side-fullscreen');
-        const $indicator = $('#indicator');
-        const $exitFullScreen = $('.left-side-exit-fullscreen');
-        $fullScreen.click(function () {
-            $leftSide.width('100%');
-            $exitFullScreen.show();
-            $fullScreen.hide();
-            $indicator.find('table').addClass('full-screen');
-        });
-        $exitFullScreen.click(function () {
-            $leftSide.width(width);
-            $exitFullScreen.hide();
-            $fullScreen.show();
-            $indicator.find('table').removeClass('full-screen');
-        });
-
         // Event for toggling indicator group
         $('#indicator .group-name').click(function () {
             const $row = $(this).closest('tbody');
@@ -130,6 +113,23 @@ require([
             });
             // indicator shows by default
             $('#indicator-toggle-button').click();
+
+            // Event for toggling full screen
+            const $fullScreen = $('.left-side-fullscreen');
+            const $indicator = $('#indicator');
+            const $exitFullScreen = $('.left-side-exit-fullscreen');
+            $fullScreen.click(function () {
+                $leftSide.width('100%');
+                $exitFullScreen.show();
+                $fullScreen.hide();
+                $indicator.find('table').addClass('full-screen');
+            });
+            $exitFullScreen.click(function () {
+                $leftSide.width(width);
+                $exitFullScreen.hide();
+                $fullScreen.show();
+                $indicator.find('table').removeClass('full-screen');
+            });
         }
 
         {

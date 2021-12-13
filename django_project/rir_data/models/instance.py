@@ -99,6 +99,7 @@ class Instance(SlugTerm, IconTerm):
 
         indicators = []
         scenario_values = {}
+        indicators_in_group = {}
         try:
             country_level = self.geometry_instance_levels.filter(parent=None).first()
             if not country_level:
@@ -125,11 +126,25 @@ class Instance(SlugTerm, IconTerm):
 
                 indicators.append(data)
 
+                group_name = indicator.group.name
+                if group_name not in indicators_in_group:
+                    indicators_in_group[group_name] = {
+                        'indicators': [],
+                        'overall_scenario': 1,
+                        'overall_scenario_raw': {}
+                    }
+                indicators_in_group[group_name]['indicators'].append(data)
+
                 # create overall scenarios
                 if indicator.show_in_context_analysis and scenario_value:
                     if scenario_value not in scenario_values:
                         scenario_values[scenario_value] = 0
                     scenario_values[scenario_value] += 1
+
+                    # this is for the group
+                    if scenario_value not in indicators_in_group[group_name]['overall_scenario_raw']:
+                        indicators_in_group[group_name]['overall_scenario_raw'][scenario_value] = 0
+                    indicators_in_group[group_name]['overall_scenario_raw'][scenario_value] += 1
         except (Geometry.DoesNotExist, GeometryLevelName.DoesNotExist):
             pass
 
@@ -140,7 +155,17 @@ class Instance(SlugTerm, IconTerm):
         except ValueError:
             overall_scenario_level = 1
 
-        return indicators, overall_scenario_level
+        # overall scenario for each of group
+        for group_name, group in indicators_in_group.items():
+            sorted_scenario_values = {key: scenario_values[key] for key in sorted(group['overall_scenario_raw'].keys())}
+            try:
+                overall_scenario_level = max(sorted_scenario_values, key=sorted_scenario_values.get)
+            except ValueError:
+                overall_scenario_level = 1
+            group['overall_scenario'] = overall_scenario_level
+            del group['overall_scenario_raw']
+
+        return indicators_in_group, overall_scenario_level
 
     @property
     def context_layers(self):

@@ -32,7 +32,7 @@ class ContextAnalysisView(BaseDashboardView):
             self.instance.scenario_levels, many=True
         ).data
 
-        indicators, overall_scenario_level = self.instance.get_indicators_and_overall_scenario
+        indicators_in_groups, overall_scenario_level = self.instance.get_indicators_and_overall_scenario
 
         # intervention
         interventions = []
@@ -45,14 +45,6 @@ class ContextAnalysisView(BaseDashboardView):
             context['overall_scenario'] = context['scenarios'][overall_scenario_level - 1]
         except IndexError:
             context['overall_scenario'] = 1
-
-        # group the indicators
-        indicators_in_groups = {}
-        for indicator in indicators:
-            group_name = indicator['group']
-            if group_name not in indicators_in_groups:
-                indicators_in_groups[group_name] = []
-            indicators_in_groups[group_name].append(indicator)
 
         context['indicators_in_groups'] = indicators_in_groups
         context['interventions'] = interventions

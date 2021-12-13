@@ -136,7 +136,6 @@ define([
          * When indicator value changed
          */
         indicatorValuesChanged: function () {
-            console.log('changed')
             let dates = []
             if (this.indicatorRight && this.indicatorRight.values) {
                 $.each(this.indicatorRight.values, function (idx, value) {
@@ -153,18 +152,16 @@ define([
             if (dates.length !== 0) {
                 $('#time-slider-wrapper').show();
                 const $slider = $('#time-slider');
+                dates.sort();
                 dates = [...new Set(dates), `${new Date().getUTCFullYear()}-${new Date().getUTCMonth() + 1}-${new Date().getUTCDate()}`];
-                console.log(dates);
                 $slider.show();
-                $slider.val((dates.length - 1));
                 $slider.attr('min', 0);
                 $slider.attr('max', (dates.length - 1));
+                $slider.val((dates.length - 1));
 
                 $slider.off('input');
                 $slider.on('input', e => {
                     const date = dates[e.target.value];
-                    console.log(e.target.value)
-                    console.log(date)
                     $('#time-slider-indicator').text(date);
                     if (this.indicatorLeft) {
                         this.indicatorLeft.date = date;
