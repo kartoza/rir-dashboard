@@ -14,6 +14,7 @@ const evt = {
     INDICATOR_RIGHT_PANE: 'indicator-right-pane', // Indicator right
     CONTEXT_LAYER_PANE: 'context-layer-pane', // Indicator right
     INDICATOR_CHANGED: 'indicator:changed',
+    INDICATOR_VALUES_CHANGED: 'indicator:value-changed',
 }
 define([
     'backbone'], function (Backbone) {

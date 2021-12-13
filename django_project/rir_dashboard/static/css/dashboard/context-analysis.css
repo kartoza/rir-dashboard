@@ -1,3 +1,8 @@
+:root {
+    --left-side-width: 250px;
+    --left-side-width-minus: -250px;
+}
+
 #content {
     padding-top: 0;
 }
@@ -109,10 +114,15 @@
     width: 200px;
 }
 
-#content-view .scenario-header {
+#content-view .scenario-header,
+#content h3 {
     font-size: 14px;
-    padding: 10px;
+    padding: 10px 10px 11px 10px;
     font-weight: 600;
+}
+
+#content h3 {
+    padding: 13px 12px 12px 12px;
 }
 
 #content-view .indicator-row {
@@ -150,15 +160,6 @@
     width: 100%;
 }
 
-#map .leaflet-popup-content {
-    max-height: 250px;
-    overflow-y: auto;
-}
-
-#map .leaflet-popup-content td {
-    padding: 5px 10px;
-}
-
 #left-side {
     top: 0;
     left: 0;
@@ -177,12 +178,79 @@
     overflow: hidden;
 }
 
+#right-side {
+    top: 0;
+    right: var(--left-side-width-minus);
+}
+
+#right-side .side-panel-toggle-button {
+    left: -26px;
+    position: absolute;
+    top: 50%;
+    margin-top: -26px;
+    writing-mode: vertical-rl;
+    border-bottom-left-radius: 4px;
+    border-top-left-radius: 4px;
+    box-shadow: -1px 0px 4px rgb(0 0 0 / 30%);
+    overflow: hidden;
+}
+
+#right-side .side-panel-toggle-button .toggle-button {
+    padding: 14px 3px;
+    border-radius: 0;
+}
+
+#right-side .content-wrapper {
+    width: 100%;
+    height: 100%;
+    flex-flow: column;
+    display: flex;
+    padding-bottom: 47px;
+}
+
+#right-side .content-wrapper .indicator-info {
+    flex: 1;
+    overflow-y: auto;
+    width: 100%;
+    background-color: white;
+    display: none;
+}
+
+#right-side .content-wrapper .indicator-info-wrapper {
+    width: 100%;
+    height: 100%;
+    flex-flow: column;
+    display: flex;
+}
+
+#right-side .content-wrapper .indicator-info-content {
+    flex: 1;
+    overflow-y: auto;
+}
+
+#right-side .content-wrapper .indicator-info-content b {
+    font-size: 10px;
+}
+
+#right-side .content-wrapper .indicator-info-content .value-table {
+    width: 100%;
+    font-size: 10px;
+}
+
+#right-side .content-wrapper .indicator-info-content .value-table table {
+    width: 100%;
+}
+
+#right-side .content-wrapper .indicator-info-content .value-table table td {
+    width: 50%;
+    padding: 2px 10px;
+}
 
 .side-panel {
     position: absolute;
     z-index: 9999;
     height: 100%;
-    width: 250px;
+    width: var(--left-side-width);
 }
 
 .side-panel .inner {
@@ -322,12 +390,13 @@
 }
 
 .indicator-name-swiper {
+    right: 0;
     position: absolute;
-    top: 10px;
     font-size: 12px;
-    border-radius: 5px;
     overflow: hidden;
-    z-index: 999;
+    z-index: 1000;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
 }
 
 .indicator-name-swiper > div {
@@ -336,15 +405,29 @@
 }
 
 /* level selection */
+/* TOP LAYER*/
+#indicator-right-pane-text {
+    top: 8px;
+}
+
 #indicator-right-pane-level-selection {
-    right: 10px;
+    top: 42px;
+}
+
+/* BOTTOM LAYER*/
+#indicator-left-pane-text {
+    bottom: 55px;
+}
+
+#indicator-left-pane-level-selection {
+    bottom: 90px;
 }
 
 .level-selection {
-    bottom: 10px;
-    border: 1px solid var(--primary-color);
+    right: var(--left-side-width);
     background: white;
-    border-radius: 5px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
     position: absolute;
     z-index: 1000;
     font-size: 12px;
@@ -465,4 +548,72 @@
 
 .leaflet-indicator-right-pane {
     z-index: 190;
+}
+
+/* Overriden style */
+#content-view {
+    padding: 0;
+}
+
+#content .section {
+    border-radius: 0;
+}
+
+#navigation {
+    z-index: 10000;
+}
+
+.navbar {
+    z-index: 10001;
+}
+
+/*-------------------------------------------*/
+/* TIME SLIDER */
+/*-------------------------------------------*/
+#time-slider-wrapper {
+    border-top-left-radius: 4px;
+    position: absolute;
+    bottom: 0;
+    padding: 5px 10px;
+    width: 300px;
+    background: white;
+    right: 0;
+    z-index: 10000;
+    font-size: 12px;
+    cursor: pointer;
+    display: none;
+}
+
+#time-slider-wrapper input {
+    width: 100%;
+}
+
+/* The slider itself */
+#time-slider-wrapper input {
+    -webkit-appearance: none; /* Override default CSS styles */
+    appearance: none;
+    width: 100%; /* Full-width */
+    height: 10px; /* Specified height */
+    background: #d3d3d3; /* Grey background */
+    outline: none; /* Remove outline */
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+#time-slider-wrapper input::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    width: 10px; /* Set a specific slider handle width */
+    height: 10px; /* Slider handle height */
+    background: #04AA6D; /* Green background */
+    cursor: pointer; /* Cursor on hover */
+}
+
+#time-slider-wrapper input::-moz-range-thumb {
+    width: 10px; /* Set a specific slider handle width */
+    height: 10px; /* Slider handle height */
+    background: #04AA6D; /* Green background */
+    cursor: pointer; /* Cursor on hover */
 }

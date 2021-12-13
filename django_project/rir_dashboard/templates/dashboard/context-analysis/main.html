@@ -4,6 +4,7 @@
 
 {% block stylesheet %}
     <link href="{% static 'libs/leaflet/1.5.1/leaflet.css' %}" rel="stylesheet" type="text/css" media="screen, projection"/>
+    <link href="{% static 'libs/leaflet-top-by-bottom/leaflet-top-by-bottom.css' %}" rel="stylesheet" type="text/css" media="screen, projection"/>
     <link href="{% static 'css/dashboard/context-analysis.css' %}" rel="stylesheet" type="text/css" media="screen, projection"/>
     <style>
         {% for scenario in scenarios %}
@@ -17,12 +18,6 @@
 {% block content %}
     <div id="map-wrapper" data-program="context-analysis" class="section table-section scenario-section">
         <div id="map"></div>
-        <div id="indicator-right-pane-level-selection" class="box-shadow-bottom level-selection">
-        </div>
-
-        {# indicator of swiper #}
-        <div id="indicator-left-pane-text" class="indicator-name-swiper box-shadow-bottom"></div>
-        <div id="indicator-right-pane-text" class="indicator-name-swiper box-shadow-bottom"></div>
 
         <div id="left-side" class="side-panel box-shadow-bottom" data-hidden="false">
             <div class="inner">
@@ -40,9 +35,6 @@
                     </div>
                 </div>
 
-                <div id="indicator-left-pane-level-selection" class="level-selection box-shadow-bottom">
-                </div>
-
                 {# content #}
                 <div class="content-wrapper">
                     {# basemap #}
@@ -50,10 +42,6 @@
                         <div class="inner-content">
                             <div class="side-panel-header">
                                 <h3>Basemaps
-                                    <div class="pull-right side-panel-control">
-                                        <i class="left-side-fullscreen fa fa-arrows-alt" aria-hidden="true" title="Fullscreen"></i>
-                                        <i class="left-side-exit-fullscreen fa fa-minus" aria-hidden="true" title="Exit Fullscreen" style="display: none"></i>
-                                    </div>
                                 </h3>
                             </div>
                             <div class="side-panel-content">
@@ -72,12 +60,10 @@
                     <div id="indicator" class="content">
                         <div class="inner-content">
                             <div class="scenario-header scenario-{{ overall_scenario.level }} side-panel-header">
-                                Overall Scenario
                                 <div class="pull-right side-panel-control">
                                     <i class="left-side-fullscreen fa fa-arrows-alt" aria-hidden="true" title="Fullscreen"></i>
                                     <i class="left-side-exit-fullscreen fa fa-minus" aria-hidden="true" title="Exit Fullscreen" style="display: none"></i>
                                 </div>
-                                <br>
                                 Scenario {% if overall_scenario.level %}{{ overall_scenario.level }}: {{ overall_scenario.name }}{% else %} <i>unknown</i> {% endif %}
                             </div>
                             <div class="side-panel-content">
@@ -161,10 +147,6 @@
                         <div class="inner-content">
                             <div class="side-panel-header">
                                 <h3>Layers
-                                    <div class="pull-right side-panel-control">
-                                        <i class="left-side-fullscreen fa fa-arrows-alt" aria-hidden="true" title="Fullscreen"></i>
-                                        <i class="left-side-exit-fullscreen fa fa-minus" aria-hidden="true" title="Exit Fullscreen" style="display: none"></i>
-                                    </div>
                                 </h3>
                             </div>
                             <div class="side-panel-content">
@@ -173,6 +155,38 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div id="right-side" class="side-panel box-shadow-bottom" data-hidden="true">
+            <div class="inner">
+                <div class="side-panel-toggle-button">
+                    <div id="info-toggle" class="toggle-button" style="display: none">
+                        Info
+                    </div>
+                </div>
+                <div class="content-wrapper">
+                    <div id="indicator-right-pane-info" class="indicator-info"></div>
+                    <div id="indicator-left-pane-info" class="indicator-info"></div>
+                </div>
+            </div>
+
+            {# indicator right content#}
+            <div id="indicator-right-pane-level-selection" class="box-shadow-bottom level-selection">
+            </div>
+
+            <div id="indicator-left-pane-level-selection" class="level-selection box-shadow-bottom">
+            </div>
+        </div>
+
+        {# indicator of swiper #}
+        <div id="indicator-left-pane-text" class="indicator-name-swiper box-shadow-bottom"></div>
+        <div id="indicator-right-pane-text" class="indicator-name-swiper box-shadow-bottom"></div>
+
+
+        {# time slider #}
+        <div id="time-slider-wrapper" class="box-shadow-bottom">
+            <div>Current date : <b id="time-slider-indicator"></b></div>
+            <input id="time-slider" type="range" min="1" max="100" value="50" class="slider">
         </div>
     </div>
     {% for intervention in interventions %}
@@ -236,8 +250,14 @@
             }
         }
     </script>
+    <script src="{% static "libs/highcharts/9.1.2/stock/highstock.js" %}"></script>
+    <script src="{% static "libs/highcharts/9.1.2/stock/modules/data.js" %}"></script>
+    <script src="{% static "libs/highcharts/9.1.2/stock/modules/exporting.js" %}"></script>
+    <script src="{% static "libs/highcharts/9.1.2/stock/modules/exporting.js" %}"></script>
+    <script src="{% static "libs/highcharts/9.1.2/stock/indicators/indicators.js" %}"></script>
+    <script src="{% static "libs/highcharts/9.1.2/stock/indicators/trendline.js" %}"></script>
     <script type="text/javascript" src="{% static 'libs/leaflet/1.5.1/leaflet.js' %}"></script>
-    <script type="text/javascript" src="{% static 'libs/leaflet-side-by-side.js' %}"></script>
+    <script type="text/javascript" src="{% static 'libs/leaflet-top-by-bottom/leaflet-top-by-bottom.js' %}"></script>
     <script type="text/javascript" src="{% static 'libs/esri-leaflet/esri-leaflet.js' %}"></script>
     <script type="text/javascript" src="{% static 'libs/esri-leaflet/esri-leaflet-vector.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/dashboard/context-analysis/esri/leaflet-esri-layer.js' %}"></script>

@@ -1,5 +1,4 @@
 :root {
-    --left-side-width: 250px;
     --navbar-height: 50px;
     --navbar-height-minus: -50px;
     --divider-color: #ddd;
@@ -115,4 +114,42 @@ a:hover {
 .green-button:disabled {
     opacity: 0.5;
     cursor: progress;
+}
+
+/* for leaflet */
+.leaflet-popup-content-wrapper {
+    border-radius: 0 !important;
+    padding: 0 !important;;
+}
+
+.leaflet-popup-content {
+    margin: 0 !important;;
+}
+
+.leaflet-popup-content table {
+    width: 100%;
+}
+
+.leaflet-popup-close-button {
+    display: none !important;;
+}
+
+.leaflet-popup-content {
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.leaflet-popup-content td {
+    padding: 5px 20px;
+    width: 50%;
+}
+
+
+.leaflet-popup-content td:first-child {
+    text-align: right;
+    padding-right: 5px;
+}
+
+.leaflet-popup-content td:last-child {
+    padding-left: 5px;
 }

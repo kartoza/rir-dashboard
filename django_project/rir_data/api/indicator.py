@@ -88,11 +88,11 @@ class IndicatorValuesByGeometry(APIView):
         return Response('OK')
 
 
-class IndicatorValues(APIView):
+class IndicatorValuesByDate(APIView):
     """
     Return Scenario value for the specific geometry
     Geometry level is the level that the value needs to get
-    Return as geojson of geometry
+    Return as list of value
     """
 
     def values(self, slug, pk, geometry_identifier, geometry_level, date):
@@ -123,7 +123,7 @@ class IndicatorValues(APIView):
             return HttpResponseBadRequest('Date format is not correct')
 
 
-class IndicatorValuesGeojson(IndicatorValues):
+class IndicatorValuesByDateAndGeojson(IndicatorValuesByDate):
     """
     Return geojson Scenario value for the specific geometry
     Geometry level is the level that the value needs to get
@@ -157,6 +157,45 @@ class IndicatorValuesGeojson(IndicatorValues):
 
         except GeometryLevelName.DoesNotExist:
             return HttpResponseBadRequest('The geometry level is not recognized')
+        except ValueError:
+            return HttpResponseBadRequest('Date format is not correct')
+
+
+class IndicatorValues(APIView):
+    """
+    Return Scenario value for the specific geometry
+    Geometry level is the level that the value needs to get
+    """
+
+    def values(self, slug, pk, geometry_identifier, geometry_level):
+        """
+        Return values of the indicator
+
+        :param pk: pk of the indicator
+        :param geometry_identifier: the geometry identifier
+        :param geometry_level: the geometry level that will be checked
+        :return:
+        """
+        instance = get_object_or_404(
+            Instance, slug=slug
+        )
+        indicator = instance.indicators.get(id=pk)
+        geometry = instance.geometries().get(identifier__iexact=geometry_identifier)
+        geometry_level = GeometryLevelName.objects.get(name__iexact=geometry_level)
+        dates = indicator.indicatorvalue_set.values_list(
+            'date', flat=True).order_by('date').distinct()
+        values = []
+        for date in dates:
+            values += indicator.values(
+                geometry, geometry_level, date, True
+            )
+        return values
+
+    def get(self, request, slug, pk, geometry_identifier, geometry_level):
+        try:
+            return Response(self.values(slug, pk, geometry_identifier, geometry_level))
+        except GeometryLevelName.DoesNotExist:
+            raise Http404('The geometry level is not recognized')
         except ValueError:
             return HttpResponseBadRequest('Date format is not correct')
 

@@ -45,6 +45,7 @@ define([
         listener: function () {
             event.register(this, evt.RERENDER_CONTEXT_LAYER, this.contextLayersChanged);
             event.register(this, evt.INDICATOR_CHANGED, this.indicatorChanged);
+            event.register(this, evt.INDICATOR_VALUES_CHANGED, this.indicatorValuesChanged);
         },
         /** When context layer changed
          */
@@ -102,10 +103,6 @@ define([
         indicatorChanged: function () {
             let position = null;
             let value = null;
-            const $indicatorLeftPaneText = $(`#indicator-left-pane-text`)
-            const $indicatorRightPaneText = $(`#indicator-right-pane-text`)
-            $indicatorLeftPaneText.html('');
-            $indicatorRightPaneText.html('');
             if (this.controlComparison) {
                 position = this.controlComparison.getPosition();
                 value = $('.leaflet-sbs-range').val();
@@ -114,10 +111,10 @@ define([
                 this.map.getPane(evt.INDICATOR_LEFT_PANE).style.clip = '';
                 this.map.getPane(evt.INDICATOR_RIGHT_PANE).style.clip = '';
             }
-            if (this.indicatorRight && this.indicatorLeft) {
-                $indicatorLeftPaneText.html(`<div class="scenario-${this.indicatorLeft.scenario}">${this.indicatorLeft.name}</div>`);
-                $indicatorRightPaneText.html(`<div class="scenario-${this.indicatorRight.scenario}">${this.indicatorRight.name}</div>`);
 
+            $('#info-toggle').show();
+
+            if (this.indicatorRight && this.indicatorLeft) {
                 this.controlComparison = L.control.sideBySide(
                     this.indicatorLeft.layer, this.indicatorRight.layer
                 ).addTo(this.map);
@@ -125,14 +122,63 @@ define([
                     $('.leaflet-sbs-divider').css('left', position + 'px')
                     $('.leaflet-sbs-range').val(value);
                     this.controlComparison._updateLayers();
-                    $indicatorLeftPaneText.css('left', (position - ($indicatorLeftPaneText.width() + 10)) + 'px');
-                    $indicatorRightPaneText.css('left', (position + 10) + 'px');
                 } else {
                     const position = this.controlComparison.getPosition();
-                    $indicatorLeftPaneText.css('left', (position - ($indicatorLeftPaneText.width() + 10)) + 'px');
-                    $indicatorRightPaneText.css('left', (position + 10) + 'px');
+                }
+            } else if (!this.indicatorRight && !this.indicatorLeft) {
+                $('#info-toggle').hide();
+                if (!$('#right-side').data('hidden')) {
+                    $('#info-toggle').click();
                 }
             }
         },
+        /**
+         * When indicator value changed
+         */
+        indicatorValuesChanged: function () {
+            console.log('changed')
+            let dates = []
+            if (this.indicatorRight && this.indicatorRight.values) {
+                $.each(this.indicatorRight.values, function (idx, value) {
+                    const date = new Date(value.date);
+                    dates.push(`${date.getUTCFullYear()}-${date.getUTCMonth() + 1}-${date.getUTCDate()}`)
+                });
+            }
+            if (this.indicatorLeft && this.indicatorLeft.values) {
+                $.each(this.indicatorLeft.values, function (idx, value) {
+                    const date = new Date(value.date);
+                    dates.push(`${date.getUTCFullYear()}-${date.getUTCMonth() + 1}-${date.getUTCDate()}`)
+                });
+            }
+            if (dates.length !== 0) {
+                $('#time-slider-wrapper').show();
+                const $slider = $('#time-slider');
+                dates = [...new Set(dates), `${new Date().getUTCFullYear()}-${new Date().getUTCMonth() + 1}-${new Date().getUTCDate()}`];
+                console.log(dates);
+                $slider.show();
+                $slider.val((dates.length - 1));
+                $slider.attr('min', 0);
+                $slider.attr('max', (dates.length - 1));
+
+                $slider.off('input');
+                $slider.on('input', e => {
+                    const date = dates[e.target.value];
+                    console.log(e.target.value)
+                    console.log(date)
+                    $('#time-slider-indicator').text(date);
+                    if (this.indicatorLeft) {
+                        this.indicatorLeft.date = date;
+                        this.indicatorLeft._addLayer();
+                    }
+                    if (this.indicatorRight) {
+                        this.indicatorRight.date = date;
+                        this.indicatorRight._addLayer();
+                    }
+                });
+                $slider.trigger('input');
+            } else {
+                $('#time-slider-wrapper').hide();
+            }
+        }
     });
 });
