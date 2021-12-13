@@ -2,11 +2,7 @@
  * Layers of map controlled in here.
  * Add layers in here.
  */
-define([
-    'backbone',
-    'jquery'
-], function (
-    Backbone, $) {
+define([], function () {
     return Backbone.View.extend({
         /** Initialization
          */
@@ -107,9 +103,9 @@ define([
             this.side = side;
             this.initLevelSelection();
             this._addLayer();
-            $(`#${this.side}-text`).html(`<div class="scenario-${this.scenario}">${this.name}</div>`);
-            $(`#${this.side}-info`).show();
-            $(`#${this.side}-info`).html(templates.INDICATOR_INFO({
+            $(`.${this.side}-text`).html(`<div class="scenario-${this.scenario}">${this.name}</div>`);
+            $(`.${this.side}-info`).show();
+            $(`.${this.side}-info`).html(templates.INDICATOR_INFO({
                 name: this.name,
                 classname: `scenario-${this.scenario}`,
                 side: this.side
@@ -125,9 +121,9 @@ define([
             const self = this;
             this._removeLayer();
             $('.indicator-checkbox input').prop('disabled', true);
-            $(`#${this.side}-info .value-table`).html('<div style="margin-left: 10px; margin-bottom: 30px"><i>Loading</i></div>');
+            $(`.${this.side}-info .value-table`).html('<div style="margin-left: 10px; margin-bottom: 30px"><i>Loading</i></div>');
             this.getLayer(function (layer) {
-                $(`#${self.side}-info .value-table`).html('<table></table>');
+                $(`.${self.side}-info .value-table`).html('<table></table>');
 
 
                 self._removeLayer();
@@ -138,25 +134,19 @@ define([
                 self.layer.options['pane'] = map.getPane(self.side);
                 mapView.addLayer(self.layer);
                 event.trigger(evt.INDICATOR_CHANGED);
-
-                // // disabled this after we add more content
-                // $('#info-toggle').show();
-                // if ($('#right-side').data('hidden')) {
-                //     $('#info-toggle').click();
-                // }
             });
         },
         /**
          * hide this indicator
          */
         hide: function () {
-            const $levelSelection = $(`#${this.side}-level-selection`);
+            const $levelSelection = $(`.${this.side}-level-selection`);
             $levelSelection.html('');
             this.level = this.levels[0];
             this.$legend.hide();
             this._removeLayer();
-            $(`#${this.side}-text`).html(``);
-            $(`#${this.side}-info`).hide();
+            $(`.${this.side}-text`).html(``);
+            $(`.${this.side}-info`).hide();
             event.trigger(evt.INDICATOR_VALUES_CHANGED);
         },
         /**
@@ -172,7 +162,7 @@ define([
          */
         initLevelSelection: function () {
             const self = this;
-            const $levelSelection = $(`#${this.side}-level-selection`);
+            const $levelSelection = $(`.${this.side}-level-selection`);
             $levelSelection.html('');
             $.each(this.levels, function (key, level) {
                 let active = ''
@@ -184,7 +174,7 @@ define([
             $levelSelection.find('div').click(function () {
                 self.level = $(this).data('level');
                 $levelSelection.find('div').removeClass('active')
-                $(this).addClass('active');
+                $levelSelection.find(`div[data-level="${self.level}"]`).addClass('active');
                 self._addLayer();
             })
         },
@@ -201,7 +191,7 @@ define([
                 });
                 const style = function (feature) {
                     if (levelActivated.includes(feature.properties.scenario_value)) {
-                        $(`#${self.side}-info .value-table table`).append(
+                        $(`.${self.side}-info .value-table table`).append(
                             `<tr style="background-color: ${feature.properties.background_color}"><td valign="top">${feature.properties.geometry_name}</td><td valign="top">${feature.properties.scenario_text}</td></tr>
                         `);
                         return {
@@ -226,7 +216,7 @@ define([
          */
         renderValues: function () {
             const self = this;
-            $(`#${this.side}-info .value-chart`).html('<i>Loading</i>')
+            $(`.${this.side}-info .value-chart`).html('<i>Loading</i>')
             if (!self.values) {
                 Request.get(
                     self.url.replace('level', self.levels[self.levels.length - 1]).replace('/date', ''), {}, {},
@@ -235,7 +225,7 @@ define([
                         self.renderValues();
                         event.trigger(evt.INDICATOR_VALUES_CHANGED);
                     }, function () {
-                        $(`#${self.side}-info .value-chart`).html('<span class="error">Error</span>')
+                        $(`.${self.side}-info .value-chart`).html('<span class="error">Error</span>')
                         event.trigger(evt.INDICATOR_VALUES_CHANGED);
                         self.values = [];
                     }

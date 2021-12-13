@@ -5,8 +5,7 @@ const templates = {
     ADMINISTRATIVE_POPUP: '#_administrative-popup',
     INDICATOR_INFO: '#_indicator-info',
 }
-define([
-    'backbone'], function (Backbone) {
+define([], function () {
     return Backbone.View.extend({
         initialize: function () {
             $.each(templates, function (key, value) {

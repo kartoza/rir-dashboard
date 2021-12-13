@@ -2,11 +2,7 @@
  * This file contains leaflet map controller
  * Put just function of map in here
  */
-define([
-    'backbone',
-    'jquery',
-], function (
-    Backbone, $) {
+define([], function () {
     return Backbone.View.extend({
         /** Initialization
          */

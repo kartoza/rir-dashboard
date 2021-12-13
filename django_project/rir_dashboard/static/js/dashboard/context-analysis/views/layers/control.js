@@ -3,13 +3,10 @@
  * Add layers in here.
  */
 define([
-    'backbone',
-    'jquery',
     'js/views/layers/context-layers',
     'js/views/layers/indicator-layer',
     'js/views/layers/administrative-level',
-], function (
-    Backbone, $, ContextLayers, IndicatorLayer, AdministrativeLevelLayer) {
+], function (ContextLayers, IndicatorLayer, AdministrativeLevelLayer) {
     return Backbone.View.extend({
         /** Initialization **/
         indicatorLayers: {},
@@ -46,6 +43,19 @@ define([
             event.register(this, evt.RERENDER_CONTEXT_LAYER, this.contextLayersChanged);
             event.register(this, evt.INDICATOR_CHANGED, this.indicatorChanged);
             event.register(this, evt.INDICATOR_VALUES_CHANGED, this.indicatorValuesChanged);
+
+            const self = this;
+            const $wrapper = $('#map-wrapper');
+            $('#comparing-toggle').click(function () {
+                if ($wrapper.hasClass('top-bottom')) {
+                    $wrapper.removeClass('top-bottom');
+                    $wrapper.addClass('left-right');
+                } else {
+                    $wrapper.addClass('top-bottom');
+                    $wrapper.removeClass('left-right');
+                }
+                self.indicatorChanged(true);
+            })
         },
         /** When context layer changed
          */
@@ -76,14 +86,12 @@ define([
                 if (this.checked) {
                     // check which side is it and assign in
                     let side = '';
-                    if (!self.indicatorRight) {
-                        side = evt.INDICATOR_RIGHT_PANE;
-                        self.indicatorRight = indicatorLayer;
-                    } else if (!self.indicatorLeft) {
+                    if (!self.indicatorLeft) {
                         side = evt.INDICATOR_LEFT_PANE;
                         self.indicatorLeft = indicatorLayer;
-                    } else {
-                        return false;
+                    } else if (!self.indicatorRight) {
+                        side = evt.INDICATOR_RIGHT_PANE;
+                        self.indicatorRight = indicatorLayer;
                     }
                     indicatorLayer.show(side);
                 } else {
@@ -100,12 +108,13 @@ define([
         /**
          * When indicator layer added/removed
          */
-        indicatorChanged: function () {
+        indicatorChanged: function (force) {
+            $('#comparing-toggle').hide();
             let position = null;
-            let value = null;
             if (this.controlComparison) {
-                position = this.controlComparison.getPosition();
-                value = $('.leaflet-sbs-range').val();
+                if (!force) {
+                    position = this.controlComparison._getPosition();
+                }
                 this.controlComparison.remove();
                 this.controlComparison = null;
                 this.map.getPane(evt.INDICATOR_LEFT_PANE).style.clip = '';
@@ -115,15 +124,22 @@ define([
             $('#info-toggle').show();
 
             if (this.indicatorRight && this.indicatorLeft) {
-                this.controlComparison = L.control.sideBySide(
-                    this.indicatorLeft.layer, this.indicatorRight.layer
+                $('#comparing-toggle').show();
+                this.controlComparison = L.control.layerSwiper(
+                    {
+                        id: 'lyrSwiper',
+                        title: 'lyrSwiper',
+                        position: 'topright',
+                        orientation: $('#map-wrapper').hasClass('top-bottom') ? 'h' : 'v',
+                        ratio: 0.5,
+                        swipeLyrConf: {
+                            base: { layer: this.indicatorLeft.layer, clip: null },
+                            compare: { layer: this.indicatorRight.layer, clip: null }
+                        }
+                    }
                 ).addTo(this.map);
-                if (position && value) {
-                    $('.leaflet-sbs-divider').css('left', position + 'px')
-                    $('.leaflet-sbs-range').val(value);
-                    this.controlComparison._updateLayers();
-                } else {
-                    const position = this.controlComparison.getPosition();
+                if (position) {
+                    this.controlComparison._setPosition(position);
                 }
             } else if (!this.indicatorRight && !this.indicatorLeft) {
                 $('#info-toggle').hide();

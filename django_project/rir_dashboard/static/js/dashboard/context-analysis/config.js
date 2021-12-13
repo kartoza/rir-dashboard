@@ -5,11 +5,6 @@ let Request;
 
 require.config(requireConfig);
 require([
-    // libs
-    'jquery',
-    'backbone',
-    'underscore',
-
     // projects static
     'js/request',
     'js/templates',
@@ -17,7 +12,7 @@ require([
     'js/views/map',
     'js/views/layers/control'
 ], function (
-    $, Backbone, _, _Request, _Templates, _Event,
+    _Request, _Templates, _Event,
     Map, LayersControl) {
 
     new _Templates();

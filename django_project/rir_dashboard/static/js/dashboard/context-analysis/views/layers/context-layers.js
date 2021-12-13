@@ -2,11 +2,7 @@
  * Layers of map controlled in here.
  * Add layers in here.
  */
-define([
-    'backbone',
-    'jquery'
-], function (
-    Backbone, $) {
+define([], function () {
     return Backbone.View.extend({
         /** Initialization
          */

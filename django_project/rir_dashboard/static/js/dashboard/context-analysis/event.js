@@ -16,8 +16,7 @@ const evt = {
     INDICATOR_CHANGED: 'indicator:changed',
     INDICATOR_VALUES_CHANGED: 'indicator:value-changed',
 }
-define([
-    'backbone'], function (Backbone) {
+define([], function () {
     return Backbone.View.extend({
 
         initialize: function () {

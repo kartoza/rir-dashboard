@@ -59,6 +59,7 @@
 #indicator table td {
     padding: 5px 10px;
 }
+
 #indicator .indicator-name {
     padding: 0 0 0 10px;
 }
@@ -169,7 +170,7 @@
 }
 
 #left-side .side-panel-button {
-    right: -26px;
+    right: -35px;
     position: absolute;
     top: 42px;
 }
@@ -187,7 +188,7 @@
 }
 
 #right-side .side-panel-toggle-button {
-    left: -26px;
+    left: -35px;
     position: absolute;
     top: 50%;
     margin-top: -26px;
@@ -208,7 +209,6 @@
     height: 100%;
     flex-flow: column;
     display: flex;
-    padding-bottom: 47px;
 }
 
 #right-side .content-wrapper .indicator-info {
@@ -247,6 +247,10 @@
 #right-side .content-wrapper .indicator-info-content .value-table table td {
     width: 50%;
     padding: 2px 10px;
+}
+
+#right-side .indicator-left-pane-info .indicator-info-content {
+    padding-bottom: 47px;
 }
 
 .side-panel {
@@ -295,9 +299,9 @@
     color: var(--white);
     cursor: pointer;
     font-size: 14px;
-    padding: 15px 8px;
+    padding: 15px 12px;
     position: relative;
-    width: 26px;
+    width: 35px;
 }
 
 .side-panel-toggle-button .toggle-button img {
@@ -407,20 +411,76 @@
 
 /* level selection */
 /* TOP LAYER*/
-#indicator-right-pane-text {
+.indicator-right-pane-text {
     top: 8px;
 }
 
-#indicator-right-pane-level-selection {
+#left-side .indicator-right-pane-text {
+    top: unset;
+    bottom: 55px;
+    left: var(--left-side-width);
+    width: fit-content;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+
+.indicator-right-pane-level-selection {
     top: 42px;
 }
 
+#left-side .indicator-right-pane-level-selection {
+    left: var(--left-side-width);
+    top: unset;
+    bottom: 90px;
+    width: fit-content;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+/* STYLE FOR THE COMPARE ORIENTATION */
+.left-right .indicator-right-pane-text {
+    display: none;
+}
+
+.left-right #left-side .indicator-right-pane-text {
+    display: block !important;
+}
+
+.left-right .indicator-right-pane-level-selection {
+    display: none;
+}
+
+.left-right #left-side .indicator-right-pane-level-selection {
+    display: block !important;
+}
+
+.top-bottom .indicator-right-pane-text {
+    display: block;
+}
+
+.top-bottom #left-side .indicator-right-pane-text {
+    display: none !important;
+}
+
+.top-bottom .indicator-right-pane-level-selection {
+    display: block;
+}
+
+.top-bottom #left-side .indicator-right-pane-level-selection {
+    display: none;;
+}
+
 /* BOTTOM LAYER*/
-#indicator-left-pane-text {
+.indicator-left-pane-text {
     bottom: 55px;
 }
 
-#indicator-left-pane-level-selection {
+.indicator-left-pane-level-selection {
     bottom: 90px;
 }
 
@@ -437,6 +497,7 @@
 .level-selection > div {
     cursor: pointer;
     padding: 5px;
+    white-space: nowrap;
 }
 
 .level-selection > div:hover {
@@ -617,4 +678,38 @@
     height: 10px; /* Slider handle height */
     background: #04AA6D; /* Green background */
     cursor: pointer; /* Cursor on hover */
+}
+
+.leaflet-control-lyrSwipeBarContainer-v,
+.leaflet-control-lyrSwipeBarContainer-h {
+    z-index: 9999;
+}
+
+/* COMPARING TOGGLE */
+.leaflet-right {
+    display: none;
+}
+
+#comparing-toggle {
+    cursor: pointer;
+    padding: 5px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    background: white;
+    border-radius: 4px;
+    box-shadow: -1px 0px 4px rgb(0 0 0 / 30%);
+    display: none;
+
+
+    right: -36px;
+    position: absolute;
+    top: 5px;
+}
+
+#comparing-toggle:hover {
+    opacity: 0.5;
+}
+
+.top-bottom #comparing-toggle i {
+    transform: rotate(90deg);
 }

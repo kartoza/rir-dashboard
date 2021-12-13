@@ -4,7 +4,7 @@
 
 {% block stylesheet %}
     <link href="{% static 'libs/leaflet/1.5.1/leaflet.css' %}" rel="stylesheet" type="text/css" media="screen, projection"/>
-    <link href="{% static 'libs/leaflet-top-by-bottom/leaflet-top-by-bottom.css' %}" rel="stylesheet" type="text/css" media="screen, projection"/>
+    <link href="{% static 'libs/leaflet.plugin.layerswiper/leaflet-lyrSwiper.css' %}" rel="stylesheet" type="text/css" media="screen, projection"/>
     <link href="{% static 'css/dashboard/context-analysis.css' %}" rel="stylesheet" type="text/css" media="screen, projection"/>
     <style>
         {% for scenario in scenarios %}
@@ -21,11 +21,14 @@
     </style>
 {% endblock %}
 {% block content %}
-    <div id="map-wrapper" data-program="context-analysis" class="section table-section scenario-section">
+    <div id="map-wrapper" data-program="context-analysis" class="section table-section scenario-section top-bottom">
         <div id="map"></div>
 
         <div id="left-side" class="side-panel box-shadow-bottom" data-hidden="false">
             <div class="inner">
+                <div id="comparing-toggle" class="comparing-toggle">
+                    <i class="fa fa-map-o" aria-hidden="true"></i>
+                </div>
                 <div class="side-panel-button">
                     <div class="side-panel-toggle-button">
                         <div id="basemap-list-toggle-button" class="toggle-button hidden" data-target="basemap-list" title="Basemaps">
@@ -159,6 +162,11 @@
                         </div>
                     </div>
                 </div>
+
+                {# this is for indicator #}
+                <div class="indicator-right-pane-level-selection box-shadow-bottom level-selection">
+                </div>
+                <div class="indicator-right-pane-text indicator-name-swiper box-shadow-bottom"></div>
             </div>
         </div>
 
@@ -170,22 +178,22 @@
                     </div>
                 </div>
                 <div class="content-wrapper">
-                    <div id="indicator-right-pane-info" class="indicator-info"></div>
-                    <div id="indicator-left-pane-info" class="indicator-info"></div>
+                    <div class="indicator-right-pane-info indicator-info"></div>
+                    <div class="indicator-left-pane-info indicator-info"></div>
                 </div>
             </div>
 
             {# indicator right content#}
-            <div id="indicator-right-pane-level-selection" class="box-shadow-bottom level-selection">
+            <div class="indicator-right-pane-level-selection box-shadow-bottom level-selection">
             </div>
 
-            <div id="indicator-left-pane-level-selection" class="level-selection box-shadow-bottom">
+            <div class="indicator-left-pane-level-selection level-selection box-shadow-bottom">
             </div>
         </div>
 
         {# indicator of swiper #}
-        <div id="indicator-left-pane-text" class="indicator-name-swiper box-shadow-bottom"></div>
-        <div id="indicator-right-pane-text" class="indicator-name-swiper box-shadow-bottom"></div>
+        <div class="indicator-left-pane-text indicator-name-swiper box-shadow-bottom"></div>
+        <div class="indicator-right-pane-text indicator-name-swiper box-shadow-bottom"></div>
 
 
         {# time slider #}
@@ -227,11 +235,6 @@
         {% endfor %}
         const requireConfig = {
             paths: {
-                'jquery': '{% static 'libs/jquery.js/3.4.1/jquery.min.js' %}?',
-                'jqueryUI': '{% static 'libs/jquery-ui/1.12.1/jquery-ui.js' %}?',
-                'backbone': '{% static 'libs/backbone.js/1.4.0/backbone-min.js' %}?',
-                'underscore': '{% static 'libs/underscore.js/1.9.1/underscore-min.js' %}?',
-
                 {# project static #}
                 'js/request': '{% static 'js/request.js' %}?',
                 'js/templates': '{% static 'js/dashboard/context-analysis/templates.js' %}?',
@@ -241,20 +244,14 @@
                 'js/views/layers/context-layers': '{% static 'js/dashboard/context-analysis/views/layers/context-layers.js' %}?',
                 'js/views/layers/indicator-layer': '{% static 'js/dashboard/context-analysis/views/layers/indicator-layer.js' %}?',
                 'js/views/layers/administrative-level': '{% static 'js/dashboard/context-analysis/views/layers/administrative-level.js' %}?',
-            },
-            shim: {
-                jqueryUI: {
-                    deps: ["jquery"]
-                },
-                rangeSlider: {
-                    deps: ["jquery"]
-                },
-                templates: {
-                    deps: ['underscore']
-                },
             }
         }
     </script>
+    <script src="{% static "libs/underscore.js/1.9.1/underscore-min.js" %}"></script>
+    <script src="{% static "libs/jquery.js/3.4.1/jquery.min.js" %}"></script>
+    <script src="{% static "libs/jquery-ui/1.12.1/jquery-ui.js" %}"></script>
+    <script src="{% static "libs/backbone.js/1.4.0/backbone-min.js" %}"></script>
+
     <script src="{% static "libs/highcharts/9.1.2/stock/highstock.js" %}"></script>
     <script src="{% static "libs/highcharts/9.1.2/stock/modules/data.js" %}"></script>
     <script src="{% static "libs/highcharts/9.1.2/stock/modules/exporting.js" %}"></script>
@@ -262,7 +259,7 @@
     <script src="{% static "libs/highcharts/9.1.2/stock/indicators/indicators.js" %}"></script>
     <script src="{% static "libs/highcharts/9.1.2/stock/indicators/trendline.js" %}"></script>
     <script type="text/javascript" src="{% static 'libs/leaflet/1.5.1/leaflet.js' %}"></script>
-    <script type="text/javascript" src="{% static 'libs/leaflet-top-by-bottom/leaflet-top-by-bottom.js' %}"></script>
+    <script type="text/javascript" src="{% static 'libs/leaflet.plugin.layerswiper/lyrSwiper.js' %}"></script>
     <script type="text/javascript" src="{% static 'libs/esri-leaflet/esri-leaflet.js' %}"></script>
     <script type="text/javascript" src="{% static 'libs/esri-leaflet/esri-leaflet-vector.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/dashboard/context-analysis/esri/leaflet-esri-layer.js' %}"></script>

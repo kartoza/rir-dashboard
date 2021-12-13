@@ -1,9 +1,7 @@
 /**
  * HTTP Request object
  */
-define([
-    'backbone',
-    'jquery'], function (Backbone, $) {
+define([], function () {
     return Backbone.View.extend({
         /**
          * GET Request that receive url and handle callback
