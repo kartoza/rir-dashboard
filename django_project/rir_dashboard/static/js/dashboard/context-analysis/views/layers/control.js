@@ -133,8 +133,8 @@ define([
                         orientation: $('#map-wrapper').hasClass('top-bottom') ? 'h' : 'v',
                         ratio: 0.5,
                         swipeLyrConf: {
-                            base: { layer: this.indicatorLeft.layer, clip: null },
-                            compare: { layer: this.indicatorRight.layer, clip: null }
+                            base: { layer: this.indicatorRight.layer, clip: null },
+                            compare: { layer: this.indicatorLeft.layer, clip: null }
                         }
                     }
                 ).addTo(this.map);

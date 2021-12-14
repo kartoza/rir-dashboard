@@ -55,6 +55,10 @@
     padding: 10px 15px;
 }
 
+#indicator table.full-screen legend {
+    display: none !important;
+}
+
 
 #indicator table td {
     padding: 5px 10px;
@@ -63,7 +67,6 @@
 #indicator .indicator-name {
     padding: 0 0 0 10px;
 }
-
 
 #indicator table th {
     border-bottom: 1px solid var(--divider-color);
@@ -77,11 +80,12 @@
     margin: 0;
 }
 
-#indicator table .col {
-    padding: 0;
+#indicator .indicator-name .col {
+    padding: 5px 10px 5px 0;
 }
 
 #indicator table .name {
+    border-radius: 5px;
     padding: 5px 10px;
 }
 
@@ -93,7 +97,7 @@
 
 #indicator table .indicator-checkbox,
 #indicator table .indicator-legend {
-    padding-top: 5px
+    padding-top: 11px
 }
 
 #indicator table.full-screen .indicator-checkbox,
@@ -350,8 +354,9 @@
 /* Legend */
 .legend {
     display: none;
-    margin-bottom: 10px;
-    padding: 10px;
+    padding: 10px 10px 0 0;
+    background: white;
+    color: black;
 }
 
 .legend td {
@@ -518,8 +523,13 @@
     cursor: pointer;
 }
 
+#indicator .group-name td {
+    margin-top: 1px;
+
+}
+
 .group-name {
-    padding: 10px 10px 5px 10px;
+    padding: 10px 10px 0 10px;
 }
 
 .group-toggle {
@@ -531,7 +541,7 @@
 }
 
 #indicator .group-name:hover {
-    opacity: 0.5;
+    opacity: 0.7;
 }
 
 .no-context-analysis.hide {
@@ -634,12 +644,14 @@
 /*-------------------------------------------*/
 #time-slider-wrapper {
     border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
     position: absolute;
     bottom: 0;
     padding: 5px 10px;
     width: 300px;
     background: white;
-    right: 0;
+    left: 50%;
+    margin-left: -150px;
     z-index: 10000;
     font-size: 12px;
     cursor: pointer;

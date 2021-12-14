@@ -55,7 +55,9 @@ L.Control.layerSwiper = L.Control.extend({
         L.DomEvent.disableClickPropagation(lyrSwipeBarContainer);
         lyrSwipeBarContainer.setAttribute('id', 'lyrSwipeBar');
         this._lyrSwipeBar = L.DomUtil.create('div', 'bar', lyrSwipeBarContainer);
-        L.DomUtil.create('div', 'handle', this._lyrSwipeBar);
+        const handle = L.DomUtil.create('div', 'handle', this._lyrSwipeBar);
+        $('.bar .handle').html('<i class="fa fa-align-justify" aria-hidden="true"></i>')
+
 
         var swipeLyrFunc;
         if (this.options.orientation.toLowerCase() != 'n') {
@@ -88,7 +90,7 @@ L.Control.layerSwiper = L.Control.extend({
             }).css('-ms-touch-action', 'none');
             lyrSwipeBarContainer.addEventListener('mouseover', function () {
                 map.dragging.disable();
-                this.style.opacity = 0.5;
+                this.style.opacity = 0.9;
             });
             lyrSwipeBarContainer.addEventListener('mouseout', function () {
                 map.dragging.enable();
@@ -153,12 +155,12 @@ L.Control.layerSwiper = L.Control.extend({
                 var clipX = nw.x + swipeBarX;
 
                 // left layer
-                var clipLeft = 'clip:rect(' + [nw.y, se.x, se.y, clipX].join('px,') + 'px)';
+                var clipLeft = 'clip:rect(' + [nw.y, clipX, se.y, nw.x].join('px,') + 'px)';
                 leftLyr.getPane().setAttribute('style', 'display: block;' + clipLeft);
                 swipeLyrConf.base.clip = clipLeft;
 
                 // right layer
-                var clipRight = 'clip:rect(' + [nw.y, clipX, se.y, nw.x].join('px,') + 'px)';
+                var clipRight = 'clip:rect(' + [nw.y, se.x, se.y, clipX].join('px,') + 'px)';
                 rightLyr.getPane().setAttribute('style', 'display: block;' + clipRight);
                 swipeLyrConf.compare.clip = clipRight;
             }

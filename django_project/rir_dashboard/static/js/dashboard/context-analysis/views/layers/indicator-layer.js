@@ -20,6 +20,7 @@ define([], function () {
             this.layers = {};
             this.layer = null;
             this.scenario = scenario;
+            this.isShow = false;
 
 
             // for the legend
@@ -100,6 +101,7 @@ define([], function () {
          * Show this indicator
          */
         show: function (side) {
+            this.isShow = true;
             this.side = side;
             this.initLevelSelection();
             this._addLayer();
@@ -123,10 +125,14 @@ define([], function () {
             $('.indicator-checkbox input').prop('disabled', true);
             $(`.${this.side}-info .value-table`).html('<div style="margin-left: 10px; margin-bottom: 30px"><i>Loading</i></div>');
             this.getLayer(function (layer) {
+                if (!self.isShow) {
+                    return
+                }
                 $(`.${self.side}-info .value-table`).html('<table></table>');
+                $('.indicator-checkbox input').prop('disabled', false);
+
                 self._removeLayer();
                 self.layer = layer;
-                $('.indicator-checkbox input').prop('disabled', false);
                 self.setStyle();
                 self.$legend.show();
                 self.layer.options['pane'] = map.getPane(self.side);
@@ -138,6 +144,7 @@ define([], function () {
          * hide this indicator
          */
         hide: function () {
+            this.isShow = false;
             const $levelSelection = $(`.${this.side}-level-selection`);
             $levelSelection.html('');
             this.level = this.levels[0];
@@ -182,6 +189,7 @@ define([], function () {
          */
         setStyle: function () {
             const self = this;
+            $(`.${self.side}-info .value-table table`).html('');
             if (this.layer) {
                 const levelActivated = [];
                 this.$el.find('.legend-row.active').each(function () {

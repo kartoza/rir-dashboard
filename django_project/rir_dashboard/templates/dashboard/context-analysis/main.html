@@ -8,11 +8,6 @@
     <link href="{% static 'css/dashboard/context-analysis.css' %}" rel="stylesheet" type="text/css" media="screen, projection"/>
     <style>
         {% for scenario in scenarios %}
-            .legend.scenario-{{ scenario.level }} {
-                background-color: white !important;
-                border: 1px solid {{ scenario.background_color }} !important;
-                color: black !important;
-            }
             .scenario-{{ scenario.level }} {
                 background-color: {{ scenario.background_color }} !important;
                 color: {{ scenario.text_color}} !important;
@@ -31,14 +26,14 @@
                 </div>
                 <div class="side-panel-button">
                     <div class="side-panel-toggle-button">
-                        <div id="basemap-list-toggle-button" class="toggle-button hidden" data-target="basemap-list" title="Basemaps">
-                            <i class="fa fa-globe" aria-hidden="true"></i>
-                        </div>
                         <div id="indicator-toggle-button" class="toggle-button hidden" data-target="indicator" title="Indicators">
                             <i class="fa fa-home" aria-hidden="true"></i>
                         </div>
                         <div id="layer-list-toggle-button" class="toggle-button hidden" data-target="layer-list" title="Context Layers">
                             <img src="{% static "libs/leaflet/1.5.1/images/layers-2x.png" %}">
+                        </div>
+                        <div id="basemap-list-toggle-button" class="toggle-button hidden" data-target="basemap-list" title="Basemaps">
+                            <i class="fa fa-globe" aria-hidden="true"></i>
                         </div>
                     </div>
                 </div>
@@ -95,8 +90,12 @@
                                                 <div><i class="group-toggle fa fa-caret-down" aria-hidden="true"></i></div>
                                             </td>
                                         </tr>
+                                        {# For the space #}
+                                        <tr data-group="{{ group_name }}" class="group-row indicator-row">
+                                            <td style="margin-bottom: 5px"></td>
+                                        </tr>
                                         {% for indicator in group.indicators %}
-                                            <tr id="indicator-{{ indicator.id }}" data-group="{{ group }}" class="group-row indicator-row {% if not indicator.show_in_context_analysis %}no-context-analysis hide{% endif %}">
+                                            <tr id="indicator-{{ indicator.id }}" data-group="{{ group_name }}" class="group-row indicator-row {% if not indicator.show_in_context_analysis %}no-context-analysis hide{% endif %}">
                                                 <td class="indicator-name">
                                                     <div class="row">
                                                         <div class="indicator-checkbox">
@@ -110,7 +109,7 @@
                                                         </div>
                                                         <div class="col">
                                                             <div class="name scenario-{{ indicator.scenario_value }}">{{ indicator.name }}</div>
-                                                            <div class="legend scenario-{{ indicator.scenario_value }}">
+                                                            <div class="legend">
                                                                 <table>
                                                                     {% for name, value in indicator.object.legends.items %}
                                                                         <tr class="legend-row active" data-id="{{ indicator.id }}" data-level="{{ value.level }}">
@@ -139,6 +138,10 @@
                                                 {% endfor %}
                                             </tr>
                                         {% endfor %}
+                                        {# For the space #}
+                                        <tr data-group="{{ group_name }}" class="group-row indicator-row">
+                                            <td style="margin-bottom: 5px"></td>
+                                        </tr>
                                         </tbody>
                                     {% endfor %}
                                 </table>
