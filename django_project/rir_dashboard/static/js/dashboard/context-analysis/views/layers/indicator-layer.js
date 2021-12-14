@@ -114,7 +114,7 @@ define([], function () {
                 side: this.side
             }));
 
-            this.renderValues();
+            this.renderValueOvertime();
             event.trigger(evt.INDICATOR_VALUES_CHANGED);
         },
         /**
@@ -197,21 +197,6 @@ define([], function () {
                     levelActivated.push($(this).data('level'));
                 });
 
-                // create the info table
-                const features = JSON.parse(JSON.stringify(this.layer.toGeoJSON().features));
-                sortArrayOfDict(features, 'geometry_name');
-                $.each(features, function (idx, feature) {
-                    if (levelActivated.includes(feature.properties.scenario_value)) {
-                        $(`.${self.side}-info .value-table table`).append(
-                            `<tr>
-                                <td style="text-align: right;"><b>${feature.properties.geometry_name}</b></td>
-                                <td style="background-color: ${feature.properties.background_color}" class="value-color"></td>
-                                <td>${feature.properties.scenario_text}</td>
-                            </tr>
-                        `);
-                    }
-                });
-
                 const style = function (feature) {
                     if (levelActivated.includes(feature.properties.scenario_value)) {
                         return {
@@ -226,15 +211,77 @@ define([], function () {
                             fillOpacity: 0
                         };
                     }
-                }
+                };
                 this.layer.setStyle(style)
+
+                // create the info table
+                const features = JSON.parse(JSON.stringify(this.layer.toGeoJSON().features));
+                sortArrayOfDict(features, 'geometry_name');
+
+                const rawDonutData = {};
+                $.each(features, function (idx, feature) {
+                    if (levelActivated.includes(feature.properties.scenario_value)) {
+                        $(`.${self.side}-info .value-table table`).append(
+                            `<tr>
+                                <td style="text-align: right;"><b>${feature.properties.geometry_name}</b></td>
+                                <td style="background-color: ${feature.properties.background_color}" class="value-color"></td>
+                                <td>${feature.properties.scenario_text}</td>
+                            </tr>
+                        `);
+
+                        // get data for donut
+                        if (!rawDonutData[feature.properties.scenario_value]) {
+                            rawDonutData[feature.properties.scenario_value] = {
+                                name: feature.properties.scenario_text,
+                                y: 0,
+                                color: feature.properties.background_color
+                            }
+                        }
+                        rawDonutData[feature.properties.scenario_value].y += 1
+                    }
+                });
+                const donutData = []
+                $.each(rawDonutData, function (idx, data) {
+                    donutData.push(data)
+                });
+                self.renderValueDonut(donutData);
             }
         },
-
+        // -----------------------------------------------------------
+        // RENDERING CHART
+        // -----------------------------------------------------------
         /**
-         * Render all value of layer
+         * Render all value overtime
          */
-        renderValues: function () {
+        renderValueDonut: function (data) {
+            $(`#${this.side}-value-donut-chart`).html('');
+            $(`#${this.side}-value-donut-chart`).highcharts({
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: 0,
+                    plotShadow: false
+                },
+                title: {
+                    text: 'Number of district',
+                    align: 'center',
+                    verticalAlign: 'middle',
+                    style: { "fontSize": "12px" }
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                series: [{
+                    type: 'pie',
+                    name: 'District number',
+                    innerSize: '50%',
+                    data: data
+                }]
+            });
+        },
+        /**
+         * Render all value overtime
+         */
+        renderValueOvertime: function () {
             const self = this;
             $(`.${this.side}-info .value-chart`).html('<i>Loading</i>')
             if (!self.values) {
@@ -242,7 +289,7 @@ define([], function () {
                     self.url.replace('level', self.levels[self.levels.length - 1]).replace('/date', ''), {}, {},
                     function (data) {
                         self.values = data;
-                        self.renderValues();
+                        self.renderValueOvertime();
                         event.trigger(evt.INDICATOR_VALUES_CHANGED);
                     }, function () {
                         $(`.${self.side}-info .value-chart`).html('<span class="error">Error</span>')
