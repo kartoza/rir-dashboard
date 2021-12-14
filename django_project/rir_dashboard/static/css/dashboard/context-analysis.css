@@ -286,12 +286,13 @@
 }
 
 #right-side .content-wrapper .indicator-info-content .value-table table td {
-    width: 50%;
+    width: 49%;
     padding: 2px 10px;
+    border-bottom: 1px solid #eee;
 }
 
-#right-side .indicator-left-pane-info .indicator-info-content {
-    padding-bottom: 47px;
+#right-side .content-wrapper .indicator-info-content .value-table .value-color {
+    width: 2%;
 }
 
 #right-side #info-toggle .fa-caret-right {

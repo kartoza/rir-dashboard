@@ -196,11 +196,24 @@ define([], function () {
                 this.$el.find('.legend-row.active').each(function () {
                     levelActivated.push($(this).data('level'));
                 });
-                const style = function (feature) {
+
+                // create the info table
+                const features = JSON.parse(JSON.stringify(this.layer.toGeoJSON().features));
+                sortArrayOfDict(features, 'geometry_name');
+                $.each(features, function (idx, feature) {
                     if (levelActivated.includes(feature.properties.scenario_value)) {
                         $(`.${self.side}-info .value-table table`).append(
-                            `<tr style="background-color: ${feature.properties.background_color}"><td valign="top">${feature.properties.geometry_name}</td><td valign="top">${feature.properties.scenario_text}</td></tr>
+                            `<tr>
+                                <td style="text-align: right;"><b>${feature.properties.geometry_name}</b></td>
+                                <td style="background-color: ${feature.properties.background_color}" class="value-color"></td>
+                                <td>${feature.properties.scenario_text}</td>
+                            </tr>
                         `);
+                    }
+                });
+
+                const style = function (feature) {
+                    if (levelActivated.includes(feature.properties.scenario_value)) {
                         return {
                             color: "#ffffff",
                             weight: 1,
