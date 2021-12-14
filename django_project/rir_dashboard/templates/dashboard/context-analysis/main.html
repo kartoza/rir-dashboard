@@ -212,8 +212,10 @@
 
         {# time slider #}
         <div id="time-slider-wrapper" class="box-shadow-bottom">
-            <div>Current date : <b id="time-slider-indicator"></b></div>
-            <input id="time-slider" type="range" min="1" max="100" value="50" class="slider">
+            <div class="row" style="width: 100%">
+                <div style="width: fit-content"><b id="time-slider-indicator"></b></div>
+                <div class="col"><input id="time-slider" type="range" min="1" max="100" value="50" class="slider"></div>
+            </div>
         </div>
     </div>
 {% endblock %}

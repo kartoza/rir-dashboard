@@ -125,3 +125,26 @@ function sortArrayOfDict(arr, key) {
         return compareObjects(arr1, arr2, key)
     })
 }
+
+function extractedDate(date) {
+    const year = date.getUTCFullYear();
+    const month = (date.getUTCMonth() + 1).toLocaleString('en-US', {
+        minimumIntegerDigits: 2,
+        useGrouping: false
+    })
+    const day = date.getUTCDate().toLocaleString('en-US', {
+        minimumIntegerDigits: 2,
+        useGrouping: false
+    })
+    return [day, month, year]
+}
+
+function dateToYYYYMMDD(date) {
+    const dates = extractedDate(date)
+    return `${dates[2]}-${dates[1]}-${dates[0]}`
+}
+
+function dateToDDMMYYY(date) {
+    const dates = extractedDate(date)
+    return `${dates[0]}-${dates[1]}-${dates[2]}`
+}

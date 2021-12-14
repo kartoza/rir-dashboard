@@ -29,7 +29,7 @@ define([
             this.administrativeLevelLayer = new AdministrativeLevelLayer();
             this.administrativeLevelLayer.getLayer(
                 'Country',
-                `${new Date().getUTCFullYear()}-${new Date().getUTCMonth() + 1}-${new Date().getUTCDate()}`,
+                dateToYYYYMMDD(new Date()),
                 function (layer) {
                     mapView.flyTo(layer.getBounds());
                 }
@@ -84,6 +84,9 @@ define([
                 }
                 const indicatorLayer = self.indicatorLayers[$(this).data('id')];
                 if (this.checked) {
+                    if (self.indicatorLeft && self.indicatorRight) {
+                        return false
+                    }
                     // check which side is it and assign in
                     let side = '';
                     if (!self.indicatorLeft) {
@@ -156,20 +159,20 @@ define([
             if (this.indicatorRight && this.indicatorRight.values) {
                 $.each(this.indicatorRight.values, function (idx, value) {
                     const date = new Date(value.date);
-                    dates.push(`${date.getUTCFullYear()}-${date.getUTCMonth() + 1}-${date.getUTCDate()}`)
+                    dates.push(dateToYYYYMMDD(date));
                 });
             }
             if (this.indicatorLeft && this.indicatorLeft.values) {
                 $.each(this.indicatorLeft.values, function (idx, value) {
                     const date = new Date(value.date);
-                    dates.push(`${date.getUTCFullYear()}-${date.getUTCMonth() + 1}-${date.getUTCDate()}`)
+                    dates.push(dateToYYYYMMDD(date));
                 });
             }
             if (dates.length !== 0) {
                 $('#time-slider-wrapper').show();
                 const $slider = $('#time-slider');
                 dates.sort();
-                dates = [...new Set(dates), `${new Date().getUTCFullYear()}-${new Date().getUTCMonth() + 1}-${new Date().getUTCDate()}`];
+                dates = [...new Set(dates), dateToYYYYMMDD(new Date())];
                 $slider.show();
                 $slider.attr('min', 0);
                 $slider.attr('max', (dates.length - 1));
@@ -178,7 +181,7 @@ define([
                 $slider.off('input');
                 $slider.on('input', e => {
                     const date = dates[e.target.value];
-                    $('#time-slider-indicator').text(date);
+                    $('#time-slider-indicator').text(dateToDDMMYYY(new Date(date)));
                     if (this.indicatorLeft) {
                         this.indicatorLeft.date = date;
                         this.indicatorLeft._addLayer();

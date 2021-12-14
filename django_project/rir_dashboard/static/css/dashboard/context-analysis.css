@@ -703,7 +703,7 @@
     border-top-right-radius: 4px;
     position: absolute;
     bottom: 0;
-    padding: 5px 10px;
+    padding: 10px;
     width: 300px;
     background: white;
     left: 50%;
@@ -712,6 +712,10 @@
     font-size: 12px;
     cursor: pointer;
     display: none;
+}
+
+#time-slider-wrapper .col {
+    padding-right: 0;
 }
 
 #time-slider-wrapper input {

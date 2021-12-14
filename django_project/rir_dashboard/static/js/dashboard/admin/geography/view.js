@@ -32,7 +32,7 @@ $(document).ready(function () {
     let init = true;
     let identifierSelected = null;
     const $levelSelection = $('#level-selection');
-    const date = `${new Date().getUTCFullYear()}-${new Date().getUTCMonth() + 1}-${new Date().getUTCDate()}`;
+    const date = dateToYYYYMMDD(new Date());
     selectLevel($($levelSelection.find('div')[0]));
 
     function selectLevel($level) {

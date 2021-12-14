@@ -13,7 +13,7 @@ define([], function () {
             this.$input = this.$el.find('input');
             this.$legend = this.$el.find('.legend');
             this.levels = levels;
-            this.date = `${new Date().getUTCFullYear()}-${new Date().getUTCMonth() + 1}-${new Date().getUTCDate()}`;
+            this.date = dateToYYYYMMDD(new Date());
             this.level = this.levels[0];
             this.url = url;
             this.id = id;
