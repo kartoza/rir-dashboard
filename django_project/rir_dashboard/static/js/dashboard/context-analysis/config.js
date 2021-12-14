@@ -38,7 +38,11 @@ require([
             $('.scenario-section').hide();
 
             const target = $(this).data('target');
-            $('#navigation').data('section', target)
+            if (target === 'context-analysis') {
+                $('#navigation').addClass('first')
+            } else {
+                $('#navigation').removeClass('first')
+            }
             $(`div[data-program="${target}"]`).show();
             $('#content').scrollTop(0);
             $('#map-wrapper').css('opacity', 1)

@@ -149,8 +149,9 @@
     font-weight: 600;
 }
 
-#content-view .scenario-header {
+#indicator .scenario-header {
     margin-bottom: 1px;
+    text-align: center;
 }
 
 #page.shrink .scenario-header {
@@ -758,22 +759,22 @@
 
 #comparing-toggle {
     cursor: pointer;
-    padding: 5px;
+    padding: 5px 7px;
     margin-left: 10px;
     margin-bottom: 10px;
     background: white;
     border-radius: 4px;
     box-shadow: -1px 0px 4px rgb(0 0 0 / 30%);
     display: none;
-
-
-    right: -36px;
+    right: -46px;
     position: absolute;
-    bottm: 5px;
+    bottom: 0px;
+    width: 30px;
+    height: 30px;
 }
 
 #comparing-toggle:hover {
-    opacity: 0.5;
+    opacity: 0.8;
 }
 
 .top-bottom #comparing-toggle i {
