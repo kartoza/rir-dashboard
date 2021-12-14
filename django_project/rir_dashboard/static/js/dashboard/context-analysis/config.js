@@ -118,12 +118,14 @@ require([
                 $exitFullScreen.show();
                 $fullScreen.hide();
                 $indicator.find('table').addClass('full-screen');
+                $leftSide.addClass('full-screen');
             });
             $exitFullScreen.click(function () {
                 $leftSide.width(width);
                 $exitFullScreen.hide();
                 $fullScreen.show();
                 $indicator.find('table').removeClass('full-screen');
+                $leftSide.removeClass('full-screen');
             });
         }
 

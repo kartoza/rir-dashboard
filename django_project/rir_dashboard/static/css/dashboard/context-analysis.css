@@ -173,6 +173,10 @@
     left: 0;
 }
 
+#left-side.full-screen {
+    z-index: 9999;
+}
+
 #left-side .side-panel-button {
     right: -35px;
     position: absolute;
@@ -259,7 +263,7 @@
 
 .side-panel {
     position: absolute;
-    z-index: 9999;
+    z-index: 9998;
     height: 100%;
     width: var(--left-side-width);
 }
@@ -476,6 +480,12 @@
     display: none;;
 }
 
+#left-side.full-screen .indicator-right-pane-level-selection,
+#left-side.full-screen .indicator-name-swiper {
+    display: none !important;
+}
+
+
 /* BOTTOM LAYER*/
 .indicator-left-pane-text {
     bottom: 55px;
@@ -652,7 +662,7 @@
     background: white;
     left: 50%;
     margin-left: -150px;
-    z-index: 10000;
+    z-index: 9998;
     font-size: 12px;
     cursor: pointer;
     display: none;
@@ -694,7 +704,7 @@
 
 .leaflet-control-lyrSwipeBarContainer-v,
 .leaflet-control-lyrSwipeBarContainer-h {
-    z-index: 9999;
+    z-index: 400;
 }
 
 /* COMPARING TOGGLE */

@@ -80,12 +80,13 @@ define([], function () {
                         onEachFeature: function (feature, layer) {
                             if (feature.properties.background_color) {
                                 let defaultHtml =
-                                    `<tr style="background-color: ${feature.properties.background_color}; color: ${feature.properties.text_color}"><td>${feature.properties.scenario_text}</td><td valign="top"><b>Scenario</b></td valign="top"></tr>`
+                                    `<tr style="background-color: ${feature.properties.background_color}; color: ${feature.properties.text_color}"><td valign="top"><b>Scenario</b></td valign="top"><td>${feature.properties.scenario_text}</td></tr>` +
+                                    `<tr><td><b>Indicator value</b></td><td valign="top">${feature.properties.value}</td valign="top"></tr>`
 
                                 // check others properties
                                 $.each(feature.properties, function (key, value) {
-                                    if (!['background_color', 'text_color', 'scenario_text', 'scenario_value', 'geometry_id'].includes(key)) {
-                                        defaultHtml += `<tr><td valign="top">${numberWithCommas(value)}</td><td valign="top"><b>${key.capitalize()}</b></td></tr>`
+                                    if (!['value', 'background_color', 'text_color', 'scenario_text', 'scenario_value', 'geometry_id'].includes(key)) {
+                                        defaultHtml += `<tr><td valign="top"><b>${key.capitalize()}</b></td><td valign="top">${numberWithCommas(value)}</td></tr>`
                                     }
                                 });
                                 layer.bindPopup('' +
