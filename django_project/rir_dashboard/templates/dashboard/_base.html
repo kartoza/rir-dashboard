@@ -34,7 +34,7 @@
 
 <body class="body">
 {% include "pages/_navbar.html" %}
-<div id="page">
+<div id="page" class="shrink">
     <div id="navigation" class="box-shadow-right shrink">
         <div id="inner-navigation">
             <div class="toggle-button">
@@ -135,7 +135,8 @@
 </div>
 <script>
     $('#navigation .toggle-button').click(function () {
-        $('#navigation').toggleClass('shrink')
+        $('#navigation').toggleClass('shrink');
+        $('#page').toggleClass('shrink');
     })
 </script>
 {% block scripts %}{% endblock %}

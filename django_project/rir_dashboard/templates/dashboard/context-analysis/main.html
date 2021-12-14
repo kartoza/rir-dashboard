@@ -16,9 +16,18 @@
     </style>
 {% endblock %}
 {% block content %}
-    <div id="map-wrapper" data-program="context-analysis" class="section table-section scenario-section top-bottom">
+    {% for intervention in interventions %}
+        <div data-program="{{ intervention.program_instance.program.slug }}" class="section box-shadow-bottom table-section scenario-section">
+            <div class="scenario-header scenario-{{ overall_scenario.level }}">
+                <div>{{ intervention.program_instance.program.name }} Intervention</div>
+            </div>
+            <div class="intervention">
+                <iframe src="{{ intervention.intervention_url }}" title="{{ intervention.program_instance.program.name }}" frameBorder="0"></iframe>
+            </div>
+        </div>
+    {% endfor %}
+    <div id="map-wrapper" data-program="context-analysis" class="section table-section top-bottom">
         <div id="map"></div>
-
         <div id="left-side" class="side-panel box-shadow-bottom" data-hidden="false">
             <div class="inner">
                 <div id="comparing-toggle" class="comparing-toggle">
@@ -91,8 +100,8 @@
                                             </td>
                                         </tr>
                                         {# For the space #}
-                                        <tr data-group="{{ group_name }}" class="group-row indicator-row">
-                                            <td style="margin-bottom: 5px"></td>
+                                        <tr data-group="{{ group_name }}" class="divider group-row indicator-row">
+                                            <td></td>
                                         </tr>
                                         {% for indicator in group.indicators %}
                                             <tr id="indicator-{{ indicator.id }}" data-group="{{ group_name }}" class="group-row indicator-row {% if not indicator.show_in_context_analysis %}no-context-analysis hide{% endif %}">
@@ -139,7 +148,7 @@
                                             </tr>
                                         {% endfor %}
                                         {# For the space #}
-                                        <tr data-group="{{ group_name }}" class="group-row indicator-row">
+                                        <tr data-group="{{ group_name }}" class="divider group-row indicator-row">
                                             <td style="margin-bottom: 5px"></td>
                                         </tr>
                                         </tbody>
@@ -207,16 +216,6 @@
             <input id="time-slider" type="range" min="1" max="100" value="50" class="slider">
         </div>
     </div>
-    {% for intervention in interventions %}
-        <div data-program="{{ intervention.program_instance.program.slug }}" class="section box-shadow-bottom table-section scenario-section">
-            <div class="scenario-header scenario-{{ overall_scenario.level }}">
-                <div>{{ intervention.program_instance.program.name }} Intervention</div>
-            </div>
-            <div class="intervention">
-                <iframe src="{{ intervention.intervention_url }}" title="{{ intervention.program_instance.program.name }}" frameBorder="0"></iframe>
-            </div>
-        </div>
-    {% endfor %}
 {% endblock %}
 {% block scripts %}
     {% include 'dashboard/context-analysis/_template-context-layer.html' %}

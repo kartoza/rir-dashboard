@@ -38,8 +38,10 @@ require([
             $('.scenario-section').hide();
 
             const target = $(this).data('target');
+            $('#navigation').data('section', target)
             $(`div[data-program="${target}"]`).show();
             $('#content').scrollTop(0);
+            $('#map-wrapper').css('opacity', 1)
         });
         if (!window.location.hash) {
             $($list[0]).click();
