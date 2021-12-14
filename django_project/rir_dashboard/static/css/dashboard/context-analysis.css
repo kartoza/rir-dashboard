@@ -295,6 +295,15 @@
     width: 2%;
 }
 
+#right-side .content-wrapper .indicator-info-content .value-table .value-key {
+    cursor: pointer;
+    color: black;
+}
+
+#right-side .content-wrapper .indicator-info-content .value-table .value-key:hover {
+    color: inherit;
+}
+
 #right-side #info-toggle .fa-caret-right {
     display: none;
 }

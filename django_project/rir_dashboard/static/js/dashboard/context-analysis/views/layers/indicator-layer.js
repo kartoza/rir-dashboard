@@ -80,7 +80,8 @@ define([], function () {
                         onEachFeature: function (feature, layer) {
                             if (feature.properties.background_color) {
                                 let defaultHtml =
-                                    `<tr style="background-color: ${feature.properties.background_color}; color: ${feature.properties.text_color}"><td valign="top"><b>Scenario</b></td valign="top"><td>${feature.properties.scenario_text}</td></tr>` +
+                                    `<tr style="background-color: ${feature.properties.background_color}; color: ${feature.properties.text_color}"><td colspan="2" style="text-align: center"><b>${self.name}</b></td></tr>` +
+                                    `<tr><td valign="top"><b>Scenario</b></td valign="top"><td>${feature.properties.scenario_text}</td></tr>` +
                                     `<tr><td><b>Indicator value</b></td><td valign="top">${feature.properties.value}</td valign="top"></tr>`
 
                                 // check others properties
@@ -212,9 +213,11 @@ define([], function () {
                         };
                     }
                 };
-                this.layer.setStyle(style)
+                this.layer.setStyle(style);
 
-                // create the info table
+                // --------------------------------------------
+                // CREATE THE INFO TABLE
+                // --------------------------------------------
                 const features = JSON.parse(JSON.stringify(this.layer.toGeoJSON().features));
                 sortArrayOfDict(features, 'geometry_name');
 
@@ -223,7 +226,7 @@ define([], function () {
                     if (levelActivated.includes(feature.properties.scenario_value)) {
                         $(`.${self.side}-info .value-table table`).append(
                             `<tr>
-                                <td style="text-align: right;"><b>${feature.properties.geometry_name}</b></td>
+                                <td style="text-align: right; color: ${feature.properties.background_color}"><b class="value-key" data-id="${feature.id}">${feature.properties.geometry_name}</b></td>
                                 <td style="background-color: ${feature.properties.background_color}" class="value-color"></td>
                                 <td>${feature.properties.scenario_text}</td>
                             </tr>
@@ -239,6 +242,18 @@ define([], function () {
                         }
                         rawDonutData[feature.properties.scenario_value].y += 1
                     }
+                    $(`.${self.side}-info .value-key`).off("click").click(function () {
+                        const id = $(this).data('id');
+                        $.each(self.layer.getLayers(), function (idx, layer) {
+                            if (layer.feature.id === id) {
+                                layer.openPopup();
+                                const center = layer.getCenter();
+                                mapView.panTo(center.lat, center.lng);
+                                return false
+                            }
+                        });
+
+                    })
                 });
                 const donutData = []
                 $.each(rawDonutData, function (idx, data) {
