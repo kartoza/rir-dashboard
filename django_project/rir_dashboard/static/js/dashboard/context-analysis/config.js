@@ -141,12 +141,14 @@ require([
             $toggleButton.click(function () {
                 // doing toggle side panel
                 if (!$rigthSide.data('hidden')) {
+                    $rigthSide.removeClass('show');
                     $rigthSide.animate({ right: `-${width}px` }, 100, function () {
-                        $rigthSide.data('hidden', true)
+                        $rigthSide.data('hidden', true);
                     });
                 } else {
+                    $rigthSide.addClass('show');
                     $rigthSide.animate({ right: `0` }, 100, function () {
-                        $rigthSide.data('hidden', false)
+                        $rigthSide.data('hidden', false);
                     });
                 }
             });

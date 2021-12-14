@@ -208,7 +208,7 @@
 }
 
 #right-side .side-panel-toggle-button .toggle-button {
-    padding: 14px 3px;
+    padding: 10px 6px;
     border-radius: 0;
 }
 
@@ -259,6 +259,18 @@
 
 #right-side .indicator-left-pane-info .indicator-info-content {
     padding-bottom: 47px;
+}
+
+#right-side #info-toggle .fa-caret-right {
+    display: none;
+}
+
+#right-side.show #info-toggle .fa-caret-left {
+    display: none;
+}
+
+#right-side.show #info-toggle .fa-caret-right {
+    display: inline-block;
 }
 
 .side-panel {
