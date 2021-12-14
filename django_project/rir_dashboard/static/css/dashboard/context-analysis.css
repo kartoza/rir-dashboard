@@ -61,7 +61,7 @@
 
 
 #indicator table td {
-    padding: 5px 10px;
+    padding: 2px 10px;
 }
 
 #indicator .indicator-name {
@@ -81,7 +81,7 @@
 }
 
 #indicator .indicator-name .col {
-    padding: 5px 10px 5px 0;
+    padding: 2px 10px 2px 0;
 }
 
 #indicator table .name {
@@ -342,10 +342,6 @@
     margin-bottom: 3px;
 }
 
-.layer-row .context-layer-title {
-    margin-top: 5px;
-}
-
 .fa-list-ul {
     cursor: pointer;
     margin-top: 2px;
@@ -354,7 +350,7 @@
 /* Legend */
 .legend {
     display: none;
-    padding: 10px 10px 0 0;
+    padding: 5px 10px 5px 0;
     background: white;
     color: black;
 }
@@ -528,7 +524,7 @@
 
 }
 
-.group-name {
+#indicator .group-name {
     padding: 10px 10px 0 10px;
 }
 
@@ -569,6 +565,10 @@
 /* LAYER SELECTION */
 #layer-list input {
     margin-top: 2px;
+}
+
+#layer-list .group-name {
+    padding: 5px 10px;
 }
 
 /* MAPBOX SELECTION */
@@ -614,12 +614,12 @@
     padding: 5px;
 }
 
-.leaflet-indicator-left-pane {
-    z-index: 190;
+.leaflet-indicator-left-pane-pane {
+    z-index: 200;
 }
 
-.leaflet-indicator-right-pane {
-    z-index: 190;
+.leaflet-indicator-right-pane-pane {
+    z-index: 200;
 }
 
 /* Overriden style */
