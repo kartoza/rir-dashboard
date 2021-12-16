@@ -176,10 +176,14 @@ class Indicator(AbstractTerm):
         })
         return values
 
-    def values(self, geometry: Geometry, geometry_level: GeometryLevelName, date_data: date, use_exact_date=False):
+    def values(self, geometry: Geometry, geometry_level: GeometryLevelName, date_data: date,
+               use_exact_date=False, more_information=False):
         """
-        Return geojson value of indicator by geometry, the target geometry level and the date
+        Return list data based on the geometry and geometry level with date
+        If it is upper than the reporting geometry level, it will be aggregate to upper level
         """
+        from rir_data.models.indicator import IndicatorExtraValue
+
         # get the geometries of data
         values = []
         query = self.query_value(date_data)
@@ -196,12 +200,13 @@ class Indicator(AbstractTerm):
                 geometry__id__in=reporting_units
             )
             for indicator_value in query_report:
-                attributes = {
-                    'date': indicator_value.date
-                }
-                attributes.update({
-                    extra.name: extra.value for extra in indicator_value.indicatorextravalue_set.all()
-                })
+                attributes = {}
+                if more_information:
+                    attributes['date'] = indicator_value.date
+                    attributes.update({
+                        extra.name: extra.value for extra in indicator_value.indicatorextravalue_set.all()
+                    })
+
                 values.append(
                     self.serialize(
                         indicator_value.geometry,
@@ -227,6 +232,7 @@ class Indicator(AbstractTerm):
                 ).filter(
                     geometry__id__in=reporting_units
                 )
+
                 try:
                     value = None
                     # aggregate the data by method
@@ -241,11 +247,25 @@ class Indicator(AbstractTerm):
                         )
                         value = output[0]['sum']
 
-                    data = self.serialize(geometry_target, value)
+                    # aggregate other value
+                    attributes = {}
+                    if more_information:
+                        for extra_value in IndicatorExtraValue.objects.filter(
+                                indicator_value__in=query_report.values_list('id', flat=True)):
+                            try:
+                                aggregated_value = int(extra_value.value)
+                                if extra_value not in attributes:
+                                    attributes[extra_value.name] = 0
+                                attributes[extra_value.name] += aggregated_value
+                            except ValueError:
+                                pass
+
+                    data = self.serialize(geometry_target, value, attributes)
                     if use_exact_date:
                         data['date'] = date_data
                     values.append(data)
-                except IndexError:
+                except IndexError as e:
+                    print(e)
                     pass
 
         return values

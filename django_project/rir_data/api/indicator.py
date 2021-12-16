@@ -95,7 +95,8 @@ class IndicatorValuesByDate(APIView):
     Return as list of value
     """
 
-    def values(self, slug, pk, geometry_identifier, geometry_level, date):
+    def values(self, slug, pk, geometry_identifier, geometry_level, date,
+               use_exact_date=False, more_information=True):
         """
         Return values of the indicator
 
@@ -112,11 +113,19 @@ class IndicatorValuesByDate(APIView):
         geometry = instance.geometries().get(identifier__iexact=geometry_identifier)
         geometry_level = GeometryLevelName.objects.get(name__iexact=geometry_level)
         date = datetime.strptime(date, "%Y-%m-%d").date()
-        return indicator.values(geometry, geometry_level, date)
+        return indicator.values(
+            geometry, geometry_level, date,
+            use_exact_date=use_exact_date, more_information=more_information
+        )
 
     def get(self, request, slug, pk, geometry_identifier, geometry_level, date):
         try:
-            return Response(self.values(slug, pk, geometry_identifier, geometry_level, date))
+            return Response(
+                self.values(
+                    slug, pk, geometry_identifier, geometry_level, date,
+                    use_exact_date=False, more_information=True
+                )
+            )
         except GeometryLevelName.DoesNotExist:
             raise Http404('The geometry level is not recognized')
         except ValueError:
