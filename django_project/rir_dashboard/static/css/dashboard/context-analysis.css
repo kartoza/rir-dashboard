@@ -615,16 +615,15 @@
 }
 
 .legend-row {
-    cursor: pointer;
-    opacity: 0.1;
-}
-
-.legend-row.active:hover {
-    opacity: 0.8;
+    opacity: 0.3;
 }
 
 .legend-row.active {
     opacity: 1;
+}
+
+.legend-row input {
+    cursor: pointer;
 }
 
 /* LAYER SELECTION */

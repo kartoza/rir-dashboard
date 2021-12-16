@@ -123,6 +123,9 @@
                                                                     {% for name, value in indicator.object.legends.items %}
                                                                         <tr class="legend-row active" data-id="{{ indicator.id }}" data-level="{{ value.level }}">
                                                                             <td>
+                                                                                <input type="checkbox" checked>
+                                                                            </td>
+                                                                            <td>
                                                                                 <div class="polygon" style="background-color: {{ value.color }}"></div>
                                                                             </td>
                                                                             <td>{{ name }}</td>

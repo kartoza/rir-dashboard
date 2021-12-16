@@ -25,8 +25,11 @@ define([], function () {
 
             // for the legend
             const self = this;
-            this.$legend.find('.legend-row').click(function () {
-                $(this).toggleClass('active');
+            this.$legend.find('input').change(function () {
+                $(this).closest('.legend-row').removeClass('active');
+                if (this.checked) {
+                    $(this).closest('.legend-row').addClass('active');
+                }
                 self.setStyle();
             })
         },
@@ -200,6 +203,7 @@ define([], function () {
                         return {
                             color: "#ffffff",
                             weight: 1,
+                            opacity: 1,
                             fillColor: feature.properties.background_color,
                             fillOpacity: 0.7
                         };
