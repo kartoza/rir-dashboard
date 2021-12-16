@@ -14,6 +14,8 @@ define([
 
         indicatorLeft: null,
         indicatorRight: null,
+
+        isAutoPlay: false,
         initialize: function (map) {
             this.map = map;
             map.createPane(evt.INDICATOR_LEFT_PANE);
@@ -42,7 +44,7 @@ define([
         listener: function () {
             event.register(this, evt.RERENDER_CONTEXT_LAYER, this.contextLayersChanged);
             event.register(this, evt.INDICATOR_CHANGED, this.indicatorChanged);
-            event.register(this, evt.INDICATOR_VALUES_CHANGED, this.indicatorValuesChanged);
+            event.register(this, evt.INDICATOR_VALUES_CHANGED, this.timeSliderControl);
 
             const self = this;
             const $wrapper = $('#map-wrapper');
@@ -56,6 +58,24 @@ define([
                 }
                 self.indicatorChanged(true);
             })
+
+            // Auto play the time slider
+            const $timeSliderWrapper = $('#time-slider-wrapper');
+            $timeSliderWrapper.find('.fa-play-circle').click(
+                function () {
+                    $(this).hide();
+                    $timeSliderWrapper.find('.fa-stop-circle').show();
+                    self.isAutoPlay = true;
+                    self.autoplay();
+                }
+            )
+            $timeSliderWrapper.find('.fa-stop-circle').click(
+                function () {
+                    $(this).hide();
+                    $timeSliderWrapper.find('.fa-play-circle').show();
+                    self.isAutoPlay = false;
+                }
+            )
         },
         /** When context layer changed
          */
@@ -136,8 +156,12 @@ define([
                         orientation: $('#map-wrapper').hasClass('top-bottom') ? 'h' : 'v',
                         ratio: 0.5,
                         swipeLyrConf: {
-                            base: { layer: this.indicatorRight.layer, clip: null },
-                            compare: { layer: this.indicatorLeft.layer, clip: null }
+                            base: {
+                                layer: this.indicatorRight.layer, clip: null, $pane: $(`.leaflet-${evt.INDICATOR_RIGHT_PANE}-pane`)
+                            },
+                            compare: {
+                                layer: this.indicatorLeft.layer, clip: null, $pane: $(`.leaflet-${evt.INDICATOR_LEFT_PANE}-pane`)
+                            }
                         }
                     }
                 ).addTo(this.map);
@@ -154,47 +178,78 @@ define([
         /**
          * When indicator value changed
          */
-        indicatorValuesChanged: function () {
-            let dates = []
+        timeSliderControl: function () {
+            const self = this;
+            this.dates = [];
             if (this.indicatorRight && this.indicatorRight.values) {
                 $.each(this.indicatorRight.values, function (idx, value) {
                     const date = new Date(value.date);
-                    dates.push(dateToYYYYMMDD(date));
+                    self.dates.push(dateToYYYYMMDD(date));
                 });
             }
             if (this.indicatorLeft && this.indicatorLeft.values) {
                 $.each(this.indicatorLeft.values, function (idx, value) {
                     const date = new Date(value.date);
-                    dates.push(dateToYYYYMMDD(date));
+                    self.dates.push(dateToYYYYMMDD(date));
                 });
             }
-            if (dates.length !== 0) {
-                $('#time-slider-wrapper').show();
+            const $timeSliderWrapper = $('#time-slider-wrapper');
+            if (self.dates.length !== 0) {
+                $timeSliderWrapper.show();
                 const $slider = $('#time-slider');
-                dates.sort();
-                dates = [...new Set(dates), dateToYYYYMMDD(new Date())];
+                self.dates.sort();
+                self.dates = [...new Set(self.dates), dateToYYYYMMDD(new Date())];
                 $slider.show();
                 $slider.attr('min', 0);
-                $slider.attr('max', (dates.length - 1));
-                $slider.val((dates.length - 1));
+                $slider.attr('max', (self.dates.length - 1));
+                $slider.val((self.dates.length - 1));
 
                 $slider.off('input');
                 $slider.on('input', e => {
-                    const date = dates[e.target.value];
-                    $('#time-slider-indicator').text(dateToDDMMYYY(new Date(date)));
-                    if (this.indicatorLeft) {
-                        this.indicatorLeft.date = date;
-                        this.indicatorLeft._addLayer();
-                    }
-                    if (this.indicatorRight) {
-                        this.indicatorRight.date = date;
-                        this.indicatorRight._addLayer();
-                    }
+                    self.timeSliderChanged();
+                    $timeSliderWrapper.find('.fa-stop-circle').click();
                 });
-                $slider.trigger('input');
+                self.timeSliderChanged();
             } else {
-                $('#time-slider-wrapper').hide();
+                this.isAutoPlay = false;
+                $timeSliderWrapper.hide();
             }
+        },
+        timeSliderChanged: function () {
+            const $slider = $('#time-slider');
+            const date = this.dates[$slider.val()];
+            $('#time-slider-indicator').text(dateToDDMMYYY(new Date(date)));
+            if (this.indicatorLeft) {
+                this.indicatorLeft.date = date;
+                this.indicatorLeft._addLayer();
+            }
+            if (this.indicatorRight) {
+                this.indicatorRight.date = date;
+                this.indicatorRight._addLayer();
+            }
+        },
+        /**
+         * Next date AutoPlay
+         */
+        autoplay: function () {
+            if (!this.isAutoPlay) {
+                return false
+            }
+            const self = this;
+            setTimeout(
+                function () {
+                    if (!self.isAutoPlay) {
+                        return false
+                    }
+                    const $slider = $('#time-slider');
+                    let currentValue = parseInt($slider.val()) + 1;
+                    if (currentValue > parseInt($slider.attr('max'))) {
+                        currentValue = 0;
+                    }
+                    $slider.val(currentValue);
+                    self.timeSliderChanged();
+                    self.autoplay();
+                }, 1000);
         }
     });
 });

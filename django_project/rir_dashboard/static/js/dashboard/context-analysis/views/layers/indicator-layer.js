@@ -124,15 +124,12 @@ define([], function () {
         _addLayer: function () {
             const self = this;
             this._removeLayer();
-            $('.indicator-checkbox input').prop('disabled', true);
             $(`.${this.side}-info .value-table`).html('<div style="margin-left: 10px; margin-bottom: 30px"><i>Loading</i></div>');
             this.getLayer(function (layer) {
                 if (!self.isShow) {
                     return
                 }
                 $(`.${self.side}-info .value-table`).html('<table></table>');
-                $('.indicator-checkbox input').prop('disabled', false);
-
                 self._removeLayer();
                 self.layer = layer;
                 self.setStyle();

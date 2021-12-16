@@ -120,24 +120,21 @@ L.Control.layerSwiper = L.Control.extend({
     _swipeLyrH: function (swipeBar, swipeLyrConf) {
         try {
             $(swipeBar).draggable("option", "axis", "y");
-            var topLyr = swipeLyrConf.base.layer;
-            var botLyr = swipeLyrConf.compare.layer;
-            if (topLyr != null) {
-                var nw = map.containerPointToLayerPoint([0, 0]);
-                var se = map.containerPointToLayerPoint(map.getSize());
-                var swipeBarY = Number(swipeBar.style.top.substring(0, swipeBar.style.top.lastIndexOf('px')));
-                var clipY = nw.y + swipeBarY;
+            var $topPane = swipeLyrConf.base.$pane;
+            var $botPane = swipeLyrConf.compare.$pane;
+            var nw = map.containerPointToLayerPoint([0, 0]);
+            var se = map.containerPointToLayerPoint(map.getSize());
+            var swipeBarY = Number(swipeBar.style.top.substring(0, swipeBar.style.top.lastIndexOf('px')));
+            var clipY = nw.y + swipeBarY;
 
-                // top layer
-                var topStyle = 'clip:rect(' + [nw.y, se.x, clipY, nw.x].join('px,') + 'px)';
-                topLyr.getPane().setAttribute('style', 'display: block;' + topStyle);
-                swipeLyrConf.base.clip = topStyle;
+            // top layer
+            var topStyle = 'clip:rect(' + [nw.y, se.x, clipY, nw.x].join('px,') + 'px)';
+            $topPane.attr('style', 'display: block;' + topStyle);
+            swipeLyrConf.base.clip = topStyle;
 
-                var botStyle = 'clip:rect(' + [clipY, se.x, se.y, nw.x].join('px,') + 'px)';
-                botLyr.getPane().setAttribute('style', 'display: block;' + botStyle);
-                swipeLyrConf.compare.clip = botStyle;
-
-            }
+            var botStyle = 'clip:rect(' + [clipY, se.x, se.y, nw.x].join('px,') + 'px)';
+            $botPane.attr('style', 'display: block;' + botStyle);
+            swipeLyrConf.compare.clip = botStyle;
         } catch (e) {
 
         }
@@ -146,24 +143,24 @@ L.Control.layerSwiper = L.Control.extend({
     _swipeLyrV: function (swipeBar, swipeLyrConf) {
         try {
             $(swipeBar).draggable("option", "axis", "x");
-            var leftLyr = swipeLyrConf.base.layer;
-            var rightLyr = swipeLyrConf.compare.layer;
-            if (leftLyr != null) {
-                var nw = map.containerPointToLayerPoint([0, 0]);
-                var se = map.containerPointToLayerPoint(map.getSize());
-                var swipeBarX = Number(swipeBar.style.left.substring(0, swipeBar.style.left.lastIndexOf('px')));
-                var clipX = nw.x + swipeBarX;
+            var $leftPane = swipeLyrConf.base.$pane;
+            var $rightPane = swipeLyrConf.compare.$pane;
+            console.log($leftPane)
+            console.log($rightPane)
+            var nw = map.containerPointToLayerPoint([0, 0]);
+            var se = map.containerPointToLayerPoint(map.getSize());
+            var swipeBarX = Number(swipeBar.style.left.substring(0, swipeBar.style.left.lastIndexOf('px')));
+            var clipX = nw.x + swipeBarX;
 
-                // left layer
-                var clipLeft = 'clip:rect(' + [nw.y, clipX, se.y, nw.x].join('px,') + 'px)';
-                leftLyr.getPane().setAttribute('style', 'display: block;' + clipLeft);
-                swipeLyrConf.base.clip = clipLeft;
+            // left layer
+            var clipLeft = 'clip:rect(' + [nw.y, clipX, se.y, nw.x].join('px,') + 'px)';
+            $leftPane.attr('style', 'display: block;' + clipLeft);
+            swipeLyrConf.base.clip = clipLeft;
 
-                // right layer
-                var clipRight = 'clip:rect(' + [nw.y, se.x, se.y, clipX].join('px,') + 'px)';
-                rightLyr.getPane().setAttribute('style', 'display: block;' + clipRight);
-                swipeLyrConf.compare.clip = clipRight;
-            }
+            // right layer
+            var clipRight = 'clip:rect(' + [nw.y, se.x, se.y, clipX].join('px,') + 'px)';
+            $rightPane.attr('style', 'display: block;' + clipRight);
+            swipeLyrConf.compare.clip = clipRight;
         } catch (e) {
 
         }
