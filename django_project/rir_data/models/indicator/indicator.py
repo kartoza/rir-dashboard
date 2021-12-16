@@ -254,7 +254,7 @@ class Indicator(AbstractTerm):
                                 indicator_value__in=query_report.values_list('id', flat=True)):
                             try:
                                 aggregated_value = int(extra_value.value)
-                                if extra_value not in attributes:
+                                if extra_value.name not in attributes:
                                     attributes[extra_value.name] = 0
                                 attributes[extra_value.name] += aggregated_value
                             except ValueError:
