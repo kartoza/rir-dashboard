@@ -105,3 +105,46 @@ function numberWithCommas(x) {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
 }
+
+
+function compareObjects(object1, object2, key) {
+    const obj1 = object1['properties'][key].toUpperCase()
+    const obj2 = object2['properties'][key].toUpperCase()
+
+    if (obj1 < obj2) {
+        return -1
+    }
+    if (obj1 > obj2) {
+        return 1
+    }
+    return 0
+}
+
+function sortArrayOfDict(arr, key) {
+    arr.sort((arr1, arr2) => {
+        return compareObjects(arr1, arr2, key)
+    })
+}
+
+function extractedDate(date) {
+    const year = date.getUTCFullYear();
+    const month = (date.getUTCMonth() + 1).toLocaleString('en-US', {
+        minimumIntegerDigits: 2,
+        useGrouping: false
+    })
+    const day = date.getUTCDate().toLocaleString('en-US', {
+        minimumIntegerDigits: 2,
+        useGrouping: false
+    })
+    return [day, month, year]
+}
+
+function dateToYYYYMMDD(date) {
+    const dates = extractedDate(date)
+    return `${dates[2]}-${dates[1]}-${dates[0]}`
+}
+
+function dateToDDMMYYY(date) {
+    const dates = extractedDate(date)
+    return `${dates[0]}-${dates[1]}-${dates[2]}`
+}

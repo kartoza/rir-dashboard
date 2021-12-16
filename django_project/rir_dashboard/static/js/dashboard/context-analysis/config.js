@@ -38,8 +38,14 @@ require([
             $('.scenario-section').hide();
 
             const target = $(this).data('target');
+            if (target === 'context-analysis') {
+                $('#navigation').addClass('first')
+            } else {
+                $('#navigation').removeClass('first')
+            }
             $(`div[data-program="${target}"]`).show();
             $('#content').scrollTop(0);
+            $('#map-wrapper').css('opacity', 1)
         });
         if (!window.location.hash) {
             $($list[0]).click();
@@ -118,12 +124,14 @@ require([
                 $exitFullScreen.show();
                 $fullScreen.hide();
                 $indicator.find('table').addClass('full-screen');
+                $leftSide.addClass('full-screen');
             });
             $exitFullScreen.click(function () {
                 $leftSide.width(width);
                 $exitFullScreen.hide();
                 $fullScreen.show();
                 $indicator.find('table').removeClass('full-screen');
+                $leftSide.removeClass('full-screen');
             });
         }
 
@@ -139,12 +147,14 @@ require([
             $toggleButton.click(function () {
                 // doing toggle side panel
                 if (!$rigthSide.data('hidden')) {
+                    $rigthSide.removeClass('show');
                     $rigthSide.animate({ right: `-${width}px` }, 100, function () {
-                        $rigthSide.data('hidden', true)
+                        $rigthSide.data('hidden', true);
                     });
                 } else {
+                    $rigthSide.addClass('show');
                     $rigthSide.animate({ right: `0` }, 100, function () {
-                        $rigthSide.data('hidden', false)
+                        $rigthSide.data('hidden', false);
                     });
                 }
             });

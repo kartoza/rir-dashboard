@@ -13,13 +13,14 @@ define([], function () {
             this.$input = this.$el.find('input');
             this.$legend = this.$el.find('.legend');
             this.levels = levels;
-            this.date = `${new Date().getUTCFullYear()}-${new Date().getUTCMonth() + 1}-${new Date().getUTCDate()}`;
+            this.date = dateToYYYYMMDD(new Date());
             this.level = this.levels[0];
             this.url = url;
             this.id = id;
             this.layers = {};
             this.layer = null;
             this.scenario = scenario;
+            this.isShow = false;
 
 
             // for the legend
@@ -79,12 +80,14 @@ define([], function () {
                         onEachFeature: function (feature, layer) {
                             if (feature.properties.background_color) {
                                 let defaultHtml =
-                                    `<tr style="background-color: ${feature.properties.background_color}; color: ${feature.properties.text_color}"><td>${feature.properties.scenario_text}</td><td valign="top"><b>Scenario</b></td valign="top"></tr>`
+                                    `<tr style="background-color: ${feature.properties.background_color}; color: ${feature.properties.text_color}"><td colspan="2" style="text-align: center"><b>${self.name}</b></td></tr>` +
+                                    `<tr><td valign="top"><b>Scenario</b></td valign="top"><td>${feature.properties.scenario_text}</td></tr>` +
+                                    `<tr><td><b>Indicator value</b></td><td valign="top">${feature.properties.value}</td valign="top"></tr>`
 
                                 // check others properties
                                 $.each(feature.properties, function (key, value) {
-                                    if (!['background_color', 'text_color', 'scenario_text', 'scenario_value', 'geometry_id'].includes(key)) {
-                                        defaultHtml += `<tr><td valign="top">${numberWithCommas(value)}</td><td valign="top"><b>${key.capitalize()}</b></td></tr>`
+                                    if (!['value', 'background_color', 'text_color', 'scenario_text', 'scenario_value', 'geometry_id'].includes(key)) {
+                                        defaultHtml += `<tr><td valign="top"><b>${key.capitalize()}</b></td><td valign="top">${numberWithCommas(value)}</td></tr>`
                                     }
                                 });
                                 layer.bindPopup('' +
@@ -100,6 +103,7 @@ define([], function () {
          * Show this indicator
          */
         show: function (side) {
+            this.isShow = true;
             this.side = side;
             this.initLevelSelection();
             this._addLayer();
@@ -111,7 +115,7 @@ define([], function () {
                 side: this.side
             }));
 
-            this.renderValues();
+            this.renderValueOvertime();
             event.trigger(evt.INDICATOR_VALUES_CHANGED);
         },
         /**
@@ -123,10 +127,14 @@ define([], function () {
             $('.indicator-checkbox input').prop('disabled', true);
             $(`.${this.side}-info .value-table`).html('<div style="margin-left: 10px; margin-bottom: 30px"><i>Loading</i></div>');
             this.getLayer(function (layer) {
+                if (!self.isShow) {
+                    return
+                }
                 $(`.${self.side}-info .value-table`).html('<table></table>');
+                $('.indicator-checkbox input').prop('disabled', false);
+
                 self._removeLayer();
                 self.layer = layer;
-                $('.indicator-checkbox input').prop('disabled', false);
                 self.setStyle();
                 self.$legend.show();
                 self.layer.options['pane'] = map.getPane(self.side);
@@ -138,6 +146,7 @@ define([], function () {
          * hide this indicator
          */
         hide: function () {
+            this.isShow = false;
             const $levelSelection = $(`.${this.side}-level-selection`);
             $levelSelection.html('');
             this.level = this.levels[0];
@@ -182,16 +191,15 @@ define([], function () {
          */
         setStyle: function () {
             const self = this;
+            $(`.${self.side}-info .value-table table`).html('');
             if (this.layer) {
                 const levelActivated = [];
                 this.$el.find('.legend-row.active').each(function () {
                     levelActivated.push($(this).data('level'));
                 });
+
                 const style = function (feature) {
                     if (levelActivated.includes(feature.properties.scenario_value)) {
-                        $(`.${self.side}-info .value-table table`).append(
-                            `<tr style="background-color: ${feature.properties.background_color}"><td valign="top">${feature.properties.geometry_name}</td><td valign="top">${feature.properties.scenario_text}</td></tr>
-                        `);
                         return {
                             color: "#ffffff",
                             weight: 1,
@@ -204,15 +212,91 @@ define([], function () {
                             fillOpacity: 0
                         };
                     }
-                }
-                this.layer.setStyle(style)
+                };
+                this.layer.setStyle(style);
+
+                // --------------------------------------------
+                // CREATE THE INFO TABLE
+                // --------------------------------------------
+                const features = JSON.parse(JSON.stringify(this.layer.toGeoJSON().features));
+                sortArrayOfDict(features, 'geometry_name');
+
+                const rawDonutData = {};
+                $.each(features, function (idx, feature) {
+                    if (levelActivated.includes(feature.properties.scenario_value)) {
+                        $(`.${self.side}-info .value-table table`).append(
+                            `<tr>
+                                <td style="text-align: right; color: ${feature.properties.background_color}"><b class="value-key" data-id="${feature.id}">${feature.properties.geometry_name}</b></td>
+                                <td style="background-color: ${feature.properties.background_color}" class="value-color"></td>
+                                <td>${feature.properties.scenario_text}</td>
+                            </tr>
+                        `);
+
+                        // get data for donut
+                        if (!rawDonutData[feature.properties.scenario_value]) {
+                            rawDonutData[feature.properties.scenario_value] = {
+                                name: feature.properties.scenario_text,
+                                y: 0,
+                                color: feature.properties.background_color
+                            }
+                        }
+                        rawDonutData[feature.properties.scenario_value].y += 1
+                    }
+                    $(`.${self.side}-info .value-key`).off("click").click(function () {
+                        const id = $(this).data('id');
+                        $.each(self.layer.getLayers(), function (idx, layer) {
+                            if (layer.feature.id === id) {
+                                layer.openPopup();
+                                const center = layer.getCenter();
+                                mapView.panTo(center.lat, center.lng);
+                                return false
+                            }
+                        });
+
+                    })
+                });
+                const donutData = []
+                $.each(rawDonutData, function (idx, data) {
+                    donutData.push(data)
+                });
+                self.renderValueDonut(donutData);
             }
         },
-
+        // -----------------------------------------------------------
+        // RENDERING CHART
+        // -----------------------------------------------------------
         /**
-         * Render all value of layer
+         * Render all value overtime
          */
-        renderValues: function () {
+        renderValueDonut: function (data) {
+            $(`#${this.side}-value-donut-chart`).html('');
+            $(`#${this.side}-value-donut-chart`).highcharts({
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: 0,
+                    plotShadow: false
+                },
+                title: {
+                    text: 'Number of district',
+                    align: 'center',
+                    verticalAlign: 'middle',
+                    style: { "fontSize": "12px" }
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                series: [{
+                    type: 'pie',
+                    name: 'District number',
+                    innerSize: '50%',
+                    data: data
+                }]
+            });
+        },
+        /**
+         * Render all value overtime
+         */
+        renderValueOvertime: function () {
             const self = this;
             $(`.${this.side}-info .value-chart`).html('<i>Loading</i>')
             if (!self.values) {
@@ -220,7 +304,7 @@ define([], function () {
                     self.url.replace('level', self.levels[self.levels.length - 1]).replace('/date', ''), {}, {},
                     function (data) {
                         self.values = data;
-                        self.renderValues();
+                        self.renderValueOvertime();
                         event.trigger(evt.INDICATOR_VALUES_CHANGED);
                     }, function () {
                         $(`.${self.side}-info .value-chart`).html('<span class="error">Error</span>')

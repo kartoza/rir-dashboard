@@ -187,7 +187,7 @@ class EsriLeafletLayer {
                     // check others properties
                     let defaultHtml = '';
                     $.each(feature.properties, function (key, value) {
-                        defaultHtml += `<tr><td valign="top">${numberWithCommas(value)}</td><td valign="top"><b>${key.capitalize()}</b></td></tr>`
+                        defaultHtml += `<tr><td valign="top"><b>${key.capitalize()}</b></td><td valign="top">${numberWithCommas(value)}</td></tr>`
                     });
                     layer.bindPopup('' +
                         '<table>' + defaultHtml + '</table>');

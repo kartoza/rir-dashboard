@@ -5,7 +5,7 @@ html, body {
 
 :root {
     --navigation-width: 200px;
-    --header-height: 62px;
+    --header-height: 43px;
 }
 
 .row {
@@ -47,7 +47,7 @@ html, body {
     background: white;
     height: var(--header-height);
     font-weight: 600;
-    padding: 18px 20px 18px 30px;
+    padding: 10px 20px 10px 30px;
     position: absolute;
     top: 0;
     left: 0;
@@ -152,6 +152,16 @@ html, body {
     direction: ltr;
 }
 
+#navigation.first .toggle-button {
+    color: var(--primary-color);
+    background-color: white;
+}
+
+#navigation.shrink.first .toggle-button {
+    color: white;
+    background-color: var(--primary-color);
+}
+
 #navigation .toggle-button {
     position: absolute;
     top: 8px;
@@ -172,14 +182,6 @@ html, body {
 #navigation.shrink .toggle-button {
     margin-right: -17px;
     border-radius: 0 5px 5px 0;
-}
-
-#navigation.shrink .toggle-button {
-    opacity: 0.2;
-}
-
-#navigation.shrink .toggle-button:hover {
-    opacity: 1;
 }
 
 #navigation .toggle-button .fa-caret-right {

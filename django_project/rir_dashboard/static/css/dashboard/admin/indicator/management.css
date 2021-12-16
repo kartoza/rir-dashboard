@@ -28,6 +28,11 @@
     padding: 10px;
 }
 
+.block-content .main-button {
+    width: 150px;
+    text-align: center;
+}
+
 .block.disabled {
     cursor: not-allowed;
     opacity: 0.5;
@@ -35,11 +40,6 @@
 
 #drop-area-section {
     margin: 50px;
-}
-
-#drop-area-section .main-button {
-    margin-top: -1px;
-    width: 100%;
 }
 
 #drop-area {

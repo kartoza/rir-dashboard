@@ -8,11 +8,6 @@
     <link href="{% static 'css/dashboard/context-analysis.css' %}" rel="stylesheet" type="text/css" media="screen, projection"/>
     <style>
         {% for scenario in scenarios %}
-            .legend.scenario-{{ scenario.level }} {
-                background-color: white !important;
-                border: 1px solid {{ scenario.background_color }} !important;
-                color: black !important;
-            }
             .scenario-{{ scenario.level }} {
                 background-color: {{ scenario.background_color }} !important;
                 color: {{ scenario.text_color}} !important;
@@ -21,9 +16,18 @@
     </style>
 {% endblock %}
 {% block content %}
-    <div id="map-wrapper" data-program="context-analysis" class="section table-section scenario-section top-bottom">
+    {% for intervention in interventions %}
+        <div data-program="{{ intervention.program_instance.program.slug }}" class="section box-shadow-bottom table-section scenario-section">
+            <div class="scenario-header scenario-{{ overall_scenario.level }}">
+                <div>{{ intervention.program_instance.program.name }} Intervention</div>
+            </div>
+            <div class="intervention">
+                <iframe src="{{ intervention.intervention_url }}" title="{{ intervention.program_instance.program.name }}" frameBorder="0"></iframe>
+            </div>
+        </div>
+    {% endfor %}
+    <div id="map-wrapper" data-program="context-analysis" class="section table-section left-right">
         <div id="map"></div>
-
         <div id="left-side" class="side-panel box-shadow-bottom" data-hidden="false">
             <div class="inner">
                 <div id="comparing-toggle" class="comparing-toggle">
@@ -31,14 +35,14 @@
                 </div>
                 <div class="side-panel-button">
                     <div class="side-panel-toggle-button">
-                        <div id="basemap-list-toggle-button" class="toggle-button hidden" data-target="basemap-list" title="Basemaps">
-                            <i class="fa fa-globe" aria-hidden="true"></i>
-                        </div>
                         <div id="indicator-toggle-button" class="toggle-button hidden" data-target="indicator" title="Indicators">
                             <i class="fa fa-home" aria-hidden="true"></i>
                         </div>
                         <div id="layer-list-toggle-button" class="toggle-button hidden" data-target="layer-list" title="Context Layers">
                             <img src="{% static "libs/leaflet/1.5.1/images/layers-2x.png" %}">
+                        </div>
+                        <div id="basemap-list-toggle-button" class="toggle-button hidden" data-target="basemap-list" title="Basemaps">
+                            <i class="fa fa-globe" aria-hidden="true"></i>
                         </div>
                     </div>
                 </div>
@@ -95,8 +99,12 @@
                                                 <div><i class="group-toggle fa fa-caret-down" aria-hidden="true"></i></div>
                                             </td>
                                         </tr>
+                                        {# For the space #}
+                                        <tr data-group="{{ group_name }}" class="divider group-row indicator-row">
+                                            <td></td>
+                                        </tr>
                                         {% for indicator in group.indicators %}
-                                            <tr id="indicator-{{ indicator.id }}" data-group="{{ group }}" class="group-row indicator-row {% if not indicator.show_in_context_analysis %}no-context-analysis hide{% endif %}">
+                                            <tr id="indicator-{{ indicator.id }}" data-group="{{ group_name }}" class="group-row indicator-row {% if not indicator.show_in_context_analysis %}no-context-analysis hide{% endif %}">
                                                 <td class="indicator-name">
                                                     <div class="row">
                                                         <div class="indicator-checkbox">
@@ -110,7 +118,7 @@
                                                         </div>
                                                         <div class="col">
                                                             <div class="name scenario-{{ indicator.scenario_value }}">{{ indicator.name }}</div>
-                                                            <div class="legend scenario-{{ indicator.scenario_value }}">
+                                                            <div class="legend">
                                                                 <table>
                                                                     {% for name, value in indicator.object.legends.items %}
                                                                         <tr class="legend-row active" data-id="{{ indicator.id }}" data-level="{{ value.level }}">
@@ -139,6 +147,10 @@
                                                 {% endfor %}
                                             </tr>
                                         {% endfor %}
+                                        {# For the space #}
+                                        <tr data-group="{{ group_name }}" class="divider group-row indicator-row">
+                                            <td style="margin-bottom: 5px"></td>
+                                        </tr>
                                         </tbody>
                                     {% endfor %}
                                 </table>
@@ -175,6 +187,8 @@
                 <div class="side-panel-toggle-button">
                     <div id="info-toggle" class="toggle-button" style="display: none">
                         Info
+                        <i class="fa fa-caret-left" aria-hidden="true"></i>
+                        <i class="fa fa-caret-right" aria-hidden="true"></i>
                     </div>
                 </div>
                 <div class="content-wrapper">
@@ -198,20 +212,12 @@
 
         {# time slider #}
         <div id="time-slider-wrapper" class="box-shadow-bottom">
-            <div>Current date : <b id="time-slider-indicator"></b></div>
-            <input id="time-slider" type="range" min="1" max="100" value="50" class="slider">
+            <div class="row" style="width: 100%">
+                <div style="width: fit-content"><b id="time-slider-indicator"></b></div>
+                <div class="col"><input id="time-slider" type="range" min="1" max="100" value="50" class="slider"></div>
+            </div>
         </div>
     </div>
-    {% for intervention in interventions %}
-        <div data-program="{{ intervention.program_instance.program.slug }}" class="section box-shadow-bottom table-section scenario-section">
-            <div class="scenario-header scenario-{{ overall_scenario.level }}">
-                <div>{{ intervention.program_instance.program.name }} Intervention</div>
-            </div>
-            <div class="intervention">
-                <iframe src="{{ intervention.intervention_url }}" title="{{ intervention.program_instance.program.name }}" frameBorder="0"></iframe>
-            </div>
-        </div>
-    {% endfor %}
 {% endblock %}
 {% block scripts %}
     {% include 'dashboard/context-analysis/_template-context-layer.html' %}
