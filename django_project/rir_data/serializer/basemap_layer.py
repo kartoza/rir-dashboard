@@ -17,7 +17,8 @@ class BasemapLayerSerializer(serializers.ModelSerializer):
                     value = ''
                 value = int(parameter.value)
             except (ValueError, TypeError):
-                value = urllib.parse.quote(value)
+                if parameter.name.lower() != 'layers'.lower():
+                    value = urllib.parse.quote(value)
             parameters[parameter.name] = value
         return parameters
 

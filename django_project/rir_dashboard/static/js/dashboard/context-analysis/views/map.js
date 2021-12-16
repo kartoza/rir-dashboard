@@ -90,7 +90,13 @@ define([], function () {
             } catch (e) {
 
             }
-            this.basemapLayer = L.tileLayer(basemapDetail.url, basemapDetail.parameters);
+            if (basemapDetail.url.includes("wms")) {
+                basemapDetail.parameters['transparent'] = true;
+                basemapDetail.parameters['zIndex'] = 1;
+                this.basemapLayer = L.tileLayer.wms(basemapDetail.url, basemapDetail.parameters);
+            } else {
+                this.basemapLayer = L.tileLayer(basemapDetail.url, basemapDetail.parameters);
+            }
             this.basemapLayer.addTo(this.map);
         },
     });
