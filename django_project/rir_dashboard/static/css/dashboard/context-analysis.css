@@ -883,7 +883,7 @@
 }
 
 .group-name .scenario-bullet {
-    margin-right: 0;
+    margin-right: 1px !important;
 }
 
 .scenario-bullet {
