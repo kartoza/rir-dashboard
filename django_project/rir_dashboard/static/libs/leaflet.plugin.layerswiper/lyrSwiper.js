@@ -145,8 +145,6 @@ L.Control.layerSwiper = L.Control.extend({
             $(swipeBar).draggable("option", "axis", "x");
             var $leftPane = swipeLyrConf.base.$pane;
             var $rightPane = swipeLyrConf.compare.$pane;
-            console.log($leftPane)
-            console.log($rightPane)
             var nw = map.containerPointToLayerPoint([0, 0]);
             var se = map.containerPointToLayerPoint(map.getSize());
             var swipeBarX = Number(swipeBar.style.left.substring(0, swipeBar.style.left.lastIndexOf('px')));

@@ -117,6 +117,11 @@ define([
                         self.indicatorRight = indicatorLayer;
                     }
                     indicatorLayer.show(side);
+
+                    // auto show the info
+                    if ($('#right-side').data('hidden')) {
+                        $('#info-toggle').click();
+                    }
                 } else {
                     // check which side is it and make it null
                     if (indicatorLayer === self.indicatorLeft) {
@@ -173,6 +178,7 @@ define([
                 if (!$('#right-side').data('hidden')) {
                     $('#info-toggle').click();
                 }
+                return
             }
         },
         /**

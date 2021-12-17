@@ -117,6 +117,7 @@ require([
 
             // Event for toggling full screen
             const $fullScreen = $('.left-side-fullscreen');
+            const $scenarioHeader = $('.scenario-header');
             const $indicator = $('#indicator');
             const $exitFullScreen = $('.left-side-exit-fullscreen');
             $fullScreen.click(function () {
@@ -125,6 +126,7 @@ require([
                 $fullScreen.hide();
                 $indicator.find('table').addClass('full-screen');
                 $leftSide.addClass('full-screen');
+                $scenarioHeader.removeClass('shrink');
             });
             $exitFullScreen.click(function () {
                 $leftSide.width(width);
@@ -132,6 +134,7 @@ require([
                 $fullScreen.show();
                 $indicator.find('table').removeClass('full-screen');
                 $leftSide.removeClass('full-screen');
+                $scenarioHeader.addClass('shrink');
             });
         }
 

@@ -71,12 +71,15 @@
                     {# indicator #}
                     <div id="indicator" class="content">
                         <div class="inner-content">
-                            <div class="scenario-header scenario-{{ overall_scenario.level }} side-panel-header">
-                                <div class="pull-right side-panel-control">
-                                    <i class="left-side-fullscreen fa fa-arrows-alt" aria-hidden="true" title="Fullscreen"></i>
-                                    <i class="left-side-exit-fullscreen fa fa-minus" aria-hidden="true" title="Exit Fullscreen" style="display: none"></i>
+                            <div class="scenario-header shrink side-panel-header scenario-{{ overall_scenario.level }}">
+                                <div class="left-side-fullscreen pull-right side-panel-control" title="Fullscreen">
+                                    <i class="fa fa-caret-right" aria-hidden="true"></i>
+                                </div>
+                                <div class="left-side-exit-fullscreen pull-right side-panel-control" style="display: none" title="Exit Fullscreen">
+                                    <i class="fa fa-caret-left" aria-hidden="true"></i>
                                 </div>
                                 Scenario {% if overall_scenario.level %}{{ overall_scenario.level }}: {{ overall_scenario.name }}{% else %} <i>unknown</i> {% endif %}
+                                {% include 'dashboard/context-analysis/_template-scenario-bullet.html' with overall_scenario=overall_scenario.level %}
                             </div>
                             <div class="side-panel-content">
                                 <table>
@@ -94,17 +97,16 @@
                                     {% for group_name, group in indicators_in_groups.items %}
                                         <tbody class="group">
                                         <tr class="group-name hidden">
-                                            <td class="row scenario-{{ group.overall_scenario }}">
+                                            <td class="row">
                                                 <div class="col">{{ group_name }}</div>
-                                                <div><i class="group-toggle fa fa-caret-down" aria-hidden="true"></i></div>
+                                                {% include 'dashboard/context-analysis/_template-scenario-bullet.html' with overall_scenario=group.overall_scenario %}
+                                                <div><i class="group-toggle fa fa-caret-up" aria-hidden="true"></i></div>
                                             </td>
                                         </tr>
                                         {# For the space #}
-                                        <tr data-group="{{ group_name }}" class="divider group-row indicator-row">
-                                            <td></td>
-                                        </tr>
                                         {% for indicator in group.indicators %}
-                                            <tr id="indicator-{{ indicator.id }}" data-group="{{ group_name }}" class="group-row indicator-row {% if not indicator.show_in_context_analysis %}no-context-analysis hide{% endif %}">
+                                            <tr id="indicator-{{ indicator.id }}" data-group="{{ group_name }}"
+                                                class="indicator-{{ indicator.id }} group-row indicator-row {% if not indicator.show_in_context_analysis %}no-context-analysis hide{% endif %}">
                                                 <td class="indicator-name">
                                                     <div class="row">
                                                         <div class="indicator-checkbox">
@@ -117,23 +119,26 @@
                                                                    {% if not indicator.object.url_data_template %}disabled{% endif %}>
                                                         </div>
                                                         <div class="col">
-                                                            <div class="name scenario-{{ indicator.scenario_value }}">{{ indicator.name }}</div>
-                                                            <div class="legend">
-                                                                <table>
-                                                                    {% for name, value in indicator.object.legends.items %}
-                                                                        <tr class="legend-row active" data-id="{{ indicator.id }}" data-level="{{ value.level }}">
-                                                                            <td>
-                                                                                <input type="checkbox" checked>
-                                                                            </td>
-                                                                            <td>
-                                                                                <div class="polygon" style="background-color: {{ value.color }}"></div>
-                                                                            </td>
-                                                                            <td>{{ name }}</td>
-                                                                        </tr>
-                                                                    {% endfor %}
-                                                                </table>
+                                                            <div class="name">
+                                                                {{ indicator.name }}
                                                             </div>
                                                         </div>
+                                                        {% include 'dashboard/context-analysis/_template-scenario-bullet.html' with overall_scenario=indicator.scenario_value %}
+                                                    </div>
+                                                    <div class="legend">
+                                                        <table>
+                                                            {% for name, value in indicator.object.legends.items %}
+                                                                <tr class="legend-row active" data-id="{{ indicator.id }}" data-level="{{ value.level }}">
+                                                                    <td>
+                                                                        <input type="checkbox" checked>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="polygon" style="background-color: {{ value.color }}"></div>
+                                                                    </td>
+                                                                    <td>{{ name }}</td>
+                                                                </tr>
+                                                            {% endfor %}
+                                                        </table>
                                                     </div>
                                                 </td>
                                                 {% for scenario in scenarios %}
@@ -150,17 +155,13 @@
                                                 {% endfor %}
                                             </tr>
                                         {% endfor %}
-                                        {# For the space #}
-                                        <tr data-group="{{ group_name }}" class="divider group-row indicator-row">
-                                            <td style="margin-bottom: 5px"></td>
-                                        </tr>
                                         </tbody>
                                     {% endfor %}
                                 </table>
                             </div>
                             <div class="side-panel-footer">
                                 {% if user.is_staff %}
-                                    <button id="toggle-table" class="main-button content-button scenario-{{ overall_scenario.level }}">Show all indicators</button>
+                                    <button id="toggle-table" class="main-button content-button">Show all indicators</button>
                                 {% endif %}
                             </div>
                         </div>
@@ -206,12 +207,9 @@
 
             <div class="indicator-left-pane-level-selection level-selection box-shadow-bottom">
             </div>
+            <div class="indicator-right-pane-text indicator-name-swiper box-shadow-bottom"></div>
+            <div class="indicator-left-pane-text indicator-name-swiper box-shadow-bottom"></div>
         </div>
-
-        {# indicator of swiper #}
-        <div class="indicator-left-pane-text indicator-name-swiper box-shadow-bottom"></div>
-        <div class="indicator-right-pane-text indicator-name-swiper box-shadow-bottom"></div>
-
 
         {# time slider #}
         <div id="time-slider-wrapper" class="box-shadow-bottom">
@@ -225,6 +223,9 @@
             </div>
         </div>
     </div>
+    <script type='text/template' id='_scenario-bullet'>
+        {% include 'dashboard/context-analysis/_template-scenario-bullet.html' with overall_scenario=0 %}
+    </script>
 {% endblock %}
 {% block scripts %}
     {% include 'dashboard/context-analysis/_template-context-layer.html' %}
@@ -238,7 +239,17 @@
         let basemapLayers = {};
         let basemapDefault = null;
         {% for basemap_layer in basemap_layers %}
-            basemapLayers["{{ basemap_layer.id }}"] = JSON.parse("{{ basemap_layer|safe }}".replaceAll('None', null).replaceAll('True', true).replaceAll('False', false).replaceAll('\'', '"'));
+            basemapLayers["{{ basemap_layer.id }}"] = {};
+            {% for key, value in basemap_layer.items %}
+                {% if key == "parameters" %}
+                    basemapLayers["{{ basemap_layer.id }}"]["{{ key }}"] = {};
+                    {% for param_key, param_value in value.items %}
+                        basemapLayers["{{ basemap_layer.id }}"]["{{ key }}"]["{{ param_key }}"] = `{{ param_value }}`;
+                    {% endfor %}
+                {% else %}
+                    basemapLayers["{{ basemap_layer.id }}"]["{{ key }}"] = `{{ value }}`;
+                {% endif %}
+            {% endfor %}
             if (!basemapDefault) {
                 basemapDefault = "{{ basemap_layer.id }}";
             }

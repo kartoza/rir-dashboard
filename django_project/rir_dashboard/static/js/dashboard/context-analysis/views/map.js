@@ -90,7 +90,7 @@ define([], function () {
             } catch (e) {
 
             }
-            if (basemapDetail.url.includes("wms")) {
+            if (basemapDetail.type === 'WMS') {
                 basemapDetail.parameters['transparent'] = true;
                 basemapDetail.parameters['zIndex'] = 1;
                 this.basemapLayer = L.tileLayer.wms(basemapDetail.url, basemapDetail.parameters);

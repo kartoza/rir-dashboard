@@ -4,6 +4,11 @@ from core.models import AbstractTerm, IconTerm
 from rir_data.models.instance import Instance
 
 
+class BasemapLayerType(object):
+    XYZ_TILE = 'XYZ Tile'
+    WMS = 'WMS'
+
+
 class BasemapLayer(AbstractTerm, IconTerm):
     instance = models.ForeignKey(
         Instance,
@@ -11,6 +16,14 @@ class BasemapLayer(AbstractTerm, IconTerm):
     )
     url = models.CharField(
         max_length=256
+    )
+    type = models.CharField(
+        max_length=256,
+        default=BasemapLayerType.XYZ_TILE,
+        choices=(
+            (BasemapLayerType.XYZ_TILE, BasemapLayerType.XYZ_TILE),
+            (BasemapLayerType.WMS, BasemapLayerType.WMS),
+        )
     )
     show_on_map = models.BooleanField(
         default=True

@@ -110,11 +110,10 @@ define([], function () {
             this.side = side;
             this.initLevelSelection();
             this._addLayer();
-            $(`.${this.side}-text`).html(`<div class="scenario-${this.scenario}">${this.name}</div>`);
+            $(`.${this.side}-text`).html(`<table class="indicator-${this.id}"><tr><td><div>${this.name}</div></td> <td>${templates.SCENARIO_BULLET().replace('scenario-0', `scenario-${this.scenario}`).replace('pull-right', '')}</td></tr></table>`);
             $(`.${this.side}-info`).show();
             $(`.${this.side}-info`).html(templates.INDICATOR_INFO({
-                name: this.name,
-                classname: `scenario-${this.scenario}`,
+                name: `<div class="indicator-${this.id}">${this.name} ${templates.SCENARIO_BULLET().replace('scenario-0', `scenario-${this.scenario}`)}</div>`,
                 side: this.side
             }));
 
@@ -128,7 +127,9 @@ define([], function () {
             const self = this;
             this._removeLayer();
             $(`.${this.side}-info .value-table`).html('<div style="margin-left: 10px; margin-bottom: 30px"><i>Loading</i></div>');
+            $(`.indicator-${this.id} .spinner`).show();
             this.getLayer(function (layer) {
+                $(`.indicator-${self.id} .spinner`).hide();
                 if (!self.isShow) {
                     return
                 }
@@ -197,7 +198,6 @@ define([], function () {
                 this.$el.find('.legend-row.active').each(function () {
                     levelActivated.push($(this).data('level'));
                 });
-
                 const style = function (feature) {
                     if (levelActivated.includes(feature.properties.scenario_value)) {
                         return {
@@ -223,6 +223,7 @@ define([], function () {
                 sortArrayOfDict(features, 'geometry_name');
 
                 const rawDonutData = {};
+                let total = 0;
                 $.each(features, function (idx, feature) {
                     if (levelActivated.includes(feature.properties.scenario_value)) {
                         $(`.${self.side}-info .value-table table`).append(
@@ -242,6 +243,7 @@ define([], function () {
                             }
                         }
                         rawDonutData[feature.properties.scenario_value].y += 1
+                        total += 1;
                     }
                     $(`.${self.side}-info .value-key`).off("click").click(function () {
                         const id = $(this).data('id');
@@ -260,7 +262,7 @@ define([], function () {
                 $.each(rawDonutData, function (idx, data) {
                     donutData.push(data)
                 });
-                self.renderValueDonut(donutData);
+                self.renderValueDonut(donutData, total);
             }
         },
         // -----------------------------------------------------------
@@ -269,7 +271,7 @@ define([], function () {
         /**
          * Render all value overtime
          */
-        renderValueDonut: function (data) {
+        renderValueDonut: function (data, total) {
             $(`#${this.side}-value-donut-chart`).html('');
             $(`#${this.side}-value-donut-chart`).highcharts({
                 chart: {
@@ -281,17 +283,25 @@ define([], function () {
                     text: 'Number of district',
                     align: 'center',
                     verticalAlign: 'middle',
-                    style: { "fontSize": "12px" }
+                    style: { "fontSize": "0" }
                 },
                 tooltip: {
-                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                    pointFormat: `<b>{point.y}</b> of <b>${total}</b> ${this.level.toLowerCase()}s`,
+                    style: { "fontSize": "12px" }
                 },
                 series: [{
                     type: 'pie',
                     name: 'District number',
                     innerSize: '50%',
-                    data: data
-                }]
+                    data: data,
+                    showInLegend: true,
+                    dataLabels: {
+                        enabled: false
+                    }
+                }],
+                legend: {
+                    enabled: true
+                },
             });
         },
         /**
