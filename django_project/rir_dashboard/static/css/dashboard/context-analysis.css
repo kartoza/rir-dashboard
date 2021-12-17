@@ -74,8 +74,16 @@
     font-weight: 600;
 }
 
+#indicator table.full-screen .group-name .scenario-bullet {
+    display: none;
+}
+
 #indicator table.full-screen .group-row .indicator-name {
     padding: 5px 10px 5px 20px;
+}
+
+#indicator table.full-screen .scenario-bullet {
+    margin-right: 0 !important;
 }
 
 
@@ -884,7 +892,7 @@
     height: 16px;
     width: 16px;
     margin-top: 3px;
-    margin-right: 12px;
+    margin-right: 0 !important;
     margin-left: 5px;
     position: relative;
 }
