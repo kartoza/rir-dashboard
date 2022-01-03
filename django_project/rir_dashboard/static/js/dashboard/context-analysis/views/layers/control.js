@@ -82,7 +82,9 @@ define([
         /** When context layer changed
          */
         contextLayersChanged: function () {
-            $.each(this.contextLayers.layers, function (index, layer) {
+            const self = this;
+            $.each(this.contextLayers.orders, function (index, id) {
+                const layer = self.contextLayers.layers[id];
                 mapView.removeLayer(layer.layer);
                 if (layer.show && layer.layer) {
                     mapView.addLayer(layer.layer);
@@ -138,7 +140,6 @@ define([
             });
 
             // init default one
-            console.log(this.idsFromCookie)
             $.each(this.idsFromCookie, function (index, id) {
                 $('#indicator-checkbox-' + id).click();
             })

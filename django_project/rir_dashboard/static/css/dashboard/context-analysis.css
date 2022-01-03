@@ -979,3 +979,21 @@
 .highcharts-legend-item text {
     font-weight: 300 !important;
 }
+
+#temporary {
+    opacity: 0.3;
+}
+
+#layer-list .ui-draggable {
+    background: white;
+    cursor: pointer;
+}
+
+#layer-list .ui-draggable-dragging {
+    z-index: 9999;
+    height: 0 !important;
+}
+
+#layer-list .ui-draggable-dragging div {
+    background: var(--almost-white-color);
+}

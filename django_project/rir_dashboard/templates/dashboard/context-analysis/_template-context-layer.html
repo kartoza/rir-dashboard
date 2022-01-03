@@ -1,5 +1,5 @@
 <script type='text/template' id='_context-layer-group'>
-    <div data-group="<%= group_name %>" class="group">
+    <div id="context-layer-group-<%= group %>" data-group="<%= group_name %>" class="group top-tree">
         <div class="group-name row">
             <div class="col">
                 <input class="group-checkbox" type="checkbox">&nbsp;<%= group_name %>
@@ -14,10 +14,10 @@
     </div>
 </script>
 <script type='text/template' id='_context-layer'>
-    <div id="context-layer-<%= id %>" class="layer-row">
+    <div id="context-layer-<%= id %>" class="layer-row <%= top_tree %>" data-id="<%= id %>">
         <div class="context-layer-title row">
             <div class="col">
-                <input type="checkbox" data-id="<%= id %>" disabled>
+                <input id="context-layer-<%= id %>-input" type="checkbox" data-id="<%= id %>" disabled>
                 <%= name %>
             </div>
             <div>

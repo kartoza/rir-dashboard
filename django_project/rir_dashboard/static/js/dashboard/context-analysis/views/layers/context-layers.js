@@ -2,20 +2,49 @@
  * Layers of map controlled in here.
  * Add layers in here.
  */
-define([], function () {
+define(['js/views/layers/context-layers-draggable'], function (ContextLayerDraggable) {
     return Backbone.View.extend({
         /** Initialization
          */
         cookieName: 'CONTEXTLAYERS',
+        cookieOrderName: 'CONTEXTLAYERSORDER',
         layers: {},
+        orders: [],
         initialize: function (data) {
             this.data = data;
             this.listener();
             this.idsFromCookie = getCookieInList(this.cookieName);
+
+            let orders = [];
+            const self = this;
+            this.data.forEach(
+                (layer, idx) => {
+                    orders.unshift(layer.id);
+                    self.layers[layer.id] = layer;
+                }
+            );
+
+            // get order cookie
+            const orderCookie = getCookieInList(this.cookieOrderName);
+            if (orderCookie.length) {
+                orders = orderCookie;
+            }
+            this.orders = orders;
         },
         /** Init listener for layers
          */
         listener: function () {
+        },
+        /** Change orders
+         */
+        changeOrders: function () {
+            const self = this;
+            this.orders = [];
+            $('#layer-list .side-panel-content .layer-row ').each(function () {
+                self.orders.unshift($(this).data('id'));
+            });
+            setCookie(this.cookieOrderName, this.orders.join(','));
+            event.trigger(evt.RERENDER_CONTEXT_LAYER);
         },
         /** Render the views
          */
@@ -25,69 +54,31 @@ define([], function () {
             // Init Layers
             // ----------------------------------------
             const $layerList = $('#layer-list .side-panel-content');
-            this.data.forEach(
-                (layer, idx) => {
+            // console.log(this.orders)
+            this.orders.forEach(
+                (id, idx) => {
+                    console.log(id)
+                    const layer = self.layers[id];
                     let $appendElement = $layerList;
+                    layer['top_tree'] = 'top-tree';
                     if (layer.group_name) {
                         let $group = $layerList.find(`div[data-group="${layer.group_name}"]`);
                         if ($group.length === 0) {
-                            $layerList.append(templates.CONTEXT_LAYER_GROUP(layer))
+                            $layerList.prepend(templates.CONTEXT_LAYER_GROUP(layer));
+                            self.initLayerEvent('context-layer-group-' + layer.group);
                         }
+                        layer['top_tree'] = '';
                         $appendElement = $layerList.find(`div[data-group="${layer.group_name}"] .layer-list-group`);
 
                     }
-                    $appendElement.append(templates.CONTEXT_LAYER(layer));
-                    self.layers[layer.id] = layer;
+                    $appendElement.prepend(templates.CONTEXT_LAYER(layer));
+                    self.initLayerEvent('context-layer-' + layer.id);
                     self.initLayer(layer);
                 }
             );
-            // ----------------------------------------
-            // Initiate toggle group event
-            // ----------------------------------------
-            $('#layer-list .group-name .group-toggle').click(function () {
-                const $row = $(this).closest('.group');
-                const $i = $(this);
-                $i.toggleClass('fa-caret-down').toggleClass('fa-caret-up').toggleClass('hidden');
-                if (!$i.hasClass('fa-caret-down')) {
-                    $row.find('.layer-list-group').show()
-                } else {
-                    $row.find('.layer-list-group').hide()
-                }
-            });
-            // ----------------------------------------
-            // Initiate toggle legend
-            // ----------------------------------------
-            $('#layer-list .legend-toggle').click(function () {
-                const $row = $(this).closest('.layer-row');
-                const $i = $(this);
-                $i.toggleClass('fa-caret-down').toggleClass('fa-caret-up').toggleClass('hidden');
-                if (!$i.hasClass('fa-caret-down')) {
-                    $row.find('.legend').show()
-                } else {
-                    $row.find('.legend').hide()
-                }
-            });
 
-            // ----------------------------------------
-            // Initiate group checkbox event
-            // ----------------------------------------
-            $('.group-checkbox').click(function () {
-                const checked = this.checked;
-                $(this).closest('.group').find('.layer-row input').each(function (index) {
-                    if (!checked && $(this).prop("checked")) {
-                        $(this).click()
-                    } else if (checked && !$(this).prop("checked")) {
-                        $(this).click()
-                    }
-                });
-            });
-
-            // ----------------------------------------
-            // Initiate layer checkbox event
-            // ----------------------------------------
-            $('.layer-row input').click(function () {
-                self.checkboxLayerClicked(this)
-            })
+            // Init drag event
+            new ContextLayerDraggable(this);
         },
         checkboxLayerClicked: function (element) {
             const layer = this.layers[$(element).data('id')];
@@ -143,6 +134,69 @@ define([], function () {
                     self.addLayerToData(layerData, layer, legend);
                     break;
             }
+        },
+
+        /**
+         * Initiate layer event
+         */
+        initLayerEvent: function (id) {
+            const self = this;
+            // ----------------------------------------
+            // Initiate toggle group event
+            // ----------------------------------------
+            $(`#${id} .group-name .group-toggle`).click(function () {
+                const $row = $(this).closest('.group');
+                const $i = $(this);
+                $i.toggleClass('fa-caret-down').toggleClass('fa-caret-up').toggleClass('hidden');
+                if (!$i.hasClass('fa-caret-down')) {
+                    $row.find('.layer-list-group').show()
+                } else {
+                    $row.find('.layer-list-group').hide()
+                }
+            });
+            // ----------------------------------------
+            // Initiate toggle legend
+            // ----------------------------------------
+            $(`#${id} .legend-toggle`).click(function () {
+                const $row = $(this).closest('.layer-row');
+                const $i = $(this);
+                $i.toggleClass('fa-caret-down').toggleClass('fa-caret-up').toggleClass('hidden');
+                if (!$i.hasClass('fa-caret-down')) {
+                    $row.find('.legend').show()
+                } else {
+                    $row.find('.legend').hide()
+                }
+            });
+
+            // ----------------------------------------
+            // Initiate group checkbox event
+            // ----------------------------------------)
+            $(`#${id} .group-checkbox`).click(function () {
+                const checked = this.checked;
+                $(this).closest('.group').find('.layer-row input').each(function (index) {
+                    if (!checked && $(this).prop("checked")) {
+                        $(this).click()
+                    } else if (checked && !$(this).prop("checked")) {
+                        $(this).click()
+                    }
+                });
+            })
+
+            // ----------------------------------------
+            // Initiate layer checkbox event
+            // ----------------------------------------
+            $(`#${id}-input`).click(function () {
+                self.checkboxLayerClicked(this);
+                const $groupRow = $(this).closest('.group');
+                const $group = $groupRow.find('.layer-list-group');
+                const inputLength = $group.find('input').length;
+                const inputLengthChecked = $group.find('input:checked').length;
+                if (inputLength === inputLengthChecked) {
+                    $groupRow.find('.group-checkbox').prop('checked', true);
+                } else {
+                    $groupRow.find('.group-checkbox').prop('checked', false);
+                }
+            })
         },
 
         /**

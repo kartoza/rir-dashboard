@@ -100,7 +100,7 @@
                                     </tr>
                                     {% for group_name, group in indicators_in_groups.items %}
                                         <tbody class="group">
-                                        <tr class="group-name hidden">
+                                        <tr class="group-name">
                                             <td class="row">
                                                 <div class="col">{{ group_name }}</div>
                                                 <div><i class="group-toggle fa fa-caret-up" aria-hidden="true"></i></div>
@@ -270,6 +270,7 @@
                 'js/views/map': '{% static 'js/dashboard/context-analysis/views/map.js' %}?',
                 'js/views/layers/control': '{% static 'js/dashboard/context-analysis/views/layers/control.js' %}?',
                 'js/views/layers/context-layers': '{% static 'js/dashboard/context-analysis/views/layers/context-layers.js' %}?',
+                'js/views/layers/context-layers-draggable': '{% static 'js/dashboard/context-analysis/views/layers/context-layers-draggable.js' %}?',
                 'js/views/layers/indicator-layer': '{% static 'js/dashboard/context-analysis/views/layers/indicator-layer.js' %}?',
                 'js/views/layers/administrative-level': '{% static 'js/dashboard/context-analysis/views/layers/administrative-level.js' %}?',
             }
