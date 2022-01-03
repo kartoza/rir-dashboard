@@ -129,14 +129,14 @@
                     $.each(data, function (index, values) {
                         setTimeout(function () {
                             $('#content-view tr').each(function () {
-                                if ($(this).data('code') === values.geometry) {
+                                if ($(this).data('code') === values.code) {
                                     const $row = $(this);
                                     const value = values.value;
                                     if (value) {
                                         $row.find('.value-input').val(value);
                                         // check others properties
                                         $.each(values, function (key, value) {
-                                            if (!['severity', 'district', 'pcode', 'geometry', 'value', 'id'].includes(key)) {
+                                            if (!['district', 'code', 'geometry', 'value', 'id'].includes(key.toLowerCase())) {
                                                 if (value) {
                                                     addNewExtraValue($row, key, value)
                                                 }

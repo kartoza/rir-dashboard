@@ -52,6 +52,19 @@ define([], function () {
                     $row.find('.layer-list-group').hide()
                 }
             });
+            // ----------------------------------------
+            // Initiate toggle legend
+            // ----------------------------------------
+            $('#layer-list .legend-toggle').click(function () {
+                const $row = $(this).closest('.layer-row');
+                const $i = $(this);
+                $i.toggleClass('fa-caret-down').toggleClass('fa-caret-up').toggleClass('hidden');
+                if (!$i.hasClass('fa-caret-down')) {
+                    $row.find('.legend').show()
+                } else {
+                    $row.find('.legend').hide()
+                }
+            });
 
             // ----------------------------------------
             // Initiate group checkbox event
@@ -78,9 +91,16 @@ define([], function () {
             const layer = this.layers[$(element).data('id')];
             const $element = $(`#context-layer-${layer.id}`);
             const $legend = $element.find('.legend');
+            const $toggleButton = $element.find('.legend-toggle');
             layer.show = element.checked;
-            if (element.checked) $legend.show();
-            else $legend.hide();
+            if (element.checked) {
+                $toggleButton.show();
+                $toggleButton.addClass('fa-caret-down');
+                $toggleButton.removeClass('fa-caret-up');
+            } else {
+                $legend.hide();
+                $toggleButton.hide();
+            }
             event.trigger(evt.RERENDER_CONTEXT_LAYER);
         },
 
@@ -112,7 +132,11 @@ define([], function () {
                     break;
                 case 'Raster Tile':
                     const layer = L.tileLayer.wms(url, params);
-                    self.addLayerToData(layerData, layer, `<img src="${layerData.url_legend}">`);
+                    let legend = '';
+                    if (layerData.url_legend) {
+                        legend = `<img src="${layerData.url_legend}">`
+                    }
+                    self.addLayerToData(layerData, layer, legend);
                     break;
             }
         },

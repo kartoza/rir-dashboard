@@ -99,7 +99,9 @@ const csvToJson = (string, headers, quoteChar = '"', delimiter = ',') => {
 }
 
 function numberWithCommas(x) {
-    if (isNaN(x)) {
+    if (x === null) {
+        return '';
+    } else if (isNaN(x)) {
         return x;
     } else {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");

@@ -71,15 +71,19 @@
                     {# indicator #}
                     <div id="indicator" class="content">
                         <div class="inner-content">
-                            <div class="scenario-header shrink side-panel-header scenario-{{ overall_scenario.level }}">
+                            <div class="scenario-header shrink side-panel-header scenario-{{ overall_scenario.level }} row">
                                 <div class="left-side-fullscreen pull-right side-panel-control" title="Fullscreen">
                                     <i class="fa fa-caret-right" aria-hidden="true"></i>
                                 </div>
                                 <div class="left-side-exit-fullscreen pull-right side-panel-control" style="display: none" title="Exit Fullscreen">
                                     <i class="fa fa-caret-left" aria-hidden="true"></i>
                                 </div>
-                                Scenario {% if overall_scenario.level %}{{ overall_scenario.level }}: {{ overall_scenario.name }}{% else %} <i>unknown</i> {% endif %}
-                                {% include 'dashboard/context-analysis/_template-scenario-bullet.html' with overall_scenario=overall_scenario.level %}
+                                <div class="col">
+                                    Scenario {% if overall_scenario.level %}{{ overall_scenario.level }}: {{ overall_scenario.name }}{% else %} <i>unknown</i> {% endif %}
+                                </div>
+                                <div>
+                                    {% include 'dashboard/context-analysis/_template-scenario-bullet.html' with overall_scenario=overall_scenario.level %}
+                                </div>
                             </div>
                             <div class="side-panel-content">
                                 <table>

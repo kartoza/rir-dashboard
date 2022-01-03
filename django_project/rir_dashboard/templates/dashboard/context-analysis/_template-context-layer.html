@@ -15,9 +15,14 @@
 </script>
 <script type='text/template' id='_context-layer'>
     <div id="context-layer-<%= id %>" class="layer-row">
-        <div class="context-layer-title">
-            <input type="checkbox" data-id="<%= id %>" disabled>
-            <%= name %>
+        <div class="context-layer-title row">
+            <div class="col">
+                <input type="checkbox" data-id="<%= id %>" disabled>
+                <%= name %>
+            </div>
+            <div>
+                <i class="legend-toggle fa fa-caret-down" aria-hidden="true"></i>
+            </div>
         </div>
         <div class="legend"></div>
     </div>
