@@ -6,10 +6,12 @@ define([], function () {
     return Backbone.View.extend({
         /** Initialization
          */
+        cookieName: 'CONTEXTLAYERS',
         layers: {},
         initialize: function (data) {
             this.data = data;
             this.listener();
+            this.idsFromCookie = getCookieInList(this.cookieName);
         },
         /** Init listener for layers
          */
@@ -97,9 +99,11 @@ define([], function () {
                 $toggleButton.show();
                 $toggleButton.addClass('fa-caret-down');
                 $toggleButton.removeClass('fa-caret-up');
+                appendCookie(this.cookieName, $(element).data('id'));
             } else {
                 $legend.hide();
                 $toggleButton.hide();
+                removeCookie(this.cookieName, $(element).data('id'));
             }
             event.trigger(evt.RERENDER_CONTEXT_LAYER);
         },
@@ -157,7 +161,7 @@ define([], function () {
                 layerData['show'] = layerData.enable_by_default;
                 $legend.html(legend);
                 $input.removeAttr('disabled');
-                if (layerData.enable_by_default) {
+                if (layerData.enable_by_default || this.idsFromCookie.includes('' + layerData.id)) {
                     $input.click();
                     this.checkboxLayerClicked($input[0]);
                 }

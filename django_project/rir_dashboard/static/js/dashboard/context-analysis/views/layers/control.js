@@ -16,6 +16,7 @@ define([
         indicatorRight: null,
 
         isAutoPlay: false,
+        cookieName: 'INDICATORLAYERS',
         initialize: function (map) {
             this.map = map;
             map.createPane(evt.INDICATOR_LEFT_PANE);
@@ -37,6 +38,7 @@ define([
                 }
             )
 
+            this.idsFromCookie = getCookieInList(this.cookieName);
             this.indicatorInit();
         },
         /** Init listener for layers
@@ -122,6 +124,7 @@ define([
                     if ($('#right-side').data('hidden')) {
                         $('#info-toggle').click();
                     }
+                    appendCookie(self.cookieName, $(this).data('id'));
                 } else {
                     // check which side is it and make it null
                     if (indicatorLayer === self.indicatorLeft) {
@@ -130,8 +133,16 @@ define([
                         self.indicatorRight = null;
                     }
                     indicatorLayer.hide();
+                    removeCookie(self.cookieName, $(this).data('id'));
                 }
             });
+
+            // init default one
+            console.log(this.idsFromCookie)
+            $.each(this.idsFromCookie, function (index, id) {
+                $('#indicator-checkbox-' + id).click();
+            })
+
         },
         /**
          * When indicator layer added/removed

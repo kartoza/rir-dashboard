@@ -39,35 +39,6 @@ function cloneObject(obj) {
 
 
 /**
- * Set cookie
- */
-function setCookie(name, value, days) {
-    var expires = "";
-    if (days) {
-        var date = new Date();
-        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-        expires = "; expires=" + date.toUTCString();
-    }
-    document.cookie = name + "=" + (value || "") + expires + "; path=/";
-}
-
-
-/**
- * Get cookie
- */
-function getCookie(name) {
-    var nameEQ = name + "=";
-    var ca = document.cookie.split(';');
-    for (var i = 0; i < ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
-    }
-    return null;
-}
-
-
-/**
  * Copy to clipboard
  */
 function copyToClipboard(elmt) {
@@ -149,4 +120,79 @@ function dateToYYYYMMDD(date) {
 function dateToDDMMYYY(date) {
     const dates = extractedDate(date)
     return `${dates[0]}-${dates[1]}-${dates[2]}`
+}
+
+function distinct(value, index, self) {
+    return self.indexOf(value) === index;
+}
+
+//----------------------------------------------------------
+// COOKIE MANAGEMEND
+//----------------------------------------------------------
+/**
+ * Get cookie
+ */
+function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+}
+
+/**
+ * Return cookie in list and unique
+ */
+function getCookieInList(name) {
+    let cookie = [];
+    if (getCookie(name)) {
+        cookie = getCookie(name).split(',');
+        cookie = cookie.filter(distinct)
+    }
+    return cookie;
+}
+
+
+/**
+ * Set cookie
+ */
+function setCookie(name, value, days) {
+    var expires = "";
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "") + expires + "; path=/";
+}
+
+
+/**
+ * Append cookie with using comma separator
+ */
+function appendCookie(name, value) {
+    let cookie = getCookie(name);
+    let cookieData = []
+    if (cookie) {
+        cookieData = cookie.split(',');
+    }
+    cookieData.push(value);
+    cookieData = cookieData.filter(distinct);
+    setCookie(name, cookieData.join(','));
+}
+
+/**
+ * Append cookie with using comma separator
+ */
+function removeCookie(name, value) {
+    let cookie = getCookie(name);
+    let cookieData = []
+    if (cookie) {
+        cookieData = cookie.split(',');
+    }
+    cookieData = cookieData.filter(e => e !== ('' + value));
+    setCookie(name, cookieData.join(','));
 }

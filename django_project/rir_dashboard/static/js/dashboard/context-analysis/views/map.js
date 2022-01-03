@@ -6,6 +6,7 @@ define([], function () {
     return Backbone.View.extend({
         /** Initialization
          */
+        basemapCookieName: 'BASEMAP',
         basemapLayer: null,
         initialize: function () {
             this.map = L.map('map',
@@ -32,9 +33,16 @@ define([], function () {
             $('#basemap-list .basemap-box').click(function () {
                 $('#basemap-list .basemap-box').removeClass('active');
                 $(this).addClass('active');
-                self.basemapChanged(basemapLayers[$(this).data('id')])
+                self.basemapChanged(basemapLayers[$(this).data('id')]);
+                setCookie(self.basemapCookieName, $(this).data('id'));
             });
-            $(`#basemap-list .basemap-box[data-id="${basemapDefault}"]`).click()
+
+            // set default one
+            let basemapDefaultID = basemapDefault;
+            if (getCookie(self.basemapCookieName)) {
+                basemapDefaultID = getCookie(self.basemapCookieName);
+            }
+            $(`#basemap-list .basemap-box[data-id="${basemapDefaultID}"]`).click()
         },
         /**
          * Pan map to lat lng
