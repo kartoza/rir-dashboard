@@ -44,13 +44,13 @@ class HarvesterFormView(AdminView):
             pass
 
         harvester_class = str(self.harvester_class).split("'")[1]
-        if harvester and harvester.harvester_class != harvester_class:
-            raise Http404('Harvester does not match')
-
         for name, description in self.harvester_class.additional_attributes().items():
             value = ''
-            if harvester:
-                value = harvester.harvesterattribute_set.get(name=name).value
+            try:
+                if harvester:
+                    value = harvester.harvesterattribute_set.get(name=name).value
+            except HarvesterAttribute.DoesNotExist:
+                pass
             attributes.append(
                 {
                     'name': name,
@@ -66,7 +66,10 @@ class HarvesterFormView(AdminView):
                 {
                     'name': harvester[1],
                     'value': harvester[0],
-                    'description': import_string(harvester[0]).description
+                    'description': import_string(harvester[0]).description,
+                    'url': reverse(
+                        harvester[0], args=[self.instance.slug, self.indicator.id]
+                    )
                 } for harvester in HARVESTERS
             ],
             'harvester_class': harvester_class,

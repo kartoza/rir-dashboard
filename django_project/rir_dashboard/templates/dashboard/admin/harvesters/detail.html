@@ -21,58 +21,64 @@
                     <button class="main-button" type="submit" style="margin-left: 1px">Harvest Now</button>
                 </form>
             {% endif %}
-            <a href="{% url "harvester-api-with-geography-and-date" instance.slug indicator.id %}" class="pull-right">
+            <a href="{% url indicator.harvester.harvester_class instance.slug indicator.id %}" class="pull-right">
                 <button class="main-button">Edit</button>
             </a>
         </div>
         <div id="content-view">
             <div class="section box-shadow-bottom">
                 <div class="line"><b>Harvester Class</b> {{ harvester.harvester_class }}</div>
-                <h3>Attributes</h3>
-                <table class="content-table">
-                    <tr>
-                        <th>Name</th>
-                        <th>Value</th>
-                    </tr>
-                    {% for attribute in harvester.harvesterattribute_set.all %}
+                {% if harvester.harvesterattribute_set.count %}
+                    <h3>Attributes</h3>
+                    <table class="content-table">
                         <tr>
-                            <td>{{ attribute.human_name }}</td>
-                            <td>{% if attribute.value %}{{ attribute.value }}{% endif %}</td>
+                            <th>Name</th>
+                            <th>Value</th>
                         </tr>
-                    {% endfor %}
-                </table>
-                <br>
-                <h3>Mapping Data</h3>
-                <table id="mapping-table" class="content-table">
-                    <tr>
-                        <th>From</th>
-                        <th>To</th>
-                    </tr>
-                    {% for mapping_value in harvester.harvestermappingvalue_set.all %}
+                        {% for attribute in harvester.harvesterattribute_set.all %}
+                            <tr>
+                                <td>{{ attribute.human_name }}</td>
+                                <td>{% if attribute.value %}{{ attribute.value }}{% endif %}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                    <br>
+                {% endif %}
+                {% if harvester.harvestermappingvalue_set.count %}
+                    <h3>Mapping Data</h3>
+                    <table id="mapping-table" class="content-table">
                         <tr>
-                            <td style="width: 50%">{{ mapping_value.remote_value }}</td>
-                            <td style="width: 50%">{{ mapping_value.platform_value }}</td>
+                            <th>From</th>
+                            <th>To</th>
                         </tr>
-                    {% endfor %}
-                </table>
-                <br>
-                <h3>Log</h3>
-                <table class="content-table">
-                    <tr>
-                        <th>Start Time</th>
-                        <th>End Time</th>
-                        <th>Status</th>
-                        <th>Note</th>
-                    </tr>
-                    {% for log in harvester.harvesterlog_set.all %}
+                        {% for mapping_value in harvester.harvestermappingvalue_set.all %}
+                            <tr>
+                                <td style="width: 50%">{{ mapping_value.remote_value }}</td>
+                                <td style="width: 50%">{{ mapping_value.platform_value }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                    <br>
+                {% endif %}
+                {% if harvester.harvesterlog_set.count %}
+                    <h3>Log</h3>
+                    <table class="content-table">
                         <tr>
-                            <td>{{ log.start_time }}</td>
-                            <td>{{ log.end_time }}</td>
-                            <td>{{ log.status }}</td>
-                            <td>{{ log.note }}</td>
+                            <th>Start Time</th>
+                            <th>End Time</th>
+                            <th>Status</th>
+                            <th>Note</th>
                         </tr>
-                    {% endfor %}
-                </table>
+                        {% for log in harvester.harvesterlog_set.all %}
+                            <tr>
+                                <td>{{ log.start_time }}</td>
+                                <td>{{ log.end_time }}</td>
+                                <td>{{ log.status }}</td>
+                                <td>{{ log.note }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                {% endif %}
             </div>
         </div>
     </div>

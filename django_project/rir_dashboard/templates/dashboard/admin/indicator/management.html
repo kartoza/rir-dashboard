@@ -19,19 +19,20 @@
                                         {{ indicator.name }}
                                     </div>
                                     <div style="margin-right: 10px">
-                                        {% if indicator.harvester and  indicator.harvester.is_run %}
-                                            <div style="border: 1px solid var(--primary-color); padding: 5px 15px">Is Harvesting</div>
-                                        {% elif indicator.harvester %}
-                                            <form action="{% url "harvester-detail" instance.slug indicator.id %}" method="post" enctype="multipart/form-data" class="pull-right">
-                                                {% csrf_token %}
-                                                <button class="main-button" type="submit">Harvest Now</button>
-                                            </form>
-                                        {% else %}
-                                            <a href="{% url "indicator-value-form-manager" instance.slug indicator.id %}">
-                                                <button class="main-button" type="submit">Data Capture Form</button>
-                                            </a>
+                                        {% if not indicator.harvester or indicator.harvester.harvester_class != external_exposed_api %}
+                                            {% if indicator.harvester and  indicator.harvester.is_run %}
+                                                <div style="border: 1px solid var(--primary-color); padding: 5px 15px">Is Harvesting</div>
+                                            {% elif indicator.harvester %}
+                                                <form action="{% url "harvester-detail" instance.slug indicator.id %}" method="post" enctype="multipart/form-data" class="pull-right">
+                                                    {% csrf_token %}
+                                                    <button class="main-button" type="submit">Harvest Now</button>
+                                                </form>
+                                            {% else %}
+                                                <a href="{% url "indicator-value-form-manager" instance.slug indicator.id %}">
+                                                    <button class="main-button" type="submit">Data Capture Form</button>
+                                                </a>
+                                            {% endif %}
                                         {% endif %}
-
                                     </div>
                                     <div>
                                         <div class="navbar-options">
@@ -63,7 +64,7 @@
                                                     {% if indicator.harvester %}
                                                         <a href="{% url "harvester-detail" instance.slug indicator.id %}">Harvester</a>
                                                     {% else %}
-                                                        <a class="create-harvester" href="{% url "harvester-api-with-geography-and-date" instance.slug indicator.id %}">Create Harvester</a>
+                                                        <a class="create-harvester" href="{{ indicator.create_harvester_url }}">Create Harvester</a>
                                                     {% endif %}
                                                 </li>
                                                 <li>

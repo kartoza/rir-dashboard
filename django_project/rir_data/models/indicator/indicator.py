@@ -1,4 +1,5 @@
 import typing
+import uuid
 from datetime import date
 from django.db.models import Count, Sum
 from django.contrib.gis.db import models
@@ -57,11 +58,11 @@ class Indicator(AbstractTerm):
 
     aggregation_behaviour = models.CharField(
         max_length=256,
-        default=AggregationBehaviour.USE_AVAILABLE,
+        default=AggregationBehaviour.USE_MOST_RECENT,
         choices=(
             # (AggregationBehaviour.ALL_REQUIRED, AggregationBehaviour.ALL_REQUIRED),
             (AggregationBehaviour.USE_AVAILABLE, AggregationBehaviour.USE_AVAILABLE),
-            # (AggregationBehaviour.USE_MOST_RECENT, AggregationBehaviour.USE_MOST_RECENT)
+            (AggregationBehaviour.USE_MOST_RECENT, AggregationBehaviour.USE_MOST_RECENT)
         )
     )
 
@@ -75,6 +76,19 @@ class Indicator(AbstractTerm):
     )
     order = models.IntegerField(
         default=0
+    )
+
+    # exposed API
+    api_exposed = models.BooleanField(
+        default=False
+    )
+    api_token = models.UUIDField(
+        default=uuid.uuid4, editable=False,
+        help_text='Indicate that API is exposed outside. This API is used for get the data and also post new data.'
+    )
+    api_note = models.TextField(
+        null=True, blank=True,
+        help_text='Note about the usage of api, can put link that is using API to push the data.'
     )
 
     def __str__(self):
@@ -177,7 +191,7 @@ class Indicator(AbstractTerm):
         return values
 
     def values(self, geometry: Geometry, geometry_level: GeometryLevelName, date_data: date,
-               use_exact_date=False, more_information=False):
+               use_exact_date=False, more_information=False, serializer=None):
         """
         Return list data based on the geometry and geometry level with date
         If it is upper than the reporting geometry level, it will be aggregate to upper level
@@ -206,14 +220,17 @@ class Indicator(AbstractTerm):
                     attributes.update({
                         extra.name: extra.value for extra in indicator_value.indicatorextravalue_set.all()
                     })
-
-                values.append(
-                    self.serialize(
+                if serializer:
+                    attributes.update(
+                        serializer(indicator_value).data)
+                    value = attributes
+                else:
+                    value = self.serialize(
                         indicator_value.geometry,
                         indicator_value.value,
                         attributes
                     )
-                )
+                values.append(value)
 
         else:
             # this is for returning non real data
@@ -329,3 +346,10 @@ class Indicator(AbstractTerm):
             return level_instance.get_level_tree()
         else:
             return []
+
+    @property
+    def create_harvester_url(self):
+        from rir_harvester.models.harvester import HARVESTERS
+        return reverse(
+            HARVESTERS[0][0], args=[self.group.instance.slug, self.id]
+        )

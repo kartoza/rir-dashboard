@@ -54,10 +54,8 @@ define(['js/views/layers/context-layers-draggable'], function (ContextLayerDragg
             // Init Layers
             // ----------------------------------------
             const $layerList = $('#layer-list .side-panel-content');
-            // console.log(this.orders)
             this.orders.forEach(
                 (id, idx) => {
-                    console.log(id)
                     const layer = self.layers[id];
                     let $appendElement = $layerList;
                     layer['top_tree'] = 'top-tree';

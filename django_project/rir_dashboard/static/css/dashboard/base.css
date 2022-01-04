@@ -8,6 +8,10 @@ html, body {
     --header-height: 43px;
 }
 
+.navbar {
+    padding: 10px 0 10px 20px !important;
+}
+
 .row {
     margin: 0;
 }

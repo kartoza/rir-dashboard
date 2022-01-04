@@ -79,5 +79,15 @@
         {% if is_create %}
             $('#nav-indicator-create').addClass('active')
         {% endif %}
+        const $note = $('p[data-field-name="api_note"]');
+        $note.hide();
+        $('#id_api_exposed').change(function () {
+            if (this.checked) {
+                $note.show();
+            } else {
+                $note.hide();
+            }
+        })
+        $('#id_api_exposed').trigger('change');
     </script>
 {% endblock %}

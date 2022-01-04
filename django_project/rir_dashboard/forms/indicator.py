@@ -1,5 +1,6 @@
 from django import forms
 from django.forms.models import model_to_dict
+from django.shortcuts import reverse
 from rir_data.models.instance import Instance
 from rir_data.models.indicator import (
     Indicator, IndicatorFrequency, IndicatorGroup, frequency_help_text,
@@ -18,6 +19,10 @@ class IndicatorForm(forms.ModelForm):
         help_text=frequency_help_text
     )
     group = forms.CharField()
+    api_exposed = forms.BooleanField(
+        label='Expose API',
+        required=False
+    )
 
     def __init__(self, *args, **kwargs):
         level = None
@@ -26,14 +31,29 @@ class IndicatorForm(forms.ModelForm):
         except KeyError:
             pass
         instance = kwargs.pop("indicator_instance")
+
+        try:
+            indicator_object = kwargs.pop("indicator_object")
+        except KeyError:
+            indicator_object = None
+
         super().__init__(*args, **kwargs)
         if level:
             self.fields['geometry_reporting_level'].choices = [(u.id, u.name) for u in level]
         self.fields['instance'].initial = instance
 
+        self.fields['api_exposed'].help_text = 'Indicate that API is exposed outside. This API is used for get the data and also post new data.'
+        if indicator_object:
+            api_url = reverse(
+                'indicator-values-api', args=[instance.slug, indicator_object.id]
+            )
+            self.fields['api_exposed'].help_text += f'<br>Can access the API with url : <a href="{api_url}">{api_url}</a>. <br>Use this token to access it : <b>{str(indicator_object.api_token)}</b>.'
+        else:
+            self.fields['api_exposed'].help_text += f'<br>The url of API will be created after the indicator created..'
+
     class Meta:
         model = Indicator
-        exclude = ('unit', 'order', 'geometry_reporting_units')
+        exclude = ('unit', 'order', 'geometry_reporting_units', 'instance')
 
     def clean_frequency(self):
         frequency = self.cleaned_data['frequency']

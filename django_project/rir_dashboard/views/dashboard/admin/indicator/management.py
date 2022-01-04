@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404, redirect, reverse
 from rir_dashboard.views.dashboard.admin._base import AdminView
 from rir_data.models.indicator import Indicator
 from rir_data.models.instance import Instance
+from rir_harvester.models.harvester import UsingExposedAPI
 
 
 class IndicatorManagementView(AdminView):
@@ -17,7 +18,8 @@ class IndicatorManagementView(AdminView):
         Return context for specific view by instance
         """
         context = {
-            'indicators': Indicator.objects.filter(group__instance=self.instance)
+            'indicators': Indicator.objects.filter(group__instance=self.instance),
+            'external_exposed_api': UsingExposedAPI[0]
         }
         return context
 

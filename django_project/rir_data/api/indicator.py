@@ -7,11 +7,11 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from core.permissions import AdminAuthenticationPermission
-from rir_data.serializer.indicator import IndicatorSerializer
+from rir_data.authentication import IndicatorTokenAuthentication
 from rir_data.models.instance import Instance
-from rir_data.models.indicator import Indicator, IndicatorValue
-from rir_data.models.geometry import Geometry, GeometryLevelName
-from rir_data.serializer.indicator import IndicatorValueSerializer
+from rir_data.models.indicator import Indicator, IndicatorValue, IndicatorExtraValue
+from rir_data.models.geometry import Geometry, GeometryLevelName, GeometryLevelInstance
+from rir_data.serializer.indicator import IndicatorSerializer, IndicatorValueSerializer, IndicatorDetailValueSerializer
 
 
 class IndicatorsList(APIView):
@@ -109,7 +109,9 @@ class IndicatorValuesByDate(APIView):
         instance = get_object_or_404(
             Instance, slug=slug
         )
-        indicator = instance.indicators.get(id=pk)
+        indicator = get_object_or_404(
+            instance.indicators, id=pk
+        )
         geometry = instance.geometries().get(identifier__iexact=geometry_identifier)
         geometry_level = GeometryLevelName.objects.get(name__iexact=geometry_level)
         date = datetime.strptime(date, "%Y-%m-%d").date()
@@ -170,7 +172,7 @@ class IndicatorValuesByDateAndGeojson(IndicatorValuesByDate):
             return HttpResponseBadRequest('Date format is not correct')
 
 
-class IndicatorValues(APIView):
+class IndicatorValuesByGeometryAndLevel(APIView):
     """
     Return Scenario value for the specific geometry
     Geometry level is the level that the value needs to get
@@ -188,7 +190,9 @@ class IndicatorValues(APIView):
         instance = get_object_or_404(
             Instance, slug=slug
         )
-        indicator = instance.indicators.get(id=pk)
+        indicator = get_object_or_404(
+            instance.indicators, id=pk
+        )
         geometry = instance.geometries().get(identifier__iexact=geometry_identifier)
         geometry_level = GeometryLevelName.objects.get(name__iexact=geometry_level)
         dates = indicator.indicatorvalue_set.values_list(
@@ -207,6 +211,109 @@ class IndicatorValues(APIView):
             raise Http404('The geometry level is not recognized')
         except ValueError:
             return HttpResponseBadRequest('Date format is not correct')
+
+
+class IndicatorValues(APIView):
+    """
+    Return Scenario value for country with the indicator geometry level
+    """
+    authentication_classes = (IndicatorTokenAuthentication,)
+
+    def get(self, request, slug, pk):
+        try:
+            instance = get_object_or_404(
+                Instance, slug=slug
+            )
+            indicator = instance.indicators.get(id=pk)
+            geometry = instance.geometries().first()
+            if geometry:
+                try:
+                    date = datetime.strptime(
+                        request.GET.get('date'), "%Y-%m-%d").date() if request.GET.get('date', None) else datetime.today()
+                except ValueError:
+                    return HttpResponseBadRequest('Date format should be YYYY-MM-DD')
+
+                return Response(
+                    indicator.values(
+                        geometry, indicator.geometry_reporting_level, date,
+                        serializer=IndicatorDetailValueSerializer
+                    )
+                )
+            else:
+                raise Http404('No geometry for the instance')
+        except GeometryLevelName.DoesNotExist:
+            raise Http404('The geometry level is not recognized')
+        except Indicator.DoesNotExist:
+            raise Http404('The indicator does not exist')
+        except GeometryLevelInstance.DoesNotExist:
+            raise Http404('The reporting level is not level of instance')
+
+    def post(self, request, slug, pk):
+        """
+        Save value for specific date
+
+        :param slug: slug of the instance
+        :param pk: pk of the indicator
+        :return:
+        """
+        try:
+            instance = get_object_or_404(
+                Instance, slug=slug
+            )
+            data = request.data
+            geometry = instance.geometries().get(
+                identifier=data['geometry_code'])
+            indicator = instance.indicators.get(id=pk)
+
+            # Validate the data
+            try:
+                date = datetime.strptime(
+                    data['date'], "%Y-%m-%d").date()
+            except ValueError:
+                return HttpResponseBadRequest('Date format should be YYYY-MM-DD')
+            try:
+                value = float(data['value'])
+            except ValueError:
+                return HttpResponseBadRequest('Value need to be number')
+
+            # extra data needs to be dictionary
+            try:
+                data['extra_data'].keys()
+            except AttributeError:
+                return HttpResponseBadRequest('The extra_data needs to be json')
+
+            # Check if value already exist
+            try:
+                indicator.indicatorvalue_set.get(
+                    date=date,
+                    geometry=geometry
+                )
+                return HttpResponseBadRequest('The value on this date already exist')
+            except IndicatorValue.DoesNotExist:
+                pass
+
+            indicator_value = IndicatorValue.objects.create(
+                date=date,
+                indicator=indicator,
+                geometry=geometry,
+                value=value
+            )
+            for key, value in data['extra_data'].items():
+                IndicatorExtraValue.objects.create(
+                    indicator_value=indicator_value,
+                    name=key,
+                    value=value
+                )
+
+            return Response(
+                IndicatorDetailValueSerializer(indicator_value).data
+            )
+        except Indicator.DoesNotExist:
+            return HttpResponseBadRequest('Indicator does not exist')
+        except Geometry.DoesNotExist:
+            return HttpResponseBadRequest('Geometry does not exist')
+        except KeyError as e:
+            return HttpResponseBadRequest(f'{e} is required')
 
 
 class IndicatorReportingUnits(APIView):

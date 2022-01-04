@@ -7,8 +7,13 @@ APIListWithGeographyAndDate = (
     'rir_harvester.harveters.api_with_geography_and_date.APIWithGeographyAndDate',
     'API With Geography And Date',
 )
+UsingExposedAPI = (
+    'rir_harvester.harveters.using_exposed_api.UsingExposedAPI',
+    'Harvested using exposed API by external client',
+)
 HARVESTERS = (
     APIListWithGeographyAndDate,
+    UsingExposedAPI,
 )
 
 

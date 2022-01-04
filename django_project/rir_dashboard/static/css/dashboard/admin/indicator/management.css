@@ -26,6 +26,7 @@
     margin-right: -1px;
     background: white;
     padding: 10px;
+    min-height: 53px;
 }
 
 .block-content .main-button {

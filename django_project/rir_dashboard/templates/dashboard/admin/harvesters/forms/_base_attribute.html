@@ -1,0 +1,25 @@
+{% extends 'dashboard/admin/harvesters/forms/_base.html' %}
+{% load static %}
+{% block attributes %}
+    <br>
+    <h3>Attributes</h3>
+    <table id="attributes-table" class="content-table">
+        <tr>
+            <th>Name</th>
+            <th>Value</th>
+        </tr>
+        {% for attribute in attributes %}
+            <tr>
+                <td style="width: 50%">{{ attribute.title }} <i class="fa fa-question-circle" aria-hidden="true" title="{{ attribute.description }}"></i></td>
+                <td style="width: 50%">
+                    <img class="loading" src="{% static "img/throbber.gif" %}">
+                    <input type="text" name="attribute_{{ attribute.name }}" value="{{ attribute.value }}" required>
+                    <div class="error"></div>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    {% block additional_field %}
+    {% endblock %}
+{% endblock %}

@@ -2,7 +2,7 @@ from django.conf.urls import url
 from django.urls import include
 from rir_data.api.geometry import GeometryGeojsonAPI
 from rir_data.api.indicator import (
-    IndicatorsList, IndicatorValues, IndicatorValuesByDateAndGeojson, IndicatorValuesByDate,
+    IndicatorsList, IndicatorValues, IndicatorValuesByGeometryAndLevel, IndicatorValuesByDateAndGeojson, IndicatorValuesByDate,
     IndicatorValuesByGeometry, IndicatorReportingUnits
 )
 from rir_dashboard.views.instances import InstancesView
@@ -28,6 +28,10 @@ indicator_api = [
     ),
     url(
         r'^(?P<pk>\d+)/values/(?P<geometry_identifier>.+)/(?P<geometry_level>.+)',
+        IndicatorValuesByGeometryAndLevel.as_view(), name='indicator-values-by-geometry-and-level-api'
+    ),
+    url(
+        r'^(?P<pk>\d+)/values',
         IndicatorValues.as_view(), name='indicator-values-api'
     ),
     url(

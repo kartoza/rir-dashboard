@@ -56,31 +56,12 @@
                         <label class="label required" for="name">Harvester</label>
                         <select name="harvester" id="harvester-selection">
                             {% for harvester in harvesters %}
-                                <option value="{{ harvester.value }}">{{ harvester.name }}</option>
+                                <option value="{{ harvester.value }}" data-url="{{ harvester.url }}">{{ harvester.name }}</option>
                             {% endfor %}
                         </select>
                         <span id="harvester-description" class="helptext"></span>
                     </p>
-                    <br>
-                    <h3>Attributes</h3>
-                    <table id="attributes-table" class="content-table">
-                        <tr>
-                            <th>Name</th>
-                            <th>Value</th>
-                        </tr>
-                        {% for attribute in attributes %}
-                            <tr>
-                                <td style="width: 50%">{{ attribute.title }} <i class="fa fa-question-circle" aria-hidden="true" title="{{ attribute.description }}"></i></td>
-                                <td style="width: 50%">
-                                    <img class="loading" src="{% static "img/throbber.gif" %}">
-                                    <input type="text" name="attribute_{{ attribute.name }}" value="{{ attribute.value }}" required>
-                                    <div class="error"></div>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </table>
-
-                    {% block additional_field %}
+                    {% block attributes %}
                     {% endblock %}
                 </div>
             </div>
@@ -96,7 +77,7 @@
 
         const $harvesterSelection = $('#harvester-selection');
         $harvesterSelection.change(function () {
-            {#console.log($(this).val());#}
+            document.location = $(`#harvester-selection option[value="${$(this).val()}"]`).data('url');
         });
         $harvesterSelection.val('{{ harvester_class }}');
         const defaultDesc = harvestersDescription['{{ harvester_class }}'];

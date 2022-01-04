@@ -44,7 +44,8 @@ class IndicatorEditView(AdminView):
             'form': IndicatorForm(
                 initial=IndicatorForm.model_to_initial(indicator),
                 level=self.instance.geometry_levels_in_order,
-                indicator_instance=self.instance
+                indicator_instance=self.instance,
+                indicator_object=indicator,
             ),
             'scenarios': scenarios
         }

@@ -23,3 +23,24 @@ class IndicatorValueSerializer(serializers.ModelSerializer):
     class Meta:
         model = IndicatorValue
         fields = '__all__'
+
+
+class IndicatorDetailValueSerializer(serializers.ModelSerializer):
+    geometry_code = serializers.SerializerMethodField()
+    geometry_name = serializers.SerializerMethodField()
+    extra_data = serializers.SerializerMethodField()
+
+    def get_geometry_code(self, obj: IndicatorValue):
+        return obj.geometry.identifier
+
+    def get_geometry_name(self, obj: IndicatorValue):
+        return obj.geometry.name
+
+    def get_extra_data(self, obj: IndicatorValue):
+        return {
+            extra.name: extra.value for extra in obj.indicatorextravalue_set.all()
+        }
+
+    class Meta:
+        model = IndicatorValue
+        exclude = ('geometry', 'indicator')
