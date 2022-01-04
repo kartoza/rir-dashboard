@@ -1,4 +1,5 @@
 from datetime import date
+from django.db.models import Q
 from core.models.general import IconTerm, SlugTerm
 
 
@@ -180,3 +181,11 @@ class Instance(SlugTerm, IconTerm):
         Return context layers of the instance
         """
         return self.basemaplayer_set.filter(show_on_map=True)
+
+    @property
+    def links(self):
+        """
+        Return links of the instance
+        """
+        from rir_data.models import Link
+        return Link.objects.filter(Q(instance__isnull=True) | Q(instance=self))

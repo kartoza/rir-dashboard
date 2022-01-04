@@ -5,11 +5,25 @@
         <img src="{% if preferences.icon %}{{ preferences.icon }}{% endif %}">
         <div class="title">{{ preferences.site_title }} {% if page_title %} - {{ page_title }}{% endif %}</div>
     </a>
-    <div class="profile-button">
+    <div class="navigation-list row">
+        {% if links %}
+            <div class="navbar-options">
+                <a data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    Links <i class="fa fa-caret-down" aria-hidden="true"></i>
+                </a>
+                <ul class="dropdown-menu box-shadow-bottom">
+                    {% for link in links %}
+                        <li>
+                            <a href="{{ link.url }}">{{ link.name }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
         {% if user.is_authenticated %}
             <div class="navbar-options">
                 <a data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    {{ user.username }}
+                    {{ user.username }} <i class="fa fa-caret-down" aria-hidden="true"></i>
                 </a>
                 <ul class="dropdown-menu box-shadow-bottom">
                     {% if user.is_staff %}

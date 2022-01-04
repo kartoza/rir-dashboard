@@ -3,6 +3,10 @@
     --left-side-width-minus: -250px;
 }
 
+.navbar {
+    padding: 10px 0 10px 20px !important;
+}
+
 #content {
     padding-top: 0;
 }
