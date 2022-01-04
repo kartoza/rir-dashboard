@@ -3,9 +3,9 @@ from rir_data.models.link import Link
 
 
 class LinkAdmin(admin.ModelAdmin):
-    list_display = ('url', 'name', 'instance', 'order')
+    list_display = ('url', 'name', 'instance', 'is_public', 'order')
     list_filter = ('instance',)
-    list_editable = ('order',)
+    list_editable = ('order', 'is_public')
 
 
 admin.site.register(Link, LinkAdmin)
