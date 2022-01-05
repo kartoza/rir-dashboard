@@ -26,6 +26,10 @@ class AggregationMethod(object):
     MAJORITY = 'Aggregate data by majority data in the levels.'
 
 
+class IndicatorValueRejectedError(Exception):
+    pass
+
+
 class Indicator(AbstractTerm):
     """
     The indicator of scenario
@@ -76,6 +80,16 @@ class Indicator(AbstractTerm):
     )
     order = models.IntegerField(
         default=0
+    )
+
+    # threshold
+    min_value = models.FloatField(
+        default=0,
+        help_text="Minimum value for the indicator that can received"
+    )
+    max_value = models.FloatField(
+        default=100,
+        help_text="Maximum value for the indicator that can received"
     )
 
     # exposed API
@@ -353,3 +367,29 @@ class Indicator(AbstractTerm):
         return reverse(
             HARVESTERS[0][0], args=[self.group.instance.slug, self.id]
         )
+
+    def save_value(self, date: date, geometry: Geometry, value: float, extras: dict = None):
+        """ Save new value for the indicator """
+        from rir_data.models.indicator import IndicatorValue, IndicatorExtraValue
+        if value < self.min_value or value > self.max_value:
+            raise IndicatorValueRejectedError(f'Value needs between {self.min_value} - {self.max_value}')
+        indicator_value, created = IndicatorValue.objects.get_or_create(
+            indicator=self,
+            date=date,
+            geometry=geometry,
+            defaults={
+                'value': value
+            }
+        )
+        indicator_value.value = value
+        indicator_value.save()
+
+        if extras:
+            for extra_key, extra_value in extras.items():
+                indicator_extra_value, created = IndicatorExtraValue.objects.get_or_create(
+                    indicator_value=indicator_value,
+                    name=extra_key
+                )
+                indicator_extra_value.value = extra_value
+                indicator_extra_value.save()
+        return indicator_value

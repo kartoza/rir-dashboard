@@ -9,7 +9,7 @@ from rest_framework.views import APIView
 from core.permissions import AdminAuthenticationPermission
 from rir_data.authentication import IndicatorTokenAndBearerAuthentication
 from rir_data.models.instance import Instance
-from rir_data.models.indicator import Indicator, IndicatorValue, IndicatorExtraValue
+from rir_data.models.indicator import Indicator, IndicatorValue, IndicatorValueRejectedError
 from rir_data.models.geometry import Geometry, GeometryLevelName, GeometryLevelInstance
 from rir_data.serializer.indicator import IndicatorSerializer, IndicatorValueSerializer, IndicatorDetailValueSerializer
 
@@ -77,15 +77,14 @@ class IndicatorValuesByGeometry(APIView):
             Geometry, id=geometry_pk
         )
         indicator = instance.indicators.get(id=pk)
-        IndicatorValue.objects.get_or_create(
-            indicator=indicator,
-            geometry=geometry,
-            date=request.POST['date'],
-            defaults={
-                'value': request.POST['value']
-            }
-        )
-        return Response('OK')
+        try:
+            value = float(request.POST['value'])
+            indicator.save_value(request.POST['date'], geometry, value)
+            return Response('OK')
+        except ValueError:
+            return HttpResponseBadRequest('Value is not a number')
+        except IndicatorValueRejectedError as e:
+            return HttpResponseBadRequest(f'{e}')
 
 
 class IndicatorValuesByDate(APIView):
@@ -291,20 +290,8 @@ class IndicatorValues(APIView):
                 return HttpResponseBadRequest('The value on this date already exist')
             except IndicatorValue.DoesNotExist:
                 pass
-
-            indicator_value = IndicatorValue.objects.create(
-                date=date,
-                indicator=indicator,
-                geometry=geometry,
-                value=value
-            )
-            for key, value in data['extra_data'].items():
-                IndicatorExtraValue.objects.create(
-                    indicator_value=indicator_value,
-                    name=key,
-                    value=value
-                )
-
+            indicator_value = indicator.save_value(
+                date, geometry, value, data['extra_data'])
             return Response(
                 IndicatorDetailValueSerializer(indicator_value).data
             )
@@ -314,6 +301,8 @@ class IndicatorValues(APIView):
             return HttpResponseBadRequest('Geometry does not exist')
         except KeyError as e:
             return HttpResponseBadRequest(f'{e} is required')
+        except IndicatorValueRejectedError as e:
+            return HttpResponseBadRequest(f'{e}')
 
 
 class IndicatorReportingUnits(APIView):

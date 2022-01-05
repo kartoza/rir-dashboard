@@ -3,7 +3,8 @@ import json
 from django.http import Http404
 from django.shortcuts import redirect, reverse, render, get_object_or_404
 from rir_dashboard.views.dashboard.admin._base import AdminView
-from rir_data.models import Indicator, Instance, IndicatorValue, IndicatorExtraValue
+from rir_data.models import Indicator, Instance, IndicatorExtraValue
+from rir_data.models.indicator.indicator import IndicatorValueRejectedError
 from rir_data.serializer.geometry import GeometryContextSerializer
 
 
@@ -104,22 +105,11 @@ class IndicatorValueManagementTableView(AdminView):
                     except ValueError:
                         pass
                     else:
-                        pass
                         try:
-                            indicator_value = IndicatorValue.objects.get(
-                                indicator=indicator,
-                                date=date,
-                                geometry=reporting_unit
-                            )
-                        except IndicatorValue.DoesNotExist:
-                            indicator_value = IndicatorValue(
-                                indicator=indicator,
-                                date=date,
-                                geometry=reporting_unit
-                            )
-                        indicator_value.value = value
-                        indicator_value.save()
-                        indicator_values[f'{reporting_unit.id}'] = indicator_value
+                            indicator_value = indicator.save_value(date, reporting_unit, value)
+                            indicator_values[f'{reporting_unit.id}'] = indicator_value
+                        except IndicatorValueRejectedError:
+                            pass
 
                 # we need to check extra value
                 for key, extra_value in request.POST.dict().items():

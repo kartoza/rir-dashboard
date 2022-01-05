@@ -37,7 +37,9 @@
                                 </td>
                                 <td valign="top">
                                     <div>
-                                        New Value : <input id="input-{{ geometry.id }}" data-id="{{ geometry.id }}" class="value-input" data-code="{{ geometry.identifier }}" type="number" name="{{ geometry.id }}">
+                                        New Value :
+                                        <input id="input-{{ geometry.id }}" data-id="{{ geometry.id }}" class="value-input" data-code="{{ geometry.identifier }}" type="number" name="{{ geometry.id }}" value="{{ indicator.min_value }}"
+                                               min="{{ indicator.min_value }}" max="{{ indicator.max_value }}">
                                         <i id="value-{{ geometry.id }}"></i>
                                     </div>
                                     <div class="extra-value-wrapper">
@@ -87,7 +89,7 @@
         })
         $('#content-view .add-new').click(function () {
             const $row = $(this).closest('tr');
-            addNewExtraValue($row, '', '')
+            addNewExtraValue($row, '', {{ indicator.min }});
             return false;
         })
 
@@ -101,7 +103,7 @@
             $extraValue.append(
                 `<div class="extra-value-row">
                     <input type="text" name="${id}-${idx}-extra-name" placeholder="Name" value="${name}"> =
-                    <input type="text"  name="${id}-${idx}-extra-value"  placeholder="Value" value="${value}"> <i class="fa fa-times" aria-hidden="true"></i>
+                    <input type="text" name="${id}-${idx}-extra-value" placeholder="Value" value="${value}" min="{{ indicator.min_value }}" max="{{ indicator.max_value }}"> <i class="fa fa-times" aria-hidden="true"></i>
                 </div>`);
             $extraValue.show();
             $number.html(parseInt($number.html()) + 1);

@@ -5,6 +5,7 @@ from abc import ABC, abstractmethod
 from django.contrib.auth import get_user_model
 from django.utils import timezone
 from rir_data.models import Geometry, IndicatorValue
+from rir_data.models.indicator.indicator import IndicatorValueRejectedError
 from rir_harvester.models import (
     Harvester, HarvesterLog, LogStatus
 )
@@ -117,14 +118,7 @@ class BaseHarvester(ABC):
 
     def save_indicator_data(self, value: str, date: datetime.date, geometry: Geometry) -> IndicatorValue:
         """ Save new indicator data of the indicator """
-        indicator_value, created = IndicatorValue.objects.get_or_create(
-            indicator=self.harvester.indicator,
-            date=date,
-            geometry=geometry,
-            defaults={
-                'value': value
-            }
-        )
-        indicator_value.value = value
-        indicator_value.save()
-        return indicator_value
+        try:
+            return self.harvester.indicator.save_value(date, geometry, float(value))
+        except IndicatorValueRejectedError:
+            return None
