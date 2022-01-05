@@ -113,7 +113,8 @@ define([], function () {
             $(`.${this.side}-text`).html(`<table class="indicator-${this.id}"><tr><td><div>${this.name}</div></td> <td>${templates.SCENARIO_BULLET().replace('scenario-0', `scenario-${this.scenario}`).replace('pull-right', '')}</td></tr></table>`);
             $(`.${this.side}-info`).show();
             $(`.${this.side}-info`).html(templates.INDICATOR_INFO({
-                name: `<div class="indicator-${this.id}">${this.name} ${templates.SCENARIO_BULLET().replace('scenario-0', `scenario-${this.scenario}`)}</div>`,
+                name: `<div class="indicator-${this.id}">${this.name}</div>`,
+                indicator: templates.SCENARIO_BULLET().replace('scenario-0', `scenario-${this.scenario}`),
                 side: this.side
             }));
 

@@ -320,6 +320,20 @@
     display: flex;
 }
 
+#right-side .content-wrapper .indicator-info-title {
+    background: white;
+    border-bottom: 1px solid #f7f7f7;
+    border-top: 1px solid #f7f7f7;
+    color: black !important;
+    position: relative !important;
+    padding: 13px 12px 12px 12px;
+    font-weight: 700;
+}
+
+#right-side .content-wrapper .indicator-info-title .col {
+    padding: 0;
+}
+
 #right-side .content-wrapper .indicator-info-content {
     flex: 1;
     overflow-y: auto;
