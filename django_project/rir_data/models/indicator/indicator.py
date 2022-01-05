@@ -180,7 +180,7 @@ class Indicator(AbstractTerm):
         values = attributes if attributes else {}
         values.update({
             'geometry_id': geometry.id,
-            'geometry_identifier': geometry.identifier,
+            'geometry_code': geometry.identifier,
             'geometry_name': geometry.name,
             'value': value,
             'scenario_value': scenario_value.level if scenario_value else 0,

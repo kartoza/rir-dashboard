@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from core.permissions import AdminAuthenticationPermission
-from rir_data.authentication import IndicatorTokenAuthentication
+from rir_data.authentication import IndicatorTokenAndBearerAuthentication
 from rir_data.models.instance import Instance
 from rir_data.models.indicator import Indicator, IndicatorValue, IndicatorExtraValue
 from rir_data.models.geometry import Geometry, GeometryLevelName, GeometryLevelInstance
@@ -217,7 +217,7 @@ class IndicatorValues(APIView):
     """
     Return Scenario value for country with the indicator geometry level
     """
-    authentication_classes = (IndicatorTokenAuthentication,)
+    authentication_classes = (IndicatorTokenAndBearerAuthentication,)
 
     def get(self, request, slug, pk):
         try:
@@ -262,7 +262,7 @@ class IndicatorValues(APIView):
             )
             data = request.data
             geometry = instance.geometries().get(
-                identifier=data['geometry_code'])
+                identifier__iexact=data['geometry_code'])
             indicator = instance.indicators.get(id=pk)
 
             # Validate the data

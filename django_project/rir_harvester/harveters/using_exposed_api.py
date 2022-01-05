@@ -14,3 +14,11 @@ class UsingExposedAPI(BaseHarvester):
     def _process(self):
         """ Run the harvester """
         return
+
+    @property
+    def allow_to_harvest_new_data(self):
+        """
+        Allowing if the new data can be harvested
+        It will check based on the frequency
+        """
+        return False

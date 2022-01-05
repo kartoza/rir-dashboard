@@ -89,5 +89,10 @@
             }
         })
         $('#id_api_exposed').trigger('change');
+        $('.helptext a').each(function () {
+            const newUrl = window.location.protocol + '//' + window.location.host + $(this).attr('href');
+            $(this).attr('href', newUrl);
+            $(this).html(newUrl);
+        })
     </script>
 {% endblock %}

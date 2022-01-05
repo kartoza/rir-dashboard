@@ -2,14 +2,16 @@ from rest_framework import authentication
 from rest_framework import exceptions
 from django.utils.translation import gettext_lazy as _
 from django.shortcuts import get_object_or_404
-from rir_data.models import Instance, Indicator
+from rir_data.models import Instance
 
 
-class IndicatorTokenAuthentication(authentication.TokenAuthentication):
+class IndicatorTokenAndBearerAuthentication(authentication.TokenAuthentication):
+    keywords = ['Token', 'Bearer']
+
     def authenticate(self, request):
         auth = authentication.get_authorization_header(request).split()
 
-        if not auth or auth[0].lower() != self.keyword.lower().encode():
+        if not auth or auth[0].lower() not in [keyword.lower().encode() for keyword in self.keywords]:
             msg = _('Token is required.')
             raise exceptions.AuthenticationFailed(msg)
 

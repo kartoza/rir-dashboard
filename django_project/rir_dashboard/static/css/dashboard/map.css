@@ -77,11 +77,6 @@
     padding-top: 3px;
 }
 
-.leaflet-popup td {
-    padding: 5px;
-}
-
-.leaflet-popup tr th:nth-child(1),
-.leaflet-popup tr td:nth-child(1) {
-    text-align: right;
+.popup-header {
+    padding: 5px 10px;
 }

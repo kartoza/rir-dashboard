@@ -208,10 +208,16 @@ define(['js/views/layers/context-layers-draggable'], function (ContextLayerDragg
                 layer.options.pane = evt.CONTEXT_LAYER_PANE;
                 const $element = $(`#context-layer-${layerData.id}`);
                 const $legend = $element.find('.legend');
+                const $legendToggle = $element.find('.legend-toggle');
                 const $input = $element.find('input');
                 layerData['layer'] = layer;
                 layerData['show'] = layerData.enable_by_default;
-                $legend.html(legend);
+                if (legend) {
+                    $legend.html(legend);
+                } else {
+                    $legend.remove();
+                    $legendToggle.remove();
+                }
                 $input.removeAttr('disabled');
                 if (layerData.enable_by_default || this.idsFromCookie.includes('' + layerData.id)) {
                     $input.click();

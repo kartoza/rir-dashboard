@@ -37,9 +37,11 @@
                 </ul>
             </div>
         {% else %}
-            <a href="{% url "login" %}">
-                Sign In
-            </a>
+            <div class="navbar-options">
+                <a href="{% url "login" %}">
+                    Sign In
+                </a>
+            </div>
         {% endif %}
     </div>
     {% if instance %}

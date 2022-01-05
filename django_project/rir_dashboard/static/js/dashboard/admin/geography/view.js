@@ -11,11 +11,17 @@ $(document).ready(function () {
     const onEachFeature = function onEachFeature(feature, layer) {
         layer.bindPopup('' +
             '<table>' +
-            `<tr><td style="text-align: right"><b>Identifier</b></td><td>${feature.properties.identifier}</td></tr>` +
+            `<tr><td style="text-align: right"><b>Code</b></td><td>${feature.properties.identifier}</td></tr>` +
             `<tr><td style="text-align: right"><b>Name</b></td><td>${feature.properties.name}</td></tr>` +
             `<tr><td style="text-align: right"><b>Alias</b></td><td>${feature.properties.alias}</td></tr>` +
             '</table>');
-    }
+        layer.on('mouseover', function (e) {
+            this.openPopup();
+        });
+        layer.on('mouseout', function (e) {
+            this.closePopup();
+        });
+    };
     const geometry = {};
     const geometryLayer = L.geoJSON(null, {
             style: {
@@ -69,5 +75,11 @@ $(document).ready(function () {
 
     $levelSelection.find('div').click(function () {
         selectLevel($(this));
-    })
+    });
+
+    if (window.location.hash) {
+        const hash = window.location.hash.replaceAll('#', '');
+        $(`#level-selection div[data-level="${hash}"]`).click();
+    }
+
 });
