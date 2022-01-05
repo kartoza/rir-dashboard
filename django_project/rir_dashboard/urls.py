@@ -18,13 +18,17 @@ from rir_dashboard.views.dashboard.admin.harvesters import (
     HarvesterDetail
 )
 from rir_dashboard.views.dashboard.admin.harvesters.forms import (
-    HarvesterAPIWithGeographyAndDateView, HarvestedUsingExposedAPIByExternalClientView
+    HarvesterAPIWithGeographyAndDateView, HarvestedUsingExposedAPIByExternalClientView, HarvesterAPIWithGeographyAndTodayDateView
 )
 
 harvester_form_url = [
     url(r'^update/api-with-geography-and-date',
         HarvesterAPIWithGeographyAndDateView.as_view(),
         name=str(HarvesterAPIWithGeographyAndDateView.harvester_class).split("'")[1]
+        ),
+    url(r'^update/api-with-geography-and-today-date',
+        HarvesterAPIWithGeographyAndTodayDateView.as_view(),
+        name=str(HarvesterAPIWithGeographyAndTodayDateView.harvester_class).split("'")[1]
         ),
     url(
         r'^update/harvested-using-exposed-api-by-external-client',

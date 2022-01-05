@@ -3,6 +3,10 @@ from django.utils.module_loading import import_string
 from django.utils.translation import ugettext_lazy as _
 from rir_data.models.indicator import Indicator
 
+APIWithGeographyAndTodayDate = (
+    'rir_harvester.harveters.api_with_geography_and_today_date.APIWithGeographyAndTodayDate',
+    'API With Geography Using Today Date',
+)
 APIListWithGeographyAndDate = (
     'rir_harvester.harveters.api_with_geography_and_date.APIWithGeographyAndDate',
     'API With Geography And Date',
@@ -12,6 +16,7 @@ UsingExposedAPI = (
     'Harvested using exposed API by external client',
 )
 HARVESTERS = (
+    APIWithGeographyAndTodayDate,
     APIListWithGeographyAndDate,
     UsingExposedAPI,
 )
