@@ -12,7 +12,9 @@ class BasemapLayerType(object):
 class BasemapLayer(AbstractTerm, IconTerm):
     instance = models.ForeignKey(
         Instance,
-        on_delete=models.CASCADE
+        null=True, blank=True,
+        on_delete=models.CASCADE,
+        help_text="Make this empty to be used by every instance."
     )
     url = models.CharField(
         max_length=256

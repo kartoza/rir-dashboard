@@ -1,13 +1,10 @@
-from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from core.models.singleton import SingletonModel
 
-User = get_user_model()
-
 
 class SitePreferences(SingletonModel):
-    """ Setting specifically for amlit """
+    """ Setting specifically for website """
 
     site_title = models.CharField(
         max_length=512,

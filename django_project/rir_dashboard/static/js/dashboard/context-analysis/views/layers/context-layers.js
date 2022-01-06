@@ -57,21 +57,23 @@ define(['js/views/layers/context-layers-draggable'], function (ContextLayerDragg
             this.orders.forEach(
                 (id, idx) => {
                     const layer = self.layers[id];
-                    let $appendElement = $layerList;
-                    layer['top_tree'] = 'top-tree';
-                    if (layer.group_name) {
-                        let $group = $layerList.find(`div[data-group="${layer.group_name}"]`);
-                        if ($group.length === 0) {
-                            $layerList.prepend(templates.CONTEXT_LAYER_GROUP(layer));
-                            self.initLayerEvent('context-layer-group-' + layer.group);
-                        }
-                        layer['top_tree'] = '';
-                        $appendElement = $layerList.find(`div[data-group="${layer.group_name}"] .layer-list-group`);
+                    if (layer) {
+                        let $appendElement = $layerList;
+                        layer['top_tree'] = 'top-tree';
+                        if (layer.group_name) {
+                            let $group = $layerList.find(`div[data-group="${layer.group_name}"]`);
+                            if ($group.length === 0) {
+                                $layerList.prepend(templates.CONTEXT_LAYER_GROUP(layer));
+                                self.initLayerEvent('context-layer-group-' + layer.group);
+                            }
+                            layer['top_tree'] = '';
+                            $appendElement = $layerList.find(`div[data-group="${layer.group_name}"] .layer-list-group`);
 
+                        }
+                        $appendElement.prepend(templates.CONTEXT_LAYER(layer));
+                        self.initLayerEvent('context-layer-' + layer.id);
+                        self.initLayer(layer);
                     }
-                    $appendElement.prepend(templates.CONTEXT_LAYER(layer));
-                    self.initLayerEvent('context-layer-' + layer.id);
-                    self.initLayer(layer);
                 }
             );
 

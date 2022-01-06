@@ -50,7 +50,6 @@ class GeographyUploadView(AdminView):
                 )
                 is_most_top_level = instance_level.parent is None
             except GeometryLevelInstance.DoesNotExist as e:
-                print(f'{e}')
                 return
 
             # save data

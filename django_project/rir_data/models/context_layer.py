@@ -21,7 +21,9 @@ class ContextLayerGroup(AbstractTerm):
 class ContextLayer(AbstractTerm):
     instance = models.ForeignKey(
         Instance,
-        on_delete=models.CASCADE
+        null=True, blank=True,
+        on_delete=models.CASCADE,
+        help_text="Make this empty to be used by every instance."
     )
     group = models.ForeignKey(
         ContextLayerGroup,
@@ -104,7 +106,6 @@ class ContextLayerParameter(models.Model):
 
     def __str__(self):
         return f'{self.name}'
-
 
 
 class ContextLayerStyle(models.Model):

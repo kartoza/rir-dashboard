@@ -173,14 +173,16 @@ class Instance(SlugTerm, IconTerm):
         """
         Return context layers of the instance
         """
-        return self.contextlayer_set.filter(show_on_map=True)
+        from rir_data.models import ContextLayer
+        return ContextLayer.objects.filter(Q(instance__isnull=True) | Q(instance=self)).filter(show_on_map=True)
 
     @property
     def basemap_layers(self):
         """
-        Return context layers of the instance
+        Return basemap layers of the instance
         """
-        return self.basemaplayer_set.filter(show_on_map=True)
+        from rir_data.models import BasemapLayer
+        return BasemapLayer.objects.filter(Q(instance__isnull=True) | Q(instance=self)).filter(show_on_map=True)
 
     @property
     def links(self):

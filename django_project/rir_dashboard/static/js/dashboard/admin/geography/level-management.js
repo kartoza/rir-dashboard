@@ -21,7 +21,6 @@ $(document).ready(function () {
     $dropLevelArea.droppable({
         hoverClass: "ui-state-hovered",
         drop: function (e, ui) {
-            console.log('drop')
             onDropArea($(ui.draggable));
         },
         over: function () {
