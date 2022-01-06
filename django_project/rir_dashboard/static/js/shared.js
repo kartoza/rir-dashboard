@@ -196,3 +196,8 @@ function removeCookie(name, value) {
     cookieData = cookieData.filter(e => e !== ('' + value));
     setCookie(name, cookieData.join(','));
 }
+
+function extension(filename) {
+    var re = /(?:\.([^.]+))?$/;
+    return re.exec(filename)[1];
+}

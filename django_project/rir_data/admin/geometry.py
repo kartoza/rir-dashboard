@@ -1,8 +1,16 @@
 from django.contrib import admin
 from rir_data.models.geometry import (
     Geometry, GeometryLevelName, GeometryLevelInstance,
-    GeometryUploader, GeometryUploaderLog
+    GeometryUploader, GeometryUploaderFile, GeometryUploaderLog
 )
+
+
+class GeometryUploaderFileInline(admin.TabularInline):
+    model = GeometryUploaderFile
+    extra = 0
+
+    def has_add_permission(self, request, obj=None):
+        return False
 
 
 class GeometryUploaderLogInline(admin.TabularInline):
@@ -15,8 +23,8 @@ class GeometryUploaderLogInline(admin.TabularInline):
 
 
 class GeometryUploaderdmin(admin.ModelAdmin):
-    list_display = ('unique_id', 'file', 'time')
-    inlines = (GeometryUploaderLogInline,)
+    list_display = ('unique_id', 'time')
+    inlines = (GeometryUploaderFileInline, GeometryUploaderLogInline)
 
 
 class GeometryAdmin(admin.ModelAdmin):

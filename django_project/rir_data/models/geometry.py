@@ -162,11 +162,30 @@ class GeometryUploader(models.Model):
     unique_id = models.UUIDField(
         default=uuid.uuid4, editable=False, unique=True
     )
-    file = models.FileField(
-        upload_to='upload'
-    )
     time = models.DateTimeField(
         auto_now_add=True
+    )
+
+
+def upload_to(self, filename):
+    """ Return upload to based on incident id
+    :type self: GeometryUploaderFile
+    :type filename: str
+    """
+    url = "upload/{}/{}".format(self.uploader.unique_id, filename)
+    return url
+
+
+class GeometryUploaderFile(models.Model):
+    """
+    Geometry files
+    """
+    uploader = models.ForeignKey(
+        GeometryUploader,
+        on_delete=models.CASCADE
+    )
+    file = models.FileField(
+        upload_to=upload_to,
     )
 
 
