@@ -22,7 +22,7 @@ class BasemapLayerTest(TestCase):
             'style 3': 'value 3',
         }
 
-    def test_create_context_layer(self):
+    def test_create(self):
         context_layer = ContextLayerF(
             name=self.name
         )

@@ -8,7 +8,7 @@ class LinkTest(TestCase):
     def setUp(self):
         self.name = 'Link1'
 
-    def test_create_link(self):
+    def test_create(self):
         link = LinkF(
             name=self.name
         )

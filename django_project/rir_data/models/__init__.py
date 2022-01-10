@@ -1,5 +1,6 @@
 from .basemap_layer import *
 from .geometry import *
+from .geometry_uploader import *
 from .indicator import *
 from .instance import *
 from .link import *

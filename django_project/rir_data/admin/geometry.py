@@ -1,6 +1,8 @@
 from django.contrib import admin
 from rir_data.models.geometry import (
     Geometry, GeometryLevelName, GeometryLevelInstance,
+)
+from rir_data.models.geometry_uploader import (
     GeometryUploader, GeometryUploaderFile, GeometryUploaderLog
 )
 

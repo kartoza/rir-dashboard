@@ -6,8 +6,10 @@ from django.shortcuts import redirect, reverse, render, get_object_or_404
 from rir_dashboard.views.dashboard.admin._base import AdminView
 from rir_dashboard.forms.geometry import GeometryForm, ADD_JUST_NEW, REPLACE_AND_ADD
 from rir_data.models.geometry import (
-    Geometry, GeometryUploader, GeometryUploaderLog, GeometryUploaderFile,
-    GeometryLevelInstance
+    Geometry, GeometryLevelInstance
+)
+from rir_data.models.geometry_uploader import (
+    GeometryUploader, GeometryUploaderLog, GeometryUploaderFile
 )
 from rir_data.models.instance import Instance
 

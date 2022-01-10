@@ -129,6 +129,7 @@ class Indicator(AbstractTerm):
         """ Return list of indicators """
         return Indicator.objects.filter(show_in_context_analysis=True)
 
+    @property
     def legends(self):
         """
         Return legend of indicator
@@ -142,9 +143,9 @@ class Indicator(AbstractTerm):
             }
         return output
 
-    def scenario_rule(self, level):
+    def scenario_rule(self, level: int):
         """
-        Return scenario rule for specific level
+        Return scenario rule for specific level number
         """
         return self.indicatorscenariorule_set.filter(
             scenario_level__level=level).first()
@@ -296,7 +297,6 @@ class Indicator(AbstractTerm):
                         data['date'] = date_data
                     values.append(data)
                 except IndexError as e:
-                    print(e)
                     pass
 
         return values

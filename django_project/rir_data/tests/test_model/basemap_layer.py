@@ -15,7 +15,7 @@ class BasemapLayerTest(TestCase):
             'param 3': 'value 3',
         }
 
-    def test_create_basemap_layer(self):
+    def test_create(self):
         basemap = BasemapLayerF(
             name=self.name
         )

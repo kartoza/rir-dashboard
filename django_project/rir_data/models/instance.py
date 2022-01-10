@@ -51,16 +51,16 @@ class Instance(SlugTerm, IconTerm):
         Return geometry levels of the instance
         """
         levels = []
-        levels += self.get_geometry_child(
+        levels += self._get_geometry_level_child(
             self.geometry_instance_levels.filter(parent=None)
         )
         return levels
 
-    def get_geometry_child(self, instance_levels):
+    def _get_geometry_level_child(self, instance_levels):
         levels = []
         for instance_level in instance_levels:
             levels.append(instance_level.level)
-            levels += self.get_geometry_child(
+            levels += self._get_geometry_level_child(
                 self.geometry_instance_levels.filter(parent=instance_level.level)
             )
         return levels
