@@ -19,7 +19,7 @@ class IndicatorForm(forms.ModelForm):
     frequency = forms.IntegerField(
         help_text=frequency_help_text
     )
-    group = forms.CharField()
+    group = forms.ChoiceField()
     api_exposed = forms.BooleanField(
         label='Expose API',
         required=False
@@ -70,6 +70,14 @@ class IndicatorForm(forms.ModelForm):
         else:
             self.fields['api_exposed'].help_text += f'<br>The url of API will be created after the indicator created..'
 
+        self.fields['group'].choices = [('', '')] + [(group.name, group.name) for group in IndicatorGroup.objects.filter(instance=instance).order_by('name')]
+
+        try:
+            if self.data['group']:
+                self.fields['group'].choices += [(self.data['group'], self.data['group'])]
+        except KeyError:
+            pass
+
     class Meta:
         model = Indicator
         exclude = ('unit', 'order', 'geometry_reporting_units', 'instance')
@@ -102,6 +110,6 @@ class IndicatorForm(forms.ModelForm):
             initial['group'] = None
         try:
             initial['frequency'] = IndicatorFrequency.objects.get(id=initial['frequency']).frequency
-        except IndicatorGroup.DoesNotExist:
+        except IndicatorFrequency.DoesNotExist:
             initial['frequency'] = None
         return initial

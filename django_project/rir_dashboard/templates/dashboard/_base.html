@@ -43,13 +43,6 @@
             </div>
             <div id="navigation-content">
                 <div class="content">
-                    {#            <div class="section">#}
-                    {#                <div class="header">#}
-                    {#                    <img src="{% if instance.icon %}{{ instance.icon.url }}{% else %}{% static "img/no-image-found.jpg" %}{% endif %}">#}
-                    {#                    {{ instance.name }}#}
-                    {#                </div>#}
-                    {#            </div>#}
-                    {# Context Analysis #}
                     <div class="section">
                         <a href="{% url "dashboard-view" instance.slug %}#context-analysis" data-target="context-analysis" class="nav context-analysis-nav" title="Context Analysis">
                             <table>
