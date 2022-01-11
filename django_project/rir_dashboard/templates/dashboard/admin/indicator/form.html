@@ -68,9 +68,16 @@
         {% for scenario in scenarios %}
             <tr>
                 <td>{{ scenario.name }}</td>
-                <td><input type="text" name="scenario_{{ scenario.id }}_name" value="{{ scenario.rule_name }}"></td>
-                <td><input type="text" name="scenario_{{ scenario.id }}_rule" value="{{ scenario.rule_value }}"></td>
-                <td><input type="text" name="scenario_{{ scenario.id }}_color" value="{{ scenario.rule_color }}"></td>
+                <td><input type="text" name="scenario_{{ scenario.id }}_name" value="{{ scenario.rule_name }}" spellcheck="false"></td>
+                <td><input type="text" name="scenario_{{ scenario.id }}_rule" value="{{ scenario.rule_value }}" spellcheck="false"></td>
+                <td>
+                    <div class="row color-review-section">
+                        <input type="text" name="scenario_{{ scenario.id }}_color" value="{{ scenario.rule_color }}" class="scenario-rule-color col" spellcheck="false" autocomplete="off">
+                        <div class="color-review-wrapper">
+                            <input type="text" class="color-review" spellcheck="false" style="background: {{ scenario.rule_color }}" autocomplete="false">
+                        </div>
+                    </div>
+                </td>
             </tr>
         {% endfor %}
     </table>
@@ -78,6 +85,8 @@
 {% block scripts %}
     <link rel="stylesheet" href="{% static 'libs/select2/4.1.0-rc.0/select2.min.css' %}" type="text/css" media="screen, projection"/>
     <script type="text/javascript" src="{% static 'libs/select2/4.1.0-rc.0/select2.min.js' %}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/3.4.0/css/bootstrap-colorpicker.min.css" type="text/css" media="screen, projection"/>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/3.4.0/js/bootstrap-colorpicker.min.js"></script>
     <script>
         {% if is_create %}
             $('#nav-indicator-create').addClass('active')
@@ -98,6 +107,7 @@
             $(this).html(newUrl);
         })
 
+        {# for group selector #}
         const placeholder = "Select a group or create by typing new one.";
         $('#id_group').select2({
             placeholder: placeholder,
@@ -120,6 +130,19 @@
         }).on('select2:open', function (e) {
             $('input.select2-search__field').prop('placeholder', placeholder);
         });
+
+        {# for color selector #}
+        $('.color-review').colorpicker();
+        $('.color-review').change(function () {
+            const val = $(this).val();
+            $(this).css('background', val);
+            $(this).closest('.color-review-section').find('.scenario-rule-color ').val(val);
+        })
+        $('.scenario-rule-color').click(function () {
+            console.log('clicked');
+            $(this).closest('.color-review-section').find('.color-review').focus();
+        })
+        $('#id_api_note').attr('rows', '3')
 
     </script>
 {% endblock %}
