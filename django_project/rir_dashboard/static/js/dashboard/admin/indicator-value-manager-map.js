@@ -91,7 +91,7 @@ $(document).ready(function () {
 
         } else {
             $.ajax({
-                url: urlValueByGeometry.replace('0', geometryID),
+                url: urlValueByGeometry.replace('/0/', '/' + geometryID + '/'),
                 dataType: 'json',
                 success: function (data, textStatus, request) {
                     valueData[geometryID] = data;
