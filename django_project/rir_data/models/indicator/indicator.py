@@ -158,7 +158,7 @@ class Indicator(AbstractTerm):
             # check the rule
             for indicator_rule in self.indicatorscenariorule_set.all():
                 try:
-                    if eval(indicator_rule.rule.replace('x', f'{value}')):
+                    if eval(indicator_rule.rule.replace('x', f'{value}').lower()):
                         return indicator_rule.scenario_level
                 except NameError:
                     pass
