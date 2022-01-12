@@ -30,7 +30,7 @@ $(document).ready(function () {
             onEachFeature: function (feature, layer) {
                 const id = feature.id;
                 feature.properties['id'] = id;
-                feature.properties['url'] = urlValueByGeometry.replace('0', id);
+                feature.properties['url'] = urlValueByGeometry.replace('/0/', '/' + id + '/');
 
                 // update bind popup
                 layer.bindPopup(
