@@ -172,3 +172,7 @@ a:hover {
 .fa-stop-circle {
     color: red;
 }
+
+table .helptext {
+    font-weight: 500;
+}
