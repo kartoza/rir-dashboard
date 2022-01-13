@@ -2,6 +2,10 @@
     padding: 10px !important;
 }
 
+#content input[type="file"] {
+    padding-left: 0 !important;
+}
+
 #content .section {
     padding: 30px;
 }

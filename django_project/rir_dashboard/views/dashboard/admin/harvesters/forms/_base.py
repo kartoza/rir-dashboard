@@ -1,4 +1,4 @@
-from django.http import Http404, HttpResponseBadRequest
+from django.http import Http404, HttpResponseBadRequest, HttpResponse
 from django.utils.module_loading import import_string
 from django.shortcuts import get_object_or_404, redirect, reverse
 from rir_dashboard.views.dashboard.admin._base import AdminView
@@ -16,23 +16,42 @@ class HarvesterFormView(AdminView):
     def dashboard_title(self):
         return f'Harvester for {self.indicator.__str__()}'
 
-    @property
-    def context_view(self) -> dict:
+    def get_indicator(self):
         """
-        Return context for specific view by instance
+         Return indicator and save it as attribute
         """
         try:
             self.indicator = self.instance.indicators.get(
                 id=self.kwargs.get('pk', '')
             )
+            return self.indicator
         except Indicator.DoesNotExist:
             raise Http404('Indicator does not found')
 
+    def get_harvester(self) -> Harvester:
+        """
+         Return harvester
+        """
+        return self.indicator.harvester
+
+    @property
+    def harvesters(self) -> list:
+        """
+         Return harvesters
+        """
+        return HARVESTERS
+
+    @property
+    def context_view(self) -> dict:
+        """
+        Return context for specific view by instance
+        """
+        self.get_indicator()
         attributes = []
         mapping = []
         harvester = None
         try:
-            harvester = self.indicator.harvester
+            harvester = self.get_harvester()
             for _map in harvester.harvestermappingvalue_set.all():
                 mapping.append(
                     {
@@ -44,19 +63,22 @@ class HarvesterFormView(AdminView):
             pass
 
         harvester_class = str(self.harvester_class).split("'")[1]
-        for name, description in self.harvester_class.additional_attributes().items():
+        for name, attr in self.harvester_class.additional_attributes().items():
             value = ''
             try:
                 if harvester:
                     value = harvester.harvesterattribute_set.get(name=name).value
             except HarvesterAttribute.DoesNotExist:
                 pass
+
             attributes.append(
                 {
                     'name': name,
-                    'title': name.replace('_', ' ').capitalize(),
+                    'title': attr.get('title', name).replace('_', ' ').capitalize(),
                     'value': value if value else '',
-                    'description': description
+                    'description': attr.get('description', ''),
+                    'required': 'required' if 'required' not in attr or attr['required'] else '',
+                    'type': attr.get('type', '')
                 }
             )
 
@@ -69,34 +91,42 @@ class HarvesterFormView(AdminView):
                     'description': import_string(harvester[0]).description,
                     'url': reverse(
                         harvester[0], args=[self.instance.slug, self.indicator.id]
-                    )
-                } for harvester in HARVESTERS
+                    ) if self.indicator else ''
+                } for harvester in self.harvesters
             ],
             'harvester_class': harvester_class,
             'attributes': attributes,
             'mapping': mapping
         }
+
         return context
+
+    def after_post(self, harvester: Harvester):
+        """
+         Called after post success
+        """
+        pass
 
     def post(self, request, **kwargs):
         self.instance = get_object_or_404(
             Instance, slug=kwargs.get('slug', '')
         )
+        indicator = self.get_indicator()
         try:
-            indicator = self.instance.indicators.get(
-                id=self.kwargs.get('pk', '')
-            )
-        except Indicator.DoesNotExist:
-            raise Http404('Indicator does not found')
-        try:
-            data = request.POST
+            data = request.POST.copy()
+            data['attribute_extra_columns'] = ','.join(request.POST.getlist('attribute_extra_columns'))
             harvester_class = data['harvester']
-            harvester, created = Harvester.objects.get_or_create(
-                indicator=indicator,
-                defaults={
-                    'harvester_class': harvester_class
-                }
-            )
+            if indicator:
+                harvester, created = Harvester.objects.get_or_create(
+                    indicator=indicator,
+                    defaults={
+                        'harvester_class': harvester_class
+                    }
+                )
+            else:
+                harvester = Harvester.objects.create(
+                    harvester_class=harvester_class
+                )
             harvester.harvesterattribute_set.all().delete()
             harvester.harvestermappingvalue_set.all().delete()
 
@@ -130,10 +160,31 @@ class HarvesterFormView(AdminView):
                         except KeyError:
                             pass
 
-            return redirect(
-                reverse(
-                    'harvester-detail', args=[self.instance.slug, indicator.id]
+            # this is for files
+            for key, _file in request.FILES.items():
+                if _file:
+                    if 'attribute_' in key:
+                        try:
+                            attribute = harvester.harvesterattribute_set.get(
+                                name=key.replace('attribute_', '')
+                            )
+                            attribute.file = _file
+                            attribute.save()
+                        except HarvesterAttribute.DoesNotExist:
+                            pass
+
+            self.after_post(harvester)
+            if indicator:
+                return redirect(
+                    reverse(
+                        'harvester-indicator-detail', args=[self.instance.slug, indicator.id]
+                    )
                 )
-            )
+            else:
+                return redirect(
+                    reverse(
+                        'harvester-detail', args=[self.instance.slug, str(harvester.unique_id)]
+                    )
+                )
         except KeyError as e:
             return HttpResponseBadRequest(f'{e} is required')

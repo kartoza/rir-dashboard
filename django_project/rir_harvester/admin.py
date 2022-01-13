@@ -1,3 +1,4 @@
+import uuid
 from django.contrib import admin
 from django.shortcuts import reverse
 from django.utils.html import mark_safe
@@ -8,7 +9,7 @@ from rir_harvester.models import (
 
 class HarvesterAttributeInline(admin.TabularInline):
     model = HarvesterAttribute
-    fields = ('value',)
+    fields = ('value', 'file')
     readonly_fields = ('name',)
     extra = 0
 
@@ -24,7 +25,7 @@ class HarvesterMappingValueInline(admin.TabularInline):
 
 class HarvesterLogInline(admin.TabularInline):
     model = HarvesterLog
-    readonly_fields = ('harvester', 'start_time', 'end_time', 'status', 'note')
+    # readonly_fields = ('harvester', 'start_time', 'end_time', 'status', 'note')
     extra = 0
 
     def has_add_permission(self, request, obj=None):
@@ -36,13 +37,23 @@ def harvest_data(modeladmin, request, queryset):
         harvester.run()
 
 
-harvest_data.short_description = 'Harvest data'
+harvest_data.short_description = 'Run harvester'
+
+
+def assign_uuid(modeladmin, request, queryset):
+    for harvester in queryset:
+        harvester.unique_id = uuid.uuid4()
+        harvester.save()
+
+
+assign_uuid.short_description = 'Reassign UUID'
 
 
 class HarvesterAdmin(admin.ModelAdmin):
-    actions = (harvest_data,)
+    actions = (harvest_data, assign_uuid)
     inlines = [HarvesterAttributeInline, HarvesterMappingValueInline, HarvesterLogInline]
-    list_display = ('id', '_indicator', 'harvester_class', 'active', 'is_finished',)
+    list_display = ('id', 'unique_id', '_indicator', 'harvester_class', 'active', 'is_finished',)
+    list_filter = ('harvester_class',)
     list_editable = ('active',)
     search_fields = ('indicator__name',)
 

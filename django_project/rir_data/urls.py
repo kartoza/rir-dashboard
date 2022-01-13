@@ -47,6 +47,7 @@ api = [
 
 instance_url = [
     url(r'^api/', include(api)),
+    url(r'^', include('rir_harvester.urls')),
     url(r'^', include('rir_dashboard.urls')),
 ]
 

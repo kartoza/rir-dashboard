@@ -5,14 +5,6 @@ from rir_dashboard.views.dashboard._base import BaseDashboardView
 from rir_data.models import Instance, Indicator
 
 
-class IndicatorView(BaseDashboardView):
-    template_name = 'dashboard/indicator.html'
-
-    @property
-    def dashboard_title(self):
-        return 'Indicator'
-
-
 @login_required
 def indicator_detail_view(request, slug, pk):
     if request.method == 'DELETE':
