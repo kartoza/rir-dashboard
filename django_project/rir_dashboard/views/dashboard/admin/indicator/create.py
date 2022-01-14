@@ -21,6 +21,8 @@ class IndicatorCreateView(AdminView):
             scenarios.append({
                 'id': scenario.id,
                 'name': scenario.name,
+                'rule_name': scenario.name,
+                'rule_color': scenario.background_color
             })
         context = {
             'form': IndicatorForm(

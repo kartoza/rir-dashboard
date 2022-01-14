@@ -72,9 +72,15 @@
                 <td><input type="text" name="scenario_{{ scenario.id }}_rule" value="{{ scenario.rule_value }}" spellcheck="false"></td>
                 <td>
                     <div class="row color-review-section">
-                        <input type="text" name="scenario_{{ scenario.id }}_color" value="{{ scenario.rule_color }}" class="scenario-rule-color col" spellcheck="false" autocomplete="off">
+                        <input type="text" name="scenario_{{ scenario.id }}_color" value="{{ scenario.rule_color }}" class="scenario-rule-color col" spellcheck="false">
                         <div class="color-review-wrapper">
                             <input type="text" class="color-review" spellcheck="false" style="background: {{ scenario.rule_color }}" autocomplete="false">
+                            <div class="color-picker-indicator-wrapper">
+                                <div class="color-picker-indicator">
+                                    <div class="arrow" content="box-shadow-bottom"></div>
+                                    <img src="{% static "img/color-picker.svg" %}" class="box-shadow-bottom">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </td>
@@ -132,17 +138,23 @@
         });
 
         {# for color selector #}
-        $('.color-review').colorpicker();
+        $('.color-review').colorpicker({
+            format: 'hex'
+        });
         $('.color-review').change(function () {
             const val = $(this).val();
             $(this).css('background', val);
             $(this).closest('.color-review-section').find('.scenario-rule-color ').val(val);
         })
-        $('.scenario-rule-color').click(function () {
-            console.log('clicked');
+        $('.scenario-rule-color').change(function () {
+            const val = $(this).val();
+            $(this).closest('.color-review-section').find('.color-review').val(val);
+            $(this).closest('.color-review-section').find('.color-review').trigger('change');
+        })
+        $('#id_api_note').attr('rows', '3');
+        $('.color-review-wrapper').click(function () {
             $(this).closest('.color-review-section').find('.color-review').focus();
         })
-        $('#id_api_note').attr('rows', '3')
 
     </script>
 {% endblock %}
