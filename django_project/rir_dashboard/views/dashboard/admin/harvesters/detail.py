@@ -7,7 +7,7 @@ from rir_harvester.tasks import run_harvester
 
 
 class HarvesterIndicatorDetail(AdminView):
-    template_name = 'dashboard/admin/harvesters/indicator_detail.html'
+    template_name = 'dashboard/admin/harvesters/detail/indicator_detail.html'
     indicator = None
 
     @property
@@ -64,7 +64,7 @@ class HarvesterIndicatorDetail(AdminView):
 
 
 class HarvesterDetail(AdminView):
-    template_name = 'dashboard/admin/harvesters/detail.html'
+    template_name = 'dashboard/admin/harvesters/detail/harvester_detail.html'
     indicator = None
 
     @property
@@ -83,7 +83,9 @@ class HarvesterDetail(AdminView):
             raise Http404('Harvester does not found')
 
         context = {
-            'edit_url': None,
+            'edit_url': reverse(
+                'meta-harvester-uuid-view', args=[self.instance.slug, self.kwargs.get('uuid', '')]
+            ),
             'instance': self.instance,
             'harvester': harvester,
             'current_log': harvester.harvesterlog_set.first()

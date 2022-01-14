@@ -161,6 +161,9 @@
         let $arraySelected = null;
         let currentJson = {};
         $('#submit').prop('disabled', true);
+        $('input').change(function () {
+            $('#submit').prop('disabled', false);
+        })
 
         function displayJson(json) {
             $modal.modal('show');
@@ -251,6 +254,7 @@
         }
 
         $urlInput.change(function () {
+            $('#submit').prop('disabled', true);
             $urlInputLoading.show();
             $urlInputError.hide();
             $urlInput.prop('disabled', true);

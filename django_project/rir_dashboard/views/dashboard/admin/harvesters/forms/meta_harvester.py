@@ -27,7 +27,12 @@ class MetaHarvesterView(HarvesterFormView):
         """
          Return harvester
         """
-        raise Harvester.DoesNotExist()
+        uuid = self.kwargs.get('uuid', None)
+        if not uuid:
+            raise Harvester.DoesNotExist()
+        return Harvester.objects.get(
+            unique_id=uuid
+        )
 
     @property
     def harvesters(self) -> tuple:
@@ -58,4 +63,5 @@ class MetaHarvesterView(HarvesterFormView):
         """
         harvester.user = self.request.user
         harvester.save()
+        harvester.harvesterlog_set.all().delete()
         run_harvester.delay(harvester.pk)

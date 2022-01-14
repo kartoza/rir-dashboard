@@ -44,6 +44,13 @@ indicator_url = [
     url(r'^(?P<pk>\d+)/value-manager-map', IndicatorValueManagementMapView.as_view(), name='indicator-value-mapview-manager'),
     url(r'^(?P<pk>\d+)/value-manager-form', IndicatorValueManagementTableView.as_view(), name='indicator-value-form-manager'),
     url(r'^(?P<pk>\d+)', indicator_detail_view, name='indicator-detail'),
+
+    # this is for harvester with global indicators
+    url(
+        r'^meta-harvester/(?P<uuid>[0-9a-f-]+)',
+        MetaHarvesterView.as_view(),
+        name='meta-harvester-uuid-view'
+    ),
     url(
         r'^meta-harvester',
         MetaHarvesterView.as_view(),

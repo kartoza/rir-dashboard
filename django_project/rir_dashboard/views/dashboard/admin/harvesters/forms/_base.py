@@ -116,17 +116,8 @@ class HarvesterFormView(AdminView):
             data = request.POST.copy()
             data['attribute_extra_columns'] = ','.join(request.POST.getlist('attribute_extra_columns'))
             harvester_class = data['harvester']
-            if indicator:
-                harvester, created = Harvester.objects.get_or_create(
-                    indicator=indicator,
-                    defaults={
-                        'harvester_class': harvester_class
-                    }
-                )
-            else:
-                harvester = Harvester.objects.create(
-                    harvester_class=harvester_class
-                )
+            harvester = self.get_harvester()
+
             harvester.harvesterattribute_set.all().delete()
             harvester.harvestermappingvalue_set.all().delete()
 
