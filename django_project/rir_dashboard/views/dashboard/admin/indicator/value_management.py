@@ -58,7 +58,7 @@ class IndicatorValueManagementMapView(AdminView):
             }
             return context
         except Indicator.DoesNotExist:
-            raise Http404('Indicator does not found')
+            raise Http404('Indicator does not exist')
 
 
 class IndicatorValueManagementTableView(AdminView):
@@ -86,7 +86,7 @@ class IndicatorValueManagementTableView(AdminView):
             }
             return context
         except Indicator.DoesNotExist:
-            raise Http404('Indicator does not found')
+            raise Http404('Indicator does not exist')
 
     def post(self, request, **kwargs):
         self.instance = get_object_or_404(
@@ -135,4 +135,4 @@ class IndicatorValueManagementTableView(AdminView):
                 )
             )
         except Indicator.DoesNotExist:
-            raise Http404('Indicator does not found')
+            raise Http404('Indicator does not exist')

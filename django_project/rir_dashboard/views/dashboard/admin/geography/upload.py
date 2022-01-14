@@ -109,7 +109,7 @@ class GeographyUploadView(AdminView):
                                 )
                                 note = 'Geometry created'
                             except Geometry.DoesNotExist:
-                                note = f'Parent {parent_identifier} does not found'
+                                note = f'Parent {parent_identifier} does not exist'
 
                         GeometryUploaderLog.objects.create(
                             uploader=uploader,

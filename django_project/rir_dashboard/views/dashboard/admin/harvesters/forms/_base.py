@@ -26,7 +26,7 @@ class HarvesterFormView(AdminView):
             )
             return self.indicator
         except Indicator.DoesNotExist:
-            raise Http404('Indicator does not found')
+            raise Http404('Indicator does not exist')
 
     def get_harvester(self) -> Harvester:
         """

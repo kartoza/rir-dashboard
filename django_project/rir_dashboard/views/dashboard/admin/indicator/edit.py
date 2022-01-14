@@ -22,7 +22,7 @@ class IndicatorEditView(AdminView):
                 id=self.kwargs.get('pk', '')
             )
         except Indicator.DoesNotExist:
-            raise Http404('Indicator does not found')
+            raise Http404('Indicator does not exist')
 
         scenarios = []
         for scenario in ScenarioLevel.objects.order_by('level'):
@@ -60,7 +60,7 @@ class IndicatorEditView(AdminView):
                 id=self.kwargs.get('pk', '')
             )
         except Indicator.DoesNotExist:
-            raise Http404('Indicator does not found')
+            raise Http404('Indicator does not exist')
 
         form = IndicatorForm(
             request.POST,

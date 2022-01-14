@@ -16,4 +16,4 @@ def indicator_detail_view(request, slug, pk):
             indicator.delete()
             return HttpResponse('OK')
         except Indicator.DoesNotExist:
-            raise Http404('Indicator does not found')
+            raise Http404('Indicator does not exist')

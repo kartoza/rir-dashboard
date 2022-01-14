@@ -39,7 +39,7 @@
                     <b>Harvester Class</b> {{ harvester.harvester_class }}
                 </div>
                 {% if current_log %}
-                    <h3>Last Run :{{ current_log.start_time }}</h3>
+                    <h3>Last Run : {{ current_log.start_time }}</h3>
                     <table class="content-table" id="current-log" data-id="{{ current_log.id }}">
                         <tr>
                             <td class="{% if current_log.status == "Error" %}log-error{% elif current_log.status == "Done" %}log-done{% endif %}">

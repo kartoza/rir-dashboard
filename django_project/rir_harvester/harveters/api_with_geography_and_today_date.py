@@ -84,7 +84,7 @@ class APIWithGeographyAndTodayDate(BaseHarvester):
                         value, date_data, geometry
                     )
                 else:
-                    self._update(f'Geometry {geography_identifier} does not found')
+                    self._update(f'Geometry {geography_identifier} does not exist')
 
             except KeyError as e:
                 self._update(f'{e} is found.')

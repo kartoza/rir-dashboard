@@ -165,9 +165,9 @@ class ExcelHarvester(BaseHarvester):
                             pass
                     result = 'Created' if created else 'Replaced'
                 except Indicator.DoesNotExist:
-                    result = 'Indicator does not found'
+                    result = 'Indicator does not exist'
                 except Geometry.DoesNotExist:
-                    result = 'Geometry does not found'
+                    result = 'Geometry does not exist'
                 except ValueError:
                     result = 'Value is not a number'
                 except TypeError:

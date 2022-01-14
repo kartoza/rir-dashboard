@@ -24,12 +24,12 @@ class HarvesterIndicatorDetail(AdminView):
                 id=self.kwargs.get('pk', '')
             )
         except Indicator.DoesNotExist:
-            raise Http404('Indicator does not found')
+            raise Http404('Indicator does not exist')
 
         try:
             harvester = self.indicator.harvester
         except Harvester.DoesNotExist:
-            raise Http404('Harvester does not found')
+            raise Http404('Harvester does not exist')
 
         context = {
             'edit_url': reverse(
@@ -49,7 +49,7 @@ class HarvesterIndicatorDetail(AdminView):
                 id=self.kwargs.get('pk', '')
             )
         except Indicator.DoesNotExist:
-            raise Http404('Indicator does not found')
+            raise Http404('Indicator does not exist')
         try:
             harvester = self.indicator.harvester
             run_harvester.delay(harvester.pk)
@@ -60,7 +60,7 @@ class HarvesterIndicatorDetail(AdminView):
                 )
             )
         except Harvester.DoesNotExist:
-            raise Http404('harvester does not found')
+            raise Http404('harvester does not exist')
 
 
 class HarvesterDetail(AdminView):
@@ -80,7 +80,7 @@ class HarvesterDetail(AdminView):
         try:
             harvester = Harvester.objects.get(unique_id=self.kwargs.get('uuid', ''))
         except Indicator.DoesNotExist:
-            raise Http404('Harvester does not found')
+            raise Http404('Harvester does not exist')
 
         context = {
             'edit_url': reverse(

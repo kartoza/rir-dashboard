@@ -38,4 +38,4 @@ class IndicatorReportingUnitView(AdminView):
             }
             return context
         except Indicator.DoesNotExist:
-            raise Http404('Indicator does not found')
+            raise Http404('Indicator does not exist')
