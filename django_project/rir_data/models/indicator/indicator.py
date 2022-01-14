@@ -1,7 +1,7 @@
 import typing
 import uuid
 from datetime import date
-from django.db.models import Count, Sum
+from django.db.models import Count, Sum, Avg
 from django.contrib.gis.db import models
 from django.shortcuts import reverse
 from django.utils.translation import ugettext_lazy as _
@@ -23,6 +23,7 @@ class AggregationBehaviour(object):
 # AGGREGATION METHOD
 class AggregationMethod(object):
     SUM = 'Aggregate data by sum all data.'
+    AVERAGE = 'Aggregate data by average data in the levels.'
     MAJORITY = 'Aggregate data by majority data in the levels.'
 
 
@@ -57,7 +58,7 @@ class Indicator(AbstractTerm):
     )
     unit = models.CharField(
         max_length=64,
-        default=''
+        null=True, blank=True
     )
 
     aggregation_behaviour = models.CharField(
@@ -72,9 +73,9 @@ class Indicator(AbstractTerm):
 
     aggregation_method = models.CharField(
         max_length=256,
-        default=AggregationMethod.SUM,
+        default=AggregationMethod.AVERAGE,
         choices=(
-            (AggregationMethod.SUM, AggregationMethod.SUM),
+            (AggregationMethod.AVERAGE, AggregationMethod.AVERAGE),
             (AggregationMethod.MAJORITY, AggregationMethod.MAJORITY)
         )
     )
@@ -278,6 +279,11 @@ class Indicator(AbstractTerm):
                             sum=Sum('value')
                         )
                         value = output[0]['sum']
+                    elif self.aggregation_method == AggregationMethod.AVERAGE:
+                        output = query_report.values('indicator').annotate(
+                            avg=Avg('value')
+                        )
+                        value = output[0]['avg']
 
                     # aggregate other value
                     attributes = {}
