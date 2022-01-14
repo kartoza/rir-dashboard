@@ -113,7 +113,10 @@ class ExcelHarvester(BaseHarvester):
         # date
         date = now().date()
         if self.attributes['date']:
-            date = datetime.strptime(self.attributes['date'], "%Y-%m-%d").date()
+            try:
+                date = datetime.strptime(self.attributes['date'], "%Y-%m-%d").date()
+            except ValueError:
+                raise HarvestingError('Date is not in format %Y-%m-%d')
 
         # process data
         total = len(records[1:])
@@ -125,13 +128,14 @@ class ExcelHarvester(BaseHarvester):
             administrative_code = record[key_column_name_administration_code]
             indicator_name = record[key_column_name_indicator]
             value = record[key_column_name_value]
-            if key_column_name_date:
-                date = datetime.strptime(record[key_column_name_date], "%Y-%m-%d").date()
 
             if not value:
                 result = 'Skip : Value is empty'
             else:
                 try:
+                    if key_column_name_date:
+                        date = datetime.strptime(record[key_column_name_date], "%Y-%m-%d").date()
+
                     indicator = indicators[indicator_name] if indicator_name in indicators \
                         else instance.indicators.get(name=indicator_name)
                     geometry = geometries[administrative_code] if administrative_code in geometries \
@@ -166,6 +170,8 @@ class ExcelHarvester(BaseHarvester):
                     result = 'Geometry does not found'
                 except ValueError:
                     result = 'Value is not a number'
+                except TypeError:
+                    result = 'Date format is not Year-Month-Day'
             output_records.append([result] + record)
 
         output_records = [['Result'] + records[0]] + output_records
