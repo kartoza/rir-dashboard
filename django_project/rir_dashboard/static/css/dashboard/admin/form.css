@@ -6,6 +6,10 @@
     padding-left: 0 !important;
 }
 
+#content input[type="number"] {
+    padding-right: 0 !important;
+}
+
 #content .section {
     padding: 30px;
 }
@@ -150,4 +154,31 @@ form .header span {
     height: 100%;
     padding: 0 !important;
     width: 100%;
+}
+
+/* rules */
+.rule-section {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    height: 46px;
+    overflow: hidden;
+}
+
+#rule-table .symbol {
+    padding: 12px 5px;
+}
+
+.rule-section .symbol {
+    border-right: 1px solid #ccc;
+    background: var(--almost-white-color);
+}
+
+.rule-section input {
+    border: none !important;
+    width: 50px !important;
+}
+
+.rule-section input:disabled {
+    background: var(--almost-white-color);
+    cursor: not-allowed;
 }

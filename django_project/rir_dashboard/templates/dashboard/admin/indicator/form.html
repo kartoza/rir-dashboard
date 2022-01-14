@@ -69,7 +69,28 @@
             <tr>
                 <td>{{ scenario.name }}</td>
                 <td><input type="text" name="scenario_{{ scenario.id }}_name" value="{{ scenario.rule_name }}" spellcheck="false"></td>
-                <td><input type="text" name="scenario_{{ scenario.id }}_rule" value="{{ scenario.rule_value }}" spellcheck="false"></td>
+                <td class="row rule-row">
+                    <input type="text" class="scenario-input" name="scenario_{{ scenario.id }}_rule" value="{{ scenario.rule_value }}" spellcheck="false" style="display: none">
+                    <div class="row rule-section">
+                        <div class="symbol">value</div>
+                        <div class="symbol"><b>=</b></div>
+                        <div>
+                            <input type="number" spellcheck="false" class="equal">
+                        </div>
+                    </div>
+                    <div class="symbol" style="padding-left: 10px; padding-right: 10px">or</div>
+                    <div class="row rule-section">
+                        <div>
+                            <input type="number" spellcheck="false" class="min">
+                        </div>
+                        <div class="symbol" style="border-left: 1px solid #ddd"><b> > </b></div>
+                        <div class="symbol">value</div>
+                        <div class="symbol"><b> <= </b></div>
+                        <div>
+                            <input type="number" spellcheck="false" class="max">
+                        </div>
+                    </div>
+                </td>
                 <td>
                     <div class="row color-review-section">
                         <input type="text" name="scenario_{{ scenario.id }}_color" value="{{ scenario.rule_color }}" class="scenario-rule-color col" spellcheck="false">
@@ -156,5 +177,73 @@
             $(this).closest('.color-review-section').find('.color-review').focus();
         })
 
+        {# check the functions #}
+
+        function onChange() {
+            const $row = $(this).closest('.rule-row');
+            const $scenarioInput = $row.find('.scenario-input');
+            if ($(this).hasClass('equal')) {
+                const value = $(this).val();
+                $row.find('.min,.max').prop('disabled', value !== '');
+                if (value) {
+                    $scenarioInput.val('x==' + value)
+                } else {
+                    $scenarioInput.val('')
+                }
+            } else {
+                const minVal = $row.find('.min').val();
+                const maxVal = $row.find('.max').val();
+                $row.find('.equal').prop('disabled', !(minVal === '' && maxVal === ''));
+                if (minVal === '' && maxVal === '') {
+                    $scenarioInput.val('')
+                } else {
+                    const values = []
+                    if (minVal) {
+                        values.push('x>' + minVal)
+                    }
+                    if (maxVal) {
+                        values.push('x<=' + maxVal)
+                    }
+                    $scenarioInput.val(values.join(' and '));
+                }
+            }
+        }
+
+        $('.rule-section input').keyup(onChange);
+        $('.rule-section input').change(onChange);
+
+        {# init #}
+        $('.scenario-input').each(function () {
+            const $row = $(this).closest('.rule-row');
+            const value = $(this).val().replaceAll(' ', '');
+            if (value.indexOf("==") >= 0) {
+                if (value.split('==')[0] === 'x') {
+                    $row.find('.equal').val(value.split('==')[1])
+                } else {
+                    $row.find('.equal').val(value.split('==')[0])
+                }
+                $row.find('.equal').trigger('change')
+            } else {
+                const values = value.split('and')
+                $.each(values, function (i, currentValue) {
+                    if (currentValue.indexOf("<") >= 0) {
+                        if (currentValue.split('<')[0] === 'x') {
+                            $row.find('.max').val(currentValue.split('<')[1].replace('=', ''))
+                        } else {
+                            $row.find('.max').val(currentValue.split('<')[0].replace('=', ''))
+                        }
+                        $row.find('.max').trigger('change')
+                    } else if (currentValue.indexOf(">") >= 0) {
+                        if (currentValue.split('>')[0] === 'x') {
+                            $row.find('.min').val(currentValue.split('>')[1].replace('=', ''))
+                        } else {
+                            $row.find('.min').val(currentValue.split('>')[0].replace('=', ''))
+                        }
+                        $row.find('.min').trigger('change')
+                    }
+                });
+            }
+
+        })
     </script>
 {% endblock %}
