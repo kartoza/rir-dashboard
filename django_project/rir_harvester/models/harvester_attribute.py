@@ -23,6 +23,10 @@ class HarvesterAttribute(models.Model):
             "The value of attribute"
         )
     )
+    file = models.FileField(
+        upload_to='harvester/attributes',
+        null=True, blank=True
+    )
 
     class Meta:
         unique_together = ('harvester', 'name')

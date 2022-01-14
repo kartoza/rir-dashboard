@@ -6,8 +6,8 @@ from rir_harvester.models import Harvester
 from rir_harvester.tasks import run_harvester
 
 
-class HarvesterDetail(AdminView):
-    template_name = 'dashboard/admin/harvesters/detail.html'
+class HarvesterIndicatorDetail(AdminView):
+    template_name = 'dashboard/admin/harvesters/detail/indicator_detail.html'
     indicator = None
 
     @property
@@ -32,7 +32,9 @@ class HarvesterDetail(AdminView):
             raise Http404('Harvester does not found')
 
         context = {
-            'indicator': self.indicator,
+            'edit_url': reverse(
+                self.indicator.harvester.harvester_class, args=[self.instance.slug, self.indicator.id]
+            ),
             'harvester': harvester
         }
         return context
@@ -54,8 +56,38 @@ class HarvesterDetail(AdminView):
 
             return redirect(
                 reverse(
-                    'harvester-detail', args=[instance.slug, self.indicator.pk]
+                    'harvester-indicator-detail', args=[instance.slug, self.indicator.pk]
                 )
             )
         except Harvester.DoesNotExist:
             raise Http404('harvester does not found')
+
+
+class HarvesterDetail(AdminView):
+    template_name = 'dashboard/admin/harvesters/detail/harvester_detail.html'
+    indicator = None
+
+    @property
+    def dashboard_title(self):
+        return f'Harvester detail'
+
+    @property
+    def context_view(self) -> dict:
+        """
+        Return context for specific view by instance
+        """
+
+        try:
+            harvester = Harvester.objects.get(unique_id=self.kwargs.get('uuid', ''))
+        except Indicator.DoesNotExist:
+            raise Http404('Harvester does not found')
+
+        context = {
+            'edit_url': reverse(
+                'meta-harvester-uuid-view', args=[self.instance.slug, self.kwargs.get('uuid', '')]
+            ),
+            'instance': self.instance,
+            'harvester': harvester,
+            'current_log': harvester.harvesterlog_set.first()
+        }
+        return context

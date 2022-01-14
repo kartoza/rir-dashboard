@@ -7,27 +7,48 @@
         #content-view .section {
             padding: 20px;
         }
+
+        .log-error {
+            color: red;
+        }
+
+        .log-done {
+            color: green;
+        }
+
+        .content-table a {
+            color: inherit;
+            font-weight: 700;
+        }
+
+        .content-table a:hover {
+            opacity: 0.5;
+        }
     </style>
 {% endblock stylesheet %}
 {% block contentview %}
     <div id="content">
         <div class="header box-shadow-bottom ">
             {{ dashboard_title|safe }}
-            {% if harvester.is_run %}
-                <button class="empty-button pull-right">Is Harvesting</button>
-            {% else %}
-                <form method="post" enctype="multipart/form-data" class="pull-right">
-                    {% csrf_token %}
-                    <button class="main-button" type="submit" style="margin-left: 1px">Harvest Now</button>
-                </form>
-            {% endif %}
-            <a href="{% url indicator.harvester.harvester_class instance.slug indicator.id %}" class="pull-right">
-                <button class="main-button">Edit</button>
-            </a>
+            {% block button_header %}
+            {% endblock %}
         </div>
         <div id="content-view">
             <div class="section box-shadow-bottom">
-                <div class="line"><b>Harvester Class</b> {{ harvester.harvester_class }}</div>
+                <div class="line">
+                    <b>Harvester Class</b> {{ harvester.harvester_class }}
+                </div>
+                {% if current_log %}
+                    <h3>Last Run :{{ current_log.start_time }}</h3>
+                    <table class="content-table" id="current-log" data-id="{{ current_log.id }}">
+                        <tr>
+                            <td class="{% if current_log.status == "Error" %}log-error{% elif current_log.status == "Done" %}log-done{% endif %}">
+                                {{ current_log.status }} {% if current_log.note %}- {{ current_log.note|safe }}{% endif %}
+                            </td>
+                        </tr>
+                    </table>
+                    <br>
+                {% endif %}
                 {% if harvester.harvesterattribute_set.count %}
                     <h3>Attributes</h3>
                     <table class="content-table">
@@ -35,10 +56,26 @@
                             <th>Name</th>
                             <th>Value</th>
                         </tr>
+                        {% if harvester.user %}
+                            <tr>
+                                <td>User who run</td>
+                                <td>
+                                    {% if harvester.user.get_full_name %}{{ harvester.user.get_full_name }}{% else %}{{ harvester.user.get_username }}{% endif %}
+                                </td>
+                            </tr>
+                        {% endif %}
                         {% for attribute in harvester.harvesterattribute_set.all %}
                             <tr>
                                 <td>{{ attribute.human_name }}</td>
-                                <td>{% if attribute.value %}{{ attribute.value }}{% endif %}</td>
+                                <td>
+                                    {% if attribute.value %}
+                                        {{ attribute.value }}
+                                    {% elif attribute.file %}
+                                        <a href="{{ attribute.file.url }}">
+                                            {{ attribute.file.name }}
+                                        </a>
+                                    {% endif %}
+                                </td>
                             </tr>
                         {% endfor %}
                     </table>
@@ -83,9 +120,6 @@
         </div>
     </div>
 {% endblock %}
+
 {% block scripts %}
-    <script>
-    </script>
-    {% block extrascripts %}
-    {% endblock %}
 {% endblock %}

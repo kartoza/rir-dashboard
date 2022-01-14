@@ -26,14 +26,17 @@ class BaseHarvester(ABC):
     description = ""
     attributes = {}
     mapping = {}
+    done_message = ''
 
     def __init__(self, harvester: Harvester):
         self.harvester = harvester
-        self.reporting_units = harvester.indicator.reporting_units
         for attribute in harvester.harvesterattribute_set.all():
             self.attributes[attribute.name] = attribute.value
         for attribute in harvester.harvestermappingvalue_set.all():
             self.mapping[attribute.remote_value] = attribute.platform_value
+
+        if harvester.indicator:
+            self.reporting_units = harvester.indicator.reporting_units
 
     @staticmethod
     def additional_attributes() -> dict:
@@ -66,7 +69,10 @@ class BaseHarvester(ABC):
             return True
 
         difference = timezone.now() - last_data.start_time
-        return difference.days >= self.harvester.indicator.frequency.frequency
+        if self.harvester.indicator:
+            return difference.days >= self.harvester.indicator.frequency.frequency
+        else:
+            return False
 
     def run(self, force=False):
         # run the process
@@ -108,7 +114,7 @@ class BaseHarvester(ABC):
 
         self.log.end_time = datetime.datetime.now()
         self.log.status = LogStatus.DONE
-        self.log.note = message
+        self.log.note = message if message else self.done_message
         self.log.save()
 
     def _update(self, message=''):

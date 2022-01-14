@@ -1,0 +1,98 @@
+{% extends 'dashboard/admin/harvesters/forms/_base_attribute.html' %}
+{% load static %}
+{% block extrastyle %}
+    <style>
+        select {
+            height: 42px;
+        }
+
+        .select2-container--default .select2-selection--multiple .select2-selection__choice {
+            margin-top: 0 !important;
+            margin-left: 0 !important;
+        }
+    </style>
+{% endblock %}
+{% block extrascripts %}
+    <script type="text/javascript" src="{% static 'libs/xlsx/0.17.5/jszip.js' %}"></script>
+    <script type="text/javascript" src="{% static 'libs/xlsx/0.17.5/xlsx.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'libs/select2/4.1.0-rc.0/select2.min.css' %}" type="text/css" media="screen, projection"/>
+    <script type="text/javascript" src="{% static 'libs/select2/4.1.0-rc.0/select2.min.js' %}"></script>
+    <script>
+        $('#attribute_file').prop('disabled', true);
+        $(document).ready(function () {
+            $('.date').datepicker({ dateFormat: 'yy-mm-dd' });
+
+            {# change the input to select input #}
+            let $selectInput = $('#attribute_column_name_administration_code, #attribute_column_name_indicator, #attribute_column_name_value, #attribute_column_name_date, #attribute_extra_columns');
+            let values = [];
+            $selectInput.each(function () {
+                const multiple = $(this).attr('id') === 'attribute_extra_columns' ? 'multiple="multiple"' : '';
+                $(this).replaceWith(`<select name="${$(this).attr('name')}" id="${$(this).attr('id')}" disabled="" ${multiple} ${$(this).attr('required')} data-value="${$(this).val()}"></select>`);
+                if ($(this).val()) {
+                    values = values.concat($(this).val().split(','));
+                }
+            });
+
+            {# disabled it at first time#}
+            $selectInput = $('#attribute_column_name_administration_code, #attribute_column_name_indicator, #attribute_column_name_value, #attribute_column_name_date, #attribute_extra_columns');
+            $selectInput.prop('disabled', true);
+            $selectInput.change(function () {
+                $(this).data('value', $(this).val())
+            });
+
+            function setupDefaultValue() {
+                $selectInput.each(function () {
+                    $(this).val($(this).data('value'))
+                });
+
+                {# specific for extra column #}
+                const s2 = $('#attribute_extra_columns').select2();
+                const vals = $('#attribute_extra_columns').data('value').split(',');
+                vals.forEach(function (e) {
+                    if (!s2.find('option:contains(' + e + ')').length)
+                        s2.append($('<option>').text(e));
+                });
+
+                s2.val(vals).trigger("change");
+            }
+
+            if (values.length > 0) {
+                $selectInput.prop('disabled', false);
+                $.each(values, function (idx, value) {
+                    $selectInput.append(`<option value="${value}">${value}</option`);
+                });
+                setupDefaultValue();
+            }
+
+            {# this event is for when file is selected #}
+            $('#attribute_file').prop('disabled', false);
+            $('#attribute_file').change(function () {
+                var file = this.files[0];
+                var fr = new FileReader();
+                $selectInput.prop('disabled', true);
+                $selectInput.html('');
+                fr.onload = function () {
+                    var workbook = XLSX.read(fr.result, {
+                        type: 'binary'
+                    });
+                    var array = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]], {
+                        header: 1,
+                        defval: '',
+                        blankrows: true
+                    });
+
+                    $selectInput.prop('disabled', false);
+                    $selectInput.html('');
+
+                    $selectInput.not("#attribute_extra_columns").append(`<option value=""></option`);
+                    $.each(array[0], function (idx, value) {
+                        $selectInput.append(`<option value="${value}">${value}</option`);
+                    });
+                    $('#attribute_extra_columns').select2();
+                    setupDefaultValue();
+                };
+                fr.readAsBinaryString(file);
+            })
+        });
+    </script>
+{% endblock extrascripts %}
