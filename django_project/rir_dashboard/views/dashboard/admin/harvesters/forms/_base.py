@@ -63,7 +63,8 @@ class HarvesterFormView(AdminView):
             pass
 
         harvester_class = str(self.harvester_class).split("'")[1]
-        for name, attr in self.harvester_class.additional_attributes().items():
+        for name, attr in self.harvester_class.additional_attributes(
+                instance=self.instance).items():
             value = ''
             try:
                 if harvester:
@@ -78,7 +79,8 @@ class HarvesterFormView(AdminView):
                     'value': value if value else '',
                     'description': attr.get('description', ''),
                     'required': 'required' if 'required' not in attr or attr['required'] else '',
-                    'type': attr.get('type', '')
+                    'type': attr.get('type', ''),
+                    'class': attr.get('class', '')
                 }
             )
 
@@ -136,7 +138,7 @@ class HarvesterFormView(AdminView):
 
             harvester.harvester_class = harvester_class
             harvester.save()
-            harvester.save_attributes()
+            harvester.save_attributes(instance=self.instance)
 
             for key, value in data.items():
                 if value:

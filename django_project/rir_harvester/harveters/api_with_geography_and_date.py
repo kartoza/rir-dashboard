@@ -12,7 +12,7 @@ class APIWithGeographyAndDate(BaseHarvester):
     description = "Harvester to harvest from API with list of geography with it's value and the value's date"
 
     @staticmethod
-    def additional_attributes() -> dict:
+    def additional_attributes(**kwargs) -> dict:
         return {
             'api_url': {
                 'description': "URL of api"

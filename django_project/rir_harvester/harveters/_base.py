@@ -39,7 +39,7 @@ class BaseHarvester(ABC):
             self.reporting_units = harvester.indicator.reporting_units
 
     @staticmethod
-    def additional_attributes() -> dict:
+    def additional_attributes(**kwargs) -> dict:
         """
         Attributes that needs to be saved on database
         The value is the default value for the attribute

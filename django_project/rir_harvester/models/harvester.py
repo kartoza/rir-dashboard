@@ -79,13 +79,13 @@ class Harvester(models.Model):
         super().save(*args, **kwargs)
         self.save_attributes()
 
-    def save_attributes(self):
+    def save_attributes(self, **kwargs):
         """
         Save attributes for the harvesters
         """
         from rir_harvester.models import HarvesterAttribute
         harvester = self.get_harvester_class
-        for key in harvester.additional_attributes().keys():
+        for key in harvester.additional_attributes(**kwargs).keys():
             HarvesterAttribute.objects.get_or_create(
                 harvester=self,
                 name=key

@@ -23,18 +23,18 @@
             $('.date').datepicker({ dateFormat: 'yy-mm-dd' });
 
             {# change the input to select input #}
-            let $selectInput = $('#attribute_column_name_administration_code, #attribute_column_name_indicator, #attribute_column_name_value, #attribute_column_name_date, #attribute_extra_columns');
+            let $selectInput = $('#attribute_column_name_administration_code, .indicator-name');
             let values = [];
             $selectInput.each(function () {
                 const multiple = $(this).attr('id') === 'attribute_extra_columns' ? 'multiple="multiple"' : '';
-                $(this).replaceWith(`<select name="${$(this).attr('name')}" id="${$(this).attr('id')}" disabled="" ${multiple} ${$(this).attr('required')} data-value="${$(this).val()}"></select>`);
+                $(this).replaceWith(`<select class="${$(this).attr('class')}" name="${$(this).attr('name')}" id="${$(this).attr('id')}" disabled="" ${multiple} ${$(this).attr('required')} data-value="${$(this).val()}"></select>`);
                 if ($(this).val()) {
                     values = values.concat($(this).val().split(','));
                 }
             });
 
             {# disabled it at first time#}
-            $selectInput = $('#attribute_column_name_administration_code, #attribute_column_name_indicator, #attribute_column_name_value, #attribute_column_name_date, #attribute_extra_columns');
+            $selectInput = $('#attribute_column_name_administration_code, .indicator-name');
             $selectInput.prop('disabled', true);
             $selectInput.change(function () {
                 $(this).data('value', $(this).val())
@@ -44,16 +44,6 @@
                 $selectInput.each(function () {
                     $(this).val($(this).data('value'))
                 });
-
-                {# specific for extra column #}
-                const s2 = $('#attribute_extra_columns').select2();
-                const vals = $('#attribute_extra_columns').data('value').split(',');
-                vals.forEach(function (e) {
-                    if (!s2.find('option:contains(' + e + ')').length)
-                        s2.append($('<option>').text(e));
-                });
-
-                s2.val(vals).trigger("change");
             }
 
             if (values.length > 0) {
@@ -90,6 +80,21 @@
                     });
                     $('#attribute_extra_columns').select2();
                     setupDefaultValue();
+
+                    const $indicators = $('.indicator-name');
+                    $indicators.each(function () {
+                        let found = false;
+                        const $indicator = $(this);
+                        $.each(array[0], function (idx, value) {
+                            if (!found && $indicator.attr('name').replaceAll('_', ' ').toLowerCase().fuzzy(value.replaceAll('_', ' ').toLowerCase())) {
+                                console.log(value)
+                                $indicator.val(value);
+                                found = true;
+                                console.log('found')
+                            }
+                        });
+                    });
+
                 };
                 fr.readAsBinaryString(file);
             })

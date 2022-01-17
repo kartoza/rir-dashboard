@@ -12,7 +12,7 @@ class APIWithGeographyAndTodayDate(BaseHarvester):
     description = "Harvester to harvest from API with list of geography with it's value using date when the harvester run."
 
     @staticmethod
-    def additional_attributes() -> dict:
+    def additional_attributes(**kwargs) -> dict:
         return {
             'api_url': {
                 'description': "URL of api"
