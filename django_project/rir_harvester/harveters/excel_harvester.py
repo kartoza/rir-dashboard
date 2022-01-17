@@ -121,12 +121,12 @@ class ExcelHarvester(BaseHarvester):
             result = []
             for idx, indicator in indicators_column.items():
                 value = record[idx]
-                if not value:
-                    result.append(f'{indicator.name} : Value is empty')
-                elif value < indicator.min_value or value > indicator.max_value:
-                    result.append(f'{indicator.name} : Value is not between {indicator.min_value}-{indicator.max_value}')
-                else:
-                    try:
+                try:
+                    if not value:
+                        result.append(f'{indicator.name} : Value is empty')
+                    elif float(value) < indicator.min_value or float(value) > indicator.max_value:
+                        result.append(f'{indicator.name} : Value is not between {indicator.min_value}-{indicator.max_value}')
+                    else:
                         geometry = geometries[administrative_code] if administrative_code in geometries \
                             else indicator.reporting_units.get(identifier=administrative_code)
                         value = float(value)
@@ -139,14 +139,14 @@ class ExcelHarvester(BaseHarvester):
                         indicator_value.value = value
                         indicator_value.save()
                         result.append(f'{indicator.name} :' + 'Created' if created else 'Replaced')
-                    except Indicator.DoesNotExist:
-                        result.append(f'{indicator.name} : Indicator does not exist')
-                    except Geometry.DoesNotExist:
-                        result.append(f'{indicator.name} : Geometry does not exist')
-                    except ValueError:
-                        result.append(f'{indicator.name} : Value is not a number')
-                    except TypeError:
-                        result.append(f'{indicator.name} : Date format is not Year-Month-Day')
+                except Indicator.DoesNotExist:
+                    result.append(f'{indicator.name} : Indicator does not exist')
+                except Geometry.DoesNotExist:
+                    result.append(f'{indicator.name} : Geometry does not exist')
+                except ValueError:
+                    result.append(f'{indicator.name} : Value is not a number')
+                except TypeError:
+                    result.append(f'{indicator.name} : Date format is not Year-Month-Day')
             output_records.append([', '.join(result)] + record)
 
         output_records = [['Result'] + records[0]] + output_records
