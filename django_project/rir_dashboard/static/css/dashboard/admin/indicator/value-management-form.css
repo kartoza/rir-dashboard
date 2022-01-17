@@ -93,12 +93,21 @@
     color: red;
 }
 
+.custom-file-button {
+    cursor: pointer;
+    width: auto;
+    position: absolute;
+    top: -31px;
+    right: 0;
+}
+
+.custom-file-button .main-button {
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+}
+
 .custom-file {
     cursor: pointer;
-    width: 300px;
-    position: absolute;
-    top: -34px;
-    right: 0;
 }
 
 .custom-file .custom-file-loading {
@@ -138,4 +147,14 @@
     overflow: visible !important;
     position: relative;
     border-top-right-radius: 0;
+}
+
+#file-modal th,
+#file-modal td {
+    border: 1px solid #ddd;
+    padding: 5px 10px;
+}
+
+#file-modal b {
+    color: var(--primary-color);
 }

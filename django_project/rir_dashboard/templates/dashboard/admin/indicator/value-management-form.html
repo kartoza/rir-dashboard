@@ -6,6 +6,63 @@
 {% endblock stylesheet %}
 
 {% block contentview %}
+    <div class="modal" id="file-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div>
+                        <b>
+                            1. Create a spreadsheet with at least 2 columns.
+                        </b>
+                        <div>
+                            You can add optional extra columns for extra values.
+                        </div>
+                    </div>
+                    <br>
+                    <div>
+                        <table role="table">
+                            <thead>
+                            <tr>
+                                <th>Area Code</th>
+                                <th>Value</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>SO1234</td>
+                                <td>23</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br>
+                    <div>
+                        <div>
+                            <b>2. Select the spreadsheet and it will autofill the form.</b>
+                        </div>
+                        <div>
+                            When the upload is complete, this dialog will close and the form will be filled in with your uploaded data.
+                        </div>
+                        <br>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="file-data" accept=".xlsx,.xls">
+                            <label class="custom-file-label" for="validatedCustomFile">
+                                Choose spreadsheet to refill automatically...
+                            </label>
+                            <div class="custom-file-loading">
+                                <div class="custom-file-loading-text">
+                                    Choose spreadsheet to refill automatically...
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div id="content">
         <form id="form" method="post" enctype="multipart/form-data">
             {% csrf_token %}
@@ -18,16 +75,10 @@
             </div>
             <div id="content-view">
                 <div class="section box-shadow-bottom">
-                    <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="file-data" accept="text/csv">
-                        <label class="custom-file-label" for="validatedCustomFile">
-                            Choose file to refill automatically...
-                        </label>
-                        <div class="custom-file-loading">
-                            <div class="custom-file-loading-text">
-                                Choose file to refill automatically...
-                            </div>
-                        </div>
+                    <div class="custom-file-button">
+                        <button type="button" class="main-button" data-toggle="modal" data-target="#file-modal">
+                            Use File to Refill Form
+                        </button>
                     </div>
                     <table>
                         {% for geometry in geometry_reporting_units %}
@@ -62,6 +113,8 @@
 {% endblock %}
 
 {% block scripts %}
+    <script type="text/javascript" src="{% static 'libs/xlsx/0.17.5/jszip.js' %}"></script>
+    <script type="text/javascript" src="{% static 'libs/xlsx/0.17.5/xlsx.js' %}"></script>
     <script>
         $("#datepicker").datepicker({
             dateFormat: 'yy-mm-dd',
@@ -116,29 +169,32 @@
         }
 
         {# when file input changed #}
-        const loadingWidth = $('#content-view .custom-file-loading').width() + 0;
-        const $loading = $('#content-view .custom-file-loading');
+        const loadingWidth = $('#file-modal .custom-file-loading').width() + 0;
+        const $loading = $('#file-modal .custom-file-loading');
         $('#file-data').change(function () {
             var file = this.files[0];
             var fr = new FileReader();
             $('.value-input').val('');
             $('.fa-times').click();
             fr.onload = function () {
-                const data = csvToJson(fr.result);
+                var workbook = XLSX.read(fr.result, {
+                    type: 'binary'
+                });
+                var data = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]]);
                 $loading.show();
                 $loading.width(0);
                 setTimeout(function () {
                     $.each(data, function (index, values) {
                         setTimeout(function () {
                             $('#content-view tr').each(function () {
-                                if ($(this).data('code') === values.code) {
+                                if ($(this).data('code') === values['Area Code']) {
                                     const $row = $(this);
-                                    const value = values.value;
+                                    const value = values['Value'];
                                     if (value) {
                                         $row.find('.value-input').val(value);
                                         // check others properties
                                         $.each(values, function (key, value) {
-                                            if (!['district', 'code', 'geometry', 'value', 'id'].includes(key.toLowerCase())) {
+                                            if (!['area code', 'value'].includes(key.toLowerCase())) {
                                                 if (value) {
                                                     addNewExtraValue($row, key, value)
                                                 }
@@ -152,12 +208,13 @@
                             $loading.width((index / data.length) * loadingWidth);
                             if (index === data.length - 1) {
                                 $loading.hide();
+                                $('#file-modal').modal('hide');
                             }
                         }, 10)
                     });
                 })
             };
-            fr.readAsText(file);
+            fr.readAsBinaryString(file);
         })
     </script>
 {% endblock %}
