@@ -216,7 +216,6 @@ define([
                 $timeSliderWrapper.show();
                 const $slider = $('#time-slider');
                 self.dates.sort();
-                self.dates = [...new Set(self.dates), dateToYYYYMMDD(new Date())];
                 $slider.show();
                 $slider.attr('min', 0);
                 $slider.attr('max', (self.dates.length - 1));
@@ -231,6 +230,7 @@ define([
             } else {
                 this.isAutoPlay = false;
                 $timeSliderWrapper.hide();
+                $('#master-data-downloader').removeAttr('href');
             }
         },
         timeSliderChanged: function () {
@@ -245,6 +245,7 @@ define([
                 this.indicatorRight.date = date;
                 this.indicatorRight._addLayer();
             }
+            $('#master-data-downloader').attr('href', $('#master-data-downloader').data('url').replaceAll('date', dateToYYYYMMDD(new Date(date))));
         },
         /**
          * Next date AutoPlay

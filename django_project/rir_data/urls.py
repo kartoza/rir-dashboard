@@ -1,5 +1,6 @@
 from django.conf.urls import url
 from django.urls import include
+from rir_data.api.download import DownloadMasterData
 from rir_data.api.geometry import GeometryGeojsonAPI
 from rir_data.api.indicator import (
     IndicatorsList, IndicatorValues, IndicatorValuesByGeometryAndLevel, IndicatorValuesByDateAndGeojson, IndicatorValuesByDate,
@@ -43,6 +44,11 @@ indicator_api = [
 api = [
     url(r'^geometry/', include(geometry_api)),
     url(r'^indicator/', include(indicator_api)),
+    url(
+        r'^download-master-data/(?P<date>.+)',
+        DownloadMasterData.as_view(),
+        name='download-master-data'
+    ),
 ]
 
 instance_url = [

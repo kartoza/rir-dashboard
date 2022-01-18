@@ -50,7 +50,7 @@ class ExcelHarvester(BaseHarvester):
         }
         try:
             instance = kwargs['instance']
-            for indicator in instance.indicators:
+            for indicator in instance.indicators.order_by('name'):
                 attr[indicator.name] = {
                     'title': "Column Name: " + indicator.name,
                     'description': indicator.description,

@@ -170,6 +170,21 @@ class Indicator(AbstractTerm):
         else:
             return None
 
+    def scenario_rule_by_value(self, value):
+        """
+        Return scenario level of the value
+        """
+        if value is not None:
+            # check the rule
+            for indicator_rule in self.indicatorscenariorule_set.all():
+                try:
+                    if eval(indicator_rule.rule.replace('x', f'{value}').lower()):
+                        return indicator_rule
+                except NameError:
+                    pass
+        else:
+            return None
+
     def query_value(self, date_data: date):
         """ Return query of value"""
         query = self.indicatorvalue_set.filter(date__lte=date_data).filter(
