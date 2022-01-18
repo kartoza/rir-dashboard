@@ -18,27 +18,30 @@ class ExcelHarvester(BaseHarvester):
     """
     description = (
         "Harvest data from spreadsheet for multi indicator. "
-        "<br>The first sheet will be used, so make use the first is the data that will be ingested."
-        "<br>Create data per sheet with the name of indicator as the column name."
-        "<br>It will use the date of the date input. If not present, it will use today"
+        "<br>Create data in the spreadsheet with the name of indicator as the column name."
+        "<br>Select what sheet name should be use and select what column name that will be used for specific indicator."
     )
 
     @staticmethod
     def additional_attributes(**kwargs) -> dict:
         attr = {
-            'file': {
-                'title': "URL of file",
-                'description': "The url of file that will be downloaded to be harvested"
-            },
-            'column_name_administration_code': {
-                'title': "Column Name: Administration Code",
-                'description': "The name of column in the file contains administration code"
-            },
             'date': {
                 'title': "Date of Data",
                 'description': "The date for the data that will be used.",
                 'required': False,
                 'type': 'date'
+            },
+            'file': {
+                'title': "URL of file",
+                'description': "The url of file that will be downloaded to be harvested"
+            },
+            'sheet_name': {
+                'title': "Sheet name",
+                'description': "Sheet that will be used"
+            },
+            'column_name_administration_code': {
+                'title': "Column Name: Administration Code",
+                'description': "The name of column in the file contains administration code"
             },
             'instance_slug': {
                 'title': "Slug of the instance",
@@ -52,7 +55,12 @@ class ExcelHarvester(BaseHarvester):
                     'title': "Column Name: " + indicator.name,
                     'description': indicator.description,
                     'class': 'indicator-name',
-                    'required': False
+                    'required': False,
+                    'data': {
+                        'name': indicator.name,
+                        'description': indicator.description,
+                        'shortcode': indicator.shortcode if indicator.shortcode else '',
+                    }
                 }
         except KeyError:
             pass
@@ -71,8 +79,10 @@ class ExcelHarvester(BaseHarvester):
             elif str(_file).split('.')[-1] == 'xlsx':
                 sheet = xlsx_get(_file)
             if sheet:
-                sheet_name = next(iter(sheet))
-                records = sheet[sheet_name]
+                try:
+                    records = sheet[self.attributes.get('sheet_name', '')]
+                except KeyError:
+                    raise HarvestingError(f'Sheet name : {self.attributes.get("sheet_name", "")} does not exist.')
         return records
 
     def _process(self):
@@ -124,9 +134,18 @@ class ExcelHarvester(BaseHarvester):
                 try:
                     if not value:
                         result.append(f'{indicator.name} : Value is empty')
-                    elif float(value) < indicator.min_value or float(value) > indicator.max_value:
-                        result.append(f'{indicator.name} : Value is not between {indicator.min_value}-{indicator.max_value}')
                     else:
+                        try:
+                            if float(value) < indicator.min_value or float(value) > indicator.max_value:
+                                result.append(f'{indicator.name} : Value is not between {indicator.min_value}-{indicator.max_value}')
+                                continue
+                        except ValueError:
+                            rule = indicator.indicatorscenariorule_set.filter(name__iexact=value).first()
+                            if not rule:
+                                result.append(f'{indicator.name} : Value is not recognized')
+                                continue
+                            value = float(rule.rule.replace(' ', '').replace('x==', ''))
+
                         geometry = geometries[administrative_code] if administrative_code in geometries \
                             else indicator.reporting_units.get(identifier=administrative_code)
                         value = float(value)
@@ -138,7 +157,7 @@ class ExcelHarvester(BaseHarvester):
                         )
                         indicator_value.value = value
                         indicator_value.save()
-                        result.append(f'{indicator.name} :' + 'Created' if created else 'Replaced')
+                        result.append(f'{indicator.name} :' + ('Created' if created else 'Replaced'))
                 except Indicator.DoesNotExist:
                     result.append(f'{indicator.name} : Indicator does not exist')
                 except Geometry.DoesNotExist:
@@ -157,4 +176,4 @@ class ExcelHarvester(BaseHarvester):
             {"output": output_records}
         )
         save_data(self.harvester.report_file, data)
-        self.done_message = f'Please check the result in this <a href="{self.harvester.report_file_url}">FILE</a>'
+        self.done_message = f'Please check the report in this <a href="{self.harvester.report_file_url}">REPORT FILE</a>'

@@ -19,13 +19,17 @@
                 </td>
                 <td style="width: 50%">
                     <img class="loading" src="{% static "img/throbber.gif" %}">
-                    {% if attribute.type == 'file' %}
-                        <input type="file" id="attribute_{{ attribute.name }}" name="attribute_{{ attribute.name }}" value="{{ attribute.value }}" {{ attribute.required }} accept="{{ attribute.file_accept }}" class="{{ attribute.class }}">
-                    {% elif attribute.type == 'date' %}
-                        <input type="text" id="attribute_{{ attribute.name }}" name="attribute_{{ attribute.name }}" value="{{ attribute.value }}" {{ attribute.required }} class="date {{ attribute.class }}">
-                    {% else %}
-                        <input type="text" id="attribute_{{ attribute.name }}" name="attribute_{{ attribute.name }}" value="{{ attribute.value }}" {{ attribute.required }} class="{{ attribute.class }}">
-                    {% endif %}
+                    <input id="attribute_{{ attribute.name }}"
+                           name="attribute_{{ attribute.name }}"
+                           value="{{ attribute.value }}"
+                           class=" {% if attribute.type == 'date' %}date{% endif %}{{ attribute.class }}"
+                           accept="{{ attribute.file_accept }}"
+                           {% if attribute.type == 'file' %}type="file" {% else %}type="text"{% endif %}
+                            {{ attribute.required }}
+                            {% for key, value in attribute.data.items %}
+                           data-{{ key }}="{{ value }}"
+                            {% endfor %}
+                    >
                     <div class="error"></div>
                 </td>
             </tr>

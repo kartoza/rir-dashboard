@@ -35,6 +35,10 @@ class Indicator(AbstractTerm):
     """
     The indicator of scenario
     """
+    shortcode = models.CharField(
+        max_length=512,
+        null=True, blank=True
+    )
     group = models.ForeignKey(
         IndicatorGroup, on_delete=models.SET_NULL,
         blank=True, null=True

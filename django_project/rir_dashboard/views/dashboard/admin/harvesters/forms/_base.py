@@ -80,7 +80,8 @@ class HarvesterFormView(AdminView):
                     'description': attr.get('description', ''),
                     'required': 'required' if 'required' not in attr or attr['required'] else '',
                     'type': attr.get('type', ''),
-                    'class': attr.get('class', '')
+                    'class': attr.get('class', ''),
+                    'data': attr.get('data', {}),
                 }
             )
 
