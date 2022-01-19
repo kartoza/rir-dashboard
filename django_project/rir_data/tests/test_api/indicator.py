@@ -170,7 +170,7 @@ class IndicatorListAPITest(TestCase):
             })
         )
         self.assertEquals(response.status_code, 200)
-        self.assertEquals(len(response.data), 2)
+        self.assertEquals(len(response.data), 1)
         for data in response.data:
             self.assertEquals(data['value'], 1)
 
@@ -210,7 +210,7 @@ class IndicatorListAPITest(TestCase):
             HTTP_AUTHORIZATION='Token ' + str(self.indicator_1.api_token)
         )
         self.assertEquals(response.status_code, 200)
-        self.assertEquals(len(response.data), 5)
+        self.assertEquals(len(response.data), 2)
 
         # POST data
         client = Client()

@@ -41,18 +41,25 @@ class DownloadMasterData(APIView):
         # ----------------------------------------------
         wb = Workbook()
         del wb['Sheet']
-        instance_insicators = instance.indicators
+
+        indicators = instance.indicators.order_by('name')
         geometries = instance.geometries()
+
+        # fix this should be per instance levels
         for instance_level in instance.geometry_instance_levels:
+            # get top geometry
+            trees = instance_level.get_level_tree()
+            geometry_parent = geometries.filter(geometry_level__name=trees[len(trees) - 1]).first()
+
+            if not geometry_parent:
+                continue
+
             # check the indicators
-            indicators = instance_insicators.filter(
-                geometry_reporting_level=instance_level.level).order_by('name')
             if not indicators:
                 continue
 
             # create new sheet
             sheet = wb.create_sheet(instance_level.level.name)
-            row = 0
 
             def insert_sheet(row, column, value, color=None):
                 sheet.cell(row=row + 1, column=column + 1).value = value
@@ -68,41 +75,27 @@ class DownloadMasterData(APIView):
 
             # safe header to excel
             for idx, _header in enumerate(header):
-                insert_sheet(row, idx, _header)
+                insert_sheet(0, idx, _header)
+                sheet.column_dimensions[get_column_letter(idx + 1)].width = 20
 
             # get lines per geometry
-            for geometry in geometries.filter(
-                    geometry_level=instance_level.level):
-                values = IndicatorValue.objects.filter(
-                    indicator__in=indicators, geometry=geometry
-                ).filter(date=date)
-                if not values:
-                    continue
+            geometry_code_rows = ['']
+            for row, geometry in enumerate(geometries.filter(
+                    geometry_level=instance_level.level), 1):
+                insert_sheet(row, 0, geometry.name)
+                insert_sheet(row, 1, geometry.identifier)
+                geometry_code_rows.append(geometry.identifier)
 
-                line = [''] * len(header)
-                line[0] = geometry.name
-                line[1] = geometry.identifier
-
-                colors = [''] * len(header)
+            for indicator in indicators:
+                values = indicator.values(
+                    geometry=geometry_parent, geometry_level=instance_level.level, date_data=date
+                )
                 for value in values:
-                    indicator = value.indicator
-                    indicator_text = header.index(indicator.name)
-                    indicator_value = header.index(f'{indicator.name} value')
-                    rule = indicator.scenario_rule_by_value(value.value)
-                    line[indicator_value] = value.value
-                    if rule:
-                        color = rule.color if rule.color else rule.scenario_level.background_color
-                        line[indicator_text] = rule.name if rule else ''
-                        colors[indicator_value] = color
-                        colors[indicator_text] = color
-
-                row += 1
-                for idx, _line in enumerate(line):
-                    insert_sheet(row, idx, _line, colors[idx])
-
-            # resize column
-            for i, column_width in enumerate(header, 1):
-                sheet.column_dimensions[get_column_letter(i)].width = 20
+                    row = geometry_code_rows.index(value['geometry_code'])
+                    indicator_text_col = header.index(indicator.name)
+                    indicator_value_col = header.index(f'{indicator.name} value')
+                    insert_sheet(row, indicator_text_col, value['scenario_text'], value['background_color'])
+                    insert_sheet(row, indicator_value_col, value['scenario_value'], value['background_color'])
 
         # save output reports to excel file
         wb.save(filename=_file)

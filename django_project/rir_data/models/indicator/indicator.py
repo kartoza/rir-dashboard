@@ -245,9 +245,12 @@ class Indicator(AbstractTerm):
 
         if geometry_level == self.geometry_reporting_level:
             # this is for returning real data
+            geometries_target = geometry.geometries_by_level(geometry_level)
             query_report = query.filter(
+                geometry__in=geometries_target
+            ).filter(
                 geometry__id__in=reporting_units
-            )
+            ).order_by('geometry_id','-date').distinct('geometry_id')
             for indicator_value in query_report:
                 attributes = {}
                 if more_information:
