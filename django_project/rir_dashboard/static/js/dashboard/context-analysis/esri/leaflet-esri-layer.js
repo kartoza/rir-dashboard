@@ -49,20 +49,30 @@ class EsriLeafletLayer {
         return fetch(...this.preFetch(url + '?f=json'))
             .then(response => response.json())
             .then(data => {
-                console.log(data);
                 if (data.error) {
-                    return null
+                    return {
+                        layer: null,
+                        error: data.error.details ? data.error.details : data.error
+                    }
                 }
                 if (data.drawingInfo === undefined) {
                     if (data.type === "Raster Layer" || (data.layers && data.layers[0] && data.layers[0].type === "Raster Layer")) {
-                        return null;
+                        return {
+                            layer: null,
+                            error: 'Drawing info is empty'
+                        }
                     }
                 }
-                return that.toLeafletLayer(data);
+                return {
+                    layer: that.toLeafletLayer(data),
+                    error: null
+                }
             })
             .catch(error => {
-                console.log(error)
-                return null;
+                return {
+                    layer: null,
+                    error: error.details ? error.details : error
+                }
             })
     }
 

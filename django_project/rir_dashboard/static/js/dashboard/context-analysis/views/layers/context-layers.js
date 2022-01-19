@@ -121,8 +121,8 @@ define(['js/views/layers/context-layers-draggable'], function (ContextLayerDragg
                     const argisLayer = (new EsriLeafletLayer(
                         name, url, params, options, style
                     ));
-                    argisLayer.load().then(layer => {
-                        self.addLayerToData(layerData, layer, argisLayer.getLegend());
+                    argisLayer.load().then(output => {
+                        self.addLayerToData(layerData, output.layer, argisLayer.getLegend(), output.error);
                     });
                     break;
                 case 'Raster Tile':
@@ -204,14 +204,15 @@ define(['js/views/layers/context-layers-draggable'], function (ContextLayerDragg
          * @param layerData - The data of layer
          * @param layer - The leaflet layer
          * @param legend - The legend for the layer
+         * @param error - Error text if it is error
          */
-        addLayerToData: function (layerData, layer, legend) {
+        addLayerToData: function (layerData, layer, legend, error) {
+            const $element = $(`#context-layer-${layerData.id}`);
             if (layer) {
-                layer.options.pane = evt.CONTEXT_LAYER_PANE;
-                const $element = $(`#context-layer-${layerData.id}`);
                 const $legend = $element.find('.legend');
                 const $legendToggle = $element.find('.legend-toggle');
                 const $input = $element.find('input');
+                layer.options.pane = evt.CONTEXT_LAYER_PANE;
                 layerData['layer'] = layer;
                 layerData['show'] = layerData.enable_by_default;
                 if (legend) {
@@ -221,9 +222,14 @@ define(['js/views/layers/context-layers-draggable'], function (ContextLayerDragg
                     $legendToggle.remove();
                 }
                 $input.removeAttr('disabled');
+                $element.find('.disabled').removeClass('disabled');
                 if (layerData.enable_by_default || this.idsFromCookie.includes('' + layerData.id)) {
                     $input.click();
                     this.checkboxLayerClicked($input[0]);
+                }
+            } else {
+                if (error) {
+                    $element.find('.disabled').append(' <i class="fa fa-exclamation" aria-hidden="true" title="' + error + '"></i>')
                 }
             }
         }

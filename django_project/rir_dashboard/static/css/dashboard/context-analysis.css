@@ -809,6 +809,14 @@
     z-index: 10001;
 }
 
+.context-layer-title .disabled {
+    color: #888;
+}
+
+.context-layer-title .fa-exclamation {
+    color: red;
+}
+
 /*-------------------------------------------*/
 /* TIME SLIDER */
 /*-------------------------------------------*/
