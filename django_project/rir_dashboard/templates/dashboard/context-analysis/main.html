@@ -82,7 +82,7 @@
                                     Scenario {% if overall_scenario.level %}{{ overall_scenario.level }}: {{ overall_scenario.name }}{% else %} <i>unknown</i> {% endif %}
                                 </div>
                                 <div>
-                                    <a id="master-data-downloader" title="Download selected date of data" data-url="{% url "download-master-data" instance.slug "date" %}" target="_blank">
+                                    <a id="master-data-downloader" data-url="{% url "download-master-data" instance.slug "date" %}" target="_blank">
                                         {% include 'dashboard/context-analysis/_template-scenario-bullet.html' with overall_scenario=overall_scenario.level %}
                                     </a>
                                 </div>

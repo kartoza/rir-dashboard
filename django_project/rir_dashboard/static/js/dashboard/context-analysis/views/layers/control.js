@@ -143,7 +143,12 @@ define([
             $.each(this.idsFromCookie, function (index, id) {
                 $('#indicator-checkbox-' + id).click();
             })
-
+            this.changeMasterData(new Date());
+        },
+        changeMasterData: function (date) {
+            const dateStr = dateToYYYYMMDD(date);
+            $('#master-data-downloader').attr('href', $('#master-data-downloader').data('url').replaceAll('date', dateStr));
+            $('#master-data-downloader').attr('title', "Download data for date " + dateToDDMMYYY(date));
         },
         /**
          * When indicator layer added/removed
@@ -230,7 +235,7 @@ define([
             } else {
                 this.isAutoPlay = false;
                 $timeSliderWrapper.hide();
-                $('#master-data-downloader').removeAttr('href');
+                this.changeMasterData(new Date())
             }
         },
         timeSliderChanged: function () {
@@ -245,7 +250,7 @@ define([
                 this.indicatorRight.date = date;
                 this.indicatorRight._addLayer();
             }
-            $('#master-data-downloader').attr('href', $('#master-data-downloader').data('url').replaceAll('date', dateToYYYYMMDD(new Date(date))));
+            this.changeMasterData(new Date(date));
         },
         /**
          * Next date AutoPlay
