@@ -106,7 +106,13 @@
                                             <td class="row">
                                                 <div class="col">{{ group_name }}</div>
                                                 <div><i class="group-toggle fa fa-caret-up" aria-hidden="true"></i></div>
-                                                {% include 'dashboard/context-analysis/_template-scenario-bullet.html' with overall_scenario=group.overall_scenario %}
+                                                {% if group.dashboard_link %}
+                                                    <a href="{{ group.dashboard_link }}" target="_blank">
+                                                        {% include 'dashboard/context-analysis/_template-scenario-bullet.html' with overall_scenario=group.overall_scenario %}
+                                                    </a>
+                                                {% else %}
+                                                    {% include 'dashboard/context-analysis/_template-scenario-bullet.html' with overall_scenario=group.overall_scenario %}
+                                                {% endif %}
                                             </td>
                                         </tr>
                                         {# For the space #}
@@ -129,7 +135,13 @@
                                                                 {{ indicator.name }}
                                                             </div>
                                                         </div>
-                                                        {% include 'dashboard/context-analysis/_template-scenario-bullet.html' with overall_scenario=indicator.scenario_value %}
+                                                        {% if indicator.dashboard_link %}
+                                                            <a href="{{ indicator.dashboard_link }}" target="_blank">
+                                                                {% include 'dashboard/context-analysis/_template-scenario-bullet.html' with overall_scenario=indicator.scenario_value %}
+                                                            </a>
+                                                        {% else %}
+                                                            {% include 'dashboard/context-analysis/_template-scenario-bullet.html' with overall_scenario=indicator.scenario_value %}
+                                                        {% endif %}
                                                     </div>
                                                     <div class="legend">
                                                         <table>

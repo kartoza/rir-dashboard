@@ -110,6 +110,13 @@ class Indicator(AbstractTerm):
         help_text='Note about the usage of api, can put link that is using API to push the data.'
     )
 
+    # dashboard link
+    dashboard_link = models.CharField(
+        max_length=1024,
+        null=True, blank=True,
+        help_text='Dashboard link of the indicator.'
+    )
+
     def __str__(self):
         return self.name
 

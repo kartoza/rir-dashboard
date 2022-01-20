@@ -132,7 +132,8 @@ class Instance(SlugTerm, IconTerm):
                     indicators_in_group[group_name] = {
                         'indicators': [],
                         'overall_scenario': 1,
-                        'overall_scenario_raw': {}
+                        'overall_scenario_raw': {},
+                        'dashboard_link': indicator.group.dashboard_link
                     }
                 indicators_in_group[group_name]['indicators'].append(data)
 
