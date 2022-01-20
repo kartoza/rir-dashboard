@@ -405,6 +405,19 @@
     width: 100%;
 }
 
+#right-side .inner {
+    position: absolute;
+    top: 0;
+}
+
+#indicator-summary .inner {
+    left: 0;
+}
+
+#indicator-list-by-geometry, #indicator-geometry-detail {
+    left: var(--left-side-width);
+}
+
 .side-panel .content-wrapper {
     height: 100%;
     width: 100%;
@@ -1019,4 +1032,29 @@
 
 #layer-list .ui-draggable-dragging div {
     background: var(--almost-white-color);
+}
+
+#right-side-navigation {
+    background: white;
+    padding: 5px 10px;
+    width: 100%;
+}
+
+#right-side-navigation div {
+    opacity: 0.5;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+#right-side-navigation div.active {
+    opacity: 1;
+}
+
+#right-side-navigation div:hover {
+    opacity: 0.8;
+}
+
+.leaflet-popup .white-button {
+    width: 100%;
+    padding: 0;
 }

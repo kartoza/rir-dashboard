@@ -31,7 +31,17 @@ define([], function () {
                     $(this).closest('.legend-row').addClass('active');
                 }
                 self.setStyle();
-            })
+            });
+            event.register(this, evt.GEOMETRY_CLICKED, this.geometryClicked);
+            event.register(this, evt.GEOMETRY_INDICATOR_CLICKED, this.geometryClicked);
+        },
+        /**
+         * Event when geometry is clicked
+         * @param geometry
+         */
+        geometryClicked: function (geometry) {
+            this.geometry = geometry;
+            this.setStyle();
         },
         /**
          * Get layer with identifier
@@ -59,8 +69,9 @@ define([], function () {
                                 $.each(geometryData.features, function (idx, feature) {
                                     $.each(data, function (idx, rowData) {
                                         if (feature.id === rowData.geometry_id) {
+                                            rowData['geometry_level'] = feature['properties']['geometry_level_name'];
                                             feature['properties'] = rowData;
-                                            cleanGeojson['features'].push(feature)
+                                            cleanGeojson['features'].push(feature);
                                             return false;
                                         }
                                     })
@@ -84,18 +95,24 @@ define([], function () {
                             if (feature.properties.background_color) {
                                 let defaultHtml =
                                     `<tr style="background-color: ${feature.properties.background_color}; color: ${feature.properties.text_color}"><td colspan="2" style="text-align: center"><b>${self.name}</b></td></tr>` +
+                                    `<tr><td colspan="2"><button class="white-button" onclick="triggerEventToDetail('${self.id}', '${self.name}')">Detail</button></td></tr>` +
                                     `<tr><td valign="top"><b>Scenario</b></td valign="top"><td>${feature.properties.scenario_text}</td></tr>` +
                                     `<tr><td><b>Indicator value</b></td><td valign="top">${feature.properties.value}</td valign="top"></tr>`
 
                                 // check others properties
                                 $.each(feature.properties, function (key, value) {
-                                    if (!['value', 'background_color', 'text_color', 'scenario_text', 'scenario_value', 'geometry_id'].includes(key)) {
+                                    if (!['value', 'background_color', 'text_color', 'scenario_text', 'scenario_value', 'geometry_id', 'indicator_id', 'geometry_level'].includes(key)) {
                                         defaultHtml += `<tr><td valign="top"><b>${key.capitalize()}</b></td><td valign="top">${numberWithCommas(value)}</td></tr>`
                                     }
                                 });
                                 layer.bindPopup('' +
                                     '<table>' + defaultHtml + '</table>');
                             }
+
+                            // on feature clicked
+                            layer.on("click", function (e) {
+                                event.trigger(evt.GEOMETRY_CLICKED, feature);
+                            });
                         }
                     }
                 ))
@@ -112,7 +129,7 @@ define([], function () {
             this._addLayer();
             $(`.${this.side}-text`).html(`<table class="indicator-${this.id}"><tr><td><div>${this.name}</div></td> <td>${templates.SCENARIO_BULLET().replace('scenario-0', `scenario-${this.scenario}`).replace('pull-right', '')}</td></tr></table>`);
             $(`.${this.side}-info`).show();
-            $(`.${this.side}-info`).html(templates.INDICATOR_INFO({
+            $(`.${this.side}-info`).html(templates.INDICATOR_SUMMARY({
                 name: `<div class="indicator-${this.id}">${this.name}</div>`,
                 indicator: templates.SCENARIO_BULLET().replace('scenario-0', `scenario-${this.scenario}`),
                 side: this.side
@@ -194,16 +211,25 @@ define([], function () {
         setStyle: function () {
             const self = this;
             $(`.${self.side}-info .value-table table`).html('');
+            if (!this.geometry) {
+                map.closePopup();
+            }
             if (this.layer) {
                 const levelActivated = [];
                 this.$el.find('.legend-row.active').each(function () {
                     levelActivated.push($(this).data('level'));
                 });
-                const style = function (feature) {
+                const style = function (feature, layer) {
                     if (levelActivated.includes(feature.properties.scenario_value)) {
+                        let color = '#ffffff';
+                        let weight = 0.5;
+                        if (self.geometry && feature.id === self.geometry.id) {
+                            color = '#ffffff';
+                            weight = 3;
+                        }
                         return {
-                            color: "#ffffff",
-                            weight: 1,
+                            color: color,
+                            weight: weight,
                             opacity: 1,
                             fillColor: feature.properties.background_color,
                             fillOpacity: 0.7
@@ -253,10 +279,10 @@ define([], function () {
                                 layer.openPopup();
                                 const center = layer.getCenter();
                                 mapView.panTo(center.lat, center.lng);
+                                event.trigger(evt.GEOMETRY_CLICKED, layer.feature);
                                 return false
                             }
                         });
-
                     })
                 });
                 const donutData = []
@@ -313,7 +339,7 @@ define([], function () {
             $(`.${this.side}-info .value-chart`).html('<i>Loading</i>')
             if (!self.values) {
                 Request.get(
-                    self.url.replace('level', self.levels[self.levels.length - 1]).replace('/date', ''), {}, {},
+                    self.url.replace('level', self.levels[self.levels.length - 1]).replace('/date', '') + '?exact_date=True', {}, {},
                     function (data) {
                         self.values = data;
                         self.renderValueOvertime();
@@ -324,84 +350,6 @@ define([], function () {
                         self.values = [];
                     }
                 )
-            } else {
-                const data = [];
-                $.each(this.values, function (idx, value) {
-                    data.push([
-                        new Date(value.date).getTime(),
-                        value.value,
-                    ])
-                });
-                const title = 'Value';
-                const options = {
-                    chart: {
-                        zoomType: 'x'
-                    },
-                    title: {
-                        text: title
-                    },
-                    xAxis: {
-                        type: 'datetime',
-                        title: {
-                            text: 'date'
-                        },
-                        labels: {
-                            format: '{%Y-%b-%e}'
-                        },
-                    },
-                    legend: {
-                        enabled: true
-                    },
-                    rangeSelector: {
-                        buttons: [{
-                            type: 'day',
-                            count: 3,
-                            text: '3d'
-                        }, {
-                            type: 'week',
-                            count: 1,
-                            text: '1w'
-                        }, {
-                            type: 'month',
-                            count: 1,
-                            text: '1m'
-                        }, {
-                            type: 'month',
-                            count: 6,
-                            text: '6m'
-                        }, {
-                            type: 'year',
-                            count: 1,
-                            text: '1y'
-                        }, {
-                            type: 'all',
-                            text: 'All'
-                        }]
-                    },
-                    plotOptions: {
-                        series: {
-                            showInLegend: false
-                        }
-                    },
-                    series: [
-                        {
-                            type: 'line',
-                            name: title,
-                            data: data,
-                            lineWidth: 1,
-                            states: {
-                                hover: {
-                                    lineWidth: 1
-                                }
-                            },
-                            color: '#F48020',
-                            tooltip: {
-                                valueDecimals: 0
-                            }
-                        }
-                    ]
-                };
-                self.chart = Highcharts.stockChart(`${self.side}-value-chart`, options);
             }
         },
     })

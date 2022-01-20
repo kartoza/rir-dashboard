@@ -4,13 +4,34 @@ from rir_data.models.indicator import Indicator, IndicatorValue
 
 class IndicatorSerializer(serializers.ModelSerializer):
     group = serializers.SerializerMethodField()
+    rules = serializers.SerializerMethodField()
 
     def get_group(self, obj: Indicator):
         return obj.group.name
 
+    def get_rules(self, obj: Indicator):
+        output = {}
+        for indicator_rule in obj.indicatorscenariorule_set.all():
+            rules = indicator_rule.rule.replace(' ', '').split('and')
+            try:
+                rule = rules[1].replace('x', '').replace('=', '').replace('<', '')
+            except IndexError:
+                rule = rules[0].replace('x', '').replace('=', '').replace('<', '')
+
+            try:
+                rule = float(rule)
+            except ValueError:
+                rule = ''
+
+            output[str(indicator_rule.scenario_level.level)] = {
+                'name': indicator_rule.name,
+                'threshold': rule
+            }
+        return output
+
     class Meta:
         model = Indicator
-        fields = ('id', 'group', 'name', 'show_in_context_analysis')
+        fields = ('id', 'group', 'name', 'show_in_context_analysis', 'rules')
 
     def to_representation(self, instance: Indicator):
         data = super(IndicatorSerializer, self).to_representation(instance)

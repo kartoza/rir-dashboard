@@ -4,6 +4,7 @@ const templates = {
     CONTEXT_LAYER: '#_context-layer',
     ADMINISTRATIVE_POPUP: '#_administrative-popup',
     INDICATOR_INFO: '#_indicator-info',
+    INDICATOR_SUMMARY: '#_indicator-summary',
     SCENARIO_BULLET: '#_scenario-bullet',
 }
 define([], function () {

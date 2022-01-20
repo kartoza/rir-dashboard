@@ -6,6 +6,7 @@ from rir_data.api.indicator import (
     IndicatorsList, IndicatorValues, IndicatorValuesByGeometryAndLevel, IndicatorValuesByDateAndGeojson, IndicatorValuesByDate,
     IndicatorValuesByGeometry, IndicatorReportingUnits
 )
+from rir_data.api.indicators import IndicatorsValuesByGeometryDate
 from rir_dashboard.views.instances import InstancesView
 
 geometry_api = [
@@ -41,9 +42,17 @@ indicator_api = [
     ),
     url(r'^', IndicatorsList.as_view(), name='indicator-list-api'),
 ]
+indicators_api = [
+    # API for returning all indicators
+    url(
+        r'^values/(?P<geometry_identifier>.+)/(?P<geometry_level>.+)/(?P<date>.+)',
+        IndicatorsValuesByGeometryDate.as_view(), name='indicators-values-by-geometry-level-date-api'
+    ),
+]
 api = [
     url(r'^geometry/', include(geometry_api)),
     url(r'^indicator/', include(indicator_api)),
+    url(r'^indicators/', include(indicators_api)),
     url(
         r'^download-master-data/(?P<date>.+)',
         DownloadMasterData.as_view(),

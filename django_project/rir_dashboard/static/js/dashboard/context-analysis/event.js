@@ -15,7 +15,12 @@ const evt = {
     CONTEXT_LAYER_PANE: 'context-layer-pane', // Indicator right
     INDICATOR_CHANGED: 'indicator:changed',
     INDICATOR_VALUES_CHANGED: 'indicator:value-changed',
-}
+
+    GEOMETRY_CLICKED: 'geometry:clicked', // Geometry clicked
+    GEOMETRY_INDICATOR_CLICKED: 'geometry-indicator:clicked', // Geometry clicked
+    DATE_CHANGED: 'date:changed', // When global date changed
+    INDICATOR_TO_DETAIL: 'indicator:to-detail',
+};
 define([], function () {
     return Backbone.View.extend({
 

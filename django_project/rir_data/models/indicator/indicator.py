@@ -212,8 +212,7 @@ class Indicator(AbstractTerm):
         except AttributeError:
             pass
 
-        values = attributes if attributes else {}
-        values.update({
+        values = {
             'geometry_id': geometry.id,
             'geometry_code': geometry.identifier,
             'geometry_name': geometry.name,
@@ -222,7 +221,8 @@ class Indicator(AbstractTerm):
             'scenario_text': scenario_text,
             'text_color': scenario_value.text_color if scenario_value else '',
             'background_color': background_color,
-        })
+        }
+        values.update(attributes if attributes else {})
         return values
 
     def values(self, geometry: Geometry, geometry_level: GeometryLevelName, date_data: date,
@@ -250,7 +250,7 @@ class Indicator(AbstractTerm):
                 geometry__in=geometries_target
             ).filter(
                 geometry__id__in=reporting_units
-            ).order_by('geometry_id','-date').distinct('geometry_id')
+            ).order_by('geometry_id', '-date').distinct('geometry_id')
             for indicator_value in query_report:
                 attributes = {}
                 if more_information:

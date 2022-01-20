@@ -196,11 +196,16 @@ class IndicatorValuesByGeometryAndLevel(APIView):
         geometry_level = GeometryLevelName.objects.get(name__iexact=geometry_level)
         dates = indicator.indicatorvalue_set.values_list(
             'date', flat=True).order_by('date').distinct()
+
         values = []
+        dates_found = []
         for date in dates:
-            values += indicator.values(
-                geometry, geometry_level, date, True
-            )
+            for value in indicator.values(
+                    geometry, geometry_level, date, self.request.GET.get('exact_date', False), more_information=True
+            ):
+                if value['date'] not in dates_found:
+                    values.append(value)
+                    dates_found.append(value['date'])
         return values
 
     def get(self, request, slug, pk, geometry_identifier, geometry_level):

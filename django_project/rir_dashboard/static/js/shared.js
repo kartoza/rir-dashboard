@@ -208,3 +208,18 @@ String.prototype.fuzzy = function (s) {
     for (; l = s[i++];) if (!~(n = hay.indexOf(l, n + 1))) return false;
     return true;
 };
+
+function returnMostOccurring(arr) {
+    const obj = {};
+    arr.forEach(item => {
+        if (!obj[item]) obj[item] = 1;
+        else obj[item]++;
+    })
+
+    const res = Object.entries(obj).sort((a, b) => b[1] - a[1]);
+    return res.shift();
+}
+
+function triggerEventToDetail(id, name) {
+    event.trigger(evt.INDICATOR_TO_DETAIL, id, name)
+}

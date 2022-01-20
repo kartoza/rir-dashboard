@@ -164,7 +164,6 @@ class Instance(SlugTerm, IconTerm):
             except ValueError:
                 overall_scenario_level = 1
             group['overall_scenario'] = overall_scenario_level
-            # del group['overall_scenario_raw']
 
         return indicators_in_group, overall_scenario_level
 

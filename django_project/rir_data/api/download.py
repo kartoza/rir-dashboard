@@ -81,7 +81,7 @@ class DownloadMasterData(APIView):
             # get lines per geometry
             geometry_code_rows = ['']
             for row, geometry in enumerate(geometries.filter(
-                    geometry_level=instance_level.level), 1):
+                    geometry_level=instance_level.level).order_by('name'), 1):
                 insert_sheet(row, 0, geometry.name)
                 insert_sheet(row, 1, geometry.identifier)
                 geometry_code_rows.append(geometry.identifier)

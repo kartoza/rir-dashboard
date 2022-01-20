@@ -44,7 +44,7 @@
     </table>
 </script>
 
-<script type='text/template' id='_indicator-info'>
+<script type='text/template' id='_indicator-summary'>
     <div class="indicator-info-wrapper">
         <div class="indicator-info-title row">
             <div class="col"><%= name %></div>
@@ -61,6 +61,17 @@
                 <b style="margin-left: 20px">Overall Scenario in Chart</b>
                 <div id="<%= side %>-value-chart" class="value-chart"></div>
             </div>
+        </div>
+    </div>
+</script>
+
+<script type='text/template' id='_indicator-info'>
+    <div class="indicator-info-wrapper">
+        <div class="indicator-info-title row">
+            <div class="col"><%= title %></div>
+            <%= indicator %>
+        </div>
+        <div class="indicator-info-content">
         </div>
     </div>
 </script>

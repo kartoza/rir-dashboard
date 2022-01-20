@@ -6,7 +6,13 @@ define([
     'js/views/layers/context-layers',
     'js/views/layers/indicator-layer',
     'js/views/layers/administrative-level',
-], function (ContextLayers, IndicatorLayer, AdministrativeLevelLayer) {
+    'js/views/layers/indicator-info/by-summary',
+    'js/views/layers/indicator-info/by-geometry',
+    'js/views/layers/indicator-info/by-detail'
+], function (
+    ContextLayers, IndicatorLayer, AdministrativeLevelLayer,
+    IndicatorSummary, IndicatorInfoByGeometry, IndicatorInfoByDetail
+) {
     return Backbone.View.extend({
         /** Initialization **/
         indicatorLayers: {},
@@ -36,10 +42,11 @@ define([
                 function (layer) {
                     mapView.flyTo(layer.getBounds());
                 }
-            )
+            );
 
             this.idsFromCookie = getCookieInList(this.cookieName);
             this.indicatorInit();
+            this.detailPanelControl();
         },
         /** Init listener for layers
          */
@@ -191,6 +198,7 @@ define([
                     this.controlComparison._setPosition(position);
                 }
             } else if (!this.indicatorRight && !this.indicatorLeft) {
+                this.detailPanelOpened(this.bySummary.id);
                 $('#info-toggle').hide();
                 if (!$('#right-side').data('hidden')) {
                     $('#info-toggle').click();
@@ -250,6 +258,7 @@ define([
                 this.indicatorRight.date = date;
                 this.indicatorRight._addLayer();
             }
+            event.trigger(evt.DATE_CHANGED, date);
             this.changeMasterData(new Date(date));
         },
         /**
@@ -274,6 +283,39 @@ define([
                     self.timeSliderChanged();
                     self.autoplay();
                 }, 1000);
-        }
+        },
+
+        // -----------------------------------------------------------
+        // HANDLING THE SIDE PANEL DETAIL
+        // -----------------------------------------------------------
+        /**
+         * Control for detail panel
+         */
+        detailPanelControl: function () {
+            const self = this;
+            this.bySummary = new IndicatorSummary(this);
+            this.byGeometry = new IndicatorInfoByGeometry(this);
+            this.byDetail = new IndicatorInfoByDetail(this);
+            $('#right-side-navigation div').click(function () {
+                self.detailPanelOpened($(this).attr('id').replaceAll('-nav', ''));
+
+            })
+        },
+        detailPanelOpened: function (panelID, force) {
+            if (panelID === this.byGeometry.panelID) {
+                this.byDetail.opened = false;
+                this.bySummary.close();
+                this.byGeometry.open();
+                this.byDetail.close();
+            } else if (panelID === this.byDetail.panelID) {
+                this.bySummary.close();
+                this.byDetail.open();
+            } else {
+                this.byDetail.opened = false;
+                this.bySummary.open();
+                this.byGeometry.close();
+                this.byDetail.close();
+            }
+        },
     });
 });
