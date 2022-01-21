@@ -37,6 +37,7 @@ define(['js/views/layers/indicator-info/base'], function (Base) {
                             const $rowGroup = $row.closest('.group').find('.group-name');
                             $rowGroup.show();
                             $row.show();
+                            $($row.find('td')[0]).attr('onclick', `triggerEventToDetail('${rowData.indicator_id}', '${$($row.find('td')[0]).html()}')`);
                             $($row.find('td')[1]).css('background', rowData.background_color);
                             $($row.find('td')[2]).html(rowData.scenario_text);
 
@@ -58,7 +59,7 @@ define(['js/views/layers/indicator-info/base'], function (Base) {
                         const $bullet = self.$el.find('.indicator-info-title .scenario-bullet')
                         $.each(scenarios, function (scenarioLevel, data) {
                             $bullet.removeClass('scenario-' + scenarioLevel);
-                        })
+                        });
                         $bullet.addClass('scenario-' + returnMostOccurring(allValues)[0]);
                     }, function (e) {
                         console.log(e)

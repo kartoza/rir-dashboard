@@ -1058,3 +1058,11 @@
     width: 100%;
     padding: 0;
 }
+
+.indicator-geometry-name {
+    cursor: pointer;
+}
+
+.indicator-geometry-name:hover {
+    color: var(--primary-color);
+}
