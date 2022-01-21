@@ -112,6 +112,10 @@ a:hover {
     outline: none;
 }
 
+.main-button:hover {
+    color: white;
+}
+
 .main-button:hover,
 .white-button:hover,
 .green-button:hover {
