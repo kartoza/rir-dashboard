@@ -1101,7 +1101,6 @@
     position: absolute;
     top: 0;
     left: var(--left-side-width);
-    border: 1px solid black;
     display: none;
 }
 
