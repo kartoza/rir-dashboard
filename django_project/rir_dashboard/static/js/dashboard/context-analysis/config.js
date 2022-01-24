@@ -70,9 +70,9 @@ require([
         });
 
         // Event for toggling indicator group
-        $('#indicator .group-name').click(function () {
+        $('#indicator .group-name .group-toggle').click(function () {
             const $row = $(this).closest('tbody');
-            const $i = $(this).find('.group-toggle');
+            const $i = $(this);
             $i.toggleClass('fa-caret-down');
             $i.toggleClass('fa-caret-up');
             $(this).toggleClass('hidden');

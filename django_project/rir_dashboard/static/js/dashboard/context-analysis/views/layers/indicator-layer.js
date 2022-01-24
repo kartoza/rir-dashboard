@@ -130,6 +130,7 @@ define([], function () {
             $(`.${this.side}-text`).html(`<table class="indicator-${this.id}"><tr><td><div>${this.name}</div></td> <td>${templates.SCENARIO_BULLET().replace('scenario-0', `scenario-${this.scenario}`).replace('pull-right', '')}</td></tr></table>`);
             $(`.${this.side}-info`).show();
             $(`.${this.side}-info`).html(templates.INDICATOR_SUMMARY({
+                id: this.id,
                 name: `<div class="indicator-${this.id}">${this.name}</div>`,
                 indicator: templates.SCENARIO_BULLET().replace('scenario-0', `scenario-${this.scenario}`),
                 side: this.side
@@ -145,9 +146,10 @@ define([], function () {
             const self = this;
             this._removeLayer();
             $(`.${this.side}-info .value-table`).html('<div style="margin-left: 10px; margin-bottom: 30px"><i>Loading</i></div>');
+            $(`.indicator-${this.id} .spinner`).addClass('loading');
             $(`.indicator-${this.id} .spinner`).show();
             this.getLayer(function (layer) {
-                $(`.indicator-${self.id} .spinner`).hide();
+                $(`.indicator-${self.id} .spinner`).removeClass('loading');
                 if (!self.isShow) {
                     return
                 }
@@ -174,6 +176,7 @@ define([], function () {
             $(`.${this.side}-text`).html(``);
             $(`.${this.side}-info`).hide();
             event.trigger(evt.INDICATOR_VALUES_CHANGED);
+            $(`.indicator-${this.id} .spinner`).hide();
         },
         /**
          * Remove specific layer from map
