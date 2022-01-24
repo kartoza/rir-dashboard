@@ -966,7 +966,11 @@
     animation: dash 1.5s ease-in-out infinite;
 }
 
-.dashboard-link .scenario-bullet .dashboard-indicator {
+.scenario-bullet[onclick] {
+    cursor: pointer;
+}
+
+.scenario-bullet[onclick] .dashboard-indicator {
     display: block;
 }
 
@@ -1088,4 +1092,35 @@
 
 .indicator-geometry-name:hover {
     color: var(--primary-color);
+}
+
+#dashboard-section {
+    background: white;
+    height: 100%;
+    width: 100vw;
+    position: absolute;
+    top: 0;
+    left: var(--left-side-width);
+    border: 1px solid black;
+    display: none;
+}
+
+#dashboard-section iframe {
+    height: 100%;
+    width: 100%;
+}
+
+#dashboard-section .inner {
+    padding: 30px;
+}
+
+#dashboard-section .fa-times {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 8px;
+    padding: 4px 5px;
+    border-radius: 10px;
+    width: 16px;
+    height: 16px;
 }
