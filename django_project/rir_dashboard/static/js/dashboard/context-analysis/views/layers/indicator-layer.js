@@ -135,6 +135,10 @@ define([], function () {
                 indicator: templates.SCENARIO_BULLET().replace('scenario-0', `scenario-${this.scenario}`),
                 side: this.side
             }));
+            const onclick = $('#indicator-' + this.id).find('.scenario-bullet').attr('onclick');
+            if (onclick) {
+                $('.indicator-' + this.id).find('.scenario-bullet').attr('onclick', onclick);
+            }
 
             this.renderValueOvertime();
             event.trigger(evt.INDICATOR_VALUES_CHANGED);
