@@ -125,7 +125,10 @@ define(['js/views/layers/indicator-info/base'], function (Base) {
             }
         },
         propertiesSelected: function (timestamp) {
-            const properties = this.dataByTime[timestamp];
+            if (!this.dataByTime) {
+                return
+            }
+            const properties = this.dataByTime[timestamp] ? this.dataByTime[timestamp] : this.dataByTime[Object.keys(this.dataByTime)[0]];
             let defaultHtml =
                 `<tr style="background-color: ${properties.background_color}; color: ${properties.text_color}"><td colspan="2" style="text-align: center"><b>${this.indicatorName}</b></td></tr>` +
                 `<tr><td valign="top"><b>Scenario</b></td valign="top"><td>${properties.scenario_text}</td></tr>` +
