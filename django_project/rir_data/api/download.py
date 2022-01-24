@@ -64,8 +64,11 @@ class DownloadMasterData(APIView):
             def insert_sheet(row, column, value, color=None):
                 sheet.cell(row=row + 1, column=column + 1).value = value
                 if color:
-                    sheet.cell(row=row + 1, column=column + 1).fill = PatternFill(
-                        "solid", fgColor=color.replace('#', ''))
+                    try:
+                        sheet.cell(row=row + 1, column=column + 1).fill = PatternFill(
+                            "solid", fgColor=color.replace('#', ''))
+                    except ValueError:
+                        pass
 
             # create headers
             header = [f'{instance_level.level.name} Name', f'{instance_level.level.name} Code']

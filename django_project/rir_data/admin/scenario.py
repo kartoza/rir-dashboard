@@ -3,7 +3,7 @@ from rir_data.models.scenario import ScenarioLevel
 
 
 class ScenarioLevelAdmin(admin.ModelAdmin):
-    list_display = ('level', 'name', 'instance')
+    list_display = ('level', 'name', 'instance', 'background_color')
     list_filter = ('instance',)
 
 
