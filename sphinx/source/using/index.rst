@@ -5,5 +5,7 @@ RIR User Documentation
    :maxdepth: 1
    :caption: Contents:
 
+   platform-tour
+   
    
 
