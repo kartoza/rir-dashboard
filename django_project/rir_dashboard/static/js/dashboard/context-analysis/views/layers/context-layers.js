@@ -27,7 +27,8 @@ define(['js/views/layers/context-layers-draggable'], function (ContextLayerDragg
             // get order cookie
             const orderCookie = getCookieInList(this.cookieOrderName);
             if (orderCookie.length) {
-                orders = orderCookie;
+                const newIds = orders.filter(x => !orderCookie.includes('' + x));
+                orders = orderCookie.concat(newIds);
             }
             this.orders = orders;
         },
