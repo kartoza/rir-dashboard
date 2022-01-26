@@ -39,6 +39,14 @@
         table {
             width: 100%;
         }
+
+        .rule-header {
+            border-bottom: none !important;
+        }
+
+        .rule-header th {
+            padding-bottom: 0 !important;
+        }
     </style>
 {% endblock stylesheet %}
 
@@ -55,13 +63,33 @@
     <br>
     <h3>Scenario Rules</h3>
     <table id="rule-table">
-        <tr>
-            <th valign="top">Scenario</th>
-            <th valign="top">Name</th>
+        <tr style="" class="rule-header">
+            <th>Scenario</th>
+            <th valign="top">
+                Name
+            </th>
             <th valign="top">Rule<br>
-                <span class="helptext">Use below to create the rule. Use equal or use lesser and greater than as the rule. <br>For using just lesser than, we can just fill lesser without the greater than input.</span>
             </th>
             <th valign="top">Color<br>
+            </th>
+        </tr>
+        <tr style="border-top: none!important;">
+            <th valign="top"></th>
+            <th valign="top" colspan="2">
+                <div class="helptext">
+                    The values for each scenario can either be:
+                    <ul style="padding-left: 14px;">
+                        <li>Text-based items that map to a number (e.g. 'Worsening' maps to value '1'). In this case, you should use the '=' box below to declare one value per scenario text option. When harvesting from a datasource, that
+                            datasource can contain either numeric or text values for the indicator.
+                        </li>
+                        <li>
+                            Number based items in a range that map to a scenario (e.g. '1 to 5' maps to 'Worsening'). In this case, use the upper and lower range options individually or together to define the ranges (e.g. 'Worsening' <= 5,
+                            'Better' > 5 and <= 10). When harvesting from a datasource, that datasource can contain ONLY numeric values for the indicator.
+                        </li>
+                    </ul>
+                </div>
+            </th>
+            <th valign="top">
                 <span class="helptext">Put the hex color with # (e.g. #ffffff) or put the text of color. (e.g. blue).</span>
             </th>
         </tr>

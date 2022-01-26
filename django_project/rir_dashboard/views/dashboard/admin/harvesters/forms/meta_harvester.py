@@ -5,7 +5,7 @@ from ._base import HarvesterFormView
 
 MetaHarvesters = (
     'rir_harvester.harveters.excel_harvester.ExcelHarvester',
-    'Meta Harvesters',
+    'Local Master File',
 )
 
 

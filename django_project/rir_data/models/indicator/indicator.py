@@ -37,7 +37,11 @@ class Indicator(AbstractTerm):
     """
     shortcode = models.CharField(
         max_length=512,
-        null=True, blank=True
+        null=True, blank=True,
+        help_text=(
+            'A computer-to-computer shortcode for this indicator. For example, an abbreviated '
+            'name that you might use to refer to it in a spreadsheet column.'
+        )
     )
     group = models.ForeignKey(
         IndicatorGroup, on_delete=models.SET_NULL,
@@ -62,7 +66,11 @@ class Indicator(AbstractTerm):
     )
     unit = models.CharField(
         max_length=64,
-        null=True, blank=True
+        null=True, blank=True,
+        help_text=(
+            "A unit e.g. 'cases', 'people', 'children', "
+            "that will be shown alongside the number in reports."
+        )
     )
 
     aggregation_behaviour = models.CharField(
@@ -116,7 +124,10 @@ class Indicator(AbstractTerm):
     dashboard_link = models.CharField(
         max_length=1024,
         null=True, blank=True,
-        help_text='Dashboard link of the indicator.'
+        help_text=(
+            'A dashboard link can be any URL to e.g. a BI platform or another web site. '
+            'This is optional, and when populated, a special icon will be shown next to the indicator which, '
+            'when clicked, will open up this URL in a frame over the main map area.')
     )
 
     def __str__(self):

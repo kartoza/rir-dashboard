@@ -39,13 +39,8 @@
     opacity: 0.5;
 }
 
-#drop-area-section {
-    margin: 50px;
-}
-
 #drop-area {
     border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
     border: 1px dashed var(--primary-color);
     min-height: 100px;
     text-align: center;

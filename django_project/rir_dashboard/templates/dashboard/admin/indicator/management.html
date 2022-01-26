@@ -7,83 +7,90 @@
 {% block content %}
     {% csrf_token %}
     <div class="section box-shadow-bottom">
-        <div id="drop-area-section">
-            <div id="drop-area">
-                <div>
-                    <i>Drag and drop here to change the indicators order</i><br><br>
+        <div style="margin: 50px">
+            <div style="height: 30px">
+                <a href="{% url "meta-harvester-view" instance.slug %}">
+                    <button class=" main-button pull-right">Meta Harvester</button>
+                </a>
+            </div>
+            <div id="drop-area-section">
+                <div id="drop-area">
                     <div>
-                        {% for indicator in indicators %}
-                            <div id="data-{{ indicator.id }}" class="block block-value" data-id="{{ indicator.id }}">
-                                <div class="block-content row">
-                                    <div class="col">
-                                        {{ indicator.name }}
-                                    </div>
-                                    <div style="margin-right: 10px">
-                                        {% if not indicator.harvester or indicator.harvester.harvester_class != external_exposed_api %}
-                                            {% if indicator.harvester and  indicator.harvester.is_run %}
-                                                <div style="border: 1px solid var(--primary-color); padding: 5px 15px">Is Harvesting</div>
-                                            {% elif indicator.harvester %}
-                                                <form action="{% url "harvester-indicator-detail" instance.slug indicator.id %}" method="post" enctype="multipart/form-data" class="pull-right">
-                                                    {% csrf_token %}
-                                                    <button class="main-button" type="submit">Harvest Now</button>
-                                                </form>
-                                            {% else %}
-                                                <a href="{% url "indicator-value-form-manager" instance.slug indicator.id %}">
-                                                    <button class="main-button" type="submit">Data Capture Form</button>
-                                                </a>
-                                            {% endif %}
-                                        {% endif %}
-                                    </div>
-                                    <div>
-                                        <div class="navbar-options">
-                                            <a data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
-                                                <i class="fa fa-cog" aria-hidden="true"></i>
-                                            </a>
-                                            <ul class="dropdown-menu box-shadow-bottom">
-                                                <li>
-                                                    <a href="{% url "indicator-edit" instance.slug indicator.id %}">
-                                                        Edit
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="{% url "indicator-reporting-unit" instance.slug indicator.id %}">
-                                                        Reporting Units
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="{% url "indicator-value-mapview-manager" instance.slug indicator.id %}">
-                                                        Value Manager Map
-                                                    </a>
-                                                </li>
-                                                <li>
+                        <i>Drag and drop here to change the indicators order</i><br><br>
+                        <div>
+                            {% for indicator in indicators %}
+                                <div id="data-{{ indicator.id }}" class="block block-value" data-id="{{ indicator.id }}">
+                                    <div class="block-content row">
+                                        <div class="col">
+                                            {{ indicator.name }}
+                                        </div>
+                                        <div style="margin-right: 10px">
+                                            {% if not indicator.harvester or indicator.harvester.harvester_class != external_exposed_api %}
+                                                {% if indicator.harvester and  indicator.harvester.is_run %}
+                                                    <div style="border: 1px solid var(--primary-color); padding: 5px 15px">Is Harvesting</div>
+                                                {% elif indicator.harvester %}
+                                                    <form action="{% url "harvester-indicator-detail" instance.slug indicator.id %}" method="post" enctype="multipart/form-data" class="pull-right">
+                                                        {% csrf_token %}
+                                                        <button class="main-button" type="submit">Harvest Now</button>
+                                                    </form>
+                                                {% else %}
                                                     <a href="{% url "indicator-value-form-manager" instance.slug indicator.id %}">
-                                                        Value Manager Form
+                                                        <button class="main-button" type="submit">Data Capture Form</button>
                                                     </a>
-                                                </li>
-                                                <li>
-                                                    {% if indicator.harvester %}
-                                                        <a href="{% url "harvester-indicator-detail" instance.slug indicator.id %}">Harvester</a>
-                                                    {% else %}
-                                                        <a class="create-harvester" href="{{ indicator.create_harvester_url }}">Create Harvester</a>
-                                                    {% endif %}
-                                                </li>
-                                                <li>
-                                                    <a class="delete-harvester" href="{% url "indicator-detail" instance.slug indicator.id %}" onclick="deleteClick(this); return false;">Delete</a>
-                                                </li>
-                                            </ul>
+                                                {% endif %}
+                                            {% endif %}
+                                        </div>
+                                        <div>
+                                            <div class="navbar-options">
+                                                <a data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+                                                    <i class="fa fa-cog" aria-hidden="true"></i>
+                                                </a>
+                                                <ul class="dropdown-menu box-shadow-bottom">
+                                                    <li>
+                                                        <a href="{% url "indicator-edit" instance.slug indicator.id %}">
+                                                            Edit
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="{% url "indicator-reporting-unit" instance.slug indicator.id %}">
+                                                            Reporting Units
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="{% url "indicator-value-mapview-manager" instance.slug indicator.id %}">
+                                                            Value Manager Map
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="{% url "indicator-value-form-manager" instance.slug indicator.id %}">
+                                                            Value Manager Form
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        {% if indicator.harvester %}
+                                                            <a href="{% url "harvester-indicator-detail" instance.slug indicator.id %}">Harvester</a>
+                                                        {% else %}
+                                                            <a class="create-harvester" href="{{ indicator.create_harvester_url }}">Create Harvester</a>
+                                                        {% endif %}
+                                                    </li>
+                                                    <li>
+                                                        <a class="delete-harvester" href="{% url "indicator-detail" instance.slug indicator.id %}" onclick="deleteClick(this); return false;">Delete</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        {% endfor %}
+                            {% endfor %}
+                        </div>
                     </div>
                 </div>
+                <form method="post">
+                    {% csrf_token %}
+                    <input id="order-input" type="text" name="orders" style="display: none">
+                    <button class="main-button">Save New Order</button>
+                </form>
             </div>
-            <form method="post">
-                {% csrf_token %}
-                <input id="order-input" type="text" name="orders" style="display: none">
-                <button class="main-button">Save New Order</button>
-            </form>
         </div>
     </div>
 {% endblock %}
@@ -91,9 +98,6 @@
     {{ dashboard_title|safe }}
     <a href="{% url "indicator-management-new" instance.slug %}">
         <button class=" main-button pull-right"><i class="fa fa-plus-circle" aria-hidden="true"></i> Create new</button>
-    </a>
-    <a href="{% url "meta-harvester-view" instance.slug %}">
-        <button class=" main-button pull-right" style="margin-right: 1px">Meta Harvester</button>
     </a>
 {% endblock %}
 {% block scripts %}

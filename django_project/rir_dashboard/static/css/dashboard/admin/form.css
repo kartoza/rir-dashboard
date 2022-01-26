@@ -175,7 +175,7 @@ form .header span {
 
 .rule-section input {
     border: none !important;
-    width: 70px !important;
+    width: 100px !important;
 }
 
 .rule-section input:disabled {

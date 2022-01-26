@@ -92,9 +92,11 @@ define([
             const self = this;
             $.each(this.contextLayers.orders, function (index, id) {
                 const layer = self.contextLayers.layers[id];
-                mapView.removeLayer(layer.layer);
-                if (layer.show && layer.layer) {
-                    mapView.addLayer(layer.layer);
+                if (layer) {
+                    mapView.removeLayer(layer.layer);
+                    if (layer.show && layer.layer) {
+                        mapView.addLayer(layer.layer);
+                    }
                 }
             })
         },
