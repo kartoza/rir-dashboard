@@ -9,8 +9,21 @@ volumes:
 
 x-common-django:
   &default-common-django
-  image: kartoza/${COMPOSE_PROJECT_NAME}_django:${DJANGO_TAG}
-  env_file: .env
+  image: kartoza/rir_dashboard_django:${DJANGO_TAG:-0.0.1}
+  environment:
+    # editable in .env
+    - DATABASE_NAME=${DATABASE_NAME:-django}
+    - DATABASE_USERNAME=${DATABASE_USERNAME:-docker}
+    - DATABASE_PASSWORD=${DATABASE_PASSWORD:-docker}
+    - DATABASE_HOST=${DATABASE_HOST:-db}
+    - RABBITMQ_HOST=${RABBITMQ_HOST:-rabbitmq}
+    - DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE:-core.settings.prod}
+    - INITIAL_FIXTURES=${INITIAL_FIXTURES:-True}
+
+    # Email where alters should be sent. This will be used by let's encrypt and as the django admin email.
+    - ADMIN_USERNAME=${ADMIN_USERNAME:-admin}
+    - ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin}
+    - ADMIN_EMAIL=${ADMIN_EMAIL:-admin@example.com}
   volumes:
     - static-data:/home/web/static
     - media-data:/home/web/media
@@ -20,48 +33,42 @@ services:
   # Vanilla RabbitMQ service. This is needed by celery
   rabbitmq:
     image: rabbitmq:3.7-alpine
-    container_name: "${COMPOSE_PROJECT_NAME}_rabbitmq"
+    container_name: "rir_dashboard_rabbitmq"
     volumes:
       - rabbitmq:/var/lib/rabbitmq
     restart: on-failure
 
   db:
     image: kartoza/postgis:13.0
-    container_name: "${COMPOSE_PROJECT_NAME}_db"
+    container_name: "rir_dashboard_db"
     volumes:
       - database:/var/lib/postgresql/13
     environment:
       - ALLOW_IP_RANGE=0.0.0.0/0
-      - USERNAME=${DATABASE_USERNAME}
-      - PASS=${DATABASE_PASSWORD}
-      - POSTGRES_DBNAME=${DATABASE_NAME}
+      - POSTGRES_DBNAME=${DATABASE_NAME:-django}
+      - USERNAME=${DATABASE_USERNAME:-docker}
+      - PASS=${DATABASE_PASSWORD:-docker}
     restart: on-failure:5
 
   django:
     <<: *default-common-django
-    container_name: "${COMPOSE_PROJECT_NAME}_django"
+    container_name: "rir_dashboard_django"
     command: 'uwsgi --ini /uwsgi.conf'
 
   # Celery worker that executes celery tasks created by Django.
   worker:
     <<: *default-common-django
-    container_name: "${COMPOSE_PROJECT_NAME}_worker"
+    container_name: "rir_dashboard_worker"
     command: celery -A core.celery:app worker -B -l debug
     entrypoint: []
 
   nginx:
-    image: kartoza/${COMPOSE_PROJECT_NAME}_nginx:${NGINX_TAG}
-    container_name: "${COMPOSE_PROJECT_NAME}_nginx"
+    image: kartoza/rir_dashboard_nginx:${NGINX_TAG:-0.0.1}
+    container_name: "rir_dashboard_nginx"
     hostname: nginx
     volumes:
       - static-data:/home/web/static:ro
       - media-data:/home/web/media:ro
     ports:
-      - "${HTTP_PORT}:8080"
+      - "${HTTP_PORT:-80}:8080"
     restart: on-failure:5
-
-  node-red:
-    image: nodered/node-red:${NODE_RED_TAG}
-    env_file: .env
-    volumes:
-      - node-red-data:/data

@@ -33,7 +33,8 @@ services:
       context: ../
       dockerfile: deployment/docker/Dockerfile
       target: dev
-    container_name: "${COMPOSE_PROJECT_NAME}_dev"
+    image: kartoza/rir_dashboard_django_dev:${DJANGO_DEV_TAG:-0.0.1}
+    container_name: "rir_dashboard_dev"
     volumes:
       - ../django_project:/home/web/django_project
       - ./volumes/static:/home/web/static
