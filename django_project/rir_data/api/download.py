@@ -45,6 +45,10 @@ class DownloadMasterData(APIView):
         indicators = instance.indicators.order_by('name')
         geometries = instance.geometries()
 
+        level_trees = {}
+        for instance_level in instance.geometry_instance_levels:
+            level_trees[instance_level.level.name] = instance_level.get_level_tree()
+
         # fix this should be per instance levels
         for instance_level in instance.geometry_instance_levels:
             # get top geometry
@@ -72,9 +76,16 @@ class DownloadMasterData(APIView):
 
             # create headers
             header = [f'{instance_level.level.name} Name', f'{instance_level.level.name} Code']
+
+            # we create the indicators based on the reporting level of indicator
+            # is the level is the child of the instance_level
+            level_indicators = []
             for idx, indicator in enumerate(indicators):
-                header.append(indicator.name)
-                header.append(f'{indicator.name} value')
+                level_tree = level_trees[indicator.geometry_reporting_level.name]
+                if instance_level.level.name in level_tree:
+                    header.append(indicator.name)
+                    header.append(f'{indicator.name} value')
+                    level_indicators.append(indicator)
 
             # safe header to excel
             for idx, _header in enumerate(header):
@@ -89,7 +100,7 @@ class DownloadMasterData(APIView):
                 insert_sheet(row, 1, geometry.identifier)
                 geometry_code_rows.append(geometry.identifier)
 
-            for indicator in indicators:
+            for indicator in level_indicators:
                 values = indicator.values(
                     geometry=geometry_parent, geometry_level=instance_level.level, date_data=date
                 )

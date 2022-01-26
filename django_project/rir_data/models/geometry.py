@@ -49,6 +49,15 @@ class GeometryLevelInstance(models.Model):
                 ).first()
         return tree
 
+    def get_child_tree(self):
+        tree = [self.level.name]
+        for child in GeometryLevelInstance.objects.filter(
+                instance=self.instance,
+                parent=self.level
+        ):
+            tree += child.get_child_tree()
+        return tree
+
 
 class FindGeometry(models.Manager):
     def get_by(self, name, geometry_level, child_of=None):
