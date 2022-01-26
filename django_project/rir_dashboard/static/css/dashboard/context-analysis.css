@@ -147,6 +147,10 @@
     border-top: 1px solid #f5f5f5;
 }
 
+#indicator .side-panel-content {
+    overflow-y: scroll;
+}
+
 #content-view .indicator:hover {
     color: rgba(0, 0, 0, 0.5);
 }
@@ -169,7 +173,7 @@
 }
 
 #page.shrink .scenario-header {
-    padding: 10px 10px 11px 25px;
+    padding: 10px 14px 11px 25px;
 }
 
 #content h3 {
@@ -1122,4 +1126,17 @@
     border-radius: 10px;
     width: 16px;
     height: 16px;
+}
+
+#master-data-downloader {
+    display: block;
+    position: relative
+}
+
+#master-data-downloader i {
+    position: absolute;
+    top: 7px;
+    left: 9px;
+    font-size: 9px;
+    color: black;
 }
