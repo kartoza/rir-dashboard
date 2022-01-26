@@ -90,11 +90,13 @@ class Indicator(AbstractTerm):
     # threshold
     min_value = models.FloatField(
         default=0,
-        help_text="Minimum value for the indicator that can received"
+        help_text="Minimum value for the indicator that can received",
+        verbose_name="Minimum Value"
     )
     max_value = models.FloatField(
         default=100,
-        help_text="Maximum value for the indicator that can received"
+        help_text="Maximum value for the indicator that can received",
+        verbose_name="Maximum Value"
     )
 
     # exposed API
