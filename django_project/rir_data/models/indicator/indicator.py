@@ -107,19 +107,6 @@ class Indicator(AbstractTerm):
         verbose_name="Maximum Value"
     )
 
-    # exposed API
-    api_exposed = models.BooleanField(
-        default=False
-    )
-    api_token = models.UUIDField(
-        default=uuid.uuid4, editable=False,
-        help_text='Indicate that API is exposed outside. This API is used for get the data and also post new data.'
-    )
-    api_note = models.TextField(
-        null=True, blank=True,
-        help_text='Note about the usage of api, can put link that is using API to push the data.'
-    )
-
     # dashboard link
     dashboard_link = models.CharField(
         max_length=1024,

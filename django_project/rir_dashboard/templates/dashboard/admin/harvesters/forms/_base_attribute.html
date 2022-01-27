@@ -22,7 +22,7 @@
                     <input id="attribute_{{ attribute.name }}"
                            name="attribute_{{ attribute.name }}"
                            value="{{ attribute.value }}"
-                           class=" {% if attribute.type == 'date' %}date{% endif %}{{ attribute.class }}"
+                           class="{% if attribute.type == 'date' %}date{% endif %}{{ attribute.class }} {% if attribute.read_only %}readonly{% endif %}"
                            accept="{{ attribute.file_accept }}"
                            {% if attribute.type == 'file' %}type="file" {% else %}type="text"{% endif %}
                             {{ attribute.required }}
@@ -30,6 +30,7 @@
                            data-{{ key }}="{{ value }}"
                             {% endfor %}
                     >
+                    {% if attribute.read_only %}{{ attribute.value|safe }}{% endif %}
                     <div class="error"></div>
                 </td>
             </tr>
@@ -44,5 +45,12 @@
         $(document).ready(function () {
             $('.date').datepicker({ dateFormat: 'yy-mm-dd' })
         });
+
+        {#  API URL #}
+        $('input[name="attribute_API URL"]').closest('tr').find('a').each(function () {
+            const newUrl = window.location.protocol + '//' + window.location.host + $(this).attr('href');
+            $(this).attr('href', newUrl);
+            $(this).html(newUrl);
+        })
     </script>
 {% endblock extrascripts %}

@@ -4,7 +4,7 @@ from ._base import HarvesterFormView
 
 class HarvestedUsingExposedAPIByExternalClientView(HarvesterFormView):
     harvester_class = UsingExposedAPI
-    template_name = 'dashboard/admin/harvesters/forms/_base.html'
+    template_name = 'dashboard/admin/harvesters/forms/_base_attribute.html'
 
     @property
     def context_view(self) -> dict:

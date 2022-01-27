@@ -67,9 +67,9 @@
                         {% for attribute in harvester.harvesterattribute_set.all %}
                             <tr>
                                 <td>{{ attribute.human_name }}</td>
-                                <td>
+                                <td name="{{ attribute.name }}">
                                     {% if attribute.value %}
-                                        {{ attribute.value }}
+                                        {{ attribute.value|safe }}
                                     {% elif attribute.file %}
                                         <a href="{{ attribute.file.url }}">
                                             {{ attribute.file.name }}

@@ -167,21 +167,6 @@
         {% if is_create %}
             $('#nav-indicator-create').addClass('active')
         {% endif %}
-        const $note = $('p[data-field-name="api_note"]');
-        $note.hide();
-        $('#id_api_exposed').change(function () {
-            if (this.checked) {
-                $note.show();
-            } else {
-                $note.hide();
-            }
-        })
-        $('#id_api_exposed').trigger('change');
-        $('.helptext a').each(function () {
-            const newUrl = window.location.protocol + '//' + window.location.host + $(this).attr('href');
-            $(this).attr('href', newUrl);
-            $(this).html(newUrl);
-        })
 
         {# for group selector #}
         const placeholder = "Select a group or create by typing new one.";

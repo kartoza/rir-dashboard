@@ -64,8 +64,10 @@ class HarvesterFormView(AdminView):
 
         harvester_class = str(self.harvester_class).split("'")[1]
         for name, attr in self.harvester_class.additional_attributes(
-                instance=self.instance).items():
-            value = ''
+                instance=self.instance,
+                indicator=self.indicator
+        ).items():
+            value = attr.get('value', '')
             try:
                 if harvester:
                     value = harvester.harvesterattribute_set.get(name=name).value
@@ -82,6 +84,7 @@ class HarvesterFormView(AdminView):
                     'type': attr.get('type', ''),
                     'class': attr.get('class', ''),
                     'data': attr.get('data', {}),
+                    'read_only': attr.get('read_only', False),
                 }
             )
 
