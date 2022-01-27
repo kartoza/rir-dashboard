@@ -156,8 +156,10 @@ define([
         },
         changeMasterData: function (date) {
             const dateStr = dateToYYYYMMDD(date);
-            $('#master-data-downloader').attr('href', $('#master-data-downloader').data('url').replaceAll('date', dateStr));
-            $('#master-data-downloader').attr('title', "Download data for date " + dateToDDMMYYY(date));
+            $('.master-data-downloader').each(function () {
+                $(this).attr('href', $(this).data('url').replaceAll('date', dateStr));
+            })
+            $('.master-data-downloader').attr('title', "Download data for date " + dateToDDMMYYY(date));
         },
         /**
          * When indicator layer added/removed

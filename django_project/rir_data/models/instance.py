@@ -131,11 +131,13 @@ class Instance(SlugTerm, IconTerm):
                 if group_name not in indicators_in_group:
                     indicators_in_group[group_name] = {
                         'indicators': [],
+                        'indicator_ids': [],
                         'overall_scenario': 1,
                         'overall_scenario_raw': {},
                         'dashboard_link': indicator.group.dashboard_link
                     }
                 indicators_in_group[group_name]['indicators'].append(data)
+                indicators_in_group[group_name]['indicator_ids'].append(str(indicator.id))
 
                 # create overall scenarios
                 if indicator.show_in_context_analysis and scenario_value:
@@ -165,6 +167,7 @@ class Instance(SlugTerm, IconTerm):
             except ValueError:
                 overall_scenario_level = 1
             group['overall_scenario'] = overall_scenario_level
+            group['indicator_ids'] = ','.join(group['indicator_ids'])
 
         return indicators_in_group, overall_scenario_level
 

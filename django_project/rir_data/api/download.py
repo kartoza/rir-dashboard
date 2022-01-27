@@ -4,10 +4,8 @@ from openpyxl.styles import PatternFill
 from datetime import datetime
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseNotFound
 from django.shortcuts import get_object_or_404
-from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rir_data.models.instance import Instance
-from rir_data.models.indicator.indicator_value import IndicatorValue
 
 from openpyxl.workbook import Workbook
 from django.conf import settings
@@ -17,8 +15,6 @@ class DownloadMasterData(APIView):
     """
     Download master data as spreadsheet
     """
-
-    permission_classes = (IsAuthenticated,)
 
     def get(self, request, slug, date):
         instance = get_object_or_404(
@@ -42,7 +38,11 @@ class DownloadMasterData(APIView):
         wb = Workbook()
         del wb['Sheet']
 
+        # filter indicators
         indicators = instance.indicators.order_by('name')
+        if request.GET.get('indicator_id_in', None):
+            indicators = indicators.filter(id__in=request.GET.get('indicator_id_in', None).split(','))
+
         geometries = instance.geometries()
 
         level_trees = {}
@@ -58,8 +58,21 @@ class DownloadMasterData(APIView):
             if not geometry_parent:
                 continue
 
-            # check the indicators
-            if not indicators:
+            # create headers
+            header = [f'{instance_level.level.name} Name', f'{instance_level.level.name} Code']
+
+            # we create the indicators based on the reporting level of indicator
+            # is the level is the child of the instance_level
+            level_indicators = []
+            for idx, indicator in enumerate(indicators):
+                level_tree = level_trees[indicator.geometry_reporting_level.name]
+                if instance_level.level.name in level_tree:
+                    header.append(indicator.name)
+                    header.append(f'{indicator.name} value')
+                    level_indicators.append(indicator)
+
+            # check if there is indicators
+            if not level_indicators:
                 continue
 
             # create new sheet
@@ -73,19 +86,6 @@ class DownloadMasterData(APIView):
                             "solid", fgColor=color.replace('#', ''))
                     except ValueError:
                         pass
-
-            # create headers
-            header = [f'{instance_level.level.name} Name', f'{instance_level.level.name} Code']
-
-            # we create the indicators based on the reporting level of indicator
-            # is the level is the child of the instance_level
-            level_indicators = []
-            for idx, indicator in enumerate(indicators):
-                level_tree = level_trees[indicator.geometry_reporting_level.name]
-                if instance_level.level.name in level_tree:
-                    header.append(indicator.name)
-                    header.append(f'{indicator.name} value')
-                    level_indicators.append(indicator)
 
             # safe header to excel
             for idx, _header in enumerate(header):

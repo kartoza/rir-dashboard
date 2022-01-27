@@ -183,10 +183,8 @@
                                     Scenario {% if overall_scenario.level %}{{ overall_scenario.level }}: {{ overall_scenario.name }}{% else %} <i>unknown</i> {% endif %}
                                 </div>
                                 <div>
-                                    <a id="master-data-downloader" data-url="{% url "download-master-data" instance.slug "date" %}" target="_blank">
-                                        {% include 'dashboard/context-analysis/_template-scenario-bullet.html' with overall_scenario=overall_scenario.level %}
-                                        <i class="fa fa-download" aria-hidden="true"></i>
-                                    </a>
+                                    {% include 'dashboard/context-analysis/_template-scenario-download.html' with overall_scenario=overall_scenario.level %}
+                                    {% include 'dashboard/context-analysis/_template-scenario-bullet.html' with overall_scenario=overall_scenario.level %}
                                 </div>
                             </div>
                             <div class="side-panel-content">
@@ -207,14 +205,15 @@
                                         <tr class="group-name">
                                             <td class="row">
                                                 <div class="col">{{ group_name }}</div>
-                                                <div><i class="group-toggle fa fa-caret-up" aria-hidden="true"></i></div>
+                                                <div><i class="group-toggle fa fa-caret-down hidden" aria-hidden="true"></i></div>
+                                                {% include 'dashboard/context-analysis/_template-scenario-download.html' with overall_scenario=overall_scenario.level q=group.indicator_ids %}
                                                 {% include 'dashboard/context-analysis/_template-scenario-bullet.html' with overall_scenario=group.overall_scenario dashboard_link=group.dashboard_link %}
                                             </td>
                                         </tr>
                                         {# For the space #}
                                         {% for indicator in group.indicators %}
                                             <tr id="indicator-{{ indicator.id }}" data-group="{{ group_name }}"
-                                                class="indicator-{{ indicator.id }} group-row indicator-row {% if not indicator.show_in_context_analysis %}no-context-analysis hide{% endif %}">
+                                                class="indicator-{{ indicator.id }} group-row indicator-row {% if not indicator.show_in_context_analysis %}no-context-analysis hide{% endif %}" style="display: none">
                                                 <td class="indicator-name">
                                                     <div class="row">
                                                         <div class="indicator-checkbox">
@@ -231,6 +230,7 @@
                                                                 {{ indicator.name }}
                                                             </div>
                                                         </div>
+                                                        {% include 'dashboard/context-analysis/_template-scenario-download.html' with overall_scenario=overall_scenario.level ids=indicator.id %}
                                                         {% include 'dashboard/context-analysis/_template-scenario-bullet.html' with overall_scenario=indicator.scenario_value dashboard_link=indicator.dashboard_link %}
                                                     </div>
                                                     <div class="legend">

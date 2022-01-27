@@ -1128,15 +1128,26 @@
     height: 16px;
 }
 
-#master-data-downloader {
-    display: block;
-    position: relative
+.master-data-downloader {
+    opacity: 0.5;
+    display: inline-block;
+    border: 1px solid black;
+    border-radius: 10px;
+    height: 16px;
+    width: 16px;
+    margin-top: 3px;
+    margin-right: 0 !important;
+    margin-left: 5px;
 }
 
-#master-data-downloader i {
-    position: absolute;
-    top: 7px;
-    left: 9px;
+.master-data-downloader:hover {
+    opacity: 1;
+}
+
+
+.master-data-downloader i {
     font-size: 9px;
     color: black;
+    display: block;
+    padding: 3px;
 }
