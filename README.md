@@ -25,7 +25,7 @@ docker-compose down
 # Development
 ```
 git clone https://github.com/kartoza/rir-dashboard.git
-cd rir-dashboard/deployment
+cd rir-dashboard
 make up
 make dev
 ```
