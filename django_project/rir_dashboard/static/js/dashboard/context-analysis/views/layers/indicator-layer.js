@@ -132,7 +132,8 @@ define([], function () {
             $(`.${this.side}-info`).html(templates.INDICATOR_SUMMARY({
                 id: this.id,
                 name: `<div class="indicator-${this.id}">${this.name}</div>`,
-                indicator: templates.SCENARIO_BULLET().replace('scenario-0', `scenario-${this.scenario}`),
+                indicator: templates.SCENARIO_DOWNLOAD().replace('<ids>', this.id) +
+                    templates.SCENARIO_BULLET().replace('scenario-0', `scenario-${this.scenario}`),
                 side: this.side
             }));
             const onclick = $('#indicator-' + this.id).find('.scenario-bullet').attr('onclick');

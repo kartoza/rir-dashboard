@@ -183,7 +183,7 @@
                                     Scenario {% if overall_scenario.level %}{{ overall_scenario.level }}: {{ overall_scenario.name }}{% else %} <i>unknown</i> {% endif %}
                                 </div>
                                 <div>
-                                    {% include 'dashboard/context-analysis/_template-scenario-download.html' with overall_scenario=overall_scenario.level %}
+                                    {% include 'dashboard/context-analysis/_template-scenario-download.html' %}
                                     {% include 'dashboard/context-analysis/_template-scenario-bullet.html' with overall_scenario=overall_scenario.level %}
                                 </div>
                             </div>
@@ -206,7 +206,7 @@
                                             <td class="row">
                                                 <div class="col">{{ group_name }}</div>
                                                 <div><i class="group-toggle fa fa-caret-down hidden" aria-hidden="true"></i></div>
-                                                {% include 'dashboard/context-analysis/_template-scenario-download.html' with overall_scenario=overall_scenario.level ids=group.indicator_ids %}
+                                                {% include 'dashboard/context-analysis/_template-scenario-download.html' with ids=group.indicator_ids %}
                                                 {% include 'dashboard/context-analysis/_template-scenario-bullet.html' with overall_scenario=group.overall_scenario dashboard_link=group.dashboard_link %}
                                             </td>
                                         </tr>
@@ -230,7 +230,7 @@
                                                                 {{ indicator.name }}
                                                             </div>
                                                         </div>
-                                                        {% include 'dashboard/context-analysis/_template-scenario-download.html' with overall_scenario=overall_scenario.level ids=indicator.id %}
+                                                        {% include 'dashboard/context-analysis/_template-scenario-download.html' with ids=indicator.id %}
                                                         {% include 'dashboard/context-analysis/_template-scenario-bullet.html' with overall_scenario=indicator.scenario_value dashboard_link=indicator.dashboard_link %}
                                                     </div>
                                                     <div class="legend">
@@ -296,6 +296,9 @@
     </div>
     <script type='text/template' id='_scenario-bullet'>
         {% include 'dashboard/context-analysis/_template-scenario-bullet.html' with overall_scenario=0 dashboard_link='' %}
+    </script>
+    <script type='text/template' id='_scenario-download'>
+        {% include 'dashboard/context-analysis/_template-scenario-download.html' with ids='<ids>' %}
     </script>
 {% endblock %}
 {% block scripts %}
@@ -367,8 +370,8 @@
         const scenarios = {};
         {% for scenario in scenarios %}
             scenarios['{{ scenario.level }}'] = {
-                color: '{{ scenario.background_color}}',
-                text: '{{ scenario.name}}'
+                color: '{{ scenario.background_color }}',
+                text: '{{ scenario.name }}'
             }
         {% endfor %}
         const indicatorRules = {};

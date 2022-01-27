@@ -6,6 +6,7 @@ const templates = {
     INDICATOR_INFO: '#_indicator-info',
     INDICATOR_SUMMARY: '#_indicator-summary',
     SCENARIO_BULLET: '#_scenario-bullet',
+    SCENARIO_DOWNLOAD: '#_scenario-download',
 }
 define([], function () {
     return Backbone.View.extend({
