@@ -47,6 +47,16 @@
         .rule-header th {
             padding-bottom: 0 !important;
         }
+
+        #reporting-behaviour-help img {
+            width: 100%;
+        }
+
+        #reporting-behaviour-help-button {
+            cursor: pointer;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
     </style>
 {% endblock stylesheet %}
 
@@ -136,6 +146,17 @@
             </tr>
         {% endfor %}
     </table>
+
+    <!-- Modal -->
+    <div class="modal fade" id="reporting-behaviour-help" tabindex="-1" role="dialog" aria-labelledby="reporting-behaviour-help" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <img src="{% static "img/Reporting Behaviour Help.png" %}">
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 {% block scripts %}
     <link rel="stylesheet" href="{% static 'libs/select2/4.1.0-rc.0/select2.min.css' %}" type="text/css" media="screen, projection"/>
@@ -272,6 +293,10 @@
                 });
             }
 
+        })
+        $('p[data-field-name="aggregation_behaviour"]').append('<span class="helptext">Behaviour how the data will be displayed. Click <a id="reporting-behaviour-help-button">here</a> for more detail.</span>');
+        $('#reporting-behaviour-help-button').click(function () {
+            $('#reporting-behaviour-help').modal('show');
         })
     </script>
 {% endblock %}

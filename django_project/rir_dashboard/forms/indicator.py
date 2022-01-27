@@ -42,6 +42,7 @@ class IndicatorForm(forms.ModelForm):
         if level:
             self.fields['geometry_reporting_level'].choices = [(u.id, u.name) for u in level]
         self.fields['instance'].initial = instance
+        self.fields['aggregation_behaviour'].label = 'Reporting Behaviour'
 
         self.fields['api_exposed'].help_text = 'Indicate that API is exposed outside. This API is used for get the data and also POST new data.'
         if indicator_object:

@@ -78,7 +78,7 @@ class Indicator(AbstractTerm):
         default=AggregationBehaviour.USE_MOST_RECENT,
         choices=(
             # (AggregationBehaviour.ALL_REQUIRED, AggregationBehaviour.ALL_REQUIRED),
-            (AggregationBehaviour.USE_AVAILABLE, AggregationBehaviour.USE_AVAILABLE),
+            (AggregationBehaviour.USE_AVAILABLE, 'Current time window only'),
             (AggregationBehaviour.USE_MOST_RECENT, AggregationBehaviour.USE_MOST_RECENT)
         )
     )
@@ -87,8 +87,8 @@ class Indicator(AbstractTerm):
         max_length=256,
         default=AggregationMethod.AVERAGE,
         choices=(
-            (AggregationMethod.AVERAGE, AggregationMethod.AVERAGE),
-            (AggregationMethod.MAJORITY, AggregationMethod.MAJORITY)
+            (AggregationMethod.AVERAGE, 'Aggregate data by average data in the levels'),
+            (AggregationMethod.MAJORITY, 'Aggregate data by majority data in the levels')
         )
     )
     order = models.IntegerField(
