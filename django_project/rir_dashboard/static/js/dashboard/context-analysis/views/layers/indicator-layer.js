@@ -151,10 +151,12 @@ define([], function () {
             const self = this;
             this._removeLayer();
             $(`.${this.side}-info .value-table`).html('<div style="margin-left: 10px; margin-bottom: 30px"><i>Loading</i></div>');
+            $(`.indicator-${this.id} .scenario-bullet`).addClass('show');
             $(`.indicator-${this.id} .spinner`).addClass('loading');
             $(`.indicator-${this.id} .spinner`).show();
             this.getLayer(function (layer) {
                 $(`.indicator-${self.id} .spinner`).removeClass('loading');
+                $(`.indicator-${this.id} .scenario-bullet`).addClass('show');
                 if (!self.isShow) {
                     return
                 }
@@ -182,6 +184,7 @@ define([], function () {
             $(`.${this.side}-info`).hide();
             event.trigger(evt.INDICATOR_VALUES_CHANGED);
             $(`.indicator-${this.id} .spinner`).hide();
+            $(`.indicator-${this.id} .scenario-bullet`).removeClass('show');
         },
         /**
          * Remove specific layer from map

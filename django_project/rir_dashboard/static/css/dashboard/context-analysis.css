@@ -941,7 +941,7 @@
     height: 16px;
     width: 16px;
     margin-top: 3px;
-    margin-right: 0 !important;
+    margin-right: 0;
     margin-left: 5px;
     position: relative;
 }
@@ -970,11 +970,15 @@
     animation: dash 1.5s ease-in-out infinite;
 }
 
-.scenario-bullet[onclick] {
-    cursor: pointer;
+.scenario-bullet.show {
     margin-top: 3.5px;
     height: 15px !important;
-    width: 15px !important;;
+    width: 15px !important;
+    margin-right: 1px;
+}
+
+.scenario-bullet[onclick] {
+    cursor: pointer;
 }
 
 .scenario-bullet[onclick] .dashboard-indicator {
@@ -987,9 +991,14 @@
     position: absolute;
     height: 7px;
     width: 7px;
+    top: 4.5px;
+    left: 4.5px;
+    display: none;
+}
+
+.scenario-bullet.show .dashboard-indicator {
     top: 4px;
     left: 4px;
-    display: none;
 }
 
 @keyframes rotate {
