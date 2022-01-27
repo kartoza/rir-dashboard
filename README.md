@@ -26,19 +26,18 @@ docker-compose down
 ```
 git clone https://github.com/kartoza/rir-dashboard.git
 cd rir-dashboard/deployment
-make build
 make up
-make collectstatic
+make dev
 ```
 
-The web will be available at `http://127.0.0.1/`
+The web will be available at `http://localhost:2000/`
 
-To stop containers:
+To stop dev:
 ```
-make kill
+make dev-kill
 ```
 
-To stop and delete containers:
+To reload container:
 ```
-make rm
+make dev-reload
 ```

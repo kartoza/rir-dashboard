@@ -39,6 +39,20 @@ services:
       - ../django_project:/home/web/django_project
       - ./volumes/static:/home/web/static
       - ./volumes/media:/home/web/media
+    environment:
+      # editable in .env
+      - DATABASE_NAME=${DATABASE_NAME:-django}
+      - DATABASE_USERNAME=${DATABASE_USERNAME:-docker}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD:-docker}
+      - DATABASE_HOST=${DATABASE_HOST:-db}
+      - RABBITMQ_HOST=${RABBITMQ_HOST:-rabbitmq}
+      - DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE:-core.settings.dev}
+      - INITIAL_FIXTURES=${INITIAL_FIXTURES:-True}
+
+      # Email where alters should be sent. This will be used by let's encrypt and as the django admin email.
+      - ADMIN_USERNAME=${ADMIN_USERNAME:-admin}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin}
+      - ADMIN_EMAIL=${ADMIN_EMAIL:-admin@example.com}
     ports:
       # for django test server
       - "2000:8080"

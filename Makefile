@@ -28,8 +28,22 @@ dev:
 	@echo "------------------------------------------------------------------"
 	@echo "Running in dev mode"
 	@echo "------------------------------------------------------------------"
-	@docker-compose ${ARGS} up -d devZZ
+	@docker-compose ${ARGS} up -d dev
 	@docker-compose ${ARGS} up --no-recreate --no-deps -d
+	@docker exec $(PROJECT_ID)_dev python manage.py runserver 0.0.0.0:8080
+
+dev-kill:
+	@echo
+	@echo "------------------------------------------------------------------"
+	@echo "Kill dev"
+	@echo "------------------------------------------------------------------"
+	@docker kill $(PROJECT_ID)_dev
+
+dev-reload: dev-kill dev
+	@echo
+	@echo "------------------------------------------------------------------"
+	@echo "Reload DEV"
+	@echo "------------------------------------------------------------------"
 
 build:
 	@echo
