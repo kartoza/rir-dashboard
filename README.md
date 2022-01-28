@@ -25,6 +25,10 @@ docker-compose down
 # Development
 ```
 git clone https://github.com/kartoza/rir-dashboard.git
+cd rir-dashboard/deplyment
+cp .template.env .env
+docker-compose.override.template.yml docker-compose.override.yml
+
 cd rir-dashboard
 make up
 make dev
