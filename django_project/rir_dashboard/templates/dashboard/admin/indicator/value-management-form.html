@@ -147,6 +147,7 @@
             "setDate": new Date(),
             "autoclose": true
         });
+        const indicatorID = '{{ indicator.id }}';
         var myDate = new Date();
         var date = myDate.getFullYear() + '-' + ('0' + (myDate.getMonth() + 1)).slice(-2) + '-' + ('0' + myDate.getDate()).slice(-2);
         $("#datepicker").val(date);
@@ -194,6 +195,27 @@
             })
         }
 
+        let lastValue = {};
+        const cookieName = 'value-management-form-' + indicatorID;
+        if (getCookie(cookieName)) {
+            try {
+                lastValue = JSON.parse(getCookie(cookieName));
+            } catch (e) {
+
+            }
+        }
+
+        function inputChanged(el) {
+            lastValue[$(el).attr('id')] = $(el).val();
+            setCookie(cookieName, JSON.stringify(lastValue))
+        }
+
+        function inputDefaultValue(el) {
+            if (lastValue[$(el).attr('id')]) {
+                $(el).val(lastValue[$(el).attr('id')]);
+            }
+        }
+
         {# when file input changed #}
         const loadingWidth = $('#file-modal .custom-file-loading').width() + 0;
         const $loading = $('#file-modal .custom-file-loading');
@@ -213,6 +235,7 @@
                 $('#attribute_sheet_name').prop('disabled', false);
                 $('#attribute_sheet_name').off('change');
                 $('#attribute_sheet_name').change(function () {
+                    inputChanged(this);
                     var array = XLSX.utils.sheet_to_json(workbook.Sheets[$(this).val()], {
                         header: 1,
                         defval: '',
@@ -232,6 +255,12 @@
                     if (array[0].includes('Value')) {
                         $('#attribute_column_name_value').val('Value');
                     }
+                    $inputs.change(function () {
+                        inputChanged(this);
+                    });
+                    $inputs.each(function () {
+                        inputDefaultValue(this);
+                    });
                     $('#attribute_extra_columns').select2();
                 });
 
@@ -239,6 +268,7 @@
                 $.each(workbook.SheetNames, function (idx, value) {
                     $('#attribute_sheet_name').append(`<option value="${value}">${value}</option`);
                 });
+                inputDefaultValue($('#attribute_sheet_name'));
                 $('#attribute_sheet_name').trigger('change');
             };
             fr.readAsBinaryString(file);
