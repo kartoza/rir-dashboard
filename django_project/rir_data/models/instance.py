@@ -124,6 +124,7 @@ class Instance(SlugTerm, IconTerm):
                     data['value'] = int(value['value'])
                     data['scenario_value'] = value['scenario_value']
                     data['object'] = indicator
+                    data['latest_date'] = indicator.indicatorvalue_set.order_by('date').first().date.strftime("%Y-%m-%d")
 
                 indicators.append(data)
 

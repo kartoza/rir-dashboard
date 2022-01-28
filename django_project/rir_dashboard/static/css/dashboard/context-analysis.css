@@ -1141,7 +1141,8 @@
 }
 
 .master-data-downloader {
-    opacity: 0.5;
+    opacity: 0.3;
+    cursor: not-allowed;
     display: inline-block;
     border: 1px solid black;
     border-radius: 10px;
@@ -1152,7 +1153,12 @@
     margin-left: 5px;
 }
 
-.master-data-downloader:hover {
+.master-data-downloader:link {
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+.master-data-downloader:link:hover {
     opacity: 1;
 }
 

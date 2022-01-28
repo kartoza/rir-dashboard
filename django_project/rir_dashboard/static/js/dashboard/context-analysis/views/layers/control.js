@@ -157,9 +157,27 @@ define([
         changeMasterData: function (date) {
             const dateStr = dateToYYYYMMDD(date);
             $('.master-data-downloader').each(function () {
-                $(this).attr('href', $(this).data('url').replaceAll('date', dateStr));
+                const url = $(this).data('url');
+                const ids = url.split('indicator_id_in=');
+                if (!ids[1]) {
+                    $(this).attr('href', url.replaceAll('date', dateStr));
+                    $(this).attr('title', "Download data for date " + dateToDDMMYYY(date));
+                } else {
+                    let dataExist = false;
+                    $.each(ids[1].split(','), function (index, id) {
+                        if (indicatorLatestDate[parseInt(id)] && indicatorLatestDate[parseInt(id)] <= dateStr) {
+                            dataExist = true
+                        }
+                    })
+                    if (dataExist) {
+                        $(this).attr('title', "Download data for date " + dateToDDMMYYY(date));
+                        $(this).attr('href', url.replaceAll('date', dateStr));
+                    } else {
+                        $(this).removeAttr('href');
+                        $(this).attr('title', "No data found");
+                    }
+                }
             })
-            $('.master-data-downloader').attr('title', "Download data for date " + dateToDDMMYYY(date));
         },
         /**
          * When indicator layer added/removed

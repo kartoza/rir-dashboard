@@ -5,6 +5,8 @@ from datetime import datetime
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseNotFound
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
+from rest_framework.response import Response
+from rir_data.models.indicator import IndicatorValue
 from rir_data.models.instance import Instance
 
 from openpyxl.workbook import Workbook
@@ -67,8 +69,6 @@ class DownloadMasterData(APIView):
             for idx, indicator in enumerate(indicators):
                 level_tree = level_trees[indicator.geometry_reporting_level.name]
                 if instance_level.level.name in level_tree:
-                    header.append(indicator.name)
-                    header.append(f'{indicator.name} value')
                     level_indicators.append(indicator)
 
             # check if there is indicators
@@ -87,11 +87,6 @@ class DownloadMasterData(APIView):
                     except ValueError:
                         pass
 
-            # safe header to excel
-            for idx, _header in enumerate(header):
-                insert_sheet(0, idx, _header)
-                sheet.column_dimensions[get_column_letter(idx + 1)].width = 20
-
             # get lines per geometry
             geometry_code_rows = ['']
             for row, geometry in enumerate(geometries.filter(
@@ -104,12 +99,21 @@ class DownloadMasterData(APIView):
                 values = indicator.values(
                     geometry=geometry_parent, geometry_level=instance_level.level, date_data=date
                 )
+                if not values:
+                    continue
+                header.append(indicator.name)
+                header.append(f'{indicator.name} value')
                 for value in values:
                     row = geometry_code_rows.index(value['geometry_code'])
                     indicator_text_col = header.index(indicator.name)
                     indicator_value_col = header.index(f'{indicator.name} value')
                     insert_sheet(row, indicator_text_col, value['scenario_text'], value['background_color'])
                     insert_sheet(row, indicator_value_col, value['scenario_value'], value['background_color'])
+
+            # safe header to excel
+            for idx, _header in enumerate(header):
+                insert_sheet(0, idx, _header)
+                sheet.column_dimensions[get_column_letter(idx + 1)].width = 20
 
         # save output reports to excel file
         wb.save(filename=_file)
@@ -125,3 +129,28 @@ class DownloadMasterData(APIView):
             return response
         else:
             return HttpResponseNotFound('The file is not found')
+
+
+class DownloadMasterDataCheck(APIView):
+    """
+    Download master data as spreadsheet
+    """
+
+    def get(self, request, slug, date):
+        instance = get_object_or_404(
+            Instance, slug=slug
+        )
+        try:
+            date = datetime.strptime(date, "%Y-%m-%d").date()
+        except ValueError:
+            return HttpResponseBadRequest('Date format is not correct')
+        indicators = instance.indicators
+        if request.GET.get('indicator_id_in', None):
+            indicators = indicators.filter(id__in=request.GET.get('indicator_id_in', None).split(','))
+
+        return Response({
+            'count': IndicatorValue.objects.filter(
+                indicator__in=indicators).filter(
+                date__lte=date
+            ).count()
+        })
