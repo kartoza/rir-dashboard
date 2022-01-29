@@ -1169,3 +1169,14 @@
     display: block;
     padding: 3px;
 }
+
+.leaflet-popup-content .geometry-value {
+    position: relative;
+}
+
+.leaflet-popup-content .scenario-bullet {
+    margin-top: 0;
+    position: absolute;
+    top: 7px;
+    right: 20px;
+}

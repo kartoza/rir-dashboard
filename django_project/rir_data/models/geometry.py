@@ -126,6 +126,17 @@ class Geometry(models.Model):
         null=True
     )
 
+    # dashboard link
+    dashboard_link = models.CharField(
+        default='',
+        max_length=1024,
+        null=True, blank=True,
+        help_text=(
+            'A dashboard link can be any URL to e.g. a BI platform or another web site. '
+            'This is optional, and when populated, a special icon will be shown next to the indicator which, '
+            'when clicked, will open up this URL in a frame over the main map area.')
+    )
+
     objects = FindGeometry()
 
     class Meta:

@@ -6,7 +6,7 @@ define([], function () {
     return Backbone.View.extend({
         /** Initialization
          */
-        initialize: function (administrativeLevelLayer, id, name, url, levels, scenario) {
+        initialize: function (administrativeLevelLayer, id, name, url, levels, scenario, unit) {
             this.name = name;
             this.administrativeLevelLayer = administrativeLevelLayer;
             this.$el = $(`#indicator-` + id);
@@ -20,6 +20,7 @@ define([], function () {
             this.layers = {};
             this.layer = null;
             this.scenario = scenario;
+            this.unit = unit;
             this.isShow = false;
 
 
@@ -69,7 +70,8 @@ define([], function () {
                                 $.each(geometryData.features, function (idx, feature) {
                                     $.each(data, function (idx, rowData) {
                                         if (feature.id === rowData.geometry_id) {
-                                            rowData['geometry_level'] = feature['properties']['geometry_level_name'];
+                                            rowData['geometry_level'] = feature.properties.geometry_level_name;
+                                            rowData['dashboard_link'] = feature.properties.dashboard_link;
                                             feature['properties'] = rowData;
                                             cleanGeojson['features'].push(feature);
                                             return false;
@@ -97,11 +99,28 @@ define([], function () {
                                     `<tr style="background-color: ${feature.properties.background_color}; color: ${feature.properties.text_color}"><td colspan="2" style="text-align: center"><b>${self.name}</b></td></tr>` +
                                     `<tr><td colspan="2"><button class="white-button" onclick="triggerEventToDetail('${self.id}', '${self.name}')">Detail</button></td></tr>` +
                                     `<tr><td valign="top"><b>Scenario</b></td valign="top"><td>${feature.properties.scenario_text}</td></tr>` +
-                                    `<tr><td><b>Indicator value</b></td><td valign="top">${feature.properties.value}</td valign="top"></tr>`
+                                    `<tr><td><b>${self.name} value</b></td><td valign="top" title="${feature.properties.value}">${numberWithCommas(feature.properties.value)} ${self.unit}</td></tr>`
 
                                 // check others properties
+                                const geometryProperties = {};
+                                geometryProperties[feature.properties['geometry_level'] + ' code'] = feature.properties['geometry_code'];
+                                geometryProperties[feature.properties['geometry_level'] + ' name'] = feature.properties['geometry_name'];
+                                $.each(geometryProperties, function (key, value) {
+                                    defaultHtml += `
+                                        <tr>
+                                            <td valign="top"><b>${key.capitalize()}</b></td>
+                                            <td valign="top" class="geometry-value geometry-${feature.properties.geometry_id}">
+                                                ${numberWithCommas(value)}
+                                                ${templates.SCENARIO_BULLET()}
+                                            </td>
+                                        </tr>`
+                                });
                                 $.each(feature.properties, function (key, value) {
-                                    if (!['value', 'background_color', 'text_color', 'scenario_text', 'scenario_value', 'geometry_id', 'indicator_id', 'geometry_level'].includes(key)) {
+                                    if (![
+                                        'unit', 'value', 'background_color', 'text_color',
+                                        'indicator_id', 'scenario_text', 'scenario_value',
+                                        'geometry_id', 'geometry_code', 'geometry_name', 'geometry_level', 'dashboard_link'
+                                    ].includes(key)) {
                                         defaultHtml += `<tr><td valign="top"><b>${key.capitalize()}</b></td><td valign="top">${numberWithCommas(value)}</td></tr>`
                                     }
                                 });

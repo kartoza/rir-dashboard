@@ -60,7 +60,22 @@ define(['js/views/layers/indicator-info/base'], function (Base) {
                         $.each(scenarios, function (scenarioLevel, data) {
                             $bullet.removeClass('scenario-' + scenarioLevel);
                         });
-                        $bullet.addClass('scenario-' + returnMostOccurring(allValues)[0]);
+
+                        const scenarioClass = 'scenario-' + returnMostOccurring(allValues)[0]
+                        $bullet.addClass(scenarioClass);
+
+                        // thisis for popup
+                        const $popupBullet = $('.geometry-' + self.geometry.properties.geometry_id + ' .scenario-bullet');
+                        $popupBullet.addClass(scenarioClass);
+
+                        // create dashboard link
+                        if (self.geometry.properties.dashboard_link) {
+                            $bullet.attr('onclick', `showDashboard('${self.geometry.properties.dashboard_link}')`)
+                            $popupBullet.attr('onclick', `showDashboard('${self.geometry.properties.dashboard_link}')`)
+                        } else {
+                            $bullet.removeAttr('onclick')
+                            $popupBullet.removeAttr('onclick')
+                        }
                     }, function (e) {
                         console.log(e)
                     })
