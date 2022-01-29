@@ -1,5 +1,4 @@
 import typing
-import uuid
 from datetime import date
 from django.db.models import Count, Sum, Avg
 from django.contrib.gis.db import models

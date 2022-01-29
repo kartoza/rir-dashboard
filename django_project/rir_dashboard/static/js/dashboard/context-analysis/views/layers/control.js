@@ -113,7 +113,12 @@ define([
                 if (!self.indicatorLayers[$(this).data('id')]) {
                     self.indicatorLayers[$(this).data('id')] = new IndicatorLayer(
                         self.administrativeLevelLayer,
-                        $(this).data('id'), $(this).data('name'), $(this).data('url'), JSON.parse($(this).data('levels').replaceAll('\'', '"')), $(this).data('scenario'))
+                        $(this).data('id'),
+                        $(this).data('name'),
+                        $(this).data('url'),
+                        JSON.parse($(this).data('levels').replaceAll('\'', '"')),
+                        $(this).data('scenario'),
+                        $(this).data('unit'))
                 }
                 const indicatorLayer = self.indicatorLayers[$(this).data('id')];
                 if (this.checked) {

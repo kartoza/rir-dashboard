@@ -180,3 +180,11 @@ a:hover {
 table .helptext {
     font-weight: 500;
 }
+
+.leaflet-touch .leaflet-control-layers,
+.leaflet-touch .leaflet-bar {
+    border: none !important;
+    box-shadow: 1px 0px 5px 0px rgba(0, 0, 0, 0.1) !important;
+    -webkit-box-shadow: 1px 0px 5px 0px rgba(0, 0, 0, 0.1) !important;;
+    -moz-box-shadow: 1px 0px 5px 0px rgba(0, 0, 0, 0.1) !important;;
+}

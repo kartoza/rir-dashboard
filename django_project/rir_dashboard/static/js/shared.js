@@ -74,7 +74,10 @@ function numberWithCommas(x) {
         return '';
     } else if (isNaN(x)) {
         return x;
+    } else if (typeof x === 'string') {
+        return x;
     } else {
+        x = x.toFixed(2);
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
 }
