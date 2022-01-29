@@ -51,9 +51,11 @@ define(['js/views/layers/indicator-info/base'], function (Base) {
                         // get the common value for each group
                         $.each(groupsValue, function (groupName, array) {
                             const scenario = scenarios[returnMostOccurring(array)[0]];
-                            const $groupEl = self.$el.find(`.group-name[data-name="${groupName}"]`);
-                            $($groupEl.find('td')[1]).css('background', scenario.color);
-                            $($groupEl.find('td')[2]).html(scenario.text);
+                            if (scenario) {
+                                const $groupEl = self.$el.find(`.group-name[data-name="${groupName}"]`);
+                                $($groupEl.find('td')[1]).css('background', scenario.color);
+                                $($groupEl.find('td')[2]).html(scenario.text);
+                            }
                         })
                         // for all values
                         const $bullet = self.$el.find('.indicator-info-title .scenario-bullet')

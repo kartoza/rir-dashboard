@@ -85,6 +85,7 @@
 .leaflet-popup-content .white-button {
     min-width: 200px;
     margin-top: 0;
+    border: 1px solid var(--primary-color);
 }
 
 .leaflet-popup-content .input {
