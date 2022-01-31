@@ -35,7 +35,7 @@ Downloading data for the entire instant will provide the user country, region, d
 4.	**The info panel**:                                    
 The information panel is located on the righthand side of the screen. It’s only visible when an indicator is selected in the indicator panel. 
 
-![Info Panel](../img/Info-panel.mp4 "Info Panel")
+![Info Panel](../img/info-panel.gif "Info Panel")
 
 The panel shows the severity case of the selected indicator in each region or district (depending on what has been selected). It also has a graphical representation
 in the form of a pie chart that displays how many areas within the instant fall within each severity case. By dragging the mouseover the pie chart,
