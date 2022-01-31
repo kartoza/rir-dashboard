@@ -111,7 +111,7 @@ Open up a web browser and go to 127.0.0.1 and the dashboard will open:
 Open network settings of your virtual box
 ![Network settings vbox](../../img/Virtualbox-network-settings1.PNG)
 
-Click on port forwarding and add 2 new rules as indicated in the image
+Click on port forwarding and add 2 new rules as indicated in the image below:
 ![Network settings 2 vbox](../../img/Virtualbox-network-settings2.PNG)
 
 Click OK and close. Download [PuTTY](http://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html).
