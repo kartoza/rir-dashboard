@@ -115,7 +115,7 @@ Click on port forwarding and add 2 new rules as indicated in the image
 ![Network settings 2 vbox](Virtualbox-network-settings2.png)
 
 Click OK and close. Download [PuTTY](http://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html).
-[Create a connection by following these directions](https://the.earth.li/~sgtatham/putty/0.67/htmldoc/Chapter2.html#gs-insecure), enter “localhost” as the host name, “SSH” as the protocol, and “2222” as the port.
+Create a connection by following these [directions](https://the.earth.li/~sgtatham/putty/0.67/htmldoc/Chapter2.html#gs-insecure), enter “localhost” as the host name, “SSH” as the protocol, and “2222” as the port.
 
 Once you have logged in on PuTTY enter this in the prompt (Make sure that you replace your username with "yourlogin": 
 ```
