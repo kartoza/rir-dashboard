@@ -35,20 +35,20 @@ If the user has two factors selected to display on the map, they will see the na
 To move between the two sets of data drag the vertical line, that extends from the top of the screen to the bottom, left to right. This feature allows 
 the user to analyse more than one indicator at a time without having to deselect and select another factor.
 >
-![Switching Between Factors on the Map Display](../img/Switching-between-factors.gif "Switching Between Factors on the Map Display ")
+![Switching Between Factors on the Map Display](../img/Switching-between-factors.gif "Switching Between Factors on the Map Display")
 >
 >
 5.	 **Timelapse Bar**:
 The timelapse bar will show you the severity of the selected indicator over a period of time. As the map and the info panel change, the corresponding date for
 that data will be displayed within the bar. To initiate the time lapse, click on the play button. Click stop to end it. 
 >
-![Timelapse Bar](…/img/Timelapse.gif "Timelapse Bar")
+![Timelapse Bar](../img/Timelapse.gif "Timelapse Bar")
 >
 >
 6.	**Map Icon**:
 By clicking on the little map icon at the bottom left of the screen, the user can swap the location of the second indicator selected as well as the options
 to have that data displayed on a country, region, or district level.
 >
-![Map Icon](…/img/Map-icon.gif "Map Icon")
+![Map Icon](../img/Map-icon.gif "Map Icon")
 >
 >
