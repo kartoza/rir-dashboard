@@ -4,7 +4,7 @@
 
 ### You should be running a linux ubuntu server on your machine or on a virtual box
 
-Ensure that you have set your unique login name and unique password
+Ensure that you have set your unique login username and unique password
 
 Start the server and login
 
