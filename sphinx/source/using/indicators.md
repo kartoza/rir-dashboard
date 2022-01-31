@@ -29,7 +29,7 @@ Downloading data for the entire instant will provide the user country, region, d
 
 ![Downloading Data](../img/Downloading-data.png "Downloading Data")
 
-![Downloading Data for the Entire Instant](../img/Excel.mp4 "Downloading Data for the Entire Instant")
+![Downloading Data for the Entire Instant](../img/Excel.gif "Downloading Data for the Entire Instant")
 >
 >
 4.	**The info panel**:                                    
