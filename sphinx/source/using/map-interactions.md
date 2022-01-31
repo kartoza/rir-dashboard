@@ -10,7 +10,7 @@ and obtain different information.
 To pan around the map, the user needs to click down with their mouse and drag the map around. The map will continue to pan for as long as the mouse is clicked in. 
 To make the map stop moving, release your mouse.
 >
-![Moving Around the Map ](../img/moving-around-giphy.gif "Moving Around the Map")
+![Moving Around the Map ](../img/moving-around-the-map.gif "Moving Around the Map")
 >
 >
 2.	**Zooming In and Out**:
