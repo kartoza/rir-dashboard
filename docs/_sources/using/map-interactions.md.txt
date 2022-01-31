@@ -1,4 +1,4 @@
-## Map Interactions
+# Map Interactions
 
 This document covers how the user can interact with the map displayed in the RIR dashboard and how the user can navigate around to perform different functions
 and obtain different information. 
