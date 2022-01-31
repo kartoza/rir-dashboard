@@ -119,10 +119,11 @@ Click on port forwarding and add 2 new rules as indicated in the image below:
 Click OK and close. Download [PuTTY](http://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html).
 Create a connection by following these [directions](https://the.earth.li/~sgtatham/putty/0.67/htmldoc/Chapter2.html#gs-insecure), enter “localhost” as the host name, “SSH” as the protocol, and “2222” as the port.
 
-Once you have logged in on PuTTY enter this in the prompt (Make sure that you replace your username with "yourlogin": 
+Once you have logged in on PuTTY enter this command below in the prompt: 
 ```
 ssh yourlogin@127.0.0.1 -p 22
 ```
+(Make sure that you replace your username with "yourlogin")
 When asked for your password, press enter
 
 Open the RIR dashboard server using a web browser on your machine by going to 127.0.0.1:8080
