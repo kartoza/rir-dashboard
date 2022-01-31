@@ -132,7 +132,7 @@ class ExcelHarvester(BaseHarvester):
             for idx, indicator in indicators_column.items():
                 value = record[idx]
                 try:
-                    if not value:
+                    if value is None or value == '':
                         result.append(f'{indicator.name} : Value is empty')
                     else:
                         try:

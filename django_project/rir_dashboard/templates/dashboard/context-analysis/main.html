@@ -223,7 +223,7 @@
                                                                    data-scenario="{{ indicator.scenario_value }}"
                                                                    data-url="{{ indicator.object.url_data_template }}"
                                                                    data-levels="{{ indicator.object.levels }}"
-                                                                   data-unit="{{ indicator.object.unit }}"
+                                                                   data-unit="{% if indicator.object.unit %}{{ indicator.object.unit }}{% endif %}"
                                                                    {% if not indicator.object.url_data_template %}disabled{% endif %}>
                                                         </div>
                                                         <div class="col">
@@ -379,8 +379,8 @@
         const indicatorLatestDate = {};
         {% for group_name, group in indicators_in_groups.items %}
             {% for indicator in group.indicators %}
-                indicatorRules['{{ indicator.id }}'] = {{ indicator.rules|safe }}
-                indicatorLatestDate['{{ indicator.id }}'] = '{{ indicator.latest_date }}'
+                indicatorRules['{{ indicator.id }}'] = {{ indicator.rules|safe }};
+                indicatorLatestDate['{{ indicator.id }}'] = '{{ indicator.latest_date }}';
             {% endfor %}
         {% endfor %}
 
