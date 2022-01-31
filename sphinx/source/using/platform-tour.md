@@ -1,4 +1,4 @@
-## Platform Tour
+# Platform Tour
 
 Before we dive into details about the different functions available on the platform, let's first start with a brief 
 tour of the main user interface so that we can refer to things using shared language.
