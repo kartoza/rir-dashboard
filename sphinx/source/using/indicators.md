@@ -24,25 +24,25 @@ It is possible for the user to download data for each indicator or even for the 
 and the option to download data for the entire instant is on the top right corner of the screen. The data will download in the form of an excel spreadsheet.
 Downloading data for the entire instant will provide the user country, region, district and IPC level data for the geographic location under observation.
 
-![Downloading Data](../img/Downloading-data.png "Downloading Data”)
+![Downloading Data](../img/Downloading-data.png "Downloading Data")
 
-![Downloading Data for the Entire Instant](../img/Excel.mp4 "Downloading Data for the Entire Instant”)
+![Downloading Data for the Entire Instant](../img/Excel.mp4 "Downloading Data for the Entire Instant")
 
 4.	**The info panel**:                                    
 The information panel is located on the righthand side of the screen. It’s only visible when an indicator is selected in the indicator panel. 
 
-![Info Panel](../img/Info-panel.mp4 "Info Panel”)
+![Info Panel](../img/Info-panel.mp4 "Info Panel")
 
 The panel shows the severity case of the selected indicator in each region or district (depending on what has been selected). It also has a graphical representation
 in the form of a pie chart that displays how many areas within the instant fall within each severity case. By dragging the mouseover the pie chart,
 the use can see these values. The user can also download the data for that specific indicator in the info panel. The download icon is circled in red in the image below. 
 
-![Info Panel](../img/ Infopanel.png "Info Panel”)
+![Info Panel](../img/ Infopanel.png "Info Panel")
 
 To view the severity levels of each indicator for a specific location, click on a region or district on the map. This should create a pop-up window on the screen
 as previously discussed in the Map Interactions document. It should also create a tab in the info panel called Indicators.
 
-![Info Panel Indicators](../img/ info-panel-indicators.mp4 "Info Panel Indicators”)
+![Info Panel Indicators](../img/ info-panel-indicators.mp4 "Info Panel Indicators")
 
 
 
