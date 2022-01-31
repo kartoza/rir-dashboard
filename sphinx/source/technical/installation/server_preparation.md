@@ -124,6 +124,7 @@ Once you have logged in on PuTTY enter this command below in the prompt:
 ssh yourlogin@127.0.0.1 -p 22
 ```
 (Make sure that you replace your username with "yourlogin")
+
 When asked for your password, press enter
 
 Open the RIR dashboard server using a web browser on your machine by going to 127.0.0.1:8080
