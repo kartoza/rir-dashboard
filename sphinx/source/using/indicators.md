@@ -19,7 +19,7 @@ To view the traffic lights, expand the indicators panel by clicking on the arrow
 and allow to look at the severity level for each indicator. In order to view each subsection in each group, expand the indicator group. The severity levels displayed 
 are for the entire instant, in this case they show the indicators and their corresponding severities for Somalia.
 
-![Traffic Lights](../img/traffic-lights.mp4 "Traffic Lights")
+![Traffic Lights](../img/traffic-lights.gif "Traffic Lights")
 >
 >
 3. **Downloading Data**:
@@ -46,7 +46,7 @@ the use can see these values. The user can also download the data for that speci
 To view the severity levels of each indicator for a specific location, click on a region or district on the map. This should create a pop-up window on the screen
 as previously discussed in the Map Interactions document. It should also create a tab in the info panel called Indicators.
 
-![Info Panel Indicators](../img/info-panel-indicators.mp4 "Info Panel Indicators")
+![Info Panel Indicators](../img/info-panel-indicators.gif "Info Panel Indicators")
 
 
 
