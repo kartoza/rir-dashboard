@@ -1,8 +1,8 @@
 # Platform Tour
 >
 
-The RIR platform monitors health, child protection, nutrition, WASH and education in specific geographic regions. To fully understand 
-the plaform and the information you can obtain from it, you need to understand how it works.
+The RIR platform is situational Awareness platform to monitor health, child protection, nutrition wash and education in a geographic region. To fully understand 
+the plaform and the information you can obtain from it, you need to understand how it works. 
 >
 ![Interface Tour](../img/platform-tour.png "Platform Tour")
 >
