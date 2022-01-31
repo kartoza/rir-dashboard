@@ -19,7 +19,7 @@ The second method can be used for when the user is looking to zoom into a specif
 area they would like to focus in on. If the user is using a scroll pad and not a mouse, they can zoom out by bringing their fingers together and zoom out by moving 
 them away from each other on the pad.
 >
-![Zooming in ](../img/Zooming-in.mp4 "Zooming in")
+![Zooming in ](../img/Zooming-in.gif "Zooming in")
 >
 >
 3.	**Information Display Window**:
@@ -42,7 +42,7 @@ the user to analyse more than one indicator at a time without having to deselect
 The timelapse bar will show you the severity of the selected indicator over a period of time. As the map and the info panel change, the corresponding date for
 that data will be displayed within the bar. To initiate the time lapse, click on the play button. Click stop to end it. 
 >
-![Timelapse Bar](…/img/Timelapse.gif  "Timelapse Bar")
+![Timelapse Bar](…/img/Timelapse.gif "Timelapse Bar")
 >
 >
 6.	**Map Icon**:
