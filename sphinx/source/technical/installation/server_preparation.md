@@ -4,6 +4,8 @@
 
 ### You should be running a linux ubuntu server on your machine or on a virtual box
 
+Ensure that you have set your unique login name and unique password
+
 Start the server and login
 
 ### Install make dependency
@@ -22,15 +24,15 @@ This will install docker-compose on your machine or virtual box server
 sudo apt install docker-compose       
 ```
 
-### Run apt-get update
+### Run apt update
 
-This will run apt-get update
+This will run apt update
 ```
 sudo apt-get update       
 ```
-### Run apt-get install
+### Run apt install
 
-This will run apt-get install
+This will run apt install
 ```
 sudo apt-get install \
 ca-certificates \
@@ -55,7 +57,7 @@ echo \
 $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 ```
 
-Run apt-get update:
+Run apt update:
 
 ```
 sudo apt-get update
@@ -90,7 +92,6 @@ cd rir-dashboard
 cd deployment
 ls
 cp docker-compose.override.template.yml docker-compose.override.yml
-cp docker-compose.override.template.yml docker-compose.override.yml^C
 cp .template.env .env
 ls
 cd ..
