@@ -1,143 +1,130 @@
 # Preparing the server
 
-## Basic Security
+## Basic Requirements
 
-### Unattended upgrades
+### You should be running a linux ubuntu server on your machine or on a virtual box
 
-This will automatically install only security fixes on a continual basis on your server.
+Start the server and login
 
-```
-sudo apt install unattended-upgrades
-```
+### Install make dependency
 
-### ssh
-
-Disable password authentication for SSH
+This will install make on your machine or virtual box server
 
 ```
-sudo vim /etc/ssh/sshd_config
+sudo apt install make       # version 4.2.1-1.2       
 ```
 
-Set this:
+### Install docker-compose
+
+This will install docker-compose on your machine or virtual box server
 
 ```
-PasswordAuthentication no
-Then do
-sudo systemctl restart sshd.service
+sudo apt install docker-compose       
 ```
 
-### Crowdsec
+### Run apt-get update
 
-https://crowdsec.net/ 
+This will run apt-get update
+```
+sudo apt-get update       
+```
+### Run apt-get install
 
+This will run apt-get install
+```
+sudo apt-get install \
+ca-certificates \
+curl \
+gnup \
+lsb-release
+```
+
+### Download docker
+
+This will download docker 
 
 ```
-wget -qO - https://s3-eu-west-1.amazonaws.com/crowdsec.debian.pragmatic/crowdsec.asc |sudo apt-key add - && echo "deb https://s3-eu-west-1.amazonaws.com/crowdsec.debian.pragmatic/$(lsb_release -cs) $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/crowdsec.list > /dev/null;
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg     
+```
+
+On the next prompt line:
+
+```
+echo \
+"deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg]https:download.docker.com/linux/ubuntu \
+$(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+```
+
+Run apt-get update:
+
+```
 sudo apt-get update
-sudo apt-get install crowdsec
 ```
 
-### Fail2ban
+### Install docker
 
+This will install docker
 ```
-sudo apt install fail2ban
-```
-See: https://www.fail2ban.org/wiki/index.php/Main_Page 
-
-
-
-### Firewall
-
-```
-sudo ufw allow ssh
-sudo ufw enable
-sudo ufw status
+sudo apt-get install  docker-ce-cli containerd.io
 ```
 
-Should show something like this:
+### Check if installation was successful
 
+This will check if installation of docker was successful
 ```
-Status: active
-
-To             Action   From
---             ------   ----
-22/tcp           ALLOW    Anywhere         
-22/tcp (v6)        ALLOW    Anywhere (v6)
+sudo docker run hello-world
 ```
 
-We will open more ports as they are needed.
+### Clone rir-dashboard repository to your machine
 
-### Status monitoring
-
-gotop is a great console based dashboard for monitoring your server.
-
-Ubuntu:
-
+This will clone the rir-dashboard rpository to your machine or virtual box
 ```
-sudo apt-get install golang
-cd 
-go get github.com/cjbassi/gotop
-chmod +x go/bin/gotop
-sudo cp go/bin/gotop /usr/local/bin/
+git clone https://github.com/kartoza/rir-dashboard.git
 ```
 
-Fedora:
+### Set up server
 
+This will set up the rir-dashboard server on your machine or virtual box
 ```
-sudo dnf install golang
-cd 
-go get github.com/cjbassi/gotop
-chmod +x go/bin/gotop
-sudo cp go/bin/gotop /usr/local/bin/
-```
-
-
-Now just type gotop whenever you want to see your terminal system monitor.
-
-
-
-## Additional Software
-
-### Docker
-
-```
-sudo apt install docker.io
-sudo apt-get -y install python3-pip
-sudo pip3 install docker-compose
+cd rir-dashboard
+cd deployment
+ls
+cp docker-compose.override.template.yml docker-compose.override.yml
+cp docker-compose.override.template.yml docker-compose.override.yml^C
+cp .template.env .env
+ls
+cd ..
+make up
+docker ps
+docker logs -f rir_dashboard_django
 ```
 
-<div class="admonition warning">
-At this time we do not use the snapd installation of docker. Note that if you do,
-you will need to install osgs in your home directory. See snapd docker notes 
-for details.
-</div>
+### Open server if using a linux machine
 
+This will open the dashboard on a webpage:
 
-### Git, rpl, pwgen, Make and openssl
+Open up a web browser and go to 127.0.0.1 and the dashboard will open:
+![RIR Dashboard on 127.0.0.1](rir-dashboard-linux-machine.png)
 
-Needed for checking out our docker project and running the various make
-commands we provide.
+### If using a virtual box
 
+Open network settings of your virtual box
+![Network settings vbox](Virtualbox-network-settings1.png)
+
+Click on port forwarding and add 2 new rules as indicated in the image
+![Network settings 2 vbox](Virtualbox-network-settings2.png)
+
+Click OK and close. Download [PuTTY](http://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html).
+[Create a connection by following these directions](https://the.earth.li/~sgtatham/putty/0.67/htmldoc/Chapter2.html#gs-insecure), enter “localhost” as the host name, “SSH” as the protocol, and “2222” as the port.
+
+Once you have logged in on PuTTY enter this in the prompt (Make sure that you replace your username with "yourlogin": 
 ```
-sudo apt install git make rpl pwgen openssl apache2-utils
+ssh yourlogin@127.0.0.1 -p 22
 ```
+When asked for your password, press enter
 
-or fedora:
-```
-sudo dnf install openssl rpl git pwgen
-```
+Open the RIR dashboard server using a web browser on your machine by going to 127.0.0.1:8080
+![RIR Dashboard on 127.0.0.1:8080](rir-dashboard-vbox.png)
 
-## Firewall
 
-If you are using ufw, open port 80 and 443 as minimum. After the initial setup, you
-can again close port 80.
-
-```
-sudo ufw allow 80
-sudo ufw allow 443
-```
-
-### Move on to OSGS Installation
-
-Ok we are ready to install OSGS! Go ahead to the [initial configuration page](initial_configuration.md) now.
 
