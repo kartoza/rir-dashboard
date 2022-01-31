@@ -1,7 +1,30 @@
 ## Indicators
 
+The RIR dashboard displays various indicators and their corresponding severity levels in the indicator panel. This panel can be accessed under the indicators tab
+which is visible when the user has selected the context analysis icon which is located above the Programme interventions bar. Each indicator falls under health,
+child protection, nutrition, wash and education. The severity levels refer to how good or bad the case is for that factor within the instant. This ranges from worst 
+case scenario to best case scenario. The case of the scenario will indicate if that region or state needs additional response or intervention. 
 
-### Level 3
+![Indicator Panel ](../img/indicator-tab.png "Indicator Panel")
+
+To show the data for specific indicators on the map, select the box of the corresponding indicator. To stop showing the data of that indicator, deselect the box.
+
+1.	**Traffic lights**: 
+To view the traffic lights, expand the indicators panel by clicking on the arrow for ‘full screen’ as indicated in the clip below. This will change your screen completely
+and allow to look at the severity level for each indicator. In order to view each subsection in each group, expand the indicator group. The severity levels displayed 
+are for the entire instant, in this case they show the indicators and their corresponding severities for Somalia.
+
+![Traffic Lights](../img/traffic-lights.mp4 "Traffic Lights")
+
+2.	**Downloading Data**:
+It is possible for the user to download data for each indicator or even for the whole instant. The download option is next to each indicator on the Traffic Light screen
+and the option to download data for the entire instant is on the top right corner of the screen. The data will download in the form of an excel spreadsheet.
+Downloading data for the entire instant will provide the user country, region, district and IPC level data for the geographic location under observation.
+
+![Downloading Data](../img/ Downloading-data.png "Downloading Data”)
+
+![Downloading Data for the Entire Instant](../img/ Excel.mp4 "Downloading Data for the Entire Instant”)
+
 
 
 
