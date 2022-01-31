@@ -9,7 +9,7 @@ case scenario to best case scenario. The case of the scenario will indicate if t
 
 To show the data for specific indicators on the map, select the box of the corresponding indicator. To stop showing the data of that indicator, deselect the box.
 
-1.	**Indicators**:
+1. **Indicators**:
 The indicators in the panel are divided up into groups. Each group has a drop-down arrow that contains subgroups. This allows the user to access data for each indicator group or allows them to be more specific and only select data to be displayed from a subgroup within the indicator.
 
 2. **Traffic lights**: 
