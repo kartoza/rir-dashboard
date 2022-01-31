@@ -104,7 +104,7 @@ docker logs -f rir_dashboard_django
 This will open the dashboard on a webpage:
 
 Open up a web browser and go to 127.0.0.1 and the dashboard will open:
-![RIR Dashboard on 127.0.0.1](../img/rir-dashboard-linux-machine.png)
+![RIR Dashboard on 127.0.0.1](../../../../img/rir-dashboard-linux-machine.png)
 
 ### If using a virtual box
 
