@@ -34,7 +34,7 @@ sudo apt-get update
 
 This will run apt install
 ```
-sudo apt-get install \
+apt install \
 ca-certificates \
 curl \
 gnup \
