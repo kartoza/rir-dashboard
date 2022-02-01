@@ -20,10 +20,10 @@ define(['js/views/layers/indicator-info/base'], function (Base) {
             if (this.opened && this.geometry && this.date && this.indicatorID) {
                 const self = this;
                 this.$el.find('tr').hide();
-                this.$el.find('.indicator-info-content .graph').html('');
+                this.$el.find('#indicator-geometry-detail-graph').html('<i style="padding: 10px;">Loading</i>');
                 this.$el.find('.indicator-info-content .value-table').html('');
                 this.$el.find('.indicator-info-title .col').html(
-                    `${this.indicatorName} <span style="color: gray">in</span> ${this.geometry.properties.geometry_name} (${this.geometry.properties.geometry_code})`
+                    `${this.indicatorName} <br><span style="color: gray">in</span> ${this.geometry.properties.geometry_name} (${this.geometry.properties.geometry_code})`
                 );
                 this.control.detailPanelOpened(this.panelID);
                 const url = urls['indicator-values-by-geometry-and-level-api'].replaceAll(
@@ -37,6 +37,7 @@ define(['js/views/layers/indicator-info/base'], function (Base) {
                 this.request = Request.get(
                     url, {}, {},
                     function (values) {
+                        self.$el.find('#indicator-geometry-detail-graph').html('');
                         const data = [];
                         self.dataByTime = {};
                         $.each(values, function (idx, value) {
@@ -120,7 +121,7 @@ define(['js/views/layers/indicator-info/base'], function (Base) {
                         };
                         self.chart = Highcharts.stockChart(`indicator-geometry-detail-graph`, options);
                     }, function (e) {
-                        console.log(e)
+                        self.$el.find('#indicator-geometry-detail-graph').html('<i style="color: red">There is error on fetching data. Please reselect the detail.</i>');
                     })
             }
         },

@@ -101,7 +101,19 @@ define([
             })
         },
 
-
+        // Check if an indicator checked, change the stage of group name
+        checkIndicatorGroup: function ($group) {
+            let active = false;
+            $group.find('.indicator-checkbox input').each(function () {
+                if (this.checked) {
+                    active = true;
+                }
+            });
+            $group.removeClass('active');
+            if (active) {
+                $group.addClass('active');
+            }
+        },
         // -------------------------------------------------
         // INDICATOR INITITALIZE
         // -------------------------------------------------
@@ -109,6 +121,7 @@ define([
             const self = this;
             const $inputs = $('.indicator-checkbox input');
             $inputs.click(function () {
+                self.checkIndicatorGroup($(this).closest('.group'));
                 // click last indicator input
                 if (!self.indicatorLayers[$(this).data('id')]) {
                     self.indicatorLayers[$(this).data('id')] = new IndicatorLayer(
@@ -156,7 +169,12 @@ define([
             // init default one
             $.each(this.idsFromCookie, function (index, id) {
                 $('#indicator-checkbox-' + id).click();
-            })
+
+                // TODO:
+                //  For the checked indicator
+                //  Expand group by default
+                // $('#indicator-checkbox-' + id).closest('.group').find('.group-toggle')
+            });
             this.changeMasterData(new Date());
         },
         changeMasterData: function (date) {
@@ -251,10 +269,13 @@ define([
                     self.dates.push(dateToYYYYMMDD(date));
                 });
             }
+
             const $timeSliderWrapper = $('#time-slider-wrapper');
             if (self.dates.length !== 0) {
                 $timeSliderWrapper.show();
                 const $slider = $('#time-slider');
+                self.dates.push(dateToYYYYMMDD(new Date()));
+                self.dates = [...new Set(self.dates)];
                 self.dates.sort();
                 $slider.show();
                 $slider.attr('min', 0);
@@ -276,7 +297,11 @@ define([
         timeSliderChanged: function () {
             const $slider = $('#time-slider');
             const date = this.dates[$slider.val()];
-            $('#time-slider-indicator').text(dateToDDMMYYY(new Date(date)));
+            let selectedDate = dateToDDMMYYY(new Date(date));
+            if (selectedDate === dateToDDMMYYY(new Date())) {
+                selectedDate = 'Today'
+            }
+            $('#time-slider-indicator').text(selectedDate);
             if (this.indicatorLeft) {
                 this.indicatorLeft.date = date;
                 this.indicatorLeft._addLayer();

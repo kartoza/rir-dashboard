@@ -54,6 +54,7 @@ define([], function () {
             const date = this.date;
             const identifier = `${level}-${date}`;
             const layer = self.layers[identifier];
+            $(`#${this.side}-value-donut-chart`).html('');
             if (!layer) {
                 Request.get(
                     self.url.replace('level', level).replace('date', date), {}, {},

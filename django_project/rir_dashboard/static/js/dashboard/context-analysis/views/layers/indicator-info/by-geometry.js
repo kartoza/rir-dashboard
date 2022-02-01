@@ -19,8 +19,9 @@ define(['js/views/layers/indicator-info/base'], function (Base) {
             if (this.opened && this.geometry && this.date) {
                 const self = this;
                 this.$el.find('tr').hide();
+                this.$el.find('#indicator-geometry-loading').show();
                 this.$el.find('.indicator-info-title .col').html(
-                    `${this.geometry.properties.geometry_name} (${this.geometry.properties.geometry_code})`
+                    `${this.geometry.properties.geometry_name} (${this.geometry.properties.geometry_code})  <br><span style="color: gray">on</span> ${this.date}`
                 );
                 this.control.detailPanelOpened(this.panelID);
                 const url = urls['indicators-values-by-geometry-level-date-api'].replaceAll(
@@ -30,11 +31,18 @@ define(['js/views/layers/indicator-info/base'], function (Base) {
                 Request.get(
                     url, {}, {},
                     function (data) {
+                        self.$el.find('#indicator-geometry-loading').hide();
+                        self.$el.find('tr').show();
+                        self.$el.find('tr').addClass('disabled');
+                        self.$el.find('.value-color').css('background', '');
+                        self.$el.find('.value-name').html('<i>No data found</i>');
                         const groupsValue = {}
                         const allValues = []
                         $.each(data, function (idx, rowData) {
                             const $row = $('#indicator-by-geometry-' + rowData.indicator_id);
                             const $rowGroup = $row.closest('.group').find('.group-name');
+                            $row.removeClass('disabled');
+                            $rowGroup.removeClass('disabled');
                             $rowGroup.show();
                             $row.show();
                             $($row.find('td')[0]).attr('onclick', `triggerEventToDetail('${rowData.indicator_id}', '${$($row.find('td')[0]).html()}')`);
