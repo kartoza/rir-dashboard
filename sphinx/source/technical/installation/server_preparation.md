@@ -132,6 +132,8 @@ When asked for your password, press enter three times and the prompt will displa
 Open the RIR dashboard server using a web browser on your machine by going to 127.0.0.1:8080
 ![RIR Dashboard on 127.0.0.1:8080](../../img/rir-dashboard-vbox.PNG)
 
+### Signing in
+
 Click on Sign in and for username and password type admin
 
 Change your password on the Django admin page
