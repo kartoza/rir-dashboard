@@ -126,10 +126,17 @@ ssh yourlogin@127.0.0.1 -p 22
 ```
 (Make sure that you replace your username with "yourlogin")
 
-When asked for your password, press enter
+When asked for your password, press enter three times and the prompt will display this message:  Permission denied (publickey,password).
+ 
 
 Open the RIR dashboard server using a web browser on your machine by going to 127.0.0.1:8080
 ![RIR Dashboard on 127.0.0.1:8080](../../img/rir-dashboard-vbox.PNG)
+
+Click on Sign in and for username and password type admin
+
+Change your password on the Django admin page
+
+Currently the dashboard is just a template and the working RIR Dashboard has not been setup yet
 
 
 
