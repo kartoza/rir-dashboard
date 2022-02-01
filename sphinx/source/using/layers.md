@@ -27,4 +27,12 @@ and land, a mapbox satellite basemap and an open topo basemap which is rendered 
 ![Basemap ](../img/basemap.gif "Basemap") 
 >
 >
+3.	 **Geography level panel**:
+This panel allows you to view the area of interest at a country, region, and district level. In the animated image below, you will see that as you change
+the geography level, the data in the info tab will also change to correspond with it. 
+>
+![Geography Level](../img/geo-level.gif "Geography Level") 
+>
+>
+
 
