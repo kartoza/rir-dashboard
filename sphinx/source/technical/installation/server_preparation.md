@@ -76,6 +76,18 @@ This will check if installation of docker was successful
 ```
 sudo docker run hello-world
 ```
+### Ensure that docker daemon is running on local host 
+
+This will ensure that the docker daemon is running
+```
+sudo systemctl daemon-reload
+sudo systemctl start docker
+sudo usermod -a -G $USER
+sudo systemctl enable docker
+```
+
+Restart the server
+Docker daemon should be running now
 
 ### Clone rir-dashboard repository to your machine
 
