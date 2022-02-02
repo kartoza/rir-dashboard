@@ -87,7 +87,8 @@ sudo systemctl enable docker
 ```
 
 Restart the server
-Docker daemon should be running now
+
+The docker daemon should be running now
 
 ### Clone rir-dashboard repository to your machine
 
