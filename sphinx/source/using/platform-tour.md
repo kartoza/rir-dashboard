@@ -8,7 +8,7 @@ the plaform and the information you can obtain from it, you need to understand h
 >
 >
 1. **Programme Interventions Panel**: 
-    This group of buttons is used to navigate through the key areas or factors that the RIR platform accounts for. If you have admin status,
+    This group of buttons is used to navigate through the key areas or factors or indicators that the RIR platform accounts for. If you have admin status,
     more icons will be available within the panel, we’ll explore these additional buttons at a later stage. Each button will take you to a page
     as seen in the image below which will give you the intervention status of the geographic region for that specific factor. The factors in order
     from top to bottom are education, child protection, nutrition, wash, and education. To return     to the dashboard, click on the context 
@@ -21,7 +21,7 @@ the plaform and the information you can obtain from it, you need to understand h
      This panel contains a list of indicators that relate to the factors accounted for by the platform. The coloured circles next to each indicator
      shows the current severity level for that indicator within the specific gegraphic region. The indicators are arranged in groups which have an 
      overall severity level for that group. The entire collection of indicators is also given an overall status which is displayed at the top of the list.
-     An in depth tour of the indocatores and how they work will be compiled in a document following the platform tour.
+     An in depth tour of the indicators and how they work will follow.
      >
 ![The indicator panel](../img/indicator-panel.png "The indicator panel")
   >

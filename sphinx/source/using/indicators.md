@@ -39,7 +39,7 @@ The information panel is located on the righthand side of the screen. It’s onl
 
 The panel shows the severity case of the selected indicator in each region or district (depending on what has been selected). It also has a graphical representation
 in the form of a pie chart that displays how many areas within the instant fall within each severity case. By dragging the mouseover the pie chart,
-the use can see these values. The user can also download the data for that specific indicator in the info panel. The download icon is circled in red in the image below. 
+the user can see these values. The user can also download the data for that specific indicator in the info panel. The download icon is circled in red in the image below. 
 
 ![Info Panel](../img/Infopanel.png "Info Panel")
 
