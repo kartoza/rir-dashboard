@@ -39,7 +39,7 @@ to the  ‘Indicators Tab'. You can also view more details by "clicking" on ‘d
 >
   By clicking on the little map icon at the bottom left of the screen, you can change the slide deck function from vertical to horizontal. 
 >
-![Map Icon](../img/Map-icon-update.gif "Map Icon")
+![Map Icon](../img/map-icon-update.gif "Map Icon")
 >
 >
 5.	 **Time-lapse Bar**:
