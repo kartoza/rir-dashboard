@@ -39,8 +39,8 @@ the platform and the information you can obtain from it, you need to understand 
   ![The layers icon](../img/layers-button.png "The layers icon")
 >
 >
-5. **The Base Map Icon**:
-     To expand or collapse the base map panel, click on this icon. When expanded, you will be able to choose which base map you would like to be displayed
+5. **The Basemap Icon**:
+     To expand or collapse the basemap panel, click on this icon. When expanded, you will be able to choose which basemap you would like to be displayed
      on your canvas extent.
 >
   ![The basemap icon](../img/basemap-button.png "The basemap icon")
