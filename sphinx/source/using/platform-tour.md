@@ -86,7 +86,7 @@ the platform and the information you can obtain from it, you need to understand 
 >
 >
 12. **Sign in Button**:
-      To sign in to your account, click on this button. There is no registration option which means that to sign in, an account needs to be created
+      To sign in to your account, click on this button. There is no registration option which means that in order to sign in, an account needs to be created
       for you by someone with the necessary permissions.
 >  
   ![Sign in button](../img/sign-in.png "Sign in button")
