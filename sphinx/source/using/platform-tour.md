@@ -14,7 +14,7 @@ the platform and the information you can obtain from it, you need to understand 
     from top to bottom are; education, child protection, nutrition, wash, and education. To return to the dashboard, click on the "context 
     analysis" icon which is represented as a little home symbol.
 >
-![Programme interventions panel](../img/intervention-panel.png "Programme interventions panel")
+![Programme interventions panel](../img/intervention-panel-update.png "Programme interventions panel")
 >   
 >   
 2. **The Indicator Panel**: 
@@ -23,13 +23,13 @@ the platform and the information you can obtain from it, you need to understand 
      overall severity level for that group next to the group name. The entire collection of indicators is also given an overall status which is displayed at the top of the          list.
      An in-depth tour of the indicators and how they work will follow.
  >
-![The indicator panel](../img/indicator-panel.png "The indicator panel")
+![The indicator panel](../img/indicator-panel-update.png "The indicator panel")
   >
   >
 3. **The Indicator Icon**:
      This button expands and collapses the indicator panel as illustrated in the image below.
   >
- ![The indicator icon](../img/indicator-button.png "The indicator icon")
+ ![The indicator icon](../img/indicator-button-update.png "The indicator icon")
   >
   >
 4. **The Layers Icon**:
