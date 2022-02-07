@@ -17,7 +17,7 @@ The platform provides a way to understand risk modalities across different geogr
 * a complete and user **friendly administration** environment to manage the system
 * role based **user management**
 
-## Overview Diagram
+## Disclaimer
 
 <div class="admonition warning">
 The software provided by this project is provided 'as is'. All information provided 
@@ -40,7 +40,7 @@ Please visit our [GitHub Repository](https://github.com/kartoza/osgs) and file i
 The Risk Informed Response platform has been developed by [Kartoza](https://kartoza.com/en/) under funding from Unicef. 
 You can find the source code for this software at our [kartoza/osgs](https://github.com/kartoza/osgs) repository.
 
-### Developers:
+### Developers
 
 
 Tim Sutton | Irwan Fatthurahman
@@ -49,7 +49,7 @@ Tim Sutton | Irwan Fatthurahman
 Tim Sutton (System Architect) | Irwan Fathurrahman (Sevior Developer)
 [timlinux @ github](https://github.com/timlinux/) | [meomancer @ github](https://github.com/meomancer)
 
-### Document Writers:
+### Document Writers
 
 
 Amy Burness | Thiasha | Lesego
