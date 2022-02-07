@@ -141,11 +141,11 @@
   
     <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../../introduction.html#introduction">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../using/index.html">RIR User Documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../administration/index.html#rir-administrator-documentation">RIR Administrator Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../administration/index.html">RIR Administrator Documentation</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html#rir-platform">RIR Technical Documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../roadmap.html#rir-roadmap">RIR Roadmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../roadmap.html">RIR Roadmap</a></li>
 </ul>
 
   
@@ -159,11 +159,11 @@
   
     <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../../introduction.html#introduction">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../using/index.html">RIR User Documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../administration/index.html#rir-administrator-documentation">RIR Administrator Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../administration/index.html">RIR Administrator Documentation</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html#rir-platform">RIR Technical Documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../roadmap.html#rir-roadmap">RIR Roadmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../roadmap.html">RIR Roadmap</a></li>
 </ul>
 
   
@@ -172,123 +172,139 @@
             
   <div class="tex2jax_ignore mathjax_ignore section" id="preparing-the-server">
 <h1>Preparing the server<a class="headerlink" href="#preparing-the-server" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="basic-security">
-<h2>Basic Security<a class="headerlink" href="#basic-security" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="unattended-upgrades">
-<h3>Unattended upgrades<a class="headerlink" href="#unattended-upgrades" title="Permalink to this headline">¶</a></h3>
-<p>This will automatically install only security fixes on a continual basis on your server.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="n">unattended</span><span class="o">-</span><span class="n">upgrades</span>
+<div class="section" id="basic-requirements">
+<h2>Basic Requirements<a class="headerlink" href="#basic-requirements" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="you-should-be-running-a-linux-ubuntu-server-on-your-machine-or-on-a-virtual-box">
+<h3>You should be running a linux ubuntu server on your machine or on a virtual box<a class="headerlink" href="#you-should-be-running-a-linux-ubuntu-server-on-your-machine-or-on-a-virtual-box" title="Permalink to this headline">¶</a></h3>
+<p>Ensure that you have set your unique login username and unique password</p>
+<p>Start the server and login</p>
+</div>
+<div class="section" id="install-make-dependency">
+<h3>Install make dependency<a class="headerlink" href="#install-make-dependency" title="Permalink to this headline">¶</a></h3>
+<p>This will install make on your machine or virtual box server</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="n">make</span>       <span class="c1"># version 4.2.1-1.2       </span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="ssh">
-<h3>ssh<a class="headerlink" href="#ssh" title="Permalink to this headline">¶</a></h3>
-<p>Disable password authentication for SSH</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">vim</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">ssh</span><span class="o">/</span><span class="n">sshd_config</span>
-</pre></div>
-</div>
-<p>Set this:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PasswordAuthentication</span> <span class="n">no</span>
-<span class="n">Then</span> <span class="n">do</span>
-<span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">restart</span> <span class="n">sshd</span><span class="o">.</span><span class="n">service</span>
+<div class="section" id="install-docker-compose">
+<h3>Install docker-compose<a class="headerlink" href="#install-docker-compose" title="Permalink to this headline">¶</a></h3>
+<p>This will install docker-compose on your machine or virtual box server</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="n">docker</span><span class="o">-</span><span class="n">compose</span>       
 </pre></div>
 </div>
 </div>
-<div class="section" id="crowdsec">
-<h3>Crowdsec<a class="headerlink" href="#crowdsec" title="Permalink to this headline">¶</a></h3>
-<p>https://crowdsec.net/</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="o">-</span><span class="n">qO</span> <span class="o">-</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">s3</span><span class="o">-</span><span class="n">eu</span><span class="o">-</span><span class="n">west</span><span class="o">-</span><span class="mf">1.</span><span class="n">amazonaws</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">crowdsec</span><span class="o">.</span><span class="n">debian</span><span class="o">.</span><span class="n">pragmatic</span><span class="o">/</span><span class="n">crowdsec</span><span class="o">.</span><span class="n">asc</span> <span class="o">|</span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">key</span> <span class="n">add</span> <span class="o">-</span> <span class="o">&amp;&amp;</span> <span class="n">echo</span> <span class="s2">&quot;deb https://s3-eu-west-1.amazonaws.com/crowdsec.debian.pragmatic/$(lsb_release -cs) $(lsb_release -cs) main&quot;</span> <span class="o">|</span> <span class="n">sudo</span> <span class="n">tee</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">sources</span><span class="o">.</span><span class="n">list</span><span class="o">.</span><span class="n">d</span><span class="o">/</span><span class="n">crowdsec</span><span class="o">.</span><span class="n">list</span> <span class="o">&gt;</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">null</span><span class="p">;</span>
-<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span>
-<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">crowdsec</span>
+<div class="section" id="run-apt-update">
+<h3>Run apt update<a class="headerlink" href="#run-apt-update" title="Permalink to this headline">¶</a></h3>
+<p>This will run apt update</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span>       
 </pre></div>
 </div>
 </div>
-<div class="section" id="fail2ban">
-<h3>Fail2ban<a class="headerlink" href="#fail2ban" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="n">fail2ban</span>
-</pre></div>
-</div>
-<p>See: https://www.fail2ban.org/wiki/index.php/Main_Page</p>
-</div>
-<div class="section" id="firewall">
-<h3>Firewall<a class="headerlink" href="#firewall" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">ufw</span> <span class="n">allow</span> <span class="n">ssh</span>
-<span class="n">sudo</span> <span class="n">ufw</span> <span class="n">enable</span>
-<span class="n">sudo</span> <span class="n">ufw</span> <span class="n">status</span>
-</pre></div>
-</div>
-<p>Should show something like this:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Status</span><span class="p">:</span> <span class="n">active</span>
-
-<span class="n">To</span>             <span class="n">Action</span>   <span class="n">From</span>
-<span class="o">--</span>             <span class="o">------</span>   <span class="o">----</span>
-<span class="mi">22</span><span class="o">/</span><span class="n">tcp</span>           <span class="n">ALLOW</span>    <span class="n">Anywhere</span>         
-<span class="mi">22</span><span class="o">/</span><span class="n">tcp</span> <span class="p">(</span><span class="n">v6</span><span class="p">)</span>        <span class="n">ALLOW</span>    <span class="n">Anywhere</span> <span class="p">(</span><span class="n">v6</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>We will open more ports as they are needed.</p>
-</div>
-<div class="section" id="status-monitoring">
-<h3>Status monitoring<a class="headerlink" href="#status-monitoring" title="Permalink to this headline">¶</a></h3>
-<p>gotop is a great console based dashboard for monitoring your server.</p>
-<p>Ubuntu:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">golang</span>
-<span class="n">cd</span> 
-<span class="n">go</span> <span class="n">get</span> <span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">cjbassi</span><span class="o">/</span><span class="n">gotop</span>
-<span class="n">chmod</span> <span class="o">+</span><span class="n">x</span> <span class="n">go</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">gotop</span>
-<span class="n">sudo</span> <span class="n">cp</span> <span class="n">go</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">gotop</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span>
-</pre></div>
-</div>
-<p>Fedora:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">dnf</span> <span class="n">install</span> <span class="n">golang</span>
-<span class="n">cd</span> 
-<span class="n">go</span> <span class="n">get</span> <span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">cjbassi</span><span class="o">/</span><span class="n">gotop</span>
-<span class="n">chmod</span> <span class="o">+</span><span class="n">x</span> <span class="n">go</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">gotop</span>
-<span class="n">sudo</span> <span class="n">cp</span> <span class="n">go</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">gotop</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span>
-</pre></div>
-</div>
-<p>Now just type gotop whenever you want to see your terminal system monitor.</p>
-</div>
-</div>
-<div class="section" id="additional-software">
-<h2>Additional Software<a class="headerlink" href="#additional-software" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="docker">
-<h3>Docker<a class="headerlink" href="#docker" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="n">docker</span><span class="o">.</span><span class="n">io</span>
-<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="o">-</span><span class="n">y</span> <span class="n">install</span> <span class="n">python3</span><span class="o">-</span><span class="n">pip</span>
-<span class="n">sudo</span> <span class="n">pip3</span> <span class="n">install</span> <span class="n">docker</span><span class="o">-</span><span class="n">compose</span>
-</pre></div>
-</div>
-<div class="admonition warning">
-At this time we do not use the snapd installation of docker. Note that if you do,
-you will need to install osgs in your home directory. See snapd docker notes 
-for details.
-</div>
-</div>
-<div class="section" id="git-rpl-pwgen-make-and-openssl">
-<h3>Git, rpl, pwgen, Make and openssl<a class="headerlink" href="#git-rpl-pwgen-make-and-openssl" title="Permalink to this headline">¶</a></h3>
-<p>Needed for checking out our docker project and running the various make
-commands we provide.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="n">git</span> <span class="n">make</span> <span class="n">rpl</span> <span class="n">pwgen</span> <span class="n">openssl</span> <span class="n">apache2</span><span class="o">-</span><span class="n">utils</span>
-</pre></div>
-</div>
-<p>or fedora:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">dnf</span> <span class="n">install</span> <span class="n">openssl</span> <span class="n">rpl</span> <span class="n">git</span> <span class="n">pwgen</span>
+<div class="section" id="run-apt-install">
+<h3>Run apt install<a class="headerlink" href="#run-apt-install" title="Permalink to this headline">¶</a></h3>
+<p>This will run apt install</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">apt</span> <span class="n">install</span> \
+<span class="n">ca</span><span class="o">-</span><span class="n">certificates</span> \
+<span class="n">curl</span> \
+<span class="n">gnup</span> \
+<span class="n">lsb</span><span class="o">-</span><span class="n">release</span>
 </pre></div>
 </div>
 </div>
-</div>
-<div class="section" id="id1">
-<h2>Firewall<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>If you are using ufw, open port 80 and 443 as minimum. After the initial setup, you
-can again close port 80.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">ufw</span> <span class="n">allow</span> <span class="mi">80</span>
-<span class="n">sudo</span> <span class="n">ufw</span> <span class="n">allow</span> <span class="mi">443</span>
+<div class="section" id="download-docker">
+<h3>Download docker<a class="headerlink" href="#download-docker" title="Permalink to this headline">¶</a></h3>
+<p>This will download docker</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">fsSL</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">download</span><span class="o">.</span><span class="n">docker</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">linux</span><span class="o">/</span><span class="n">ubuntu</span><span class="o">/</span><span class="n">gpg</span> <span class="o">|</span> <span class="n">sudo</span> <span class="n">gpg</span> <span class="o">--</span><span class="n">dearmor</span> <span class="o">-</span><span class="n">o</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">keyrings</span><span class="o">/</span><span class="n">docker</span><span class="o">-</span><span class="n">archive</span><span class="o">-</span><span class="n">keyring</span><span class="o">.</span><span class="n">gpg</span>     
 </pre></div>
 </div>
-<div class="section" id="move-on-to-osgs-installation">
-<h3>Move on to OSGS Installation<a class="headerlink" href="#move-on-to-osgs-installation" title="Permalink to this headline">¶</a></h3>
-<p>Ok we are ready to install OSGS! Go ahead to the <a class="reference internal" href="initial_configuration.html"><span class="doc std std-doc">initial configuration page</span></a> now.</p>
+<p>On the next prompt line:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">echo</span> \
+<span class="s2">&quot;deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg]https:download.docker.com/linux/ubuntu </span><span class="se">\</span>
+<span class="s2">$(lsb_release -cs) stable&quot;</span> <span class="o">|</span> <span class="n">sudo</span> <span class="n">tee</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">sources</span><span class="o">.</span><span class="n">list</span><span class="o">.</span><span class="n">d</span><span class="o">/</span><span class="n">docker</span><span class="o">.</span><span class="n">list</span> <span class="o">&gt;</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">null</span>
+</pre></div>
+</div>
+<p>Run apt update:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="install-docker">
+<h3>Install docker<a class="headerlink" href="#install-docker" title="Permalink to this headline">¶</a></h3>
+<p>This will install docker</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span>  <span class="n">docker</span><span class="o">-</span><span class="n">ce</span><span class="o">-</span><span class="n">cli</span> <span class="n">containerd</span><span class="o">.</span><span class="n">io</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="check-if-installation-was-successful">
+<h3>Check if installation was successful<a class="headerlink" href="#check-if-installation-was-successful" title="Permalink to this headline">¶</a></h3>
+<p>This will check if installation of docker was successful</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">docker</span> <span class="n">run</span> <span class="n">hello</span><span class="o">-</span><span class="n">world</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ensure-that-docker-daemon-is-running-on-local-host">
+<h3>Ensure that docker daemon is running on local host<a class="headerlink" href="#ensure-that-docker-daemon-is-running-on-local-host" title="Permalink to this headline">¶</a></h3>
+<p>This will ensure that the docker daemon is running</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>sudo systemctl daemon-reload
+sudo systemctl start docker
+sudo usermod -a -G $USER
+sudo systemctl enable docker
+</pre></div>
+</div>
+<p>Restart the server</p>
+<p>The docker daemon should be running now</p>
+</div>
+<div class="section" id="clone-rir-dashboard-repository-to-your-machine">
+<h3>Clone rir-dashboard repository to your machine<a class="headerlink" href="#clone-rir-dashboard-repository-to-your-machine" title="Permalink to this headline">¶</a></h3>
+<p>This will clone the rir-dashboard rpository to your machine or virtual box</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">kartoza</span><span class="o">/</span><span class="n">rir</span><span class="o">-</span><span class="n">dashboard</span><span class="o">.</span><span class="n">git</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="set-up-server">
+<h3>Set up server<a class="headerlink" href="#set-up-server" title="Permalink to this headline">¶</a></h3>
+<p>This will set up the rir-dashboard server on your machine or virtual box</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">rir</span><span class="o">-</span><span class="n">dashboard</span>
+<span class="n">cd</span> <span class="n">deployment</span>
+<span class="n">ls</span>
+<span class="n">cp</span> <span class="n">docker</span><span class="o">-</span><span class="n">compose</span><span class="o">.</span><span class="n">override</span><span class="o">.</span><span class="n">template</span><span class="o">.</span><span class="n">yml</span> <span class="n">docker</span><span class="o">-</span><span class="n">compose</span><span class="o">.</span><span class="n">override</span><span class="o">.</span><span class="n">yml</span>
+<span class="n">cp</span> <span class="o">.</span><span class="n">template</span><span class="o">.</span><span class="n">env</span> <span class="o">.</span><span class="n">env</span>
+<span class="n">ls</span>
+<span class="n">cd</span> <span class="o">..</span>
+<span class="n">make</span> <span class="n">up</span>
+<span class="n">docker</span> <span class="n">ps</span>
+<span class="n">docker</span> <span class="n">logs</span> <span class="o">-</span><span class="n">f</span> <span class="n">rir_dashboard_django</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="open-server-if-using-a-linux-machine">
+<h3>Open server if using a linux machine<a class="headerlink" href="#open-server-if-using-a-linux-machine" title="Permalink to this headline">¶</a></h3>
+<p>This will open the dashboard on a webpage:</p>
+<p>Open up a web browser and go to 127.0.0.1 and the dashboard will open:
+<img alt="RIR Dashboard on 127.0.0.1" src="../../_images/rir-dashboard-linux-machine.PNG" /></p>
+</div>
+<div class="section" id="if-using-a-virtual-box">
+<h3>If using a virtual box<a class="headerlink" href="#if-using-a-virtual-box" title="Permalink to this headline">¶</a></h3>
+<p>Open network settings of your virtual box</p>
+<p><img alt="Network settings vbox" src="../../_images/Virtualbox-network-settings1.PNG" /></p>
+<p>Click on port forwarding and add 2 new rules as indicated in the image below:</p>
+<p><img alt="Network settings 2 vbox" src="../../_images/Virtualbox-network-settings2.PNG" /></p>
+<p>Click OK and close. Download <a class="reference external" href="http://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html">PuTTY</a>.
+Create a connection by following these <a class="reference external" href="https://the.earth.li/~sgtatham/putty/0.67/htmldoc/Chapter2.html#gs-insecure">directions</a>, enter “localhost” as the host name, “SSH” as the protocol, and “2222” as the port.</p>
+<p>Once you have logged in on PuTTY enter this command below in the prompt:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ssh</span> <span class="n">yourlogin</span><span class="o">@</span><span class="mf">127.0.0.1</span> <span class="o">-</span><span class="n">p</span> <span class="mi">22</span>
+</pre></div>
+</div>
+<p>(Make sure that you replace your username with “yourlogin”)</p>
+<p>When asked for your password, press enter three times and the prompt will display this message:  Permission denied (publickey,password).</p>
+<p>Open the RIR dashboard server using a web browser on your machine by going to 127.0.0.1:8080
+<img alt="RIR Dashboard on 127.0.0.1:8080" src="../../_images/rir-dashboard-vbox.PNG" /></p>
+</div>
+<div class="section" id="signing-in">
+<h3>Signing in<a class="headerlink" href="#signing-in" title="Permalink to this headline">¶</a></h3>
+<p>Click on Sign in and for username and password type admin</p>
+<p>Change your password on the Django admin page</p>
+<p>Currently the dashboard is just a template and the working RIR Dashboard has not been setup yet</p>
 </div>
 </div>
 </div>
@@ -303,7 +319,7 @@ can again close port 80.</p>
 
     <div class="col-md-12">
         <span></span><span class="pull-right">&copy; Copyright 2021, Kartoza (Pty) Ltd..
-        Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.1.2 and the
+        Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.3.2 and the
         <a href="https://pypi.org/project/sphinx-sizzle-theme/"
 
            title="0.0.9/821a5457 [2020-04-16T19:31:16]"
