@@ -20,9 +20,9 @@ the platform and the information you can obtain from it, you need to understand 
 2. **The Indicator Panel**: 
      This panel contains a list of indicators that relate to the factors accounted for by the platform. The coloured circles next to each indicator
      show the current severity level for that indicator within the specific geographic region. The indicators are arranged in groups that have an 
-     overall severity level for that group next to the group name. The entire collection of indicators is also given an overall status which is displayed at the top of the list.
+     overall severity level for that group next to the group name. The entire collection of indicators is also given an overall status which is displayed at the top of the          list.
      An in-depth tour of the indicators and how they work will follow.
-     >
+ >
 ![The indicator panel](../img/indicator-panel.png "The indicator panel")
   >
   >
