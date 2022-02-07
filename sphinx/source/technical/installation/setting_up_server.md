@@ -1,4 +1,6 @@
+# Setting up the server
 
+## Steps for setting up server
 
 ### Clone rir-dashboard repository to your machine
 
@@ -13,10 +15,8 @@ This will set up the rir-dashboard server on your machine or virtual box
 ```
 cd rir-dashboard
 cd deployment
-ls
 cp docker-compose.override.template.yml docker-compose.override.yml
 cp .template.env .env
-ls
 cd ..
 make up
 docker ps
