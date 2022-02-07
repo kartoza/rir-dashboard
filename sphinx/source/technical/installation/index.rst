@@ -5,7 +5,9 @@ Installation
    :maxdepth: 1
    :caption: Contents:
 
+   process_overview
    server_preparation
-   initial_configuration
-   production_stack
+   running_project
+   deploying_changes
+   
    
