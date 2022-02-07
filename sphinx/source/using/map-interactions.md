@@ -31,13 +31,13 @@ to the  ‘indicators’ tab. You can also view more details by clicking on ‘d
 >
 >
 4.	**The Slide Deck**: 
-If you have two factors selected to display on the map at the same time, you will see the name and severity levels on the bottom right and left of the screen.
-To move between the two sets of data drag the vertical line, that extends from the top of the screen to the bottom, left to right. This feature allows 
-the user to analyse more than one indicator at a time without having to deselect and select another factor.
+  If you have two factors selected to display on the map at the same time, you will see the name and severity levels on the bottom right and left of the screen.
+  To move between the two sets of data drag the vertical line, that extends from the top of the screen to the bottom, left to right. This feature allows 
+  the user to analyse more than one indicator at a time without having to deselect and select another factor.
 >
 ![Switching Between Factors on the Map Display](../img/Switching-between-factors.gif "Switching Between Factors on the Map Display")
 >
-By clicking on the little map icon at the bottom left of the screen, you can change the slide deck function from vertical to horizontal. 
+  By clicking on the little map icon at the bottom left of the screen, you can change the slide deck function from vertical to horizontal. 
 >
 ![Map Icon](../img/Map-icon-update.gif "Map Icon")
 >
