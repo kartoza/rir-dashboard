@@ -4,7 +4,7 @@ The RIR dashboard displays various indicators and their corresponding severity l
 which is visible when the user has selected the context analysis icon which is located above the Programme interventions bar. Each indicator falls under health,
 child protection, nutrition, wash and education. The severity levels refer to how good or bad the case is for that factor within the instant. This ranges from worst-case scenario to best-case scenario. The case of the scenario will indicate if that region or state needs additional response or intervention. 
 
-![Indicator Panel ](../img/indicator-tab.png "Indicator Panel")
+![Indicator Panel ](../img/indicator-tab-update.png "Indicator Panel")
 >
 To show the data for specific indicators on the map, select the box of the corresponding indicator by clicking on it. To stop showing the data of that indicator, deselect the box by clicking on it again.
 >
@@ -46,6 +46,10 @@ To view the severity levels of each indicator for a specific location, click on 
 as previously discussed in the 'Map Interactions' document. It should also create a tab in the info panel called Indicators.
 
 ![Info Panel Indicators](../img/info-panel-indicators.gif "Info Panel Indicators")
+
+
+
+
 
 
 
