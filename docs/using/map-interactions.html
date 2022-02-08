@@ -41,7 +41,7 @@
       <script src="../../app-data.js"></script>
 <link rel="index" title="Index" href="../genindex.html" />
 <link rel="search" title="Search" href="../search.html" />
-<link rel="next" title="RIR Administrator Documentation" href="../administration/index.html" />
+<link rel="next" title="Layers" href="layers.html" />
 <link rel="prev" title="Indicators" href="indicators.html" />
 
 </head>
@@ -88,7 +88,7 @@
       </div>
     
       <div class="pull-right">
-        <a class="btn btn-default next" href="../administration/index.html" title="Next chapter (RIR Administrator Documentation)"><span class="btn-text">RIR Administrator Documentation</span>&nbsp;<i class="fa fa-chevron-right ml-1em" aria-hidden="true"></i></a>
+        <a class="btn btn-default next" href="layers.html" title="Next chapter (Layers)"><span class="btn-text">Layers</span>&nbsp;<i class="fa fa-chevron-right ml-1em" aria-hidden="true"></i></a>
       </div>
     </div>
   
@@ -105,7 +105,7 @@
 
 
 
-        <a href="../administration/index.html"><i class="fa fa-chevron-right"></i></a>
+        <a href="layers.html"><i class="fa fa-chevron-right"></i></a>
 
       </div>
     </div>
@@ -141,7 +141,7 @@
   
     <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html#introduction">Introduction</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html#rir-platform">RIR User Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../administration/index.html">RIR Administrator Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../technical/index.html">RIR Technical Documentation</a></li>
@@ -159,7 +159,7 @@
   
     <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html#introduction">Introduction</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html#rir-platform">RIR User Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../administration/index.html">RIR Administrator Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../technical/index.html">RIR Technical Documentation</a></li>
@@ -170,8 +170,51 @@
           </div>
           <div class="body">
             
-  <div class="section" id="map-interactions">
+  <div class="tex2jax_ignore mathjax_ignore section" id="map-interactions">
 <h1>Map Interactions<a class="headerlink" href="#map-interactions" title="Permalink to this headline">¶</a></h1>
+<p>This document covers how the user can interact with the map displayed in the RIR dashboard and how the user can navigate around to perform different functions
+and obtain different information.</p>
+<p><img alt="Map Interactions " src="../_images/layout.png" /></p>
+<ol class="simple">
+<li><strong>Moving Around the Map</strong>:
+To pan around the map, the user needs to click down with their mouse and drag the map around. The map will continue to pan for as long as the mouse is clicked in.
+To make the map stop moving, release your mouse.</li>
+</ol>
+<p><img alt="Moving Around the Map " src="../_images/moving-around-the-map.gif" /></p>
+<ol class="simple">
+<li><strong>Zooming In and Out</strong>:
+There are two ways to zoom in and out. The first being that the user can use their scroll on their mouse to zoom in and out. This is the easier of the two methods.
+The second method can be used for when the user is looking to zoom into a specific area. This method requires the user to click shift and then drag a square around the
+area they would like to focus in on. If the user is using a scroll pad and not a mouse, they can zoom out by bringing their fingers together on their track pad and zoom
+out by moving them away from each other on their track pad.</li>
+</ol>
+<p><img alt="Zooming in " src="../_images/Zooming-in.gif" /></p>
+<ol class="simple">
+<li><strong>Information Display Window</strong>:
+To gain instant information on a specific area within the map, click on that area with your mouse. By clicking on an area, a popup window with information
+related to your selected layers for that area will be displayed on the screen. This action will also change the info window from the ‘summary’ tab
+to the  ‘indicators’ tab. You can also view more details by clicking on ‘details’ in the popup window. This will also change the info window’s tab to the ‘details’ tab.</li>
+</ol>
+<p><img alt="Information Display Window" src="../_images/info.png" /></p>
+<ol class="simple">
+<li><strong>Switching Between Factors</strong>:
+If the user has two factors selected to display on the map, they will see the name and severity levels on the bottom right and left of the screen.
+To move between the two sets of data drag the vertical line, that extends from the top of the screen to the bottom, left to right. This feature allows
+the user to analyse more than one indicator at a time without having to deselect and select another factor.</li>
+</ol>
+<p><img alt="Switching Between Factors on the Map Display" src="../_images/Switching-between-factors.gif" /></p>
+<ol class="simple">
+<li><strong>Timelapse Bar</strong>:
+The timelapse bar will show you the severity of the selected indicator over a period of time. As the map and the info panel change, the corresponding date for
+that data will be displayed within the bar. To initiate the time lapse, click on the play button. Click stop to end it.</li>
+</ol>
+<p><img alt="Timelapse Bar" src="../_images/Timelapse.gif" /></p>
+<ol class="simple">
+<li><strong>Map Icon</strong>:
+By clicking on the little map icon at the bottom left of the screen, the user can swap the location of the second indicator selected as well as the options
+to have that data displayed on a country, region, or district level.</li>
+</ol>
+<p><img alt="Map Icon" src="../_images/Map-icon.gif" /></p>
 </div>
 
 
@@ -184,7 +227,7 @@
 
     <div class="col-md-12">
         <span></span><span class="pull-right">&copy; Copyright 2021, Kartoza (Pty) Ltd..
-        Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.1.2 and the
+        Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0 and the
         <a href="https://pypi.org/project/sphinx-sizzle-theme/"
 
            title="0.0.9/821a5457 [2020-04-16T19:31:16]"
