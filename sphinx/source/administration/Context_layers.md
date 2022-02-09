@@ -8,9 +8,11 @@ Once you have logged in and opened an instance:
 
 1. Click on the user dropdown menu
 
-2. Open Django administration
+2. Open Django Admin
 
-![Open Django administration](../img/opening_administration.png)
+![Open Django Admin](../img/opening_administration.png)
 
+3. Click on Add on the Context layers line
 
+![Add Context layer](../img/opening_administration.png)
 
