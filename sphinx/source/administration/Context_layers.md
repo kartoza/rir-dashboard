@@ -10,7 +10,7 @@ Once you have logged in and opened an instance:
 
 2. Open Django administration
 
-![Open Django administration](../../img/opening_administration.PNG)
+![Open Django administration](../../img/opening_administration.png)
 
 
 
