@@ -14,5 +14,5 @@ Once you have logged in and opened an instance:
 
 3. Click on Add on the Context layers line
 
-![Add Context layer](../img/opening_administration.png)
+![Add Context layer](../img/Add_new_context_layer.png)
 
