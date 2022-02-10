@@ -1,7 +1,7 @@
 # **Layers**
 
 
-![ Site Preference ](../img/layets-chart.png "Site Preference") 
+![ Layers ](../img/layets-chart.png "Layers") 
 >
 >
 1.	**Adding a Basemap Layer**:
@@ -14,7 +14,7 @@ to create a basemap by linking it to a URL as well as the instant you would like
 You will also be able to add the parameters to the basemap by scrolling down to ‘Basemap Layer Parameters’ and clicking on the green plus that says ‘Add Another 
 Basemap Layer Parameter’.
 > 
-![ Site Preference ](../img/site-preference.png "Site Preference") 
+![Basemap Parameters](../img/new-basemap-parameters.png "Basemap Parameters") 
 >
 >
 ![Context Layers](../img/context-layers-chart.png "Context Layers") 
