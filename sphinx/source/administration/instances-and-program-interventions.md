@@ -1,10 +1,15 @@
 # **Instances and Program Interventions**
 
+![Admin User Chart](../img/admin-user-chart.png "Signing in")
+
 1. **Signing In**:
 In the top right-hand corner of the screen is the sign-in button. Here, you will sign in using your admin username and password. This process is the same for a staff user 
 or an admin user. 
 > 
 ![Signing in](../img/login.gif "Signing in")
+
+
+![Creating a New Instance](../img/instance-chart.png "Creating a New Instance")
 > 
 > 
 2.  **Creating an instance**: 
@@ -29,6 +34,9 @@ you will see ‘Site Preferences’. “Click” on this option and then you wil
 to “change” or “edit the title as well as the icons. “Save” and “refresh” once you have made your edits.
 > 
 ![ Site Preference ](../img/site-preference.png "Site Preference")
+>
+
+[ Program Intervention](../img/program-instances-chart.png "Program Interventions")
 > 
 > 
 The process of changing or adding the **‘Program Interventions’** icons is similar to what we have been doing previously, except for this time once we are on the 
