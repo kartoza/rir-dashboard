@@ -19,6 +19,19 @@ Basemap Layer Parameter’.
 >
 ![Context Layers](../img/context-layers-chart.png "Context Layers") 
 >
-**INSERT CONTEXT LAYERS WORK HERE**
+
+2. **Adding a new Context layer**
+
+"Click" on the user dropdown menu and open 'Django Admin'. "Click" on '+Add' on the 'Context layers' line. "Select" the instance you would like to add the context layer to.
+We will use the existing Somalia instance and Flood Hazard layer as an example. The layer shows areas that are prone to flooding. Enter information in the input boxes as 
+shown in the images below and save your data once you are happy with it. "Click" on veiw site to see your new layer. You will be able to see your new layer in the 'Layers' menu. There is also an option to add other parameters to this layer. 
+
+>
+
+![Context Layers](../img/context-layer.png "Context Layers")
+>
+![Context Layers](../img/context-layer.gif "Context Layers")
+
+
 
 
