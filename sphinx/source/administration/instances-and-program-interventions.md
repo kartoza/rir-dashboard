@@ -8,11 +8,23 @@ or an admin user.
 > 
 ![Signing in](../img/login.gif "Signing in")
 
+2. **Users and Permissions**:
+>
+Go to site administration. “click” on ‘+Add’ in the same row as ‘Users’. You can now create a profile for someone by adding a username and password. Once you have created the user profile, “click” ‘Save’.
+>
+![New User](../img/new-user.gif "New User") 
+ >
+>
+Once you have created the user account, go back to ‘Site Administration’ and “select” the ‘user’ option. “Select” the user you created and then you can edit their personal information as well as select or deselect their ‘Permissions’. Remember to ‘Save’ your changes. 
+>
+![Permissions](../img/permissions.gif "Permissions") 
+
+
 
 ![Creating a New Instance](../img/instance-chart.png "Creating a New Instance")
 > 
 > 
-2.  **Creating an instance**: 
+3.  **Creating an instance**: 
 Once you’ve signed in, you’ll be redirected back to the home page which contains the various instances that you can select. To create a new Instance, select the
 dropdown arrow next to your username and “click” on ‘Django Admin’. Once you’re on the ‘Site Administration’ page, “scroll” down until you find ‘Instances’. 
 “Click” on the ‘+Add’ option on the right-hand side of the ‘Instances’ row. “Add” the name of the new instance, a description as well as the icon files 
@@ -20,7 +32,7 @@ and then “click” ‘Save’.
 > 
 ![Creating a New Instance](../img/new-instance.gif "Creating a New Instance")
 
-3. **Adding or Changing Icons**:
+4. **Adding or Changing Icons**:
 
 If there is an *instance* with no image available or you would like to change the current icon, follow these steps: start by selecting the dropdown arrow next to
 your username and “click” on ‘Django Admin’. Once you’re on the ‘Site Administration’ page, “scroll” down until you find ‘Instances’. “Select” the instance 
