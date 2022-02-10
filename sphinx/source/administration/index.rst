@@ -6,5 +6,6 @@ RIR Administrator Documentation
    :caption: Contents:
    
    instances-and-program-interventions
+   basemaps
 
    
