@@ -1,6 +1,6 @@
 #  **Geography Management**
 >
-![ Geography Management](../img/ geography-chart.png "Geography Management") 
+![ Geography Management](../img/geography-chart.png "Geography Management") 
 
 >
 >
@@ -15,17 +15,17 @@
 2.	**Adding a Geography level**: Let’s start in  ‘Site Administration’. “Scroll” down to ‘Geometry Level names’ and “select” ‘+Add’. “Add” the name and description 
 	of the geometry level you want to add and save your work. 
 >
-![Add Geography Level](../img/add-geo-level1.gif "Add Geography Level") 
+![Add Geography Level](../img/add-geo-levelone.gif "Add Geography Level") 
 
 >
 >
 Next, go to ‘Geometry Level Instance’, and “select” ‘+Add’. “Click” on the geometry level you added in the previous step and complete the form.
 >
-![Add Geography Level](../img/add-geo-level2.gif "Add  Geography Level") 
+![Add Geography Level](../img/add-geo-leveltwo.gif "Add  Geography Level") 
 
 >
 >
 The last step is to go back to ‘Geography Level Management’, “refresh” your screen, "click" on 'Level Management' and then move your new geography level to where you want
 it to go.
 >
-![Add Geography Level](../img/add-geo-level3.gif "Add Geography Level") 
+![Add Geography Level](../img/add-geo-levelthree.gif "Add Geography Level") 
