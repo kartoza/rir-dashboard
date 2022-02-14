@@ -20,7 +20,8 @@ define(['js/views/layers/indicator-info/base'], function (Base) {
             if (this.opened && this.geometry && this.date && this.indicatorID) {
                 const self = this;
                 this.$el.find('tr').hide();
-                this.$el.find('#indicator-geometry-detail-graph').html('<i style="padding: 10px;">Loading</i>');
+                this.$el.find('.loading-info').show();
+                this.$el.find('#indicator-geometry-detail-graph').html('');
                 this.$el.find('.indicator-info-content .value-table').html('');
                 this.$el.find('.indicator-info-title .col').html(
                     `${this.indicatorName} <br><span style="color: gray">in</span> ${this.geometry.properties.geometry_name} (${this.geometry.properties.geometry_code})`
@@ -31,12 +32,17 @@ define(['js/views/layers/indicator-info/base'], function (Base) {
                     'geometry_identifier', this.geometry.properties.geometry_code).replaceAll(
                     'geometry_level', this.geometry.properties.geometry_level).replaceAll(
                     'date', this.date);
+                this.currentUrl = url;
                 if (this.request) {
                     this.request.abort();
                 }
                 this.request = Request.get(
                     url, {}, {},
                     function (values) {
+                        if (self.currentUrl !== url) {
+                            return
+                        }
+                        self.$el.find('.loading-info').hide();
                         self.$el.find('#indicator-geometry-detail-graph').html('');
                         const data = [];
                         self.dataByTime = {};
@@ -93,7 +99,8 @@ define(['js/views/layers/indicator-info/base'], function (Base) {
                             tooltip: {
                                 formatter: function () {
                                     self.propertiesSelected(this.x);
-                                    return '<b>' + Highcharts.numberFormat(this.y, 0) + `</b> (${indicatorRules[self.indicatorID][this.y]?.name})` + '<br/>' + dateToYYYYMMDD(new Date(this.x));
+                                    const indicatorName = indicatorRules[self.indicatorID][this.y]?.name ? `(${indicatorRules[self.indicatorID][this.y]?.name})` : '';
+                                    return '<b>' + Highcharts.numberFormat(this.y, 0) + `</b> ${indicatorName}` + '<br/>' + dateToYYYYMMDD(new Date(this.x));
                                 }
                             },
                             series: [
@@ -142,21 +149,24 @@ define(['js/views/layers/indicator-info/base'], function (Base) {
                 }
             });
             this.$el.find('.value-table').html(`<table>${defaultHtml}</table>`);
-        },
+        }
+        ,
         /**
          * When geometry clicked
          */
         geometryClicked: function (geometry) {
             this.geometry = geometry;
             this.changed();
-        },
+        }
+        ,
         /**
          * When geometry clicked
          */
         dateChanged: function (date) {
             this.date = date;
             this.changed();
-        },
+        }
+        ,
         /**
          * When geometry clicked
          */
@@ -165,19 +175,22 @@ define(['js/views/layers/indicator-info/base'], function (Base) {
             this.indicatorName = indicatorName;
             this.opened = true;
             this.changed();
-        },
+        }
+        ,
         /**
          * Open the panel
          */
         open: function () {
             Base.prototype.open.apply(this);
             this.opened = true;
-        },
+        }
+        ,
         /**
          * Open the panel
          */
         close: function () {
             Base.prototype.close.apply(this);
-        },
+        }
+        ,
     })
 });

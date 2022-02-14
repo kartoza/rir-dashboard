@@ -27,10 +27,17 @@ define(['js/views/layers/indicator-info/base'], function (Base) {
                 const url = urls['indicators-values-by-geometry-level-date-api'].replaceAll(
                     'geometry_identifier', this.geometry.properties.geometry_code).replaceAll(
                     'geometry_level', this.geometry.properties.geometry_level).replaceAll(
-                    'date', this.date)
-                Request.get(
+                    'date', this.date);
+                this.currentUrl = url;
+                if (this.request) {
+                    this.request.abort();
+                }
+                this.request = Request.get(
                     url, {}, {},
                     function (data) {
+                        if (self.currentUrl !== url) {
+                            return
+                        }
                         self.$el.find('#indicator-geometry-loading').hide();
                         self.$el.find('tr').show();
                         self.$el.find('tr').addClass('disabled');

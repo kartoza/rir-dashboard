@@ -80,7 +80,11 @@ define([], function () {
                                     })
                                 });
                                 self.layers[identifier] = cleanGeojson;
-                                self.getLayer(callback);
+
+                                // recall getLayer if the current date same with date of request
+                                if (date === self.date) {
+                                    self.getLayer(callback);
+                                }
                             } else {
                                 callback(null);
                             }
@@ -89,25 +93,26 @@ define([], function () {
                         callback(null);
                     })
             } else {
-                callback(L.geoJSON(
-                    layer, {
-                        pane: self.side,
-                        paneID: self.side,
-                        name: self.name,
-                        onEachFeature: function (feature, layer) {
-                            if (feature.properties.background_color) {
-                                let defaultHtml =
-                                    `<tr style="background-color: ${feature.properties.background_color}; color: ${feature.properties.text_color}"><td colspan="2" style="text-align: center"><b>${self.name}</b></td></tr>` +
-                                    `<tr><td colspan="2"><button class="white-button" onclick="triggerEventToDetail('${self.id}', '${self.name}')">Detail</button></td></tr>` +
-                                    `<tr><td valign="top"><b>Scenario</b></td valign="top"><td>${feature.properties.scenario_text}</td></tr>` +
-                                    `<tr><td><b>${self.name} value</b></td><td valign="top" title="${feature.properties.value}">${numberWithCommas(feature.properties.value)} ${self.unit}</td></tr>`
+                callback(
+                    L.geoJSON(
+                        layer, {
+                            pane: self.side,
+                            paneID: self.side,
+                            name: self.name,
+                            onEachFeature: function (feature, layer) {
+                                if (feature.properties.background_color) {
+                                    let defaultHtml =
+                                        `<tr style="background-color: ${feature.properties.background_color}; color: ${feature.properties.text_color}"><td colspan="2" style="text-align: center"><b>${self.name}</b></td></tr>` +
+                                        `<tr><td colspan="2"><button class="white-button" onclick="triggerEventToDetail('${self.id}', '${self.name}')">Detail</button></td></tr>` +
+                                        `<tr><td valign="top"><b>Scenario</b></td valign="top"><td>${feature.properties.scenario_text}</td></tr>` +
+                                        `<tr><td><b>${self.name} value</b></td><td valign="top" title="${feature.properties.value}">${numberWithCommas(feature.properties.value)} ${self.unit}</td></tr>`
 
-                                // check others properties
-                                const geometryProperties = {};
-                                geometryProperties[feature.properties['geometry_level'] + ' code'] = feature.properties['geometry_code'];
-                                geometryProperties[feature.properties['geometry_level'] + ' name'] = feature.properties['geometry_name'];
-                                $.each(geometryProperties, function (key, value) {
-                                    defaultHtml += `
+                                    // check others properties
+                                    const geometryProperties = {};
+                                    geometryProperties[feature.properties['geometry_level'] + ' code'] = feature.properties['geometry_code'];
+                                    geometryProperties[feature.properties['geometry_level'] + ' name'] = feature.properties['geometry_name'];
+                                    $.each(geometryProperties, function (key, value) {
+                                        defaultHtml += `
                                         <tr>
                                             <td valign="top"><b>${key.capitalize()}</b></td>
                                             <td valign="top" class="geometry-value geometry-${feature.properties.geometry_id}">
@@ -115,27 +120,28 @@ define([], function () {
                                                 ${templates.SCENARIO_BULLET()}
                                             </td>
                                         </tr>`
-                                });
-                                $.each(feature.properties, function (key, value) {
-                                    if (![
-                                        'unit', 'value', 'background_color', 'text_color',
-                                        'indicator_id', 'scenario_text', 'scenario_value',
-                                        'geometry_id', 'geometry_code', 'geometry_name', 'geometry_level', 'dashboard_link'
-                                    ].includes(key)) {
-                                        defaultHtml += `<tr><td valign="top"><b>${key.capitalize()}</b></td><td valign="top">${numberWithCommas(value)}</td></tr>`
-                                    }
-                                });
-                                layer.bindPopup('' +
-                                    '<table>' + defaultHtml + '</table>');
-                            }
+                                    });
+                                    $.each(feature.properties, function (key, value) {
+                                        if (![
+                                            'unit', 'value', 'background_color', 'text_color',
+                                            'indicator_id', 'scenario_text', 'scenario_value',
+                                            'geometry_id', 'geometry_code', 'geometry_name', 'geometry_level', 'dashboard_link'
+                                        ].includes(key)) {
+                                            defaultHtml += `<tr><td valign="top"><b>${key.capitalize()}</b></td><td valign="top">${numberWithCommas(value)}</td></tr>`
+                                        }
+                                    });
+                                    layer.bindPopup('' +
+                                        '<table>' + defaultHtml + '</table>');
+                                }
 
-                            // on feature clicked
-                            layer.on("click", function (e) {
-                                event.trigger(evt.GEOMETRY_CLICKED, feature);
-                            });
+                                // on feature clicked
+                                layer.on("click", function (e) {
+                                    event.trigger(evt.GEOMETRY_CLICKED, feature);
+                                });
+                            }
                         }
-                    }
-                ))
+                    )
+                )
             }
         },
 
@@ -170,13 +176,14 @@ define([], function () {
         _addLayer: function () {
             const self = this;
             this._removeLayer();
-            $(`.${this.side}-info .value-table`).html('<div style="margin-left: 10px; margin-bottom: 30px"><i>Loading</i></div>');
+            $(`.${this.side}-info .loading-info`).show();
             $(`.indicator-${this.id} .scenario-bullet`).addClass('show');
             $(`.indicator-${this.id} .spinner`).addClass('loading');
             $(`.indicator-${this.id} .spinner`).show();
             this.getLayer(function (layer) {
+                $(`.${self.side}-info .loading-info`).hide();
                 $(`.indicator-${self.id} .spinner`).removeClass('loading');
-                $(`.indicator-${this.id} .scenario-bullet`).addClass('show');
+                $(`.indicator-${self.id} .scenario-bullet`).addClass('show');
                 if (!self.isShow) {
                     return
                 }
@@ -316,11 +323,21 @@ define([], function () {
                         });
                     })
                 });
+
+                // rendering donut graph
                 const donutData = []
                 $.each(rawDonutData, function (idx, data) {
                     donutData.push(data)
                 });
-                self.renderValueDonut(donutData, total);
+                $(`#${self.side}-value-donut-chart`).html('');
+                $(`.${self.side}-info .no-data-found`).hide();
+                if (donutData.length > 0) {
+                    self.renderValueDonut(donutData, total);
+                } else {
+                    $(`.${self.side}-info .no-data-found`).show();
+                    $(`#${self.side}-value-donut-chart`).html('');
+
+                }
             }
         },
         // -----------------------------------------------------------
@@ -367,15 +384,17 @@ define([], function () {
          */
         renderValueOvertime: function () {
             const self = this;
-            $(`.${this.side}-info .value-chart`).html('<i>Loading</i>')
+            $(`.${this.side}-info .loading-info`).show();
             if (!self.values) {
                 Request.get(
                     self.url.replace('level', self.levels[self.levels.length - 1]).replace('/date', '') + '?exact_date=True', {}, {},
                     function (data) {
+                        $(`.${self.side}-info .loading-info`).hide();
                         self.values = data;
                         self.renderValueOvertime();
                         event.trigger(evt.INDICATOR_VALUES_CHANGED);
                     }, function () {
+                        $(`.${self.side}-info .loading-info`).hide();
                         $(`.${self.side}-info .value-chart`).html('<span class="error">Error</span>')
                         event.trigger(evt.INDICATOR_VALUES_CHANGED);
                         self.values = [];

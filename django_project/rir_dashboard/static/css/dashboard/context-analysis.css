@@ -383,6 +383,21 @@
     color: inherit;
 }
 
+#right-side .content-wrapper .loading-info {
+    animation: blinker 1s linear infinite;
+    font-style: italic;
+    padding: 20px;
+    text-align: center;
+    display: none;
+}
+
+#right-side .content-wrapper .no-data-found {
+    padding: 20px;
+    color: red;
+    text-align: center;
+    display: none;
+}
+
 #right-side .indicator-info-wrapper h3 {
     background: white;
     border-bottom: 1px solid #f7f7f7;
@@ -1198,6 +1213,6 @@
 .leaflet-popup-content .scenario-bullet {
     margin-top: 0;
     position: absolute;
-    top: 7px;
-    right: 20px;
+    top: 5px;
+    right: 6px;
 }
