@@ -55,6 +55,7 @@ define([], function () {
             const identifier = `${level}-${date}`;
             const layer = self.layers[identifier];
             $(`#${this.side}-value-donut-chart`).html('');
+            $(`#${this.side}-value-table`).html('');
             if (!layer) {
                 Request.get(
                     self.url.replace('level', level).replace('date', date), {}, {},
@@ -177,6 +178,7 @@ define([], function () {
             const self = this;
             this._removeLayer();
             $(`.${this.side}-info .loading-info`).show();
+            $(`.${this.side}-info .no-data-found`).hide();
             $(`.indicator-${this.id} .scenario-bullet`).addClass('show');
             $(`.indicator-${this.id} .spinner`).addClass('loading');
             $(`.indicator-${this.id} .spinner`).show();
