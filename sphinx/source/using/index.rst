@@ -1,4 +1,4 @@
-RIR User Documentation
+User Documentation
 ==============================================
 
 .. toctree::

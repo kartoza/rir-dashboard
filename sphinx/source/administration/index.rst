@@ -1,4 +1,4 @@
-RIR Administrator Documentation
+Administrator Documentation
 ==============================================
 
 .. toctree::

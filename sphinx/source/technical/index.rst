@@ -1,4 +1,4 @@
-Installation
+Developer documentation
 ==============================================
 
 .. toctree::
