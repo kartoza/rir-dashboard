@@ -5,6 +5,8 @@ RIR Administrator Documentation
    :maxdepth: 1
    :caption: Contents:
    
-   program-interventions
+   instances-and-program-interventions
+   layers
+   geography-management
 
    
