@@ -1,9 +1,15 @@
-RIR Technical Documentation
+Installation
 ==============================================
 
 .. toctree::
    :maxdepth: 1
    :caption: Contents:
 
-   installation/index
+   process_overview
+   server_preparation
+   cloning_the_project_folder
+   setting_up_server
+   running_project
+   deploying_changes
+   
    
