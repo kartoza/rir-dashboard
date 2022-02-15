@@ -61,6 +61,7 @@
                         const json = JSON.parse(fr.result)
                         const properties = json['features'][0]['properties'];
                         $selectInput.prop('disabled', false);
+                        $('#id_parent_code_column').append(`<option ></option`);
                         $.each(properties, function (key, values) {
                             $selectInput.append(`<option value="${key}">${key}</option`);
                         })
@@ -102,7 +103,8 @@
                                         .then(function log(result) {
                                             if (result.done) return;
                                             $selectInput.prop('disabled', false);
-                                            $selectInput.html('')
+                                            $selectInput.html('');
+                                            $('#id_parent_code_column').append(`<option></option`);
                                             $.each(result.value.properties, function (key, values) {
                                                 $selectInput.append(`<option value="${key}">${key}</option`);
                                             })
