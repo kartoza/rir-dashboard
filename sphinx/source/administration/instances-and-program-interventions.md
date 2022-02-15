@@ -67,4 +67,12 @@ for that instant.
  ![links](../img/links.gif "Links") 
 >
 >
-
+![scenario](../img/scenario.png "Scenario") 
+>
+>
+6.	**Scenario**:
+>
+To add a scenario level or change a scenario level, go to 'Django Admin' and "click" on Program Instances'. To change the referral scenario for the instance, "select" 'Scenario level' from hat admin page.
+>
+ ![scenario](../img/scenario.gif "Links") 
+>
