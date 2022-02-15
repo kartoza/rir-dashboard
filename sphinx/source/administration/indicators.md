@@ -38,7 +38,7 @@ and a popup window will appear which will allow you to fill in value data for th
 ![Value Manager Map](../img/value-manager-map.gif "Value Manager Map")
 >
 >
-![Harvesters](../img/harvesters.png "Harvester") 
+![Harvesters](../img/harvester.png "Harvester") 
 >
 >
 4.	**Harvesters**:
