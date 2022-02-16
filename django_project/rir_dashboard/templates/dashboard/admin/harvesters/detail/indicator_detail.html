@@ -18,11 +18,15 @@
 {% block scripts %}
     <script>
         {#  API URL #}
-        $('*[name="API URL"]').closest('tr').find('a').each(function () {
+        $('*[name="API URL"]').find('a').each(function () {
             const newUrl = window.location.protocol + '//' + window.location.host + $(this).attr('href');
-            $(this).attr('href', newUrl);
-            $(this).html(newUrl);
-        })
+            $('*[name="API URL"]').html(newUrl);
+        });
+
+        {# make the text to copy to clipboard#}
+        changeToCopyToClipboard($('*[name="API URL"]'));
+        changeToCopyToClipboard($('*[name="token"]'));
+
         $('*[name="API URL"]').append(
             '<br>' +
             '<br>' +

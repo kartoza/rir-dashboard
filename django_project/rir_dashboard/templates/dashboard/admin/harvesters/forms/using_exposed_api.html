@@ -1,0 +1,8 @@
+{% extends 'dashboard/admin/harvesters/forms/_base_attribute.html' %}
+{% load static %}
+
+{% block extrascripts %}
+    <script>
+        $('input[name="attribute_API URL"],input[name="attribute_token"]').closest('tr').hide();
+    </script>
+{% endblock %}

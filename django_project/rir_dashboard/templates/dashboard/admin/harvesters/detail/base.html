@@ -24,6 +24,14 @@
         .content-table a:hover {
             opacity: 0.5;
         }
+
+        .api-url-hepltext {
+            color: gray;
+        }
+
+        .api-url-hepltext pre {
+            color: gray;
+        }
     </style>
 {% endblock stylesheet %}
 {% block contentview %}
@@ -66,7 +74,7 @@
                         {% endif %}
                         {% for attribute in harvester.harvesterattribute_set.all %}
                             <tr>
-                                <td>{{ attribute.human_name }}</td>
+                                <td valign="top">{{ attribute.human_name }}</td>
                                 <td name="{{ attribute.name }}">
                                     {% if attribute.value %}
                                         {{ attribute.value|safe }}

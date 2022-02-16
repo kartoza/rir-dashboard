@@ -226,3 +226,30 @@ function returnMostOccurring(arr) {
 function triggerEventToDetail(id, name) {
     event.trigger(evt.INDICATOR_TO_DETAIL, id, name)
 }
+
+// ---------------------------------
+// COPY TO CLIPBOARD ELEMENT
+// ---------------------------------
+function changeToCopyToClipboard($elm) {
+    $elm.html(`<span class="copy-to-clipboard" onclick="copyToClipboard(this)"><span class="the-text">${$elm.html()}</span> <span class="copy-to-clipboard-indicator">Copy</span</span>`)
+}
+
+function copyToClipboard(element) {
+    const $indicator = $(element).find('.copy-to-clipboard-indicator');
+    if ($indicator.hasClass('copied')) {
+        return
+    }
+    var $temp = $("<input>");
+    $("body").append($temp);
+    $temp.val($(element).find('.the-text').text().trim()).select();
+    document.execCommand("copy");
+    $temp.remove();
+
+    $indicator.addClass('copied');
+    $indicator.html('Copied');
+    $indicator.animate({ opacity: 0 }, 500, function () {
+        $indicator.removeClass('copied');
+        $indicator.html('Copy');
+        $indicator.css('opacity', 1)
+    });
+}

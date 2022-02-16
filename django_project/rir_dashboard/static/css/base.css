@@ -195,3 +195,29 @@ table .helptext {
         opacity: 0;
     }
 }
+
+/* COPY TO CLIPBOARD*/
+.copy-to-clipboard {
+    cursor: pointer;
+    position: relative;
+}
+
+.copy-to-clipboard:hover .copy-to-clipboard-indicator {
+    display: block;
+}
+
+.copy-to-clipboard-indicator {
+    background: #ccc;
+    border-radius: 2px;
+    display: none;
+    font-size: 8px;
+    padding: 2px 5px;
+    position: absolute;
+    left: 50%;
+    top: -15px;
+}
+
+.copy-to-clipboard-indicator.copied {
+    background: green;
+    color: white;
+}

@@ -45,12 +45,5 @@
         $(document).ready(function () {
             $('.date').datepicker({ dateFormat: 'yy-mm-dd' })
         });
-
-        {#  API URL #}
-        $('input[name="attribute_API URL"]').closest('tr').find('a').each(function () {
-            const newUrl = window.location.protocol + '//' + window.location.host + $(this).attr('href');
-            $(this).attr('href', newUrl);
-            $(this).html(newUrl);
-        })
     </script>
 {% endblock extrascripts %}
