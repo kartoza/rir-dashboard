@@ -50,8 +50,10 @@ to “change” or “edit the title as well as the icons. “Save” and “ref
 
 ![ Program Intervention](../img/program-instances-diagram.png "Program Interventions")
 > 
-> 
-The process of changing or adding the **‘Program Interventions’** icons is similar to what we have been doing previously, except for this time once we are on the 
+
+5. **Program Interventions**:
+>
+The process of changing or adding ‘Program Interventions’ icons is similar to what we have been doing previously, except for this time once we are on the 
 ‘Site Administration’ page, “select“ ‘Programs’.  You will now have the option of choosing a specific program intervention. “Click” on the one you want to edit.
 You can add or change the title, description, or icons. “Select” ‘Save’ once you are happy with your edits.
 > 
@@ -59,7 +61,9 @@ You can add or change the title, description, or icons. “Select” ‘Save’ 
 > 
 >
 ![Navigation Links](../img/links-diagram.png "Navigation Links")
-5.	**Navigation Links**:
+>
+>
+6.	**Navigation Links**:
 >
 To add links to the RIR platform or a specific instant, go to 'Django Admin' and "click" on RIR data. "Select" 'Links' and fill out the necessary information.
 If you leave the instant option blank, the link will show in 'Navigation' for all instances. If you select an instance, the link will only appear in 'Navigation'
@@ -71,7 +75,7 @@ for that instant.
 ![scenario](../img/scenario-diagram.png "Scenario") 
 >
 >
-6.	**Scenario**:
+7.	**Scenario**:
 >
 To add a scenario level or change a scenario level, go to 'Django Admin' and "click" on Program Instances'. To change the referral scenario for the instance, "select" 'Scenario level' from hat admin page.
 >
