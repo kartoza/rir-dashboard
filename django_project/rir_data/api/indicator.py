@@ -265,9 +265,12 @@ class IndicatorValues(APIView):
                 Instance, slug=slug
             )
             data = request.data
-            geometry = instance.geometries().get(
-                identifier__iexact=data['geometry_code'])
             indicator = instance.indicators.get(id=pk)
+            geometry = instance.geometries().get(
+                identifier__iexact=data['geometry_code']
+            )
+            if geometry.geometry_level != indicator.geometry_reporting_level:
+                return HttpResponseBadRequest(f'Indicator just receives geometry in {indicator.geometry_reporting_level.name} level')
 
             # Validate the data
             try:
