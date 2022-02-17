@@ -1,6 +1,8 @@
 :root {
     --left-side-width: 250px;
     --left-side-width-minus: -250px;
+    --right-side-width: 300px;
+    --right-side-width-minus: -300px;
 }
 
 #content {
@@ -253,6 +255,7 @@
 #left-side {
     top: 0;
     left: 0;
+    width: var(--left-side-width);
 }
 
 #left-side.full-screen {
@@ -295,7 +298,7 @@
 
 #right-side {
     top: 0;
-    right: var(--left-side-width-minus);
+    right: var(--right-side-width-minus);
 }
 
 #right-side .side-panel-toggle-button {
@@ -423,11 +426,15 @@
     display: inline-block;
 }
 
+#right-side {
+    width: var(--right-side-width);
+
+}
+
 .side-panel {
     position: absolute;
     z-index: 9998;
     height: 100%;
-    width: var(--left-side-width);
 }
 
 .side-panel .inner {
@@ -446,7 +453,7 @@
 }
 
 #indicator-list-by-geometry, #indicator-geometry-detail {
-    left: var(--left-side-width);
+    left: var(--right-side-width);
 }
 
 #indicator-list-by-geometry tr.disabled {
@@ -589,7 +596,7 @@
 }
 
 .indicator-name-swiper {
-    right: var(--left-side-width);
+    right: var(--right-side-width);
     position: absolute;
     overflow: hidden;
     z-index: 1000;
@@ -696,7 +703,7 @@
 }
 
 .level-selection {
-    right: var(--left-side-width);
+    right: var(--right-side-width);
     background: white;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
