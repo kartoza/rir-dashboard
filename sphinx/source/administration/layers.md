@@ -1,7 +1,7 @@
 # **Layers**
 
 
-![ Layers ](../img/layets-chart.png "Layers") 
+![ Layers ](../img/layers-diagram.png "Layers") 
 >
 >
 1.	**Adding a Basemap Layer**:
@@ -17,7 +17,7 @@ Basemap Layer Parameter’.
 ![Basemap Parameters](../img/new-basemap-parameters.png "Basemap Parameters") 
 >
 >
-![Context Layers](../img/context-layers-chart.png "Context Layers") 
+![Context Layers](../img/context-layers-diagram.png "Context Layers") 
 >
 
 2. **Adding a new Context layer**
