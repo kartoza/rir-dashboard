@@ -43,17 +43,20 @@ and a popup window will appear which will allow you to fill in value data for th
 >
 4.	**Harvesters**:
 >
-Go to 'Indicator Management' and if you haven't already created the indicator you want to work with, start by doing that. Once the necessary indicator exists, 
+The process of creating a harvester is for the total automation fetching of data. "G"o to 'Indicator Management' and if you haven't already created the indicator you want to work with, start by doing that. Once the necessary indicator exists, 
 "click" on the little 'Settings' icon on the right-hand side of the indicator name. "Select" the 'Create Harvester' option. "Pick" the type of harvester you would
-like to create (you will be presented with three options), fill in the rest of the form and submit. A popup window will appear; "drag" the green labels to their 
-corresponding criteria. 'Harvest Now'. You can "scroll" down to the log to see if your harvest is running in the background.
+like to create from the drop-down 'Harvester' (you will be presented with three options:'API With Geogrphay Using Today's Date'; API With Geography And Date; and 
+'Harvested Using Exposed API By External Client'). For the first two options, "fill" in the 'Attributes' portion of the form and then a popup window with a list of 
+keys will appear; "drag" the green labels to their corresponding criteria. Double-check that in 'Geometry Mapping', 'From' matches 'To. "Select" 'Harvest Now'. You can 
+"scroll" down to the log to see if your harvest is running in the background. Go to 'Indicator Management' and "click" on the little settings icon that you just 
+created a harvester for and "select" 'Value Manager Map' to view your progress. 
 >
 ![Harvester](../img/harvester.gif "Harvester") 
 >
 >
-To create a 'Meta Harvester', go to 'Indicator Management' and in the top right-hand corner of the page there will be a 'Meta Harvester' option that you will 
-need to "select". The protocol thereafter is the same as with the 'Indicator Harvestor'. 
->
+To create a 'Meta Harvester', go to 'Indicator Management' and in the top right-hand corner of the page, there will be a 'Meta Harvester' option that you will 
+need to "select". "fill" in 'Sheet name', Column name: administration code', and add the appropriate file. "Submit" your work. "Click" 'Report File' to view your work.
+
 ![Harvester](../img/meta-harvester.gif "Harvester") 
 >
 >
