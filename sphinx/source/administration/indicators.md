@@ -1,7 +1,7 @@
 # **Indicators**
 
 
-![Indicators ](../img/indicator-diagram.png "Indicators") 
+![Indicators ](../img/indicator-diagramflow.png "Indicators") 
 >
 >
 1.	**Adding a New Indicator**:
@@ -14,7 +14,7 @@ you will be redirected to the dashboard link.
 ![New Indicator](../img/new-indicator.gif "New Indicator") 
 >
 >
-![Form chart](../img/form-diagram.png "Form chart") 
+![Form chart](../img/form-diagramflow.png "Form chart") 
 >
 >
 2.	**Value Manager Form**:
@@ -38,7 +38,7 @@ and a popup window will appear which will allow you to fill in value data for th
 ![Value Manager Map](../img/value-manager-map.gif "Value Manager Map")
 >
 >
-![Harvesters](../img/harvester-diagram.png "Harvester") 
+![Harvesters](../img/harvester-diagramflow.png "Harvester") 
 >
 >
 4.	**Harvesters**:
