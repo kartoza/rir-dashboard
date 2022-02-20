@@ -43,7 +43,7 @@ and a popup window will appear which will allow you to fill in value data for th
 >
 4.	**Harvesters**:
 >
-The process of creating a harvester is for the total automation fetching of data. "G"o to 'Indicator Management' and if you haven't already created the indicator you want to work with, start by doing that. Once the necessary indicator exists, 
+The process of creating a harvester is for the total automation fetching of data. Go to 'Indicator Management' and if you haven't already created the indicator you want to work with, start by doing that. Once the necessary indicator exists, 
 "click" on the little 'Settings' icon on the right-hand side of the indicator name. "Select" the 'Create Harvester' option. "Pick" the type of harvester you would
 like to create from the drop-down 'Harvester' (you will be presented with three options:'API With Geogrphay Using Today's Date'; API With Geography And Date; and 
 'Harvested Using Exposed API By External Client'). For the first two options, "fill" in the 'Attributes' portion of the form and then a popup window with a list of 
