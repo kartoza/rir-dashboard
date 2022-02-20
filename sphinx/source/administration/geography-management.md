@@ -1,6 +1,6 @@
 #  **Geography Management**
 >
-![ Geography Management](../img/geography-diagram.png "Geography Management") 
+![ Geography Management](../img/geography-diagramflow.png "Geography Management") 
 
 >
 >
