@@ -1,11 +1,11 @@
 # **Layers**
 
 
-![ Layers ](../img/layers-diagram.png "Layers") 
+![ Layers ](../img/layers-diagramflow.png "Layers") 
 >
 >
-1.	**Adding a Basemap Layer**:
-To add a basemap layer, “click” on ‘Django Admin’ and go to the ‘Site Administration page. “Click” on ‘+Add’ in the ‘Basemap Layers’ row. This will allow you
+1.	**Adding a Background Layer**:
+To add a background or basemap layer, “click” on ‘Django Admin’ and go to the ‘Site Administration page. “Click” on ‘+Add’ in the ‘Basemap Layers’ row. This will allow you
 to create a basemap by linking it to a URL as well as the instant you would like it to apply to. 
 >
 ![ Adding a Basemap](../img/new-basemap.png "Adding a Basemap") 
@@ -17,7 +17,7 @@ Basemap Layer Parameter’.
 ![Basemap Parameters](../img/new-basemap-parameters.png "Basemap Parameters") 
 >
 >
-![Context Layers](../img/context-layers-diagram.png "Context Layers") 
+![Context Layers](../img/context-layers-diagramflow.png "Context Layers") 
 >
 
 2. **Adding a new Context layer**
