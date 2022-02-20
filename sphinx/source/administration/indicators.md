@@ -19,7 +19,7 @@ you will be redirected to the dashboard link.
 >
 2.	**Value Manager Form**:
 >
-There are two ways to add data to indicators. The first is by using the 'Value Manager Form'. To access this form, go to 'Indicator Management' and 
+There are two ways to manually add data to indicators. The first is by using the 'Value Manager Form'. To access this form, go to 'Indicator Management' and 
 "scroll" to the indicator that you would like to add data to. On the right-hand side of the indicator's name, there will be a small 'Settings' symbol.
 "Click on 'Settings' for the desired indicator and then "click" on 'Value Manager Form'. You will be redirected to a form that gives you all the geographic 
 locations within the instant and spaces to add values. You can also add a file to fill in the data by clicking 'Use File to Refill Form'
