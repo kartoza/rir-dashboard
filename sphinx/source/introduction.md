@@ -51,13 +51,14 @@ Tim Sutton (System Architect) | Irwan Fathurrahman (Sevior Developer)
 
 ### Document Writers
 
-Amy Burness | Thiasha Vythilingam
+Amy Burness | Thiasha Vythilingam | Lesego Mohaule
 -----------| -------------------
-![Amy](https://avatars.githubusercontent.com/u/77841514?v=4 "Amy")| ![Thiasha](https://avatars.githubusercontent.com/u/98025261?v=4 "Thiasha")
-Junior GIS Technician and Cartographer | GIS Intern
-[amyburness @ github](https://github.com//) | [ThiashaV @ github](https://github.com/ThiashaV)
+![Amy](https://avatars.githubusercontent.com/u/77841514?v=4 "Amy")| ![Thiasha](https://avatars.githubusercontent.com/u/98025261?v=4 "Thiasha") |![Lesego](https://avatars.githubusercontent.com/u/69116236?v=4 "Lesego")
+Junior GIS Technician and Cartographer | GIS Intern | GIS Intern
+[amyburness @ github](https://github.com/amyburness/) | [ThiashaV @ github](https://github.com/ThiashaV) [LesegoMohaule @ github](https://github.com/LesegoMohaule)
 
-Amy Burness | Thiasha | Lesego
+
+
 
 
 
