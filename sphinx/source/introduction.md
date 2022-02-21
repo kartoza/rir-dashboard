@@ -58,7 +58,7 @@ Junior GIS Technician and Cartographer| GIS Intern
 [amyburness @ github](https://github.com/amyburness/)| [ThiashaV @ github](https://github.com/ThiashaV) 
 
 Lesego Mohaule
------------| -------------------
+-----------|-------------------
 ![Lesego](https://avatars.githubusercontent.com/u/69116236?v=4 "Lesego")
  GIS Intern
 [LesegoMohaule @ github](https://github.com/LesegoMohaule)
