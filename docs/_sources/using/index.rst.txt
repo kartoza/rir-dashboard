@@ -1,4 +1,4 @@
-RIR User Documentation
+User Documentation
 ==============================================
 
 .. toctree::
@@ -8,11 +8,7 @@ RIR User Documentation
    platform-tour
    indicators
    map-interactions
-   context-layers
-   backdrop-layers
-   side-panel-dashboard
-   geography-detail
-   indicator-detail
+   layers
    
    
    

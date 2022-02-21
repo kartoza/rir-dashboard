@@ -1,4 +1,4 @@
-# RIR Roadmap
+# Roadmap
 
 Like most Open Source Software, this project is an ongoing work in progress.
 
