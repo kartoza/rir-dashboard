@@ -1,6 +1,6 @@
 # **Instances and Program Interventions**
 
-![Admin User Chart](../img/admin-user-diagram.png "Signing in")
+![Admin User Chart](../img/admin-user-diagramflow.png "Signing in")
 
 1. **Signing In**:
 In the top right-hand corner of the screen is the sign-in button. Here, you will sign in using your admin username and password. This process is the same for a staff user 
@@ -21,7 +21,7 @@ Once you have created the user account, go back to ‘Site Administration’ and
 
 
 
-![Creating a New Instance](../img/instance-diagram.png "Creating a New Instance")
+![Creating a New Instance](../img/instance-diagramflow.png "Creating a New Instance")
 > 
 > 
 3.  **Creating an instance**: 
@@ -48,7 +48,7 @@ to “change” or “edit the title as well as the icons. “Save” and “ref
 ![ Site Preference ](../img/site-preference.png "Site Preference")
 >
 
-![ Program Intervention](../img/program-instances-diagram.png "Program Interventions")
+![ Program Intervention](../img/program-instances-diagramflow.png "Program Interventions")
 > 
 
 5. **Program Interventions**:
@@ -60,7 +60,7 @@ You can add or change the title, description, or icons. “Select” ‘Save’ 
 ![ Program Intervention Icon](../img/program-intervention-icon.gif "Program Interventions Icon")
 > 
 >
-![Navigation Links](../img/links-diagram.png "Navigation Links")
+![Navigation Links](../img/links-diagramflow.png "Navigation Links")
 >
 >
 6.	**Navigation Links**:
@@ -72,7 +72,7 @@ for that instant.
  ![links](../img/links.gif "Links") 
 >
 >
-![scenario](../img/scenario-diagram.png "Scenario") 
+![scenario](../img/scenario-diagramflow.png "Scenario") 
 >
 >
 7.	**Scenario**:
