@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>RIR Dashboard - Setting up the server</title>
+<title>RIR Dashboard - Map Interactions</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha256-NuCn4IvuZXdBaFKJOAcsU2Q3ZpwbdFisd5dux4jkQ5w=" crossorigin="anonymous"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous"/>
@@ -41,8 +41,6 @@
       <script src="../../app-data.js"></script>
 <link rel="index" title="Index" href="../genindex.html" />
 <link rel="search" title="Search" href="../search.html" />
-<link rel="next" title="Running the project" href="running_project.html" />
-<link rel="prev" title="Cloning the project folder from kartoza github repository" href="cloning_the_project_folder.html" />
 
 </head>
 <body class="full-height test">
@@ -61,8 +59,8 @@
 
       </div>
       <div id="hdr-centre" class="text-center stretch">
-        <h3 title="Setting up the server">Setting up the server</h3>
-        <h6>Setting up the server</h6>
+        <h3 title="Map Interactions">Map Interactions</h3>
+        <h6>Map Interactions</h6>
       </div>
       <div id="hdr-search">
         
@@ -75,27 +73,14 @@
       </div>
 
       <div id="hdr-source">
-        <a href="../_sources/technical/setting_up_server.md.txt" class="btn btn-default" title="See the source for this page"><i class="fa fa-code"></i></a>
+        <a href="../_sources/using/map_interactions.md.txt" class="btn btn-default" title="See the source for this page"><i class="fa fa-code"></i></a>
       </div>
 
       <div id="hdr-right">
         
   
-  <div class="prev-next">
-    
-      <div class="pull-left">
-        <a class="btn btn-default prev" href="cloning_the_project_folder.html" title="Previous chapter (Cloning the project folder from kartoza github repository)"><i class="fa fa-chevron-left mr-1em" aria-hidden="true"></i><span class="btn-text">Cloning the project folder from kartoza github repository</span></a>
-      </div>
-    
-      <div class="pull-right">
-        <a class="btn btn-default next" href="running_project.html" title="Next chapter (Running the project)"><span class="btn-text">Running the project</span>&nbsp;<i class="fa fa-chevron-right ml-1em" aria-hidden="true"></i></a>
-      </div>
-    </div>
-  
       </div>
       <div id="alt-hdr-right">
-
-        <a href="cloning_the_project_folder.html"><i class="fa fa-chevron-left mr-8"></i></a>
 
 
         <a href="../index.html"><i class="fa fa-home mr-8"></i></a>
@@ -104,8 +89,6 @@
         <a href="../search.html"><i class="fa fa-search mr-8"></i></a>
 
 
-
-        <a href="running_project.html"><i class="fa fa-chevron-right"></i></a>
 
       </div>
     </div>
@@ -140,11 +123,11 @@
         
   
     <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../introduction.html#introduction">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../using/index.html">User Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#rir-platform">User Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../administration/index.html">Administrator Documentation</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html#rir-platform">Developer documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/index.html#developer-documentation">Developer documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
 </ul>
 
@@ -158,11 +141,11 @@
             
   
     <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../introduction.html#introduction">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../using/index.html">User Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#rir-platform">User Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../administration/index.html">Administrator Documentation</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html#rir-platform">Developer documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/index.html#developer-documentation">Developer documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
 </ul>
 
@@ -170,55 +153,35 @@
           </div>
           <div class="body">
             
-  <div class="tex2jax_ignore mathjax_ignore section" id="setting-up-the-server">
-<h1>Setting up the server<a class="headerlink" href="#setting-up-the-server" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="steps-for-setting-up-server">
-<h2>Steps for setting up server<a class="headerlink" href="#steps-for-setting-up-server" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="clone-rir-dashboard-repository-to-your-machine">
-<h3>Clone rir-dashboard repository to your machine<a class="headerlink" href="#clone-rir-dashboard-repository-to-your-machine" title="Permalink to this headline">¶</a></h3>
-<p>This will clone the rir-dashboard rpository to your machine or virtual box</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">kartoza</span><span class="o">/</span><span class="n">rir</span><span class="o">-</span><span class="n">dashboard</span><span class="o">.</span><span class="n">git</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="set-up-server">
-<h3>Set up server<a class="headerlink" href="#set-up-server" title="Permalink to this headline">¶</a></h3>
-<p>This will set up the rir-dashboard server on your machine or virtual box</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">rir</span><span class="o">-</span><span class="n">dashboard</span>
-<span class="n">cd</span> <span class="n">deployment</span>
-<span class="n">cp</span> <span class="n">docker</span><span class="o">-</span><span class="n">compose</span><span class="o">.</span><span class="n">override</span><span class="o">.</span><span class="n">template</span><span class="o">.</span><span class="n">yml</span> <span class="n">docker</span><span class="o">-</span><span class="n">compose</span><span class="o">.</span><span class="n">override</span><span class="o">.</span><span class="n">yml</span>
-<span class="n">cp</span> <span class="o">.</span><span class="n">template</span><span class="o">.</span><span class="n">env</span> <span class="o">.</span><span class="n">env</span>
-<span class="n">cd</span> <span class="o">..</span>
-<span class="n">make</span> <span class="n">up</span>
-<span class="n">docker</span> <span class="n">ps</span>
-<span class="n">docker</span> <span class="n">logs</span> <span class="o">-</span><span class="n">f</span> <span class="n">rir_dashboard_django</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="open-server-if-using-a-linux-machine">
-<h3>Open server if using a linux machine<a class="headerlink" href="#open-server-if-using-a-linux-machine" title="Permalink to this headline">¶</a></h3>
-<p>This will open the dashboard on a webpage:</p>
-<p>Open up a web browser and go to 127.0.0.1 and the dashboard will open:
-<img alt="RIR Dashboard on 127.0.0.1" src="../img/rir-dashboard-linux-machine.PNG" /></p>
-</div>
-<div class="section" id="if-using-a-virtual-box">
-<h3>If using a virtual box<a class="headerlink" href="#if-using-a-virtual-box" title="Permalink to this headline">¶</a></h3>
-<p>Open network settings of your virtual box</p>
-<p><img alt="Network settings vbox" src="../img/Virtualbox-network-settings1.PNG" /></p>
-<p>Click on port forwarding and add 2 new rules as indicated in the image below:</p>
-<p><img alt="Network settings 2 vbox" src="../img/Virtualbox-network-settings2.PNG" /></p>
-<p>Click OK and close. Download <a class="reference external" href="http://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html">PuTTY</a>.
-Create a connection by following these <a class="reference external" href="https://the.earth.li/~sgtatham/putty/0.67/htmldoc/Chapter2.html#gs-insecure">directions</a>, enter “localhost” as the host name, “SSH” as the protocol, and “2222” as the port.</p>
-<p>Once you have logged in on PuTTY enter this command below in the prompt:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ssh</span> <span class="n">yourlogin</span><span class="o">@</span><span class="mf">127.0.0.1</span> <span class="o">-</span><span class="n">p</span> <span class="mi">22</span>
-</pre></div>
-</div>
-<p>(Make sure that you replace your username with “yourlogin”)</p>
-<p>When asked for your password, press enter three times and the prompt will display this message:  Permission denied (publickey,password).</p>
-<p>Open the RIR dashboard server using a web browser on your machine by going to 127.0.0.1:8080
-<img alt="RIR Dashboard on 127.0.0.1:8080" src="../img/rir-dashboard-vbox.PNG" /></p>
-</div>
-</div>
+  <div class="tex2jax_ignore mathjax_ignore section" id="map-interactions">
+<h1>Map Interactions<a class="headerlink" href="#map-interactions" title="Permalink to this headline">¶</a></h1>
+<p>This document covers how you can interact with the map displayed in the RIR dashboard and how the user can navigate around to perform different functions and obtain different information.</p>
+<p><img alt="Map Interactions " src="../_images/layout.png" /></p>
+<ol class="simple">
+<li><strong>Moving Around the Map</strong>: To “pan” around the map, you need to “click” down with your mouse and “drag” the map around. The map will continue to pan for as long as the mouse is clicked in.
+To make the map stop moving, “release” your mouse.</li>
+</ol>
+<p><img alt="Moving Around the Map " src="../_images/moving-around-the-map.gif" /></p>
+<ol class="simple">
+<li><strong>Zooming In and Out</strong>: There are two ways to zoom in and out. The first is that you can use your scroll on their mouse to zoom in and out. This is the easier of the two methods.
+The second method can be used when you are looking to zoom into a specific area. This method requires the user to “click” “shift” and then “drag” a square around the area they would like to focus in on. If you are using a scroll pad and not a mouse, you can zoom out by bringing your fingers together on your trackpad and zoom out by moving them away from each other on your trackpad.</li>
+</ol>
+<p><img alt="Zooming in " src="../_images/Zooming-in.gif" /></p>
+<ol class="simple">
+<li><strong>Information Display Window</strong>: To gain instant information on a specific area within the map, “click” on that area with your mouse. By clicking on an area, a popup window with information related to your selected layers for that area will be displayed on the screen. This action will also change the info window in the ‘Summary Tab’
+to the  ‘Indicators Tab’. You can also view more details by “clicking” on ‘details’ in the popup window. This will also change the info window’s tab to the ‘Details Tab’.</li>
+</ol>
+<p><img alt="Information Display Window" src="../_images/info.png" /></p>
+<ol class="simple">
+<li><strong>The Slide Deck</strong>: If you have two indicators selected to display on the map at the same time, you will see the name and severity levels on the bottom right and left of the screen. To move between the two sets of data “drag” the vertical line, that extends from the top of the screen to the bottom, left to right. This feature allows the user to analyse more than one indicator at a time without having to deselect and select another factor.</li>
+</ol>
+<p><img alt="Switching Between Indicators on the Map Display" src="../_images/Switching-between-factors.gif" /></p>
+<p>By clicking on the little map icon at the bottom left of the screen, you can change the slide deck function from vertical to horizontal.</p>
+<p><img alt="Map Icon" src="../_images/map-icon-update.gif" /></p>
+<ol class="simple">
+<li><strong>Timelapse Bar</strong>: The Timelapse Bar will show you the severity of the selected indicator over a period of time. As the map and the info panel change, the corresponding date for that data will be displayed within the bar. To initiate the timelapse, “click”on the “play” button. “Click” “stop” to end it.</li>
+</ol>
+<p><img alt="Timelapse Bar" src="../_images/Timelapse.gif" /></p>
 </div>
 
 

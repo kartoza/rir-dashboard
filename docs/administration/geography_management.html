@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>RIR Dashboard - Setting up the server</title>
+<title>RIR Dashboard - Geography Management</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha256-NuCn4IvuZXdBaFKJOAcsU2Q3ZpwbdFisd5dux4jkQ5w=" crossorigin="anonymous"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous"/>
@@ -41,8 +41,6 @@
       <script src="../../app-data.js"></script>
 <link rel="index" title="Index" href="../genindex.html" />
 <link rel="search" title="Search" href="../search.html" />
-<link rel="next" title="Running the project" href="running_project.html" />
-<link rel="prev" title="Cloning the project folder from kartoza github repository" href="cloning_the_project_folder.html" />
 
 </head>
 <body class="full-height test">
@@ -61,8 +59,8 @@
 
       </div>
       <div id="hdr-centre" class="text-center stretch">
-        <h3 title="Setting up the server">Setting up the server</h3>
-        <h6>Setting up the server</h6>
+        <h3 title="Geography Management">Geography Management</h3>
+        <h6><strong>Geography Management</strong></h6>
       </div>
       <div id="hdr-search">
         
@@ -75,27 +73,14 @@
       </div>
 
       <div id="hdr-source">
-        <a href="../_sources/technical/setting_up_server.md.txt" class="btn btn-default" title="See the source for this page"><i class="fa fa-code"></i></a>
+        <a href="../_sources/administration/geography_management.md.txt" class="btn btn-default" title="See the source for this page"><i class="fa fa-code"></i></a>
       </div>
 
       <div id="hdr-right">
         
   
-  <div class="prev-next">
-    
-      <div class="pull-left">
-        <a class="btn btn-default prev" href="cloning_the_project_folder.html" title="Previous chapter (Cloning the project folder from kartoza github repository)"><i class="fa fa-chevron-left mr-1em" aria-hidden="true"></i><span class="btn-text">Cloning the project folder from kartoza github repository</span></a>
-      </div>
-    
-      <div class="pull-right">
-        <a class="btn btn-default next" href="running_project.html" title="Next chapter (Running the project)"><span class="btn-text">Running the project</span>&nbsp;<i class="fa fa-chevron-right ml-1em" aria-hidden="true"></i></a>
-      </div>
-    </div>
-  
       </div>
       <div id="alt-hdr-right">
-
-        <a href="cloning_the_project_folder.html"><i class="fa fa-chevron-left mr-8"></i></a>
 
 
         <a href="../index.html"><i class="fa fa-home mr-8"></i></a>
@@ -104,8 +89,6 @@
         <a href="../search.html"><i class="fa fa-search mr-8"></i></a>
 
 
-
-        <a href="running_project.html"><i class="fa fa-chevron-right"></i></a>
 
       </div>
     </div>
@@ -140,11 +123,11 @@
         
   
     <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../introduction.html#introduction">Introduction</a></li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../using/index.html">User Documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../administration/index.html">Administrator Documentation</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html#rir-platform">Developer documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Administrator Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/index.html">Developer documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
 </ul>
 
@@ -158,11 +141,11 @@
             
   
     <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../introduction.html#introduction">Introduction</a></li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../using/index.html">User Documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../administration/index.html">Administrator Documentation</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html#rir-platform">Developer documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Administrator Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/index.html">Developer documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
 </ul>
 
@@ -170,55 +153,25 @@
           </div>
           <div class="body">
             
-  <div class="tex2jax_ignore mathjax_ignore section" id="setting-up-the-server">
-<h1>Setting up the server<a class="headerlink" href="#setting-up-the-server" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="steps-for-setting-up-server">
-<h2>Steps for setting up server<a class="headerlink" href="#steps-for-setting-up-server" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="clone-rir-dashboard-repository-to-your-machine">
-<h3>Clone rir-dashboard repository to your machine<a class="headerlink" href="#clone-rir-dashboard-repository-to-your-machine" title="Permalink to this headline">¶</a></h3>
-<p>This will clone the rir-dashboard rpository to your machine or virtual box</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">kartoza</span><span class="o">/</span><span class="n">rir</span><span class="o">-</span><span class="n">dashboard</span><span class="o">.</span><span class="n">git</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="set-up-server">
-<h3>Set up server<a class="headerlink" href="#set-up-server" title="Permalink to this headline">¶</a></h3>
-<p>This will set up the rir-dashboard server on your machine or virtual box</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">rir</span><span class="o">-</span><span class="n">dashboard</span>
-<span class="n">cd</span> <span class="n">deployment</span>
-<span class="n">cp</span> <span class="n">docker</span><span class="o">-</span><span class="n">compose</span><span class="o">.</span><span class="n">override</span><span class="o">.</span><span class="n">template</span><span class="o">.</span><span class="n">yml</span> <span class="n">docker</span><span class="o">-</span><span class="n">compose</span><span class="o">.</span><span class="n">override</span><span class="o">.</span><span class="n">yml</span>
-<span class="n">cp</span> <span class="o">.</span><span class="n">template</span><span class="o">.</span><span class="n">env</span> <span class="o">.</span><span class="n">env</span>
-<span class="n">cd</span> <span class="o">..</span>
-<span class="n">make</span> <span class="n">up</span>
-<span class="n">docker</span> <span class="n">ps</span>
-<span class="n">docker</span> <span class="n">logs</span> <span class="o">-</span><span class="n">f</span> <span class="n">rir_dashboard_django</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="open-server-if-using-a-linux-machine">
-<h3>Open server if using a linux machine<a class="headerlink" href="#open-server-if-using-a-linux-machine" title="Permalink to this headline">¶</a></h3>
-<p>This will open the dashboard on a webpage:</p>
-<p>Open up a web browser and go to 127.0.0.1 and the dashboard will open:
-<img alt="RIR Dashboard on 127.0.0.1" src="../img/rir-dashboard-linux-machine.PNG" /></p>
-</div>
-<div class="section" id="if-using-a-virtual-box">
-<h3>If using a virtual box<a class="headerlink" href="#if-using-a-virtual-box" title="Permalink to this headline">¶</a></h3>
-<p>Open network settings of your virtual box</p>
-<p><img alt="Network settings vbox" src="../img/Virtualbox-network-settings1.PNG" /></p>
-<p>Click on port forwarding and add 2 new rules as indicated in the image below:</p>
-<p><img alt="Network settings 2 vbox" src="../img/Virtualbox-network-settings2.PNG" /></p>
-<p>Click OK and close. Download <a class="reference external" href="http://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html">PuTTY</a>.
-Create a connection by following these <a class="reference external" href="https://the.earth.li/~sgtatham/putty/0.67/htmldoc/Chapter2.html#gs-insecure">directions</a>, enter “localhost” as the host name, “SSH” as the protocol, and “2222” as the port.</p>
-<p>Once you have logged in on PuTTY enter this command below in the prompt:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ssh</span> <span class="n">yourlogin</span><span class="o">@</span><span class="mf">127.0.0.1</span> <span class="o">-</span><span class="n">p</span> <span class="mi">22</span>
-</pre></div>
-</div>
-<p>(Make sure that you replace your username with “yourlogin”)</p>
-<p>When asked for your password, press enter three times and the prompt will display this message:  Permission denied (publickey,password).</p>
-<p>Open the RIR dashboard server using a web browser on your machine by going to 127.0.0.1:8080
-<img alt="RIR Dashboard on 127.0.0.1:8080" src="../img/rir-dashboard-vbox.PNG" /></p>
-</div>
-</div>
+  <div class="tex2jax_ignore mathjax_ignore section" id="geography-management">
+<h1><strong>Geography Management</strong><a class="headerlink" href="#geography-management" title="Permalink to this headline">¶</a></h1>
+<p><img alt=" Geography Management" src="../_images/geography-diagramflow.png" /></p>
+<ol class="simple">
+<li><strong>Geography Level Arrangement</strong>: Below the ‘Program Interventions’ panel are three icons; ‘Indicator Management’, ‘Geography Management’, and ‘Instance Management’.
+“Click” on the ‘Geography Management’ icon. You will be redirected to the ‘Geography View’ map page and you will see that in the top right corner there is a button
+for ‘Level Management’. “Select” this button. Now you will be able to rearrange the geography level by clicking on a degree and dragging to your desired location.</li>
+</ol>
+<p><img alt="Rearrange Geography Level" src="../_images/geo-level.gif" /></p>
+<ol class="simple">
+<li><strong>Adding a Geography level</strong>: Let’s start in  ‘Site Administration’. “Scroll” down to ‘Geometry Level names’ and “select” ‘+Add’. “Add” the name and description
+of the geometry level you want to add and save your work.</li>
+</ol>
+<p><img alt="Add Geography Level" src="../_images/add-geo-levelone.gif" /></p>
+<p>Next, go to ‘Geometry Level Instance’, and “select” ‘+Add’. “Click” on the geometry level you added in the previous step and complete the form.</p>
+<p><img alt="Add Geography Level" src="../_images/add-geo-leveltwo.gif" /></p>
+<p>The last step is to go back to ‘Geography Level Management’, “refresh” your screen, “click” on ‘Level Management’ and then move your new geography level to where you want
+it to go.</p>
+<p><img alt="Add Geography Level" src="../_images/add-geo-levelthree.gif" /></p>
 </div>
 
 
