@@ -60,7 +60,7 @@ Junior GIS Technician and Cartographer| GIS Intern
 Lesego Mohaule
 -----------|-------------------
 ![Lesego](https://avatars.githubusercontent.com/u/69116236?v=4 "Lesego")
- GIS Intern
+GIS Intern
 [LesegoMohaule @ github](https://github.com/LesegoMohaule)
 
 
