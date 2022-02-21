@@ -55,7 +55,7 @@ Amy Burness | Thiasha Vythilingam
 -----------| -------------------
 ![Amy](https://avatars.githubusercontent.com/u/77841514?v=4 "Amy")| ![Thiasha](https://avatars.githubusercontent.com/u/98025261?v=4 "Thiasha")
 Junior GIS Technician and Cartographer | GIS Intern
-[ThiashaV @ github](https://github.com//) | [ThiashaV @ github](https://github.com/ThiashaV)
+[amyburness @ github](https://github.com//) | [ThiashaV @ github](https://github.com/ThiashaV)
 
 Amy Burness | Thiasha | Lesego
 
