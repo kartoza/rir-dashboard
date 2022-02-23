@@ -64,4 +64,10 @@ need to "select". "fill" in 'Sheet name', 'Column name: administration code', an
 >
 >
 5.	**Ingestors**:
-The function of an ingestor is to manually upload data which is then automatically ingested or pushed from a remote side. 
+The function of an ingestor is to manually upload data which is then automatically ingested or pushed from a remote side. To start, "click" on 'Create Harvester"
+as you did for the harvester options. "change" the type of harvester to 'Harvested using exposed API by external client'. "Add" necessary notes and "submit".
+You will now be presented with an 'API URL' and a 'Token' that has been received from an external source. You now need to "push" the data from outside to the RIR 
+dashboard. "Open" the API platform that you use to build and use API's. We used Postman. "Copy" over the URL and token to push the data to the RIR dashboard.
+>
+![Ingestor](../img/ingestor.gif "Ingestor") 
+
