@@ -5,9 +5,10 @@ Administrator Documentation
    :maxdepth: 1
    :caption: Contents:
    
-   instances-and-program-interventions
+   instances_and_program_interventions
    layers
-   geography-management
+   geography_management
    indicators
+   
 
    
