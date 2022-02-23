@@ -60,7 +60,7 @@ need to "select". "fill" in 'Sheet name', 'Column name: administration code', an
 ![Harvester](../img/meta-harvester.gif "Harvester") 
 >
 >
-![Harvesters](../img/harvester-diagramflow.png "Harvester") 
+![Ingestor](../img/ingestor-diagramflow.png "ingestor") 
 >
 >
 5.	**Ingestors**:
