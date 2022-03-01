@@ -7,6 +7,12 @@ define([], function () {
         /** Initialization
          */
         initialize: function (parent) {
+            // TODO:
+            //  We disable this for now
+            //  Bug is when we drag/drop, the toggle is not working
+            return false;
+
+
             const $dropArea = $('#layer-list .side-panel-content');
             let $temporary = null;
             let $dropAreaOver = null;
