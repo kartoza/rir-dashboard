@@ -57,7 +57,7 @@ define(['js/views/layers/indicator-info/base'], function (Base) {
                             $row.show();
                             $($row.find('td')[0]).attr('onclick', `triggerEventToDetail('${rowData.indicator_id}', '${$($row.find('td')[0]).html()}')`);
                             $($row.find('td')[1]).css('background', rowData.background_color);
-                            $($row.find('td')[2]).html(rowData.value);
+                            $($row.find('td')[2]).html(`${numberWithCommas(rowData.value)} ${indicatorUnit[rowData.indicator_id] ? indicatorUnit[rowData.indicator_id] : ''}`);
 
                             if (!groupsValue[rowData['group_name']]) {
                                 groupsValue[rowData['group_name']] = []

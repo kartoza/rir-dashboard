@@ -253,3 +253,17 @@ function copyToClipboard(element) {
         $indicator.css('opacity', 1)
     });
 }
+
+function numberWithCommas(x, decimalNum = 2) {
+    if (typeof x !== 'number') {
+        return x
+    }
+    x = x.toFixed(decimalNum)
+    let number = x.split('.')[0];
+    let decimal = x.split('.')[1];
+    let string = number.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    if (decimal && parseInt(decimal)) {
+        string += '.' + decimal.replace(/[0]+$/, '');
+    }
+    return string;
+}
