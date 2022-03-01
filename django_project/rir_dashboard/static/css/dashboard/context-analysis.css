@@ -456,14 +456,21 @@
     left: var(--right-side-width);
 }
 
+#indicator-list-by-geometry .indicator-geometry-name {
+    text-align: right;
+}
+
 #indicator-list-by-geometry tr.disabled {
     opacity: 0.1;
 }
 
-
 #indicator-list-by-geometry tr.disabled .indicator-geometry-name:hover {
     color: inherit;
     cursor: default;
+}
+
+#indicator-list-by-geometry .group tr.disabled {
+    display: none !important;
 }
 
 .side-panel .content-wrapper {
@@ -790,6 +797,10 @@
 
 .legend-row input {
     cursor: pointer;
+}
+
+.legend-row .threshold {
+    opacity: 0.4;
 }
 
 /* LAYER SELECTION */

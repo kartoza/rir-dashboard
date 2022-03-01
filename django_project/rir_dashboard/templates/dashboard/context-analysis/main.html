@@ -64,13 +64,15 @@
                                                 </tr>
                                                 {% for indicator in group.indicators %}
                                                     <tr id="indicator-by-geometry-{{ indicator.id }}">
-                                                        <td style="text-align: right;" class="indicator-geometry-name">{{ indicator.name }}</td>
-                                                        <td style="background-color: #305597" class="value-color"></td>
-                                                        <td class="value-name">Worst Case</td>
+                                                        <td class="indicator-geometry-name">{{ indicator.name }}</td>
+                                                        <td class="value-color"></td>
+                                                        <td class="value-name"></td>
                                                     </tr>
                                                 {% endfor %}
                                                 </tbody>
                                             {% endfor %}
+                                            <tbody id="no-data">
+                                            </tbody>
                                         </table>
                                     </div>
                                     <div id="indicator-geometry-loading" class="loading-info">
@@ -246,13 +248,16 @@
                                                         <table>
                                                             {% for name, value in indicator.object.legends.items %}
                                                                 <tr class="legend-row active" data-id="{{ indicator.id }}" data-level="{{ value.level }}">
-                                                                    <td>
+                                                                    <td valign="top">
                                                                         <input type="checkbox" checked>
                                                                     </td>
-                                                                    <td>
+                                                                    <td valign="top">
                                                                         <div class="polygon" style="background-color: {{ value.color }}"></div>
                                                                     </td>
-                                                                    <td>{{ name }}</td>
+                                                                    <td>
+                                                                        {{ name }}
+                                                                        <br> <i class="threshold">{{ value.rule_str }}</i>
+                                                                    </td>
                                                                 </tr>
                                                             {% endfor %}
                                                         </table>

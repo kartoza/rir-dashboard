@@ -37,3 +37,29 @@ class IndicatorScenarioRule(models.Model):
 
     class Meta:
         unique_together = ('indicator', 'scenario_level')
+
+    @property
+    def rule_str(self):
+        """ Return rules in string list
+        """
+        values = []
+        rules = self.rule.lower().replace(' ', '').split('and')
+        for rule in rules:
+            current_symbol = None
+            for symbol in ['<=', '>=', '==', '<', '>']:
+                if symbol in rule:
+                    current_symbol = symbol
+                    break
+
+            temp = rule.split(current_symbol)
+            unit = ''
+            if self.indicator.unit:
+                unit = f'{self.indicator.unit}'
+
+            str_symbol = '=' if current_symbol == '==' else symbol
+            if temp[0] == 'x':
+                values.append(f'{str_symbol}{temp[1]} {unit}')
+            else:
+                values.append(f'{temp[0]} {unit} {str_symbol}')
+
+        return " & ".join(values)

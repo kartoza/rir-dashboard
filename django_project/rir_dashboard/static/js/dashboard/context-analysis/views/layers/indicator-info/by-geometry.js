@@ -28,6 +28,9 @@ define(['js/views/layers/indicator-info/base'], function (Base) {
                     'geometry_identifier', this.geometry.properties.geometry_code).replaceAll(
                     'geometry_level', this.geometry.properties.geometry_level).replaceAll(
                     'date', this.date);
+
+                const $noData = this.$el.find('#no-data');
+                this.$el.find('#no-data').html('');
                 this.currentUrl = url;
                 if (this.request) {
                     this.request.abort();
@@ -54,7 +57,7 @@ define(['js/views/layers/indicator-info/base'], function (Base) {
                             $row.show();
                             $($row.find('td')[0]).attr('onclick', `triggerEventToDetail('${rowData.indicator_id}', '${$($row.find('td')[0]).html()}')`);
                             $($row.find('td')[1]).css('background', rowData.background_color);
-                            $($row.find('td')[2]).html(rowData.scenario_text);
+                            $($row.find('td')[2]).html(rowData.value);
 
                             if (!groupsValue[rowData['group_name']]) {
                                 groupsValue[rowData['group_name']] = []
@@ -93,6 +96,11 @@ define(['js/views/layers/indicator-info/base'], function (Base) {
                             $bullet.removeAttr('onclick')
                             $popupBullet.removeAttr('onclick')
                         }
+
+                        // duplicate to no-data tbody
+                        self.$el.find('.disabled').each(function () {
+                            $(this).clone().appendTo($noData);
+                        })
                     }, function (e) {
                         console.log(e)
                     })

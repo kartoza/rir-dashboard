@@ -297,7 +297,7 @@ define([], function () {
                             `<tr>
                                 <td style="text-align: right; color: ${feature.properties.background_color}"><b class="value-key" data-id="${feature.id}">${feature.properties.geometry_name}</b></td>
                                 <td style="background-color: ${feature.properties.background_color}" class="value-color"></td>
-                                <td>${feature.properties.scenario_text}</td>
+                                <td>${feature.properties.value}</td>
                             </tr>
                         `);
 

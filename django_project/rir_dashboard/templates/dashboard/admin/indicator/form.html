@@ -250,33 +250,31 @@
         $('.scenario-input').each(function () {
             const $row = $(this).closest('.rule-row');
             const value = $(this).val().replaceAll(' ', '');
-            if (value.indexOf("==") >= 0) {
-                if (value.split('==')[0] === 'x') {
-                    $row.find('.equal').val(value.split('==')[1])
-                } else {
-                    $row.find('.equal').val(value.split('==')[0])
-                }
-                $row.find('.equal').trigger('change')
-            } else {
-                const values = value.split('and')
-                $.each(values, function (i, currentValue) {
-                    if (currentValue.indexOf("<") >= 0) {
-                        if (currentValue.split('<')[0] === 'x') {
-                            $row.find('.max').val(currentValue.split('<')[1].replace('=', ''))
-                        } else {
-                            $row.find('.max').val(currentValue.split('<')[0].replace('=', ''))
-                        }
-                        $row.find('.max').trigger('change')
-                    } else if (currentValue.indexOf(">") >= 0) {
-                        if (currentValue.split('>')[0] === 'x') {
-                            $row.find('.min').val(currentValue.split('>')[1].replace('=', ''))
-                        } else {
-                            $row.find('.min').val(currentValue.split('>')[0].replace('=', ''))
-                        }
-                        $row.find('.min').trigger('change')
+            const values = value.split('and')
+            $.each(values, function (i, currentValue) {
+                if (value.indexOf("==") >= 0) {
+                    if (value.split('==')[0] === 'x') {
+                        $row.find('.equal').val(value.split('==')[1])
+                    } else {
+                        $row.find('.equal').val(value.split('==')[0])
                     }
-                });
-            }
+                    $row.find('.equal').trigger('change')
+                } else if (currentValue.indexOf("<") >= 0) {
+                    if (currentValue.split('<')[0] === 'x') {
+                        $row.find('.max').val(currentValue.split('<')[1].replace('=', ''))
+                    } else {
+                        $row.find('.max').val(currentValue.split('<')[0].replace('=', ''))
+                    }
+                    $row.find('.max').trigger('change')
+                } else if (currentValue.indexOf(">") >= 0) {
+                    if (currentValue.split('>')[0] === 'x') {
+                        $row.find('.min').val(currentValue.split('>')[1].replace('=', ''))
+                    } else {
+                        $row.find('.min').val(currentValue.split('>')[0].replace('=', ''))
+                    }
+                    $row.find('.min').trigger('change')
+                }
+            });
 
         })
         $('p[data-field-name="aggregation_behaviour"]').append('<span class="helptext">Behaviour how the data will be displayed. Click <a id="reporting-behaviour-help-button">here</a> for more detail.</span>');

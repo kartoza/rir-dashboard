@@ -149,7 +149,8 @@ class Indicator(AbstractTerm):
         for indicator_rule in self.indicatorscenariorule_set.order_by('scenario_level__level'):
             output[indicator_rule.name] = {
                 'color': indicator_rule.color if indicator_rule.color else indicator_rule.scenario_level.background_color,
-                'level': indicator_rule.scenario_level.level
+                'level': indicator_rule.scenario_level.level,
+                'rule_str': indicator_rule.rule_str
 
             }
         return output
