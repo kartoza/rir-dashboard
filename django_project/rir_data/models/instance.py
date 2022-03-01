@@ -115,6 +115,8 @@ class Instance(SlugTerm, IconTerm):
                 #  we need to move it to self.indicators
                 if indicator.access_level == PermissionLevels.SIGNIN and not user.username:
                     continue
+                if indicator.access_level == PermissionLevels.ADMIN and not user.is_staff:
+                    continue
 
                 values = indicator.values(
                     geometry_country,

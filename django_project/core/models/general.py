@@ -62,6 +62,7 @@ class IconTerm(models.Model):
 class PermissionLevels(object):
     PUBLIC = 'Public'
     SIGNIN = 'Signin'
+    ADMIN = 'Admin'
 
 
 class PermissionModel(models.Model):
@@ -71,7 +72,8 @@ class PermissionModel(models.Model):
         default=PermissionLevels.PUBLIC,
         choices=(
             (PermissionLevels.PUBLIC, 'Accessed in public.'),
-            (PermissionLevels.SIGNIN, 'Need login to access.')
+            (PermissionLevels.SIGNIN, 'Need login to access.'),
+            (PermissionLevels.ADMIN, 'Need admin level to access it.')
         )
     )
 
