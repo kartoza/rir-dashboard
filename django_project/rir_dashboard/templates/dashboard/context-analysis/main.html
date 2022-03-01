@@ -390,10 +390,14 @@
         {% endfor %}
         const indicatorRules = {};
         const indicatorLatestDate = {};
+        const indicatorUnit = {};
         {% for group_name, group in indicators_in_groups.items %}
             {% for indicator in group.indicators %}
                 indicatorRules['{{ indicator.id }}'] = {{ indicator.rules|safe }};
                 indicatorLatestDate['{{ indicator.id }}'] = '{{ indicator.latest_date }}';
+                {% if indicator.object.unit %}
+                    indicatorUnit['{{ indicator.id }}'] = '{{ indicator.object.unit }}';
+                {% endif %}
             {% endfor %}
         {% endfor %}
 

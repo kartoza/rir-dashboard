@@ -1,6 +1,6 @@
 from datetime import date
 from django.db.models import Q
-from core.models.general import IconTerm, SlugTerm
+from core.models.general import IconTerm, SlugTerm, PermissionLevels
 
 
 class Instance(SlugTerm, IconTerm):
@@ -90,8 +90,7 @@ class Instance(SlugTerm, IconTerm):
         from rir_data.models.geometry import Geometry
         return Geometry.objects.by_date(date).filter(instance=self)
 
-    @property
-    def get_indicators_and_overall_scenario(self):
+    def get_indicators_and_overall_scenario(self, user=None):
         """
         Return all indicators and overall scenario of the instance
         """
@@ -112,6 +111,11 @@ class Instance(SlugTerm, IconTerm):
                 raise Geometry.DoesNotExist
 
             for indicator in self.indicators:
+                # TODO:
+                #  we need to move it to self.indicators
+                if indicator.access_level == PermissionLevels.SIGNIN and not user.username:
+                    continue
+
                 values = indicator.values(
                     geometry_country,
                     country_level,

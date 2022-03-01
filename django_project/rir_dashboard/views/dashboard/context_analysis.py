@@ -32,7 +32,7 @@ class ContextAnalysisView(BaseDashboardView):
             self.instance.scenario_levels, many=True
         ).data
 
-        indicators_in_groups, overall_scenario_level = self.instance.get_indicators_and_overall_scenario
+        indicators_in_groups, overall_scenario_level = self.instance.get_indicators_and_overall_scenario(self.request.user)
 
         # intervention
         interventions = []

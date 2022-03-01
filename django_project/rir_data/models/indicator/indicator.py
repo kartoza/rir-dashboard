@@ -4,7 +4,7 @@ from django.db.models import Count, Sum, Avg
 from django.contrib.gis.db import models
 from django.shortcuts import reverse
 from django.utils.translation import ugettext_lazy as _
-from core.models.general import AbstractTerm
+from core.models.general import AbstractTerm, PermissionModel
 from rir_data.models.geometry import Geometry, GeometryLevelName
 from rir_data.models.indicator.indicator_attributes import (
     IndicatorFrequency, IndicatorGroup
@@ -30,7 +30,7 @@ class IndicatorValueRejectedError(Exception):
     pass
 
 
-class Indicator(AbstractTerm):
+class Indicator(AbstractTerm, PermissionModel):
     """
     The indicator of scenario
     """
@@ -220,6 +220,7 @@ class Indicator(AbstractTerm):
             pass
 
         values = {
+            'indicator_id': self.id,
             'geometry_id': geometry.id,
             'geometry_code': geometry.identifier,
             'geometry_name': geometry.name,

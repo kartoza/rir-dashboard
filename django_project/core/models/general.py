@@ -56,3 +56,24 @@ class IconTerm(models.Model):
 
     class Meta:
         abstract = True
+
+
+# AGGREGATION METHOD
+class PermissionLevels(object):
+    PUBLIC = 'Public'
+    SIGNIN = 'Signin'
+
+
+class PermissionModel(models.Model):
+    """ Abstract model for Permission """
+    access_level = models.CharField(
+        max_length=126,
+        default=PermissionLevels.PUBLIC,
+        choices=(
+            (PermissionLevels.PUBLIC, 'Accessed in public.'),
+            (PermissionLevels.SIGNIN, 'Need login to access.')
+        )
+    )
+
+    class Meta:
+        abstract = True
