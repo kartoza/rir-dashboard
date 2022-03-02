@@ -20,8 +20,7 @@ change the thumbnail for the layer by uploading a screenshot of the layer. <br>
 ![Finding Link](../img/finding_link.gif  "Finding Link") <br> <br>
 Copy the link address and paste it into a notepad. Use the first part as the URL when adding a new layer. The rest of the address needs to be broken down and added as layer parameters. <br>
 For example, if the link address is:
-https://staging.osgs.rir.kartoza.com/geoserver/owsaccess_token=EybMy8jdEBc7ugrIAyzAP6sImNlOEk&LAYERS=geonode%3ADrought_Priority_Areas_Affected_Population&TRANSPARENT=TRUE
-&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&STYLES=&FORMAT=image%2Fpng&SRS=EPSG%3A900913&BBOX=5009377.085,0,6261721.35625,1252344.27125&WIDTH=256&HEIGHT=256, 
+https://staging.osgs.rir.kartoza.com/geoserver/owsaccess_token=EybMy8jdEBc7ugrIAyzAP6sImNlOEk&LAYERS=geonode%3ADrought_Priority_Areas_Affected_Population&TRANSPARENT=TRUE&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&STYLES=&FORMAT=image%2Fpng&SRS=EPSG%3A900913&BBOX=5009377.085,0,6261721.35625,1252344.27125&WIDTH=256&HEIGHT=256, 
 the URL you need to use is https://staging.osgs.rir.kartoza.com/geoserver/ows. Your parameters are TRANSPARENT=TRUE, VERSION=1.1.1, WIDTH=256, HEIGHT=256, etc. 
 and your token would be EybMy8jdEBc7ugrIAyzAP6sImNlOEk. <br>
 ![Uploading](../img/uploading.gif  "Uploading") <br><br>
