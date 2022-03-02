@@ -5,8 +5,8 @@
 >
 >
 1.	**Geography Level Arrangement**: Below the ‘Program Interventions’ panel are three icons; ‘Indicator Management’, ‘Geography Management’, and ‘Instance Management’. 
-	   “Click” on the ‘Geography Management’ icon. You will be redirected to the ‘Geography View’ map page and you will see that in the top right corner there is a button
-		 for ‘Level Management’. “Select” this button. Now you will be able to rearrange the geography level by clicking on a degree and dragging to your desired location.
+	  	 “Click” on the ‘Geography Management’ icon. You will be redirected to the ‘Geography View’ map page and you will see that in the top right corner there is a button
+		 for ‘Level Management’. “Select” this button. Now you will be able to rearrange the geography level by clicking on a degree and dragging to your desired 			location.
 >
 ![Rearrange Geography Level](../img/geo-level.gif "Rearrange Geography Level") 
 

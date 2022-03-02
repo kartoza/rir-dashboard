@@ -5,9 +5,9 @@ User Documentation
    :maxdepth: 1
    :caption: Contents:
 
-   platform-tour
+   platform_tour
    indicators
-   map-interactions
+   map_interactions
    layers
    
    
