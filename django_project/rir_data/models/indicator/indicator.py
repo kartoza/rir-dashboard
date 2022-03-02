@@ -1,11 +1,10 @@
 import typing
-import uuid
 from datetime import date
 from django.db.models import Count, Sum, Avg
 from django.contrib.gis.db import models
 from django.shortcuts import reverse
 from django.utils.translation import ugettext_lazy as _
-from core.models.general import AbstractTerm
+from core.models.general import AbstractTerm, PermissionModel
 from rir_data.models.geometry import Geometry, GeometryLevelName
 from rir_data.models.indicator.indicator_attributes import (
     IndicatorFrequency, IndicatorGroup
@@ -31,7 +30,7 @@ class IndicatorValueRejectedError(Exception):
     pass
 
 
-class Indicator(AbstractTerm):
+class Indicator(AbstractTerm, PermissionModel):
     """
     The indicator of scenario
     """
@@ -78,7 +77,7 @@ class Indicator(AbstractTerm):
         default=AggregationBehaviour.USE_MOST_RECENT,
         choices=(
             # (AggregationBehaviour.ALL_REQUIRED, AggregationBehaviour.ALL_REQUIRED),
-            (AggregationBehaviour.USE_AVAILABLE, AggregationBehaviour.USE_AVAILABLE),
+            (AggregationBehaviour.USE_AVAILABLE, 'Current time window only'),
             (AggregationBehaviour.USE_MOST_RECENT, AggregationBehaviour.USE_MOST_RECENT)
         )
     )
@@ -87,8 +86,8 @@ class Indicator(AbstractTerm):
         max_length=256,
         default=AggregationMethod.AVERAGE,
         choices=(
-            (AggregationMethod.AVERAGE, AggregationMethod.AVERAGE),
-            (AggregationMethod.MAJORITY, AggregationMethod.MAJORITY)
+            (AggregationMethod.AVERAGE, 'Aggregate data by average data in the levels'),
+            (AggregationMethod.MAJORITY, 'Aggregate data by majority data in the levels')
         )
     )
     order = models.IntegerField(
@@ -105,19 +104,6 @@ class Indicator(AbstractTerm):
         default=100,
         help_text="Maximum value for the indicator that can received",
         verbose_name="Maximum Value"
-    )
-
-    # exposed API
-    api_exposed = models.BooleanField(
-        default=False
-    )
-    api_token = models.UUIDField(
-        default=uuid.uuid4, editable=False,
-        help_text='Indicate that API is exposed outside. This API is used for get the data and also post new data.'
-    )
-    api_note = models.TextField(
-        null=True, blank=True,
-        help_text='Note about the usage of api, can put link that is using API to push the data.'
     )
 
     # dashboard link
@@ -160,10 +146,11 @@ class Indicator(AbstractTerm):
         Return legend of indicator
         """
         output = {}
-        for indicator_rule in self.indicatorscenariorule_set.all():
+        for indicator_rule in self.indicatorscenariorule_set.order_by('scenario_level__level'):
             output[indicator_rule.name] = {
                 'color': indicator_rule.color if indicator_rule.color else indicator_rule.scenario_level.background_color,
-                'level': indicator_rule.scenario_level.level
+                'level': indicator_rule.scenario_level.level,
+                'rule_str': indicator_rule.rule_str
 
             }
         return output
@@ -233,6 +220,7 @@ class Indicator(AbstractTerm):
             pass
 
         values = {
+            'indicator_id': self.id,
             'geometry_id': geometry.id,
             'geometry_code': geometry.identifier,
             'geometry_name': geometry.name,

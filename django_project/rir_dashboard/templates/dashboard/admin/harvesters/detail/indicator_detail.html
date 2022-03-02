@@ -15,3 +15,31 @@
         </a>
     {% endif %}
 {% endblock %}
+{% block scripts %}
+    <script>
+        {#  API URL #}
+        $('*[name="API URL"]').find('a').each(function () {
+            const newUrl = window.location.protocol + '//' + window.location.host + $(this).attr('href');
+            $('*[name="API URL"]').html(newUrl);
+        });
+
+        {# make the text to copy to clipboard#}
+        changeToCopyToClipboard($('*[name="API URL"]'));
+        changeToCopyToClipboard($('*[name="token"]'));
+
+        $('*[name="API URL"]').append(
+            '<br>' +
+            '<br>' +
+            '<div class="helptext api-url-hepltext">Example data :' +
+            '<br><pre>' + JSON.stringify({
+                "geometry_code": "SO",
+                "extra_data": {
+                    "Data 1": "1",
+                    "Data 2": "2",
+                },
+                "date": "2022-01-01",
+                "value": 1
+            }, undefined, 2) + '<pre></div>'
+        )
+    </script>
+{% endblock %}

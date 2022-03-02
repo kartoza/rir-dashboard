@@ -49,6 +49,15 @@ class GeometryLevelInstance(models.Model):
                 ).first()
         return tree
 
+    def get_child_tree(self):
+        tree = [self.level.name]
+        for child in GeometryLevelInstance.objects.filter(
+                instance=self.instance,
+                parent=self.level
+        ):
+            tree += child.get_child_tree()
+        return tree
+
 
 class FindGeometry(models.Manager):
     def get_by(self, name, geometry_level, child_of=None):
@@ -115,6 +124,17 @@ class Geometry(models.Model):
     active_date_to = models.DateField(
         blank=True,
         null=True
+    )
+
+    # dashboard link
+    dashboard_link = models.CharField(
+        default='',
+        max_length=1024,
+        null=True, blank=True,
+        help_text=(
+            'A dashboard link can be any URL to e.g. a BI platform or another web site. '
+            'This is optional, and when populated, a special icon will be shown next to the indicator which, '
+            'when clicked, will open up this URL in a frame over the main map area.')
     )
 
     objects = FindGeometry()

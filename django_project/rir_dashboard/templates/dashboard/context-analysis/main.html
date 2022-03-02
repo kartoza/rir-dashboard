@@ -60,18 +60,23 @@
                                                 <tr class="group-name" data-name="{{ group_name }}">
                                                     <td style="text-align: right; font-weight: 700">{{ group_name }}</td>
                                                     <td class="value-color"></td>
-                                                    <td style="font-weight: 700"></td>
+                                                    <td class="value-name" style="font-weight: 700"></td>
                                                 </tr>
                                                 {% for indicator in group.indicators %}
                                                     <tr id="indicator-by-geometry-{{ indicator.id }}">
-                                                        <td style="text-align: right;" class="indicator-geometry-name">{{ indicator.name }}</td>
-                                                        <td style="background-color: #305597" class="value-color"></td>
-                                                        <td>Worst Case</td>
+                                                        <td class="indicator-geometry-name">{{ indicator.name }}</td>
+                                                        <td class="value-color"></td>
+                                                        <td class="value-name"></td>
                                                     </tr>
                                                 {% endfor %}
                                                 </tbody>
                                             {% endfor %}
+                                            <tbody id="no-data">
+                                            </tbody>
                                         </table>
+                                    </div>
+                                    <div id="indicator-geometry-loading" class="loading-info">
+                                        Loading
                                     </div>
                                 </div>
                             </div>
@@ -84,6 +89,9 @@
                                     <div class="col"></div>
                                 </div>
                                 <div class="indicator-info-content">
+                                    <div class="loading-info">
+                                        Loading
+                                    </div>
                                     <div id="indicator-geometry-detail-graph">
 
                                     </div>
@@ -117,7 +125,7 @@
                     <i class="fa fa-stop-circle time-control" aria-hidden="true"></i>
                 </div>
                 <div class="col"><input id="time-slider" type="range" min="1" max="100" value="50" class="slider"></div>
-                <div style="width: fit-content"><b id="time-slider-indicator"></b></div>
+                <div style="width: 71px"><b id="time-slider-indicator"></b></div>
             </div>
         </div>
 
@@ -183,9 +191,8 @@
                                     Scenario {% if overall_scenario.level %}{{ overall_scenario.level }}: {{ overall_scenario.name }}{% else %} <i>unknown</i> {% endif %}
                                 </div>
                                 <div>
-                                    <a id="master-data-downloader" data-url="{% url "download-master-data" instance.slug "date" %}" target="_blank">
-                                        {% include 'dashboard/context-analysis/_template-scenario-bullet.html' with overall_scenario=overall_scenario.level %}
-                                    </a>
+                                    {% include 'dashboard/context-analysis/_template-scenario-download.html' %}
+                                    {% include 'dashboard/context-analysis/_template-scenario-bullet.html' with overall_scenario=overall_scenario.level %}
                                 </div>
                             </div>
                             <div class="side-panel-content">
@@ -206,14 +213,17 @@
                                         <tr class="group-name">
                                             <td class="row">
                                                 <div class="col">{{ group_name }}</div>
-                                                <div><i class="group-toggle fa fa-caret-up" aria-hidden="true"></i></div>
+                                                <div><i class="group-toggle fa fa-caret-down hidden" aria-hidden="true"></i></div>
+                                                {% include 'dashboard/context-analysis/_template-scenario-download.html' with ids=group.indicator_ids %}
                                                 {% include 'dashboard/context-analysis/_template-scenario-bullet.html' with overall_scenario=group.overall_scenario dashboard_link=group.dashboard_link %}
                                             </td>
                                         </tr>
                                         {# For the space #}
                                         {% for indicator in group.indicators %}
                                             <tr id="indicator-{{ indicator.id }}" data-group="{{ group_name }}"
-                                                class="indicator-{{ indicator.id }} group-row indicator-row {% if not indicator.show_in_context_analysis %}no-context-analysis hide{% endif %}">
+                                                class="indicator-{{ indicator.id }} group-row indicator-row {% if not indicator.show_in_context_analysis %}no-context-analysis hide{% endif %}{% if not indicator.object.url_data_template %}disabled{% endif %}"
+                                                {% if not indicator.object.url_data_template %}title="There is no data for for this time period. Select a different time period or ask your administrator to change the aggregation rules to show the last recorded values."{% endif %}
+                                                style="display: none">
                                                 <td class="indicator-name">
                                                     <div class="row">
                                                         <div class="indicator-checkbox">
@@ -223,6 +233,7 @@
                                                                    data-scenario="{{ indicator.scenario_value }}"
                                                                    data-url="{{ indicator.object.url_data_template }}"
                                                                    data-levels="{{ indicator.object.levels }}"
+                                                                   data-unit="{% if indicator.object.unit %}{{ indicator.object.unit }}{% endif %}"
                                                                    {% if not indicator.object.url_data_template %}disabled{% endif %}>
                                                         </div>
                                                         <div class="col">
@@ -230,19 +241,23 @@
                                                                 {{ indicator.name }}
                                                             </div>
                                                         </div>
+                                                        {% include 'dashboard/context-analysis/_template-scenario-download.html' with ids=indicator.id %}
                                                         {% include 'dashboard/context-analysis/_template-scenario-bullet.html' with overall_scenario=indicator.scenario_value dashboard_link=indicator.dashboard_link %}
                                                     </div>
                                                     <div class="legend">
                                                         <table>
                                                             {% for name, value in indicator.object.legends.items %}
                                                                 <tr class="legend-row active" data-id="{{ indicator.id }}" data-level="{{ value.level }}">
-                                                                    <td>
+                                                                    <td valign="top">
                                                                         <input type="checkbox" checked>
                                                                     </td>
-                                                                    <td>
+                                                                    <td valign="top">
                                                                         <div class="polygon" style="background-color: {{ value.color }}"></div>
                                                                     </td>
-                                                                    <td>{{ name }}</td>
+                                                                    <td>
+                                                                        {{ name }}
+                                                                        <br> <i class="threshold">{{ value.rule_str }}</i>
+                                                                    </td>
                                                                 </tr>
                                                             {% endfor %}
                                                         </table>
@@ -295,6 +310,9 @@
     </div>
     <script type='text/template' id='_scenario-bullet'>
         {% include 'dashboard/context-analysis/_template-scenario-bullet.html' with overall_scenario=0 dashboard_link='' %}
+    </script>
+    <script type='text/template' id='_scenario-download'>
+        {% include 'dashboard/context-analysis/_template-scenario-download.html' with ids='<ids>' %}
     </script>
 {% endblock %}
 {% block scripts %}
@@ -366,14 +384,20 @@
         const scenarios = {};
         {% for scenario in scenarios %}
             scenarios['{{ scenario.level }}'] = {
-                color: '{{ scenario.background_color}}',
-                text: '{{ scenario.name}}'
+                color: '{{ scenario.background_color }}',
+                text: '{{ scenario.name }}'
             }
         {% endfor %}
         const indicatorRules = {};
+        const indicatorLatestDate = {};
+        const indicatorUnit = {};
         {% for group_name, group in indicators_in_groups.items %}
             {% for indicator in group.indicators %}
-                indicatorRules['{{ indicator.id }}'] = {{ indicator.rules|safe }}
+                indicatorRules['{{ indicator.id }}'] = {{ indicator.rules|safe }};
+                indicatorLatestDate['{{ indicator.id }}'] = '{{ indicator.latest_date }}';
+                {% if indicator.object.unit %}
+                    indicatorUnit['{{ indicator.id }}'] = '{{ indicator.object.unit }}';
+                {% endif %}
             {% endfor %}
         {% endfor %}
 
@@ -387,6 +411,22 @@
         $(window).resize(function () {
             calculateDashboard();
         });
+
+        // TODO:
+        //  Also disabled group name if all indicator are disabled
+        /**
+         $('#indicator .group').each(function () {
+            let disabled = false;
+            $(this).find('.indicator-row').each(function () {
+                if ($(this).hasClass('disabled')) {
+                    disabled = true;
+                }
+            });
+            if (disabled) {
+                $(this).addClass('disabled')
+            }
+        })
+         **/
 
     </script>
     <script src="{% static "libs/underscore.js/1.9.1/underscore-min.js" %}"></script>

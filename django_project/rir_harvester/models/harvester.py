@@ -75,6 +75,13 @@ class Harvester(models.Model):
     def get_harvester_class(self):
         return import_string(self.harvester_class)
 
+    @property
+    def harvester_name(self):
+        for harvester in ALL_HARVESTERS:
+            if harvester[0] == self.harvester_class:
+                return harvester[1]
+        return ''
+
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         self.save_attributes()

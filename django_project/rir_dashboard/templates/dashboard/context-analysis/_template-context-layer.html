@@ -51,15 +51,23 @@
             <%= indicator %>
         </div>
         <div class="indicator-info-content">
-            <div style="margin-top: 10px; margin-bottom: 10px; width: 100%;">
-                <div id="<%= side %>-value-donut-chart" class="value-donut-chart" style="height : 200px"></div>
+            <div class="loading-info">
+                Loading
             </div>
-            <div>
-                <div id="<%= side %>-value-table" class="value-table"></div>
+            <div class="no-data-found">
+                No Data Found
             </div>
-            <div style="margin-top: 10px; margin-bottom: 10px; display: none">
-                <b style="margin-left: 20px">Overall Scenario in Chart</b>
-                <div id="<%= side %>-value-chart" class="value-chart"></div>
+            <div class="data-found">
+                <div style="margin-top: 10px; margin-bottom: 10px; width: 100%;">
+                    <div id="<%= side %>-value-donut-chart" class="value-donut-chart" style="height : 200px"></div>
+                </div>
+                <div>
+                    <div id="<%= side %>-value-table" class="value-table"></div>
+                </div>
+                <div style="margin-top: 10px; margin-bottom: 10px; display: none">
+                    <b style="margin-left: 20px">Overall Scenario in Chart</b>
+                    <div id="<%= side %>-value-chart" class="value-chart"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -72,6 +80,9 @@
             <%= indicator %>
         </div>
         <div class="indicator-info-content">
+            <div class="loading-info">
+                Loading
+            </div>
         </div>
     </div>
 </script>

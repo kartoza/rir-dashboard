@@ -3,9 +3,10 @@ from rest_framework import exceptions
 from django.utils.translation import gettext_lazy as _
 from django.shortcuts import get_object_or_404
 from rir_data.models import Instance
+from rir_harvester.models.harvester import UsingExposedAPI, Harvester
 
 
-class IndicatorTokenAndBearerAuthentication(authentication.TokenAuthentication):
+class IndicatorHarvesterTokenAndBearerAuthentication(authentication.TokenAuthentication):
     keywords = ['Token', 'Bearer']
 
     def authenticate(self, request):
@@ -36,11 +37,20 @@ class IndicatorTokenAndBearerAuthentication(authentication.TokenAuthentication):
         indicator = get_object_or_404(
             instance.indicators, pk=kwargs.get('pk', 0)
         )
-        if not indicator.api_exposed:
-            msg = _('API is not exposed.')
-            raise exceptions.AuthenticationFailed(msg)
+        try:
+            if not indicator.harvester or indicator.harvester.harvester_class != UsingExposedAPI[0]:
+                msg = _('API is not exposed.')
+                raise exceptions.AuthenticationFailed(msg)
 
-        if str(indicator.api_token) != token:
-            msg = _('Invalid token.')
+            token_attr = indicator.harvester.harvesterattribute_set.all().filter(name='token').first()
+            if not token_attr:
+                msg = _('API is not exposed.')
+                raise exceptions.AuthenticationFailed(msg)
+
+            if token_attr.value != token:
+                msg = _('Invalid token.')
+                raise exceptions.AuthenticationFailed(msg)
+        except Harvester.DoesNotExist:
+            msg = _('API is not exposed.')
             raise exceptions.AuthenticationFailed(msg)
         return None

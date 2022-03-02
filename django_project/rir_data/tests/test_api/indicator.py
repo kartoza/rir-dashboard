@@ -22,8 +22,7 @@ class IndicatorListAPITest(TestCase):
         # init value
         self.level = GeometryLevelNameF(name='country')
         self.indicator_1 = IndicatorF(
-            group=self.group, geometry_reporting_level=self.level,
-            api_exposed=True
+            group=self.group, geometry_reporting_level=self.level
         )
         self.indicator_2 = IndicatorF(group=self.group, geometry_reporting_level=self.level)
         self.indicator_3 = IndicatorF(group=self.group, geometry_reporting_level=self.level)
@@ -173,76 +172,6 @@ class IndicatorListAPITest(TestCase):
         self.assertEquals(len(response.data), 1)
         for data in response.data:
             self.assertEquals(data['value'], 1)
-
-    def test_indicator_values(self):
-        """
-        Test IndicatorValues API
-        """
-        # with just username password
-        client = Client()
-        client.login(username=self.username, password=self.password)
-        response = client.get(
-            reverse('indicator-values-api', kwargs={
-                'slug': self.instance.slug,
-                'pk': self.indicator_2.pk
-            })
-        )
-        self.assertEquals(response.status_code, 401)
-
-        # with token but not exposed
-        client = Client()
-        response = client.get(
-            reverse('indicator-values-api', kwargs={
-                'slug': self.instance.slug,
-                'pk': self.indicator_2.pk
-            }),
-            HTTP_AUTHORIZATION='Token ' + str(self.indicator_2.api_token)
-        )
-        self.assertEquals(response.status_code, 401)
-
-        # with token
-        client = Client()
-        response = client.get(
-            reverse('indicator-values-api', kwargs={
-                'slug': self.instance.slug,
-                'pk': self.indicator_1.pk
-            }),
-            HTTP_AUTHORIZATION='Token ' + str(self.indicator_1.api_token)
-        )
-        self.assertEquals(response.status_code, 200)
-        self.assertEquals(len(response.data), 2)
-
-        # POST data
-        client = Client()
-        response = client.post(
-            reverse('indicator-values-api', kwargs={
-                'slug': self.instance.slug,
-                'pk': self.indicator_1.pk
-            }),
-            data={
-                "geometry_code": self.geometry_country_1.identifier,
-                "extra_data": {
-                    "Total": 2,
-                    "Number": 3
-                },
-                "date": "2020-05-05",
-                "value": 2
-            },
-            content_type="application/json",
-            HTTP_AUTHORIZATION='Token ' + str(self.indicator_1.api_token)
-        )
-        self.assertEquals(response.status_code, 200)
-
-        response = client.get(
-            reverse('indicator-values-api', kwargs={
-                'slug': self.instance.slug,
-                'pk': self.indicator_1.pk
-            }),
-            HTTP_AUTHORIZATION='Token ' + str(self.indicator_1.api_token)
-        )
-        self.assertEquals(response.status_code, 200)
-        self.assertEquals(len(response.data), 6)
-        self.assertEquals(response.data[0]['value'], 2)
 
     def test_indicator_reporting_units(self):
         """

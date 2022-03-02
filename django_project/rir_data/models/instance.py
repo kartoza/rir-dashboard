@@ -1,6 +1,6 @@
 from datetime import date
 from django.db.models import Q
-from core.models.general import IconTerm, SlugTerm
+from core.models.general import IconTerm, SlugTerm, PermissionLevels
 
 
 class Instance(SlugTerm, IconTerm):
@@ -90,8 +90,7 @@ class Instance(SlugTerm, IconTerm):
         from rir_data.models.geometry import Geometry
         return Geometry.objects.by_date(date).filter(instance=self)
 
-    @property
-    def get_indicators_and_overall_scenario(self):
+    def get_indicators_and_overall_scenario(self, user=None):
         """
         Return all indicators and overall scenario of the instance
         """
@@ -112,6 +111,13 @@ class Instance(SlugTerm, IconTerm):
                 raise Geometry.DoesNotExist
 
             for indicator in self.indicators:
+                # TODO:
+                #  we need to move it to self.indicators
+                if indicator.access_level == PermissionLevels.SIGNIN and not user.username:
+                    continue
+                if indicator.access_level == PermissionLevels.ADMIN and not user.is_staff:
+                    continue
+
                 values = indicator.values(
                     geometry_country,
                     country_level,
@@ -124,6 +130,7 @@ class Instance(SlugTerm, IconTerm):
                     data['value'] = int(value['value'])
                     data['scenario_value'] = value['scenario_value']
                     data['object'] = indicator
+                    data['latest_date'] = indicator.indicatorvalue_set.order_by('date').first().date.strftime("%Y-%m-%d")
 
                 indicators.append(data)
 
@@ -131,11 +138,13 @@ class Instance(SlugTerm, IconTerm):
                 if group_name not in indicators_in_group:
                     indicators_in_group[group_name] = {
                         'indicators': [],
+                        'indicator_ids': [],
                         'overall_scenario': 1,
                         'overall_scenario_raw': {},
                         'dashboard_link': indicator.group.dashboard_link
                     }
                 indicators_in_group[group_name]['indicators'].append(data)
+                indicators_in_group[group_name]['indicator_ids'].append(str(indicator.id))
 
                 # create overall scenarios
                 if indicator.show_in_context_analysis and scenario_value:
@@ -165,6 +174,7 @@ class Instance(SlugTerm, IconTerm):
             except ValueError:
                 overall_scenario_level = 1
             group['overall_scenario'] = overall_scenario_level
+            group['indicator_ids'] = ','.join(group['indicator_ids'])
 
         return indicators_in_group, overall_scenario_level
 

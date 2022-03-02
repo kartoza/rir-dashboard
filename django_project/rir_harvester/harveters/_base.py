@@ -125,6 +125,9 @@ class BaseHarvester(ABC):
     def save_indicator_data(self, value: str, date: datetime.date, geometry: Geometry) -> IndicatorValue:
         """ Save new indicator data of the indicator """
         try:
-            return self.harvester.indicator.save_value(date, geometry, float(value))
+            if value:
+                return self.harvester.indicator.save_value(date, geometry, float(value))
+            else:
+                return None
         except IndicatorValueRejectedError:
             return None

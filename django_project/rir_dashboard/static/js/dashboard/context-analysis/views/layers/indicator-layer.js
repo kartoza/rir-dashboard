@@ -6,7 +6,7 @@ define([], function () {
     return Backbone.View.extend({
         /** Initialization
          */
-        initialize: function (administrativeLevelLayer, id, name, url, levels, scenario) {
+        initialize: function (administrativeLevelLayer, id, name, url, levels, scenario, unit) {
             this.name = name;
             this.administrativeLevelLayer = administrativeLevelLayer;
             this.$el = $(`#indicator-` + id);
@@ -20,6 +20,7 @@ define([], function () {
             this.layers = {};
             this.layer = null;
             this.scenario = scenario;
+            this.unit = unit;
             this.isShow = false;
 
 
@@ -53,6 +54,8 @@ define([], function () {
             const date = this.date;
             const identifier = `${level}-${date}`;
             const layer = self.layers[identifier];
+            $(`#${this.side}-value-donut-chart`).html('');
+            $(`#${this.side}-value-table`).html('');
             if (!layer) {
                 Request.get(
                     self.url.replace('level', level).replace('date', date), {}, {},
@@ -69,7 +72,8 @@ define([], function () {
                                 $.each(geometryData.features, function (idx, feature) {
                                     $.each(data, function (idx, rowData) {
                                         if (feature.id === rowData.geometry_id) {
-                                            rowData['geometry_level'] = feature['properties']['geometry_level_name'];
+                                            rowData['geometry_level'] = feature.properties.geometry_level_name;
+                                            rowData['dashboard_link'] = feature.properties.dashboard_link;
                                             feature['properties'] = rowData;
                                             cleanGeojson['features'].push(feature);
                                             return false;
@@ -77,7 +81,11 @@ define([], function () {
                                     })
                                 });
                                 self.layers[identifier] = cleanGeojson;
-                                self.getLayer(callback);
+
+                                // recall getLayer if the current date same with date of request
+                                if (date === self.date) {
+                                    self.getLayer(callback);
+                                }
                             } else {
                                 callback(null);
                             }
@@ -86,36 +94,55 @@ define([], function () {
                         callback(null);
                     })
             } else {
-                callback(L.geoJSON(
-                    layer, {
-                        pane: self.side,
-                        paneID: self.side,
-                        name: self.name,
-                        onEachFeature: function (feature, layer) {
-                            if (feature.properties.background_color) {
-                                let defaultHtml =
-                                    `<tr style="background-color: ${feature.properties.background_color}; color: ${feature.properties.text_color}"><td colspan="2" style="text-align: center"><b>${self.name}</b></td></tr>` +
-                                    `<tr><td colspan="2"><button class="white-button" onclick="triggerEventToDetail('${self.id}', '${self.name}')">Detail</button></td></tr>` +
-                                    `<tr><td valign="top"><b>Scenario</b></td valign="top"><td>${feature.properties.scenario_text}</td></tr>` +
-                                    `<tr><td><b>Indicator value</b></td><td valign="top">${feature.properties.value}</td valign="top"></tr>`
+                callback(
+                    L.geoJSON(
+                        layer, {
+                            pane: self.side,
+                            paneID: self.side,
+                            name: self.name,
+                            onEachFeature: function (feature, layer) {
+                                if (feature.properties.background_color) {
+                                    let defaultHtml =
+                                        `<tr style="background-color: ${feature.properties.background_color}; color: ${feature.properties.text_color}"><td colspan="2" style="text-align: center"><b>${self.name}</b></td></tr>` +
+                                        `<tr><td colspan="2"><button class="white-button" onclick="triggerEventToDetail('${self.id}', '${self.name}')">Detail</button></td></tr>` +
+                                        `<tr><td valign="top"><b>Scenario</b></td valign="top"><td>${feature.properties.scenario_text}</td></tr>` +
+                                        `<tr><td><b>${self.name} value</b></td><td valign="top" title="${feature.properties.value}">${numberWithCommas(feature.properties.value)} ${self.unit}</td></tr>`
 
-                                // check others properties
-                                $.each(feature.properties, function (key, value) {
-                                    if (!['value', 'background_color', 'text_color', 'scenario_text', 'scenario_value', 'geometry_id', 'indicator_id', 'geometry_level'].includes(key)) {
-                                        defaultHtml += `<tr><td valign="top"><b>${key.capitalize()}</b></td><td valign="top">${numberWithCommas(value)}</td></tr>`
-                                    }
+                                    // check others properties
+                                    const geometryProperties = {};
+                                    geometryProperties[feature.properties['geometry_level'] + ' code'] = feature.properties['geometry_code'];
+                                    geometryProperties[feature.properties['geometry_level'] + ' name'] = feature.properties['geometry_name'];
+                                    $.each(geometryProperties, function (key, value) {
+                                        defaultHtml += `
+                                        <tr>
+                                            <td valign="top"><b>${key.capitalize()}</b></td>
+                                            <td valign="top" class="geometry-value geometry-${feature.properties.geometry_id}">
+                                                ${numberWithCommas(value)}
+                                                ${templates.SCENARIO_BULLET()}
+                                            </td>
+                                        </tr>`
+                                    });
+                                    $.each(feature.properties, function (key, value) {
+                                        if (![
+                                            'unit', 'value', 'background_color', 'text_color',
+                                            'indicator_id', 'scenario_text', 'scenario_value',
+                                            'geometry_id', 'geometry_code', 'geometry_name', 'geometry_level', 'dashboard_link'
+                                        ].includes(key)) {
+                                            defaultHtml += `<tr><td valign="top"><b>${key.capitalize()}</b></td><td valign="top">${numberWithCommas(value)}</td></tr>`
+                                        }
+                                    });
+                                    layer.bindPopup('' +
+                                        '<table>' + defaultHtml + '</table>');
+                                }
+
+                                // on feature clicked
+                                layer.on("click", function (e) {
+                                    event.trigger(evt.GEOMETRY_CLICKED, feature);
                                 });
-                                layer.bindPopup('' +
-                                    '<table>' + defaultHtml + '</table>');
                             }
-
-                            // on feature clicked
-                            layer.on("click", function (e) {
-                                event.trigger(evt.GEOMETRY_CLICKED, feature);
-                            });
                         }
-                    }
-                ))
+                    )
+                )
             }
         },
 
@@ -132,7 +159,8 @@ define([], function () {
             $(`.${this.side}-info`).html(templates.INDICATOR_SUMMARY({
                 id: this.id,
                 name: `<div class="indicator-${this.id}">${this.name}</div>`,
-                indicator: templates.SCENARIO_BULLET().replace('scenario-0', `scenario-${this.scenario}`),
+                indicator: templates.SCENARIO_DOWNLOAD().replace('<ids>', this.id) +
+                    templates.SCENARIO_BULLET().replace('scenario-0', `scenario-${this.scenario}`),
                 side: this.side
             }));
             const onclick = $('#indicator-' + this.id).find('.scenario-bullet').attr('onclick');
@@ -149,11 +177,15 @@ define([], function () {
         _addLayer: function () {
             const self = this;
             this._removeLayer();
-            $(`.${this.side}-info .value-table`).html('<div style="margin-left: 10px; margin-bottom: 30px"><i>Loading</i></div>');
+            $(`.${this.side}-info .loading-info`).show();
+            $(`.${this.side}-info .no-data-found`).hide();
+            $(`.indicator-${this.id} .scenario-bullet`).addClass('show');
             $(`.indicator-${this.id} .spinner`).addClass('loading');
             $(`.indicator-${this.id} .spinner`).show();
             this.getLayer(function (layer) {
+                $(`.${self.side}-info .loading-info`).hide();
                 $(`.indicator-${self.id} .spinner`).removeClass('loading');
+                $(`.indicator-${self.id} .scenario-bullet`).addClass('show');
                 if (!self.isShow) {
                     return
                 }
@@ -181,6 +213,7 @@ define([], function () {
             $(`.${this.side}-info`).hide();
             event.trigger(evt.INDICATOR_VALUES_CHANGED);
             $(`.indicator-${this.id} .spinner`).hide();
+            $(`.indicator-${this.id} .scenario-bullet`).removeClass('show');
         },
         /**
          * Remove specific layer from map
@@ -264,7 +297,8 @@ define([], function () {
                             `<tr>
                                 <td style="text-align: right; color: ${feature.properties.background_color}"><b class="value-key" data-id="${feature.id}">${feature.properties.geometry_name}</b></td>
                                 <td style="background-color: ${feature.properties.background_color}" class="value-color"></td>
-                                <td>${feature.properties.scenario_text}</td>
+                                <td>${numberWithCommas(feature.properties.value)} ${indicatorUnit[feature.properties.indicator_id] ? indicatorUnit[feature.properties.indicator_id] : ''}</td>
+                                <!--<td>${feature.properties.value}</td>-->
                             </tr>
                         `);
 
@@ -292,11 +326,21 @@ define([], function () {
                         });
                     })
                 });
+
+                // rendering donut graph
                 const donutData = []
                 $.each(rawDonutData, function (idx, data) {
                     donutData.push(data)
                 });
-                self.renderValueDonut(donutData, total);
+                $(`#${self.side}-value-donut-chart`).html('');
+                $(`.${self.side}-info .no-data-found`).hide();
+                if (donutData.length > 0) {
+                    self.renderValueDonut(donutData, total);
+                } else {
+                    $(`.${self.side}-info .no-data-found`).show();
+                    $(`#${self.side}-value-donut-chart`).html('');
+
+                }
             }
         },
         // -----------------------------------------------------------
@@ -343,15 +387,17 @@ define([], function () {
          */
         renderValueOvertime: function () {
             const self = this;
-            $(`.${this.side}-info .value-chart`).html('<i>Loading</i>')
+            $(`.${this.side}-info .loading-info`).show();
             if (!self.values) {
                 Request.get(
                     self.url.replace('level', self.levels[self.levels.length - 1]).replace('/date', '') + '?exact_date=True', {}, {},
                     function (data) {
+                        $(`.${self.side}-info .loading-info`).hide();
                         self.values = data;
                         self.renderValueOvertime();
                         event.trigger(evt.INDICATOR_VALUES_CHANGED);
                     }, function () {
+                        $(`.${self.side}-info .loading-info`).hide();
                         $(`.${self.side}-info .value-chart`).html('<span class="error">Error</span>')
                         event.trigger(evt.INDICATOR_VALUES_CHANGED);
                         self.values = [];

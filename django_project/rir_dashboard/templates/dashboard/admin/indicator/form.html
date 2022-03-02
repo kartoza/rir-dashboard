@@ -47,6 +47,16 @@
         .rule-header th {
             padding-bottom: 0 !important;
         }
+
+        #reporting-behaviour-help img {
+            width: 100%;
+        }
+
+        #reporting-behaviour-help-button {
+            cursor: pointer;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
     </style>
 {% endblock stylesheet %}
 
@@ -109,13 +119,13 @@
                     <div class="symbol" style="padding-left: 10px; padding-right: 10px">or</div>
                     <div class="row rule-section">
                         <div>
-                            <input type="number" spellcheck="false" class="min">
+                            <input type="number" spellcheck="false" class="min" step="any">
                         </div>
-                        <div class="symbol" style="border-left: 1px solid #ddd"><b> > </b></div>
+                        <div class="symbol" style="border-left: 1px solid #ddd"><b> < </b></div>
                         <div class="symbol">value</div>
                         <div class="symbol"><b> <= </b></div>
                         <div>
-                            <input type="number" spellcheck="false" class="max">
+                            <input type="number" spellcheck="false" class="max" step="any">
                         </div>
                     </div>
                 </td>
@@ -136,6 +146,17 @@
             </tr>
         {% endfor %}
     </table>
+
+    <!-- Modal -->
+    <div class="modal fade" id="reporting-behaviour-help" tabindex="-1" role="dialog" aria-labelledby="reporting-behaviour-help" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <img src="{% static "img/Reporting Behaviour Help.png" %}">
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 {% block scripts %}
     <link rel="stylesheet" href="{% static 'libs/select2/4.1.0-rc.0/select2.min.css' %}" type="text/css" media="screen, projection"/>
@@ -146,21 +167,6 @@
         {% if is_create %}
             $('#nav-indicator-create').addClass('active')
         {% endif %}
-        const $note = $('p[data-field-name="api_note"]');
-        $note.hide();
-        $('#id_api_exposed').change(function () {
-            if (this.checked) {
-                $note.show();
-            } else {
-                $note.hide();
-            }
-        })
-        $('#id_api_exposed').trigger('change');
-        $('.helptext a').each(function () {
-            const newUrl = window.location.protocol + '//' + window.location.host + $(this).attr('href');
-            $(this).attr('href', newUrl);
-            $(this).html(newUrl);
-        })
 
         {# for group selector #}
         const placeholder = "Select a group or create by typing new one.";
@@ -244,34 +250,36 @@
         $('.scenario-input').each(function () {
             const $row = $(this).closest('.rule-row');
             const value = $(this).val().replaceAll(' ', '');
-            if (value.indexOf("==") >= 0) {
-                if (value.split('==')[0] === 'x') {
-                    $row.find('.equal').val(value.split('==')[1])
-                } else {
-                    $row.find('.equal').val(value.split('==')[0])
-                }
-                $row.find('.equal').trigger('change')
-            } else {
-                const values = value.split('and')
-                $.each(values, function (i, currentValue) {
-                    if (currentValue.indexOf("<") >= 0) {
-                        if (currentValue.split('<')[0] === 'x') {
-                            $row.find('.max').val(currentValue.split('<')[1].replace('=', ''))
-                        } else {
-                            $row.find('.max').val(currentValue.split('<')[0].replace('=', ''))
-                        }
-                        $row.find('.max').trigger('change')
-                    } else if (currentValue.indexOf(">") >= 0) {
-                        if (currentValue.split('>')[0] === 'x') {
-                            $row.find('.min').val(currentValue.split('>')[1].replace('=', ''))
-                        } else {
-                            $row.find('.min').val(currentValue.split('>')[0].replace('=', ''))
-                        }
-                        $row.find('.min').trigger('change')
+            const values = value.split('and')
+            $.each(values, function (i, currentValue) {
+                if (value.indexOf("==") >= 0) {
+                    if (value.split('==')[0] === 'x') {
+                        $row.find('.equal').val(value.split('==')[1])
+                    } else {
+                        $row.find('.equal').val(value.split('==')[0])
                     }
-                });
-            }
+                    $row.find('.equal').trigger('change')
+                } else if (currentValue.indexOf("<") >= 0) {
+                    if (currentValue.split('<')[0] === 'x') {
+                        $row.find('.max').val(currentValue.split('<')[1].replace('=', ''))
+                    } else {
+                        $row.find('.max').val(currentValue.split('<')[0].replace('=', ''))
+                    }
+                    $row.find('.max').trigger('change')
+                } else if (currentValue.indexOf(">") >= 0) {
+                    if (currentValue.split('>')[0] === 'x') {
+                        $row.find('.min').val(currentValue.split('>')[1].replace('=', ''))
+                    } else {
+                        $row.find('.min').val(currentValue.split('>')[0].replace('=', ''))
+                    }
+                    $row.find('.min').trigger('change')
+                }
+            });
 
+        })
+        $('p[data-field-name="aggregation_behaviour"]').append('<span class="helptext">Behaviour how the data will be displayed. Click <a id="reporting-behaviour-help-button">here</a> for more detail.</span>');
+        $('#reporting-behaviour-help-button').click(function () {
+            $('#reporting-behaviour-help').modal('show');
         })
     </script>
 {% endblock %}
