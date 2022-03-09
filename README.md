@@ -51,16 +51,11 @@ make dev-reload
 2. Execute `onedrive --get-O365-drive-id '<your site name to search>'`
 3. It will ask to click an url and put back the url that created on browser
 4. It will show an information. Check drive_id and copy it.
-5. Go to deployment/onedrive/config
-6. Put it to drive_id
-7. Execute `make onedrive-volume`
-8. Execute `docker volume inspect onedrive-volume`
-9. It will show a volume, copy the path of volume.
-10 Copy the deployment/onedrive/config to the above volume.
-11. `make onedrive-firstrun` to run first config
-12. It will ask to click an url and put back the url that created on browser
-13. Wait the system to finish the sync
-14. After that we can stop it and do `make up`
+5. Open file deployment/onedrive/config and put it to drive_id
+6. `make onedrive-firstrun` to run first config
+7. It will ask to click an url and put back the url that created on browser
+8. Wait the system to finish the sync
+9. After that we can stop it and do `make up`
 
 More information:
 https://github.com/abraunegg/onedrive/blob/master/docs/SharePoint-Shared-Libraries.md

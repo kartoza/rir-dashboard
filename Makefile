@@ -134,23 +134,26 @@ migrate:
 	@echo "------------------------------------------------------------------"
 	@docker-compose exec django python manage.py migrate
 
+
 onedrive-volume:
 	@echo
 	@echo "------------------------------------------------------------------"
 	@echo "Create volume"
 	@echo "------------------------------------------------------------------"
-	@docker volume create $(PROJECT_ID)_onedrive-conf
+	@docker volume create --name $(PROJECT_ID)_onedrive-conf
+	@docker volume rm $(PROJECT_ID)_onedrive-conf
+	@rm -rf ${ONEDRIVE_DATA_DIR}
+	@mkdir -p ${ONEDRIVE_DATA_DIR}
+	@docker volume create --name $(PROJECT_ID)_onedrive-conf
+	@docker run --name hello-world -v "$(PROJECT_ID)_onedrive-conf:/onedrive/conf" hello-world; docker cp deployment/onedrive/config hello-world:/onedrive/conf; docker rm hello-world
+
 
 onedrive-firstrun: onedrive-volume
 	@echo
 	@echo "------------------------------------------------------------------"
 	@echo "First run one drive"
 	@echo "------------------------------------------------------------------"
-	@mkdir -p ${ONEDRIVE_DATA_DIR}
 	@docker run -it --name onedrive -v $(PROJECT_ID)_onedrive-conf:/onedrive/conf -v "${ONEDRIVE_DATA_DIR}:/onedrive/data" -e "ONEDRIVE_UID=1000" -e "ONEDRIVE_GID=1000" -e "ONEDRIVE_RESYNC=1" driveone/onedrive:latest
-
-onedrive-updateconf:
-  @docker cp deployment/onedrive/config rir_dashboard_onedrive_1:/onedrive/conf
 
 # --------------- help --------------------------------
 

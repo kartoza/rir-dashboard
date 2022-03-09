@@ -80,6 +80,7 @@ services:
   # one drive service
   onedrive:
     image: driveone/onedrive:latest
+    container_name: "rir_dashboard_onedrive"
     restart: unless-stopped
     environment:
       - ONEDRIVE_UID=${PUID}
@@ -87,4 +88,4 @@ services:
       - ONEDRIVE_RESYNC=1
     volumes:
       - onedrive-conf:/onedrive/conf
-      - onedrive-data:/onedrive/data
+      - ./onedrive/data:/onedrive/data
