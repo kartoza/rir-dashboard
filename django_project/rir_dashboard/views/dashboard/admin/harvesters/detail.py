@@ -31,24 +31,12 @@ class HarvesterIndicatorDetail(AdminView):
         except Harvester.DoesNotExist:
             raise Http404('Harvester does not exist')
 
-        ids = []
-        attributes = []
-        for attribute in harvester.get_attributes():
-            try:
-                attr = harvester.harvesterattribute_set.get(name=attribute)
-                attributes.append(attr)
-                ids.append(attr.id)
-            except HarvesterAttribute.DoesNotExist:
-                pass
-        for attribute in harvester.harvesterattribute_set.exclude(id__in=ids):
-            attributes.append(attribute)
-
         context = {
             'edit_url': reverse(
                 self.indicator.harvester.harvester_class, args=[self.instance.slug, self.indicator.id]
             ),
             'harvester': harvester,
-            'harvester_attributes': attributes,
+            'harvester_attributes': harvester.get_attributes(),
         }
         return context
 
@@ -95,27 +83,13 @@ class HarvesterDetail(AdminView):
         except Indicator.DoesNotExist:
             raise Http404('Harvester does not exist')
 
-        ids = []
-        attributes = []
-        for attribute in harvester.get_attributes():
-            try:
-                attr = harvester.harvesterattribute_set.get(name=attribute)
-                if attr.value:
-                    attributes.append(attr)
-                    ids.append(attr.id)
-            except HarvesterAttribute.DoesNotExist:
-                pass
-        for attr in harvester.harvesterattribute_set.exclude(id__in=ids):
-            if attr.value:
-                attributes.append(attr)
-
         context = {
             'edit_url': reverse(
                 'meta-harvester-uuid-view', args=[self.instance.slug, self.kwargs.get('uuid', '')]
             ),
             'instance': self.instance,
             'harvester': harvester,
-            'harvester_attributes': attributes,
+            'harvester_attributes': harvester.get_attributes(),
             'current_log': harvester.harvesterlog_set.first()
         }
         return context

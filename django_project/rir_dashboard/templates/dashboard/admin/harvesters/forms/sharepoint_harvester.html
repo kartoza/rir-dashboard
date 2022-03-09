@@ -40,6 +40,9 @@
             }
         }
 
+        /**
+         * Get last value from cookie based on file name
+         **/
         function getLastValueByFile(filename) {
             {# we get the latest cookie #}
             const cookieName = 'sharepoint-harvester-' + filename;
@@ -54,26 +57,39 @@
             }
         }
 
+        /**
+         * When input changes, save it to cookie
+         **/
         function inputChanged(el) {
             lastValue[$(el).attr('id')] = $(el).val();
             setCookie(cookieName, JSON.stringify(lastValue))
             setCookie(cookieName + '-' + $('#attribute_file').val(), JSON.stringify(lastValue))
         }
 
+        /**
+         * Assign the value of element from cookie or last value
+         **/
         function inputDefaultValue($el) {
             if (lastValue[$el.attr('id')]) {
                 $el.val(lastValue[$el.attr('id')]);
             }
         }
 
+        /**
+         * Override last value or cookie if it is not new and it is based on value from database
+         **/
         function overrideSettings() {
-            const cookieNameFile = cookieName + '-' + $('#attribute_file').val()
-            const theValue = {};
-            $('#attributes-table select, #attributes-table input').each(function () {
-                lastValue[$(this).attr('id')] = $(this).attr('value');
-            });
-            lastValue['attribute_extra_columns'] = $('#attribute_extra_columns').attr('value').split(',');
-            setCookie(cookieNameFile, JSON.stringify(theValue));
+            if (!isNew) {
+                const $inputFile = $('#attribute_file');
+                $inputFile.val($inputFile.attr('value'));
+                const cookieNameFile = cookieName + '-' + $inputFile.val();
+                const theValue = {};
+                $('#attributes-table select, #attributes-table input').each(function () {
+                    lastValue[$(this).attr('id')] = $(this).attr('value');
+                });
+                lastValue['attribute_extra_columns'] = $('#attribute_extra_columns').attr('value').split(',');
+                setCookie(cookieNameFile, JSON.stringify(theValue));
+            }
         }
 
         $(document).ready(function () {
@@ -109,10 +125,7 @@
                 {% endfor %}
             {% endif %}
 
-            if (!isNew) {
-                $inputFile.val($inputFile.attr('value'));
-                overrideSettings()
-            }
+            overrideSettings();
             /**
              * ---------------------------------------------------------
              * WHEN INPUT FILE CHANGED

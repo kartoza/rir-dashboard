@@ -104,8 +104,21 @@ class Harvester(models.Model):
         """
         Get attributes keys
         """
-        harvester = self.get_harvester_class
-        return harvester.additional_attributes().keys()
+        from rir_harvester.models import HarvesterAttribute
+        ids = []
+        attributes = []
+        for attribute in self.get_harvester_class.additional_attributes().keys():
+            try:
+                attr = self.harvesterattribute_set.get(name=attribute)
+                if attr.value:
+                    attributes.append(attr)
+                    ids.append(attr.id)
+            except HarvesterAttribute.DoesNotExist:
+                pass
+        for attr in self.harvesterattribute_set.exclude(id__in=ids):
+            if attr.value:
+                attributes.append(attr)
+        return attributes
 
     def run(self, force=False):
         """
