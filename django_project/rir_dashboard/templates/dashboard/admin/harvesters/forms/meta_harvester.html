@@ -114,8 +114,10 @@
                     });
 
                     {# prepate sheet name selection#}
-                    $.each(workbook.SheetNames, function (idx, value) {
-                        $('#attribute_sheet_name').append(`<option value="${value}">${value}</option`);
+                    $.each(workbook.Workbook.Sheets, function (index, sheet) {
+                        if (sheet.Hidden === 0) {
+                            $('#attribute_sheet_name').append(`<option value="${sheet.name}">${sheet.name}</option`);
+                        }
                     });
                     $('#attribute_sheet_name').trigger('change')
 

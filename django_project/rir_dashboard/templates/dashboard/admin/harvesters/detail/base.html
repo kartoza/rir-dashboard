@@ -72,20 +72,37 @@
                                 </td>
                             </tr>
                         {% endif %}
-                        {% for attribute in harvester.harvesterattribute_set.all %}
-                            <tr>
-                                <td valign="top">{{ attribute.human_name }}</td>
-                                <td name="{{ attribute.name }}">
-                                    {% if attribute.value %}
-                                        {{ attribute.value|safe }}
-                                    {% elif attribute.file %}
-                                        <a href="{{ attribute.file.url }}">
-                                            {{ attribute.file.name }}
-                                        </a>
-                                    {% endif %}
-                                </td>
-                            </tr>
-                        {% endfor %}
+                        {% if harvester_attributes %}
+                            {% for attribute in harvester_attributes %}
+                                <tr>
+                                    <td valign="top">{{ attribute.human_name }}</td>
+                                    <td name="{{ attribute.name }}">
+                                        {% if attribute.value %}
+                                            {{ attribute.value|safe }}
+                                        {% elif attribute.file %}
+                                            <a href="{{ attribute.file.url }}">
+                                                {{ attribute.file.name }}
+                                            </a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            {% for attribute in harvester.harvesterattribute_set.all %}
+                                <tr>
+                                    <td valign="top">{{ attribute.human_name }}</td>
+                                    <td name="{{ attribute.name }}">
+                                        {% if attribute.value %}
+                                            {{ attribute.value|safe }}
+                                        {% elif attribute.file %}
+                                            <a href="{{ attribute.file.url }}">
+                                                {{ attribute.file.name }}
+                                            </a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
                     </table>
                     <br>
                 {% endif %}
@@ -119,7 +136,7 @@
                                 <td>{{ log.start_time }}</td>
                                 <td>{{ log.end_time }}</td>
                                 <td>{{ log.status }}</td>
-                                <td>{{ log.note }}</td>
+                                <td>{{ log.note|safe }}</td>
                             </tr>
                         {% endfor %}
                     </table>

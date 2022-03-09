@@ -1,6 +1,7 @@
 from django.conf.urls import url
 from django.urls import include
 from rir_data.api.download import DownloadMasterData, DownloadMasterDataCheck
+from rir_data.api.download_file import DownloadSharepointFile
 from rir_data.api.geometry import GeometryGeojsonAPI, GeometryDetailAPI
 from rir_data.api.indicator import (
     IndicatorsList, IndicatorValues, IndicatorValuesByGeometryAndLevel, IndicatorValuesByDateAndGeojson, IndicatorValuesByDate,
@@ -66,6 +67,11 @@ api = [
         r'^download-master-data/(?P<date>.+)',
         DownloadMasterData.as_view(),
         name='download-master-data'
+    ),
+    url(
+        r'^download/sharepoint',
+        DownloadSharepointFile.as_view(),
+        name='download-sharepoint'
     ),
 ]
 

@@ -19,7 +19,8 @@ from rir_dashboard.views.dashboard.admin.harvesters import (
 )
 from rir_dashboard.views.dashboard.admin.harvesters.forms import (
     HarvesterAPIWithGeographyAndDateView, HarvestedUsingExposedAPIByExternalClientView,
-    HarvesterAPIWithGeographyAndTodayDateView, MetaHarvesterView
+    HarvesterAPIWithGeographyAndTodayDateView, MetaHarvesterView,
+    SharepointHarvesterView
 )
 
 harvester_form_url = [
@@ -35,6 +36,11 @@ harvester_form_url = [
         r'^update/harvested-using-exposed-api-by-external-client',
         HarvestedUsingExposedAPIByExternalClientView.as_view(),
         name=str(HarvestedUsingExposedAPIByExternalClientView.harvester_class).split("'")[1]
+    ),
+    url(
+        r'^update/sharepoint',
+        SharepointHarvesterView.as_view(),
+        name=str(SharepointHarvesterView.harvester_class).split("'")[1]
     ),
 ]
 

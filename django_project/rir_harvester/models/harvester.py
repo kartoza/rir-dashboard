@@ -16,6 +16,10 @@ APIListWithGeographyAndDate = (
     'rir_harvester.harveters.api_with_geography_and_date.APIWithGeographyAndDate',
     'API With Geography And Date',
 )
+SharepointHarvester = (
+    'rir_harvester.harveters.sharepoint_harvester.SharepointHarvester',
+    'Sharepoint File',
+)
 UsingExposedAPI = (
     'rir_harvester.harveters.using_exposed_api.UsingExposedAPI',
     'Harvested using exposed API by external client',
@@ -27,12 +31,10 @@ ExcelHarvester = (
 HARVESTERS = (
     APIWithGeographyAndTodayDate,
     APIListWithGeographyAndDate,
+    SharepointHarvester,
     UsingExposedAPI,
 )
-ALL_HARVESTERS = (
-    APIWithGeographyAndTodayDate,
-    APIListWithGeographyAndDate,
-    UsingExposedAPI,
+ALL_HARVESTERS = HARVESTERS + (
     ExcelHarvester,
 )
 
@@ -97,6 +99,13 @@ class Harvester(models.Model):
                 harvester=self,
                 name=key
             )
+
+    def get_attributes(self):
+        """
+        Get attributes keys
+        """
+        harvester = self.get_harvester_class
+        return harvester.additional_attributes().keys()
 
     def run(self, force=False):
         """
