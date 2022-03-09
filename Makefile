@@ -1,5 +1,6 @@
 PROJECT_ID := rir_dashboard
 export COMPOSE_FILE=deployment/docker-compose.yml:deployment/docker-compose.override.yml
+export ONEDRIVE_DATA_DIR=$(shell pwd)/deployment/onedrive/data
 
 SHELL := /bin/bash
 
@@ -132,6 +133,24 @@ migrate:
 	@echo "Running migrate static in production mode"
 	@echo "------------------------------------------------------------------"
 	@docker-compose exec django python manage.py migrate
+
+onedrive-volume:
+	@echo
+	@echo "------------------------------------------------------------------"
+	@echo "Create volume"
+	@echo "------------------------------------------------------------------"
+	@docker volume create $(PROJECT_ID)_onedrive-conf
+
+onedrive-firstrun: onedrive-volume
+	@echo
+	@echo "------------------------------------------------------------------"
+	@echo "First run one drive"
+	@echo "------------------------------------------------------------------"
+	@mkdir -p ${ONEDRIVE_DATA_DIR}
+	@docker run -it --name onedrive -v $(PROJECT_ID)_onedrive-conf:/onedrive/conf -v "${ONEDRIVE_DATA_DIR}:/onedrive/data" -e "ONEDRIVE_UID=1000" -e "ONEDRIVE_GID=1000" -e "ONEDRIVE_RESYNC=1" driveone/onedrive:latest
+
+onedrive-updateconf:
+  @docker cp deployment/onedrive/config rir_dashboard_onedrive_1:/onedrive/conf
 
 # --------------- help --------------------------------
 

@@ -13,6 +13,7 @@ services:
       - ../django_project:/home/web/django_project
       - ./volumes/static:/home/web/static
       - ./volumes/media:/home/web/media
+      - ./onedrive:/onedrive/data
   worker:
     build:
       context: ../
@@ -21,6 +22,7 @@ services:
       - ../django_project:/home/web/django_project
       - ./volumes/static:/home/web/static
       - ./volumes/media:/home/web/media
+      - ./onedrive:/onedrive/data
   nginx:
     build:
       context: ../
@@ -28,6 +30,13 @@ services:
     volumes:
       - ./volumes/static:/home/web/static:ro
       - ./volumes/media:/home/web/media:ro
+
+  # onedrive service
+  onedrive:
+    volumes:
+      - ./onedrive/data:/onedrive/data
+
+  # dev
   dev:
     build:
       context: ../
@@ -39,6 +48,7 @@ services:
       - ../django_project:/home/web/django_project
       - ./volumes/static:/home/web/static
       - ./volumes/media:/home/web/media
+      - ./onedrive:/onedrive/data
     environment:
       # editable in .env
       - DATABASE_NAME=${DATABASE_NAME:-django}

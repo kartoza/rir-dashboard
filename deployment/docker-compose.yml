@@ -7,6 +7,9 @@ volumes:
   rabbitmq:
   node-red-data:
 
+  onedrive-conf:
+  onedrive-data:
+
 x-common-django:
   &default-common-django
   image: kartoza/rir_dashboard_django:${DJANGO_TAG:-0.0.1}
@@ -27,6 +30,7 @@ x-common-django:
   volumes:
     - static-data:/home/web/static
     - media-data:/home/web/media
+    - onedrive-data:/onedrive/data
   restart: on-failure
 
 services:
@@ -72,3 +76,15 @@ services:
     ports:
       - "${HTTP_PORT:-80}:8080"
     restart: on-failure:5
+
+  # one drive service
+  onedrive:
+    image: driveone/onedrive:latest
+    restart: unless-stopped
+    environment:
+      - ONEDRIVE_UID=${PUID}
+      - ONEDRIVE_GID=${PGID}
+      - ONEDRIVE_RESYNC=1
+    volumes:
+      - onedrive-conf:/onedrive/conf
+      - onedrive-data:/onedrive/data
