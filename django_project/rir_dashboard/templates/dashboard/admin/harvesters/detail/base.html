@@ -32,9 +32,31 @@
         .api-url-hepltext pre {
             color: gray;
         }
+
+        #detail-modal-button {
+            cursor: pointer;
+        }
+
+        @media (min-width: 576px) {
+            #log-detail-modal .modal-dialog {
+                max-width: 70%;
+            }
+        }
+
+        #log-detail-modal .modal-body {
+            overflow: auto;
+        }
     </style>
 {% endblock stylesheet %}
 {% block contentview %}
+    <div class="modal fade" id="log-detail-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                </div>
+            </div>
+        </div>
+    </div>
     <div id="content">
         <div class="header box-shadow-bottom ">
             {{ dashboard_title|safe }}
@@ -147,4 +169,85 @@
 {% endblock %}
 
 {% block scripts %}
+
+    <script>
+        {#  API URL #}
+        $('*[name="API URL"]').find('a').each(function () {
+            const newUrl = window.location.protocol + '//' + window.location.host + $(this).attr('href');
+            $('*[name="API URL"]').html(newUrl);
+        });
+
+        {# make the text to copy to clipboard#}
+        changeToCopyToClipboard($('*[name="API URL"]'));
+        changeToCopyToClipboard($('*[name="token"]'));
+
+        $('*[name="API URL"]').append(
+            '<br>' +
+            '<br>' +
+            '<div class="helptext api-url-hepltext">Example data :' +
+            '<br><pre>' + JSON.stringify({
+                "geometry_code": "SO",
+                "extra_data": {
+                    "Data 1": "1",
+                    "Data 2": "2",
+                },
+                "date": "2022-01-01",
+                "value": 1
+            }, undefined, 2) + '<pre></div>'
+        )
+
+        {# update the log #}
+        {% if current_log.status == 'Running' %}
+            const $currentLog = $('#current-log td');
+            const period = 1000;
+            function getLog() {
+                $.ajax({
+                    url: '{% url 'harvester-log-api' instance.slug current_log.id %}',
+                    dataType: 'json',
+                    success: function (json, textStatus, request) {
+                        let wait = true;
+                        $currentLog.html(json.status);
+                        if (json.note) {
+                            $currentLog.append(' - ');
+                            $currentLog.append($.parseHTML(json.note));
+                        }
+                        if (json.status === 'Error') {
+                            $currentLog.removeClass('log-error').removeClass('log-done').addClass('log-error');
+                            wait = false;
+                            initLogDetail(json.html_detail)
+                        } else if (json.status === 'Done') {
+                            $currentLog.removeClass('log-error').removeClass('log-done').addClass('log-done');
+                            wait = false;
+                        }
+                        if (wait) {
+                            setTimeout(function () {
+                                getLog();
+                            }, period);
+                        } else {
+                            $('#edit-button').prop('disabled', false);
+                        }
+                    },
+                    error: function () {
+                        setTimeout(function () {
+                            getLog();
+                        }, period);
+                    }
+                });
+            }
+            setTimeout(function () {
+                getLog();
+            }, period);
+        {% endif %}
+
+
+        function initLogDetail(detailHTML) {
+            if (detailHTML) {
+                $('#log-detail-modal .modal-body').html(detailHTML);
+                $('#current-log .log-error').append('<i id="detail-modal-button" class="fa fa-info-circle" aria-hidden="true" data-toggle="modal" data-target="#log-detail-modal"></i>');
+            }
+        }
+        {% if current_log.html_detail %}
+            initLogDetail(`{{ current_log.html_detail }}`);
+        {% endif %}
+    </script>
 {% endblock %}
