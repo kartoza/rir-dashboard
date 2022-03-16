@@ -126,11 +126,13 @@ define([], function () {
                                         if (![
                                             'unit', 'value', 'background_color', 'text_color',
                                             'indicator_id', 'scenario_text', 'scenario_value',
-                                            'geometry_id', 'geometry_code', 'geometry_name', 'geometry_level', 'dashboard_link'
+                                            'geometry_id', 'geometry_code', 'geometry_name', 'geometry_level', 'dashboard_link',
+                                            'details'
                                         ].includes(key)) {
                                             defaultHtml += `<tr><td valign="top"><b>${key.capitalize()}</b></td><td valign="top">${numberWithCommas(value)}</td></tr>`
                                         }
                                     });
+                                    // for details
                                     layer.bindPopup('' +
                                         '<table>' + defaultHtml + '</table>');
                                 }

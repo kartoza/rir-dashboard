@@ -367,7 +367,8 @@
     width: 100%;
 }
 
-#right-side .content-wrapper .indicator-info-content .value-table table td {
+#right-side .content-wrapper .indicator-info-content .value-table table td,
+#right-side .content-wrapper .indicator-info-content .value-table table th {
     width: 49%;
     padding: 2px 10px;
     border-bottom: 1px solid #f7f7f7;
@@ -428,7 +429,19 @@
 
 #right-side {
     width: var(--right-side-width);
+}
 
+#indicator-value-detail-table {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 10px;
+}
+
+#indicator-value-detail-table td,
+#indicator-value-detail-table th {
+    padding: 5px 20px;
+    width: fit-content;
+    border: 1px solid #f7f7f7;
 }
 
 .side-panel {

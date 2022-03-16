@@ -24,7 +24,11 @@
                            value="{{ attribute.value }}"
                            class="{% if attribute.type == 'date' %}date{% endif %}{{ attribute.class }} {% if attribute.read_only %}readonly{% endif %}"
                            accept="{{ attribute.file_accept }}"
-                           {% if attribute.type == 'file' %}type="file" {% else %}type="text"{% endif %}
+                            {% if attribute.type %}
+                           {% if attribute.type == 'date' %}type="text" {% else %}type="{{ attribute.type }}"{% endif %}
+                            {% else %}
+                           type="text"
+                            {% endif %}
                             {{ attribute.required }}
                             {% for key, value in attribute.data.items %}
                            data-{{ key }}="{{ value }}"

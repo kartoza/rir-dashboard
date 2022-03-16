@@ -28,6 +28,10 @@ ExcelHarvester = (
     'rir_harvester.harveters.excel_harvester.ExcelHarvester',
     'Excel Harvesters',
 )
+EtoolsProgramCoverageHarvesterTuple = (
+    'rir_harvester.harveters.etools.program_coverage.EtoolsProgramCoverageHarvester',
+    'Etools : Program coverage',
+)
 HARVESTERS = (
     APIWithGeographyAndTodayDate,
     APIListWithGeographyAndDate,
@@ -36,6 +40,7 @@ HARVESTERS = (
 )
 ALL_HARVESTERS = HARVESTERS + (
     ExcelHarvester,
+    EtoolsProgramCoverageHarvesterTuple
 )
 
 
@@ -72,6 +77,7 @@ class Harvester(models.Model):
             'User who run the harvester.'),
         on_delete=models.CASCADE
     )
+
     def __str__(self):
         return str(self.unique_id)
 

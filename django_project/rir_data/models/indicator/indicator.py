@@ -119,6 +119,11 @@ class Indicator(AbstractTerm, PermissionModel):
     def __str__(self):
         return self.name
 
+    def save(self, *args, **kwargs):
+        if not self.order:
+            self.order = Indicator.objects.count()
+        super(Indicator, self).save(*args, **kwargs)
+
     class Meta:
         ordering = ('order',)
 
@@ -266,6 +271,14 @@ class Indicator(AbstractTerm, PermissionModel):
                     attributes.update({
                         extra.name: extra.value for extra in indicator_value.indicatorextravalue_set.all()
                     })
+                    # for details
+                    details = []
+                    for row in indicator_value.indicatorvalueextradetailrow_set.all():
+                        columns = {}
+                        for column in row.indicatorvalueextradetailcolumn_set.all():
+                            columns[column.name] = column.value
+                        details.append(columns)
+                    attributes['details'] = details
                 if serializer:
                     attributes.update(
                         serializer(indicator_value).data)

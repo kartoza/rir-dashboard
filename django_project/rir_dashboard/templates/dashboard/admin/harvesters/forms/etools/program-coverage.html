@@ -1,0 +1,133 @@
+{% extends 'dashboard/admin/harvesters/forms/_base_attribute.html' %}
+{% load static %}
+{% block additional_field %}
+    <br>
+    <h3>Indicator Mapping</h3>
+    <table class="content-table">
+        <tr>
+            <th>Section (etools)</th>
+            <th>Indicator (server)</th>
+        </tr>
+        <tbody id="mapping-table">
+        {% for map in mapping %}
+            <tr>
+                <td style="width: 50%">
+                    {{ map.remote_value }}
+                    <input type="text" name="mapping_remote_{{ forloop.counter0 }}" value="{{ map.remote_value }}" style="display: none">
+                </td>
+                <td style="width: 50%">
+                    <select name="mapping_platform_{{ forloop.counter0 }}" class="mapping-remote" value="{{ map.platform_value }}">
+                        <option></option>
+                        {% for indicator in indicators %}
+                            <option value="{{ indicator }}">{{ indicator }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <script type='text/template' id='_indicator-selection'>
+        <select name="mapping_platform_<%= idx %>" class="mapping-remote">
+            <option></option>
+            {% for indicator in indicators %}
+                <option value="{{ indicator }}">{{ indicator }}</option>
+            {% endfor %}
+        </select>
+    </script>
+{% endblock %}
+{% block extrastyle %}
+    <style>
+        select {
+            height: 42px;
+        }
+
+        .select2-container--default .select2-selection--multiple .select2-selection__choice {
+            margin-top: 0 !important;
+            margin-left: 0 !important;
+        }
+    </style>
+{% endblock %}
+{% block extrascripts %}
+    <script src="{% static "libs/underscore.js/1.9.1/underscore-min.js" %}"></script>
+    <script type="text/javascript" src="{% static 'libs/fuzzysort.js' %}"></script>
+    <script>
+        const indicators = {{ indicators|safe }};
+        const $inputs = $("#attribute_url, #attribute_username, #attribute_password");
+
+        $(document).ready(function () {
+            const $submit = $('#submit');
+            $submit.prop('disabled', true);
+
+            $inputs.change(function () {
+                const $mappingTable = $('#mapping-table');
+                const $urlInput = $('#attribute_url');
+                const $urlInputLoading = $urlInput.closest('tr').find('.loading');
+                const $urlInputError = $urlInput.closest('tr').find('.error');
+                if ($("#attribute_url").val() && $("#attribute_username").val() && $("#attribute_password").val()) {
+                    $mappingTable.html('');
+                    $urlInputLoading.show();
+                    $urlInputError.hide();
+                    $inputs.prop('disabled', true);
+                    $submit.prop('disabled', true);
+
+                    $.ajax({
+
+                        url: '{% url "proxy-view" %}',
+                        data: {
+                            url: $urlInput.val(),
+                            basic_auth: btoa($("#attribute_username").val() + ":" + $("#attribute_password").val())
+                        },
+                    })
+                        .done(function (output) {
+                            $submit.prop('disabled', false);
+
+                            let rawSections = [];
+                            $.each(output.results, function (index, value) {
+                                rawSections = rawSections.concat(value.sections.split(','))
+                            });
+                            rawSections = rawSections.map(section => section.trim());
+                            var sections = rawSections.filter(onlyUnique);
+                            sections.sort()
+
+
+                            $.each(sections, function (index, value) {
+                                if (value) {
+                                    $mappingTable.append(`
+                                        <tr>
+                                            <td style="width: 50%">
+                                                ${value}
+                                                <input type="text" name="mapping_remote_${index}" value="${value}" style="display: none">
+                                            </td>
+                                            <td style="width: 50%">
+                                              ${_.template($('#_indicator-selection').html())({ idx: index })}
+                                            </td>
+                                        </tr>
+                                `)
+                                }
+                            });
+                        })
+                        .fail(function (xhr, status, errorThrown) {
+                            if (xhr.status === 401) {
+                                $urlInputError.html('Authentication failed');
+                            } else {
+                                $urlInputError.html(xhr.statusText);
+                            }
+                            $urlInputError.show();
+                        })
+                        .always(function () {
+                            $urlInputLoading.hide();
+                            $inputs.prop('disabled', false);
+                        });
+                }
+            });
+            $inputs.each(function () {
+                $(this).val($(this).attr('value'));
+            })
+            {# reassign value in mapping #}
+            $('.mapping-remote').each(function () {
+                $(this).val($(this).attr('value'));
+            })
+        })
+    </script>
+{% endblock extrascripts %}

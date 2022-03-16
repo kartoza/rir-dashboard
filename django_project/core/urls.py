@@ -6,6 +6,7 @@ from django.conf import settings
 from django.conf.urls import url, include
 from django.conf.urls.static import static
 from django.contrib import admin
+from core.views.proxy import ProxyView
 
 admin.autodiscover()
 
@@ -19,5 +20,6 @@ if settings.DEBUG:
         settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += [
+    url(r'^proxy', ProxyView.as_view(), name='proxy-view'),
     url(r'^', include('rir_data.urls')),
 ]

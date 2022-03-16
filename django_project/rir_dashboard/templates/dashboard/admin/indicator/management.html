@@ -8,7 +8,10 @@
     {% csrf_token %}
     <div class="section box-shadow-bottom">
         <div style="margin: 50px">
-            <div style="height: 30px">
+            <div class="global-harvester-button">
+                <a href="{{ etools_program_coverage_harvester }}">
+                    <button class=" main-button pull-right">Etools : Program Coverage</button>
+                </a>
                 <a href="{% url "meta-harvester-view" instance.slug %}">
                     <button class=" main-button pull-right">Meta Harvester</button>
                 </a>

@@ -144,11 +144,30 @@ define(['js/views/layers/indicator-info/base'], function (Base) {
 
             // check others properties
             $.each(properties, function (key, value) {
-                if (!['value', 'background_color', 'text_color', 'scenario_text', 'scenario_value', 'geometry_id', 'indicator_id', 'geometry_level'].includes(key)) {
+                if (!['value', 'background_color', 'text_color', 'scenario_text', 'scenario_value', 'geometry_id', 'indicator_id', 'geometry_level', 'details'].includes(key)) {
                     defaultHtml += `<tr><td valign="top"><b>${key.capitalize()}</b></td><td valign="top">${numberWithCommas(value)}</td></tr>`
                 }
             });
-            this.$el.find('.value-table').html(`<table>${defaultHtml}</table>`);
+
+            // for details
+            let detailHtml = '';
+            if (properties.details) {
+                defaultHtml += `<tr><td valign="top"><b>Details</b></td></tr>`
+                const headers = Object.keys(properties.details[0]);
+                let headerHtml = ''
+                $.each(headers, function (key, header) {
+                    headerHtml += `<th>${header.capitalize()}</th>`
+                });
+                detailHtml += '<tr>' + headerHtml + '</tr>';
+                $.each(properties.details, function (key, detail) {
+                    let rowHtml = ''
+                    $.each(headers, function (key, header) {
+                        rowHtml += `<td>${detail[header] ? detail[header] : ''}</td>`
+                    });
+                    detailHtml += '<tr>' + rowHtml + '</tr>';
+                });
+            }
+            this.$el.find('.value-table').html(`<table>${defaultHtml}</table><div id="indicator-value-detail-table"><table>${detailHtml}</table></div>`);
         }
         ,
         /**

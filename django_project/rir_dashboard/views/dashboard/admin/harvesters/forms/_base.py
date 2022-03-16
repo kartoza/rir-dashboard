@@ -52,7 +52,7 @@ class HarvesterFormView(AdminView):
         harvester = None
         try:
             harvester = self.get_harvester()
-            for _map in harvester.harvestermappingvalue_set.all():
+            for _map in harvester.harvestermappingvalue_set.order_by('remote_value'):
                 mapping.append(
                     {
                         'remote_value': _map.remote_value,

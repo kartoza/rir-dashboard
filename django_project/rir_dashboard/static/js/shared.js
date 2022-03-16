@@ -267,3 +267,7 @@ function numberWithCommas(x, decimalNum = 2) {
     }
     return string;
 }
+
+function onlyUnique(value, index, self) {
+  return self.indexOf(value) === index;
+}

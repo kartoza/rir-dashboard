@@ -20,7 +20,8 @@ from rir_dashboard.views.dashboard.admin.harvesters import (
 from rir_dashboard.views.dashboard.admin.harvesters.forms import (
     HarvesterAPIWithGeographyAndDateView, HarvestedUsingExposedAPIByExternalClientView,
     HarvesterAPIWithGeographyAndTodayDateView, MetaHarvesterView,
-    SharepointHarvesterView
+    SharepointHarvesterView,
+    EtoolsProgramCoverageView
 )
 
 harvester_form_url = [
@@ -61,6 +62,13 @@ indicator_url = [
         r'^meta-harvester',
         MetaHarvesterView.as_view(),
         name='meta-harvester-view'
+    ),
+
+    # Etools harvester
+    url(
+        r'^etools/program-coverage',
+        EtoolsProgramCoverageView.as_view(),
+        name='etools-program-coverage-harvester-view'
     ),
 ]
 
