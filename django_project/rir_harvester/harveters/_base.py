@@ -79,12 +79,18 @@ class BaseHarvester(ABC):
         if self.allow_to_harvest_new_data or force:
             try:
                 self.log = HarvesterLog.objects.create(harvester=self.harvester)
+                # check the attributes
+                for attr_key, attr_value in self.__class__.additional_attributes().items():
+                    if attr_value.get('required', True):
+                        if not self.attributes[attr_key]:
+                            raise HarvestingError(f'{attr_key} is required and it is empty')
+
                 self._process()
                 self._done()
             except HarvestingError as e:
                 self._error(f'{e}')
             except Exception:
-                self._error(f'{traceback.format_exc()}')
+                self._error(f'{traceback.format_exc().replace(" File", "<br>File")}')
 
     def _request_api(self, url: str):
         """ Request function"""

@@ -16,6 +16,10 @@ APIListWithGeographyAndDate = (
     'rir_harvester.harveters.api_with_geography_and_date.APIWithGeographyAndDate',
     'API With Geography And Date',
 )
+SharepointHarvester = (
+    'rir_harvester.harveters.sharepoint_harvester.SharepointHarvester',
+    'Sharepoint File',
+)
 UsingExposedAPI = (
     'rir_harvester.harveters.using_exposed_api.UsingExposedAPI',
     'Harvested using exposed API by external client',
@@ -27,12 +31,10 @@ ExcelHarvester = (
 HARVESTERS = (
     APIWithGeographyAndTodayDate,
     APIListWithGeographyAndDate,
+    SharepointHarvester,
     UsingExposedAPI,
 )
-ALL_HARVESTERS = (
-    APIWithGeographyAndTodayDate,
-    APIListWithGeographyAndDate,
-    UsingExposedAPI,
+ALL_HARVESTERS = HARVESTERS + (
     ExcelHarvester,
 )
 
@@ -70,6 +72,8 @@ class Harvester(models.Model):
             'User who run the harvester.'),
         on_delete=models.CASCADE
     )
+    def __str__(self):
+        return str(self.unique_id)
 
     @property
     def get_harvester_class(self):
@@ -97,6 +101,26 @@ class Harvester(models.Model):
                 harvester=self,
                 name=key
             )
+
+    def get_attributes(self):
+        """
+        Get attributes keys
+        """
+        from rir_harvester.models import HarvesterAttribute
+        ids = []
+        attributes = []
+        for attribute in self.get_harvester_class.additional_attributes().keys():
+            try:
+                attr = self.harvesterattribute_set.get(name=attribute)
+                if attr.value:
+                    attributes.append(attr)
+                    ids.append(attr.id)
+            except HarvesterAttribute.DoesNotExist:
+                pass
+        for attr in self.harvesterattribute_set.exclude(id__in=ids):
+            if attr.value:
+                attributes.append(attr)
+        return attributes
 
     def run(self, force=False):
         """
