@@ -61,8 +61,15 @@
 
         const indicators = {{ indicators|safe }};
         const $inputs = $("#attribute_url, #attribute_username, #attribute_password");
+        const $otherInputs = $("#attribute_extra_keys, #attribute_key_value");
 
         $(document).ready(function () {
+            const $inputValue = $('#attribute_key_value');
+            let inputKeyValue = $inputValue.attr('value');
+            if (inputKeyValue) {
+                $inputValue.append(`<option value="${inputKeyValue}">${inputKeyValue}</option`);
+            }
+
             const $inputExtraKeys = $('#attribute_extra_keys');
             let inputExtraValues = $inputExtraKeys.attr('value').split(',');
             $inputExtraKeys.attr('multiple', 'multiple');
@@ -86,9 +93,9 @@
             const $submit = $('#submit');
             $submit.prop('disabled', true);
 
-            $inputExtraKeys.change(function () {
+            $otherInputs.change(function () {
                 inputExtraValues = $(this).val();
-            })
+            });
             $inputs.change(function () {
                 const $mappingTable = $('#mapping-table');
                 const $urlInput = $('#attribute_url');
@@ -98,7 +105,7 @@
                 if ($("#attribute_url").val() && $("#attribute_username").val() && $("#attribute_password").val()) {
                     $submit.prop('disabled', true);
                     $inputs.prop('disabled', true);
-                    $inputExtraKeys.prop('disabled', true);
+                    $otherInputs.prop('disabled', true);
 
                     $mappingTable.html('');
                     $urlInputLoading.show();
@@ -114,18 +121,19 @@
                     })
                         .done(function (output) {
                             $submit.prop('disabled', false);
-                            $inputExtraKeys.prop('disabled', false);
-                            $inputExtraKeys.html('');
+                            $otherInputs.prop('disabled', false);
+                            $otherInputs.html('');
 
                             {# for selections #}
                             $.each(output.results[0], function (key, value) {
                                 if (value && typeof value !== 'object') {
-                                    $inputExtraKeys.append(`<option value="${key}">${key}</option`);
+                                    $otherInputs.append(`<option value="${key}">${key}</option`);
                                 }
                             });
                             $inputExtraKeys.select2();
                             $inputExtraKeys.val(inputExtraValues);
                             $inputExtraKeys.trigger('change');
+                            $inputValue.val(inputKeyValue);
 
                             let rawSections = [];
                             $.each(output.results, function (index, value) {
@@ -136,6 +144,7 @@
                             sections.sort()
 
 
+                            $mappingTable.html('');
                             $.each(sections, function (index, value) {
                                 if (value) {
                                     $mappingTable.append(`
@@ -166,7 +175,7 @@
                         .always(function () {
                             $urlInputLoading.hide();
                             $inputs.prop('disabled', false);
-                            $inputExtraKeys.prop('disabled', false);
+                            $otherInputs.prop('disabled', false);
                         });
                 }
             });

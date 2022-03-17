@@ -40,6 +40,11 @@ class EtoolsProgramCoverageHarvester(BaseHarvester):
                 'title': "Slug of the instance",
                 'description': "The instance slug of this harvester"
             },
+            'key_value': {
+                'title': "Key Name: Value",
+                'description': "The name of the keys that contains value",
+                'type': 'select'
+            },
             'extra_keys': {
                 'title': "Keys for the extra data",
                 'description': "List of keys as extra data",
@@ -95,7 +100,7 @@ class EtoolsProgramCoverageHarvester(BaseHarvester):
                         )
 
                         # check the value
-                        value = result['status']
+                        value = result[self.attributes['key_value']]
                         if value is None or value == '':
                             result.append(f'{indicator.name} : Value is empty')
                         else:
