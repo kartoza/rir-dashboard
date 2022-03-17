@@ -49,27 +49,60 @@
     </style>
 {% endblock %}
 {% block extrascripts %}
+    <link rel="stylesheet" href="{% static 'libs/select2/4.1.0-rc.0/select2.min.css' %}" type="text/css" media="screen, projection"/>
+    <script type="text/javascript" src="{% static 'libs/select2/4.1.0-rc.0/select2.min.js' %}"></script>
     <script src="{% static "libs/underscore.js/1.9.1/underscore-min.js" %}"></script>
     <script type="text/javascript" src="{% static 'libs/fuzzysort.js' %}"></script>
     <script>
+        const mappingDefaultValue = {};
+        {% for map in mapping %}
+            mappingDefaultValue['{{ map.remote_value }}'] = '{{ map.platform_value }}';
+        {% endfor %}
+
         const indicators = {{ indicators|safe }};
         const $inputs = $("#attribute_url, #attribute_username, #attribute_password");
 
         $(document).ready(function () {
+            const $inputExtraKeys = $('#attribute_extra_keys');
+            let inputExtraValues = $inputExtraKeys.attr('value').split(',');
+            $inputExtraKeys.attr('multiple', 'multiple');
+
+            {# default selections #}
+            $.each($inputExtraKeys.attr('value').split(','), function (key, value) {
+                $inputExtraKeys.append(`<option value="${value}">${value}</option`);
+            });
+            $inputExtraKeys.select2();
+
+            {# add the selected items to last#}
+            $inputExtraKeys.on("select2:select", function (evt) {
+                var element = evt.params.data.element;
+                var $element = $(element);
+
+                $element.detach();
+                $(this).append($element);
+                $(this).trigger("change");
+            });
+
             const $submit = $('#submit');
             $submit.prop('disabled', true);
 
+            $inputExtraKeys.change(function () {
+                inputExtraValues = $(this).val();
+            })
             $inputs.change(function () {
                 const $mappingTable = $('#mapping-table');
                 const $urlInput = $('#attribute_url');
                 const $urlInputLoading = $urlInput.closest('tr').find('.loading');
                 const $urlInputError = $urlInput.closest('tr').find('.error');
+
                 if ($("#attribute_url").val() && $("#attribute_username").val() && $("#attribute_password").val()) {
+                    $submit.prop('disabled', true);
+                    $inputs.prop('disabled', true);
+                    $inputExtraKeys.prop('disabled', true);
+
                     $mappingTable.html('');
                     $urlInputLoading.show();
                     $urlInputError.hide();
-                    $inputs.prop('disabled', true);
-                    $submit.prop('disabled', true);
 
                     $.ajax({
 
@@ -81,6 +114,18 @@
                     })
                         .done(function (output) {
                             $submit.prop('disabled', false);
+                            $inputExtraKeys.prop('disabled', false);
+                            $inputExtraKeys.html('');
+
+                            {# for selections #}
+                            $.each(output.results[0], function (key, value) {
+                                if (value && typeof value !== 'object') {
+                                    $inputExtraKeys.append(`<option value="${key}">${key}</option`);
+                                }
+                            });
+                            $inputExtraKeys.select2();
+                            $inputExtraKeys.val(inputExtraValues);
+                            $inputExtraKeys.trigger('change');
 
                             let rawSections = [];
                             $.each(output.results, function (index, value) {
@@ -104,6 +149,9 @@
                                             </td>
                                         </tr>
                                 `)
+                                    if (mappingDefaultValue[value]) {
+                                        $mappingTable.find('tr').last().find('.mapping-remote').val(mappingDefaultValue[value]);
+                                    }
                                 }
                             });
                         })
@@ -118,12 +166,16 @@
                         .always(function () {
                             $urlInputLoading.hide();
                             $inputs.prop('disabled', false);
+                            $inputExtraKeys.prop('disabled', false);
                         });
                 }
             });
             $inputs.each(function () {
                 $(this).val($(this).attr('value'));
-            })
+            });
+
+            $inputs.trigger("change");
+
             {# reassign value in mapping #}
             $('.mapping-remote').each(function () {
                 $(this).val($(this).attr('value'));

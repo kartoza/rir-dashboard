@@ -40,6 +40,12 @@ class EtoolsProgramCoverageHarvester(BaseHarvester):
                 'title': "Slug of the instance",
                 'description': "The instance slug of this harvester"
             },
+            'extra_keys': {
+                'title': "Keys for the extra data",
+                'description': "List of keys as extra data",
+                'required': False,
+                'type': 'select'
+            },
         }
         return attr
 
@@ -120,7 +126,7 @@ class EtoolsProgramCoverageHarvester(BaseHarvester):
                                 row = IndicatorValueExtraDetailRow.objects.create(
                                     indicator_value=indicator_value
                                 )
-                                for extra in ['number', 'title', 'partner_name', 'start_date', 'end_date']:
+                                for extra in self.attributes['extra_keys'].split(','):
                                     if extra in result and result[extra]:
                                         IndicatorValueExtraDetailColumn.objects.get_or_create(
                                             row=row,

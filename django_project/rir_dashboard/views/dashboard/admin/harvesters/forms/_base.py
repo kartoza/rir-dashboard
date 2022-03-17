@@ -121,6 +121,7 @@ class HarvesterFormView(AdminView):
         try:
             data = request.POST.copy()
             data['attribute_extra_columns'] = ','.join(request.POST.getlist('attribute_extra_columns'))
+            data['attribute_extra_keys'] = ','.join(request.POST.getlist('attribute_extra_keys'))
             harvester_class = data['harvester']
             try:
                 harvester = self.get_harvester()
