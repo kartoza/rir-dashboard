@@ -431,19 +431,6 @@
     width: var(--right-side-width);
 }
 
-#indicator-value-detail-table {
-    width: 100%;
-    overflow-x: auto;
-    margin-top: 10px;
-}
-
-#indicator-value-detail-table td,
-#indicator-value-detail-table th {
-    padding: 5px 20px;
-    width: fit-content;
-    border: 1px solid #f7f7f7;
-}
-
 .side-panel {
     position: absolute;
     z-index: 9998;
@@ -484,6 +471,12 @@
 
 #indicator-list-by-geometry .group tr.disabled {
     display: none !important;
+}
+
+.list-detail-button {
+    margin-bottom: 10px;
+    margin-top: 10px;
+    width: 100%;
 }
 
 .side-panel .content-wrapper {
@@ -1246,4 +1239,14 @@
     position: absolute;
     top: 5px;
     right: 6px;
+}
+
+#global-modal .modal-dialog {
+    width: 90%;
+    max-width: 90%;
+}
+
+#global-modal .modal-body {
+    width: 100%;
+    overflow-x: auto;
 }

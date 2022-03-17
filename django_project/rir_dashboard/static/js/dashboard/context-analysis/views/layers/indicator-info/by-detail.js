@@ -14,6 +14,7 @@ define(['js/views/layers/indicator-info/base'], function (Base) {
             event.register(this, evt.GEOMETRY_CLICKED, this.geometryClicked);
             event.register(this, evt.DATE_CHANGED, this.dateChanged);
             event.register(this, evt.INDICATOR_TO_DETAIL, this.indicatorSelected);
+            event.register(this, evt.INDICATOR_DETAIL_LIST_CHANGED, this.detailListChanged);
         },
         changed: function () {
             const self = this;
@@ -149,25 +150,13 @@ define(['js/views/layers/indicator-info/base'], function (Base) {
                 }
             });
 
-            // for details
-            let detailHtml = '';
-            if (properties.details) {
-                defaultHtml += `<tr><td valign="top"><b>Details</b></td></tr>`
-                const headers = Object.keys(properties.details[0]);
-                let headerHtml = ''
-                $.each(headers, function (key, header) {
-                    headerHtml += `<th>${header.capitalize()}</th>`
-                });
-                detailHtml += '<tr>' + headerHtml + '</tr>';
-                $.each(properties.details, function (key, detail) {
-                    let rowHtml = ''
-                    $.each(headers, function (key, header) {
-                        rowHtml += `<td>${detail[header] ? detail[header] : ''}</td>`
-                    });
-                    detailHtml += '<tr>' + rowHtml + '</tr>';
-                });
+            // This is for detail data in list
+            if (properties.details && properties.details.length > 0) {
+                defaultHtml += '<tr><td colspan="2"><button type="button" class="main-button list-detail-button" data-toggle="modal" data-target="#global-modal">List data</button></td></tr>';
+                this.detailListChanged(properties.details, `${this.indicatorName} <span style="color: gray">in</span> ${this.geometry.properties.geometry_name} (${this.geometry.properties.geometry_code})`)
             }
-            this.$el.find('.value-table').html(`<table>${defaultHtml}</table><div id="indicator-value-detail-table"><table>${detailHtml}</table></div>`);
+
+            this.$el.find('.value-table').html(`<table>${defaultHtml}</table>`);
         }
         ,
         /**
@@ -211,5 +200,36 @@ define(['js/views/layers/indicator-info/base'], function (Base) {
             Base.prototype.close.apply(this);
         }
         ,
+        /**
+         * When details list opened and changed
+         */
+        detailListChanged: function (details, title) {
+
+            // ------------------------------------------
+            // This is for detail data in list
+            // ------------------------------------------
+            if (details && details.length > 0) {
+                const headers = Object.keys(details[0]);
+                let headerHtml = ''
+                $.each(headers, function (key, header) {
+                    headerHtml += `<th>${header.capitalize()}</th>`
+                });
+                headerHtml = '<thead><tr>' + headerHtml + '</tr></thead>';
+
+                let bodyHtml = ''
+                $.each(details, function (key, detail) {
+                    let rowHtml = ''
+                    $.each(headers, function (key, header) {
+                        rowHtml += `<td>${detail[header] ? detail[header] : ''}</td>`
+                    });
+                    bodyHtml += '<tr>' + rowHtml + '</tr>';
+                });
+                bodyHtml = '<tbody>' + bodyHtml + '</tbody>';
+                $('#global-modal .modal-body').html('<table>' + headerHtml + bodyHtml + '</table>');
+                $('#global-modal .modal-title').html(title);
+                $('#global-modal table').DataTable();
+            }
+            // ------------------------------------------
+        }
     })
 });

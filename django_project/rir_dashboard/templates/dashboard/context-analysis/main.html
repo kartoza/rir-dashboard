@@ -6,6 +6,7 @@
     <link href="{% static 'libs/leaflet/1.5.1/leaflet.css' %}" rel="stylesheet" type="text/css" media="screen, projection"/>
     <link href="{% static 'libs/leaflet.plugin.layerswiper/leaflet-lyrSwiper.css' %}" rel="stylesheet" type="text/css" media="screen, projection"/>
     <link href="{% static 'css/dashboard/context-analysis.css' %}" rel="stylesheet" type="text/css" media="screen, projection"/>
+    <link href="{% static 'libs/datatable/1.11.5/css/jquery.dataTables.min.css' %}" rel="stylesheet" type="text/css" media="screen, projection"/>
     <style>
         {% for scenario in scenarios %}
             .scenario-{{ scenario.level }} {
@@ -433,6 +434,7 @@
     <script src="{% static "libs/jquery.js/3.4.1/jquery.min.js" %}"></script>
     <script src="{% static "libs/jquery-ui/1.12.1/jquery-ui.js" %}"></script>
     <script src="{% static "libs/backbone.js/1.4.0/backbone-min.js" %}"></script>
+    <script src="{% static "libs/datatable/1.11.5/js/jquery.dataTables.min.js" %}"></script>
 
     <script src="{% static "libs/highcharts/9.1.2/stock/highstock.js" %}"></script>
     <script src="{% static "libs/highcharts/9.1.2/stock/modules/data.js" %}"></script>

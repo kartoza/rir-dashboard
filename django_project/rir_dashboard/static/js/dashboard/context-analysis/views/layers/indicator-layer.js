@@ -132,6 +132,10 @@ define([], function () {
                                             defaultHtml += `<tr><td valign="top"><b>${key.capitalize()}</b></td><td valign="top">${numberWithCommas(value)}</td></tr>`
                                         }
                                     });
+                                    if (feature.properties.details && feature.properties.details.length > 0) {
+                                        defaultHtml += '<tr><td colspan="2"><button type="button" class="main-button list-detail-button" data-toggle="modal" data-target="#global-modal">List data</button></td></tr>';
+                                    }
+
                                     // for details
                                     layer.bindPopup('' +
                                         '<table>' + defaultHtml + '</table>');
@@ -140,6 +144,8 @@ define([], function () {
                                 // on feature clicked
                                 layer.on("click", function (e) {
                                     event.trigger(evt.GEOMETRY_CLICKED, feature);
+                                    // This is for detail data in list
+                                    event.trigger(evt.INDICATOR_DETAIL_LIST_CHANGED, feature.properties.details, `${self.name} <span style="color: gray">in</span> ${feature.properties['geometry_name']} (${feature.properties['geometry_code']})`)
                                 });
                             }
                         }

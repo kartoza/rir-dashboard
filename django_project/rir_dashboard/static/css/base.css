@@ -221,3 +221,24 @@ table .helptext {
     background: green;
     color: white;
 }
+
+/* For modal */
+.modal {
+    z-index: 10050;
+}
+
+.modal-backdrop {
+    z-index: 10040;
+}
+
+#global-modal {
+    width: 100%;
+    overflow-x: auto;
+}
+
+#global-modal td,
+#global-modal th {
+    padding: 5px 20px;
+    width: fit-content;
+    border: 1px solid #f7f7f7;
+}
