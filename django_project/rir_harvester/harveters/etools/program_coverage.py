@@ -102,7 +102,7 @@ class EtoolsProgramCoverageHarvester(BaseHarvester):
                         # check the value
                         value = result[self.attributes['key_value']]
                         if value is None or value == '':
-                            result.append(f'{indicator.name} : Value is empty')
+                            value = 1
                         else:
                             try:
                                 if float(value) < indicator.min_value or float(value) > indicator.max_value:
