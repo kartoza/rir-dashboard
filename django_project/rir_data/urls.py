@@ -8,6 +8,7 @@ from rir_data.api.indicator import (
     IndicatorValuesByGeometry, IndicatorReportingUnits, IndicatorValuesBatch
 )
 from rir_data.api.indicators import IndicatorsValuesByGeometryDate
+from rir_data.api.context_analysis import ContextAnalysisData
 from rir_dashboard.views.instances import InstancesView
 
 geometry_api = [
@@ -76,6 +77,11 @@ api = [
         r'^download/sharepoint',
         DownloadSharepointFile.as_view(),
         name='download-sharepoint'
+    ),
+    url(
+        r'^context-analysis',
+        ContextAnalysisData.as_view(),
+        name='context-analysis'
     ),
 ]
 

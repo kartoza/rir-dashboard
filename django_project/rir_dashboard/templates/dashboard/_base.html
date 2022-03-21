@@ -34,6 +34,18 @@
 
 <body class="body">
 {% include "pages/_navbar.html" %}
+<div id="page-loading">
+    <div class="page-center">
+        <div class="loader"></div>
+        <div class="loader-text">
+            Loading... Please wait
+            {% if preferences.icon %}
+                <br>
+                <img src="{{ preferences.icon }}">
+            {% endif %}
+        </div>
+    </div>
+</div>
 <div id="page" class="shrink">
     <!-- Global Modal -->
     <div class="modal fade" id="global-modal" tabindex="-1" role="dialog" aria-hidden="true">

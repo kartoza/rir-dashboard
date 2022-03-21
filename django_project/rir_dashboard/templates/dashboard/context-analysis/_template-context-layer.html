@@ -86,3 +86,14 @@
         </div>
     </div>
 </script>
+
+<script type='text/template' id='_intervention-template'>
+    <div data-program="<%= slug %>" class="section box-shadow-bottom table-section scenario-section">
+        <div class="scenario-header scenario-<%= scenario_level %>">
+            <div><%= name %> Intervention</div>
+        </div>
+        <div class="intervention">
+            <iframe src="<%= intervention_url %>" title="<%= name %>" frameBorder="0"></iframe>
+        </div>
+    </div>
+</script>

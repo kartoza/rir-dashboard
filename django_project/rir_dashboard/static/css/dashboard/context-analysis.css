@@ -1250,3 +1250,7 @@
     width: 100%;
     overflow-x: auto;
 }
+
+#page-loading {
+    display: block;
+}

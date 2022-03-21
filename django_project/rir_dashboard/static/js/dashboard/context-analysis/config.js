@@ -18,12 +18,45 @@ require([
     new _Templates();
     event = new _Event();
     Request = new _Request();
-    initEvent();
 
-    // initiate all view
-    mapView = new Map();
-    map = mapView.map;
-    new LayersControl(map);
+    // Get context analysis data
+    // And render every data to elements
+    Request.get(
+        contextAnalysisDataURL, {}, {},
+        function (data) {
+            $('#page-loading').hide();
+
+            $.each(data.indicators_in_groups, function (groupName, groupValue) {
+                $.each(groupValue.indicators, function (idx, indicator) {
+                    indicatorLatestDate[`${indicator.id}`] = `${indicator.latest_date}`;
+                    $(`#indicator-${indicator.id} .scenario-bullet`).addClass(`scenario-${indicator.scenario_value}`)
+                    $(`#indicator-${indicator.id} td[data-scenario-level='${indicator.scenario_value}']`).addClass(`scenario-${indicator.scenario_value}`);
+                    const $input = $(`#indicator-checkbox-${indicator.id}`);
+                    $input.attr('data-id', indicator.id);
+                    $input.attr('data-name', indicator.name);
+                    $input.attr('data-scenario', indicator.scenario_value);
+                    $(`#indicator-${indicator.id}`).closest('.group').find('.scenario-bullet').addClass(`scenario-${groupValue.overall_scenario}`)
+                    $(`#indicator-${indicator.id}`).closest('.group').find(`td[data-scenario-level='${groupValue.overall_scenario}']`).addClass(`scenario-${groupValue.overall_scenario}`)
+                })
+            });
+            $('.scenario-header .scenario-bullet').addClass(`scenario-${data.overall_scenario.level}`)
+            $('.scenario-header .loading').replaceWith(`${data.overall_scenario.level}: ${data.overall_scenario.name}`);
+
+            $.each(data.interventions, function (idx, intervention) {
+                $('#map-wrapper').before(_.template($('#_intervention-template').html())(intervention))
+            });
+
+            initEvent();
+
+            // initiate all view
+            mapView = new Map();
+            map = mapView.map;
+            new LayersControl(map);
+        },
+        function () {
+
+        }
+    )
     const docStyle = getComputedStyle(document.documentElement);
 
     function initEvent() {

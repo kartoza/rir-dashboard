@@ -189,7 +189,7 @@
                                     <i class="fa fa-caret-left" aria-hidden="true"></i>
                                 </div>
                                 <div class="col">
-                                    Scenario {% if overall_scenario.level %}{{ overall_scenario.level }}: {{ overall_scenario.name }}{% else %} <i>unknown</i> {% endif %}
+                                    Scenario <i class="loading">loading</i>
                                 </div>
                                 <div>
                                     {% include 'dashboard/context-analysis/_template-scenario-download.html' %}
@@ -264,13 +264,14 @@
                                                         </table>
                                                     </div>
                                                 </td>
+                                                {# this is for full screen #}
                                                 {% for scenario in scenarios %}
                                                     {% if indicator.scenario_value == scenario.level %}
                                                         <td class="scenario indicator scenario-{{ scenario.level }}">
                                                             {{ indicator.value }}
                                                         </td>
                                                     {% else %}
-                                                        <td class="scenario indicator">
+                                                        <td class="scenario indicator" data-scenario-level="{{ scenario.level }}">
                                                             {% get_scenario_rule indicator scenario.level as rule %}
                                                             {{ rule }}
                                                         </td>
@@ -392,6 +393,7 @@
         const indicatorRules = {};
         const indicatorLatestDate = {};
         const indicatorUnit = {};
+        const contextAnalysisDataURL = '{% url "context-analysis" instance.slug %}'
         {% for group_name, group in indicators_in_groups.items %}
             {% for indicator in group.indicators %}
                 indicatorRules['{{ indicator.id }}'] = {{ indicator.rules|safe }};
