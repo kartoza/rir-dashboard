@@ -88,7 +88,7 @@ class Indicator(AbstractTerm, PermissionModel):
         choices=(
             (AggregationMethod.AVERAGE, 'Aggregate data by average data in the levels'),
             (AggregationMethod.MAJORITY, 'Aggregate data by majority data in the levels'),
-            (AggregationMethod.SUM, 'Aggregate data by majority sum of all data in the levels'),
+            (AggregationMethod.SUM, 'Aggregate data by sum of all data in the levels'),
         )
     )
     order = models.IntegerField(
