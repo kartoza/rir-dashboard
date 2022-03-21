@@ -1,18 +1,18 @@
 from rir_dashboard.views.dashboard.admin.harvesters.forms._base import HarvesterFormView
-from rir_harvester.harveters.etools.program_coverage import EtoolsProgramCoverageHarvester
+from rir_harvester.harveters.aggregate_multi_indicator_and_geometry_api_harvester import AggregateMultiIndicatorAndGeometryAPIHarvester
 from rir_harvester.models.harvester import Harvester, EtoolsProgramCoverageHarvesterTuple
 from rir_harvester.models.harvester_attribute import HarvesterAttribute
 from rir_harvester.tasks import run_harvester
 
 
 # This harvester is just 1 for each instance
-class EtoolsProgramCoverageView(HarvesterFormView):
-    harvester_class = EtoolsProgramCoverageHarvester
+class AggregaretMultiIndicatorAndGeometryAPIHarvesterView(HarvesterFormView):
+    harvester_class = AggregateMultiIndicatorAndGeometryAPIHarvester
     template_name = 'dashboard/admin/harvesters/forms/etools/program-coverage.html'
 
     @property
     def dashboard_title(self):
-        return f'Etools : Program coverage'
+        return f'Aggregate Multi Indicator and Geometry AP IHarvester'
 
     def get_indicator(self):
         """

@@ -11,13 +11,16 @@ from rir_data.models.indicator.indicator_value import (
 )
 
 
-class EtoolsProgramCoverageHarvester(BaseHarvester):
+class AggregateMultiIndicatorAndGeometryAPIHarvester(BaseHarvester):
     """
-    Harvester program coverage data from etools
+    Harvest from API for multi indicator and geometry.
+    Aggregate it by the value and save it to specific indicator.
+    Indicator mapping will be <indicator name in remote>:<value> -> indicator on platform.
+    The value will be number of data that found
     """
     description = (
-        "Harvest program coverage data from etools. <br>"
-        "It use sections as the indicator and locations_data as geometry on the API data"
+        "Harvest from API for multi indicator and geometry. "
+        "Aggregate it by the value and save it to specific indicator. "
     )
 
     @staticmethod
@@ -29,20 +32,55 @@ class EtoolsProgramCoverageHarvester(BaseHarvester):
             },
             'username': {
                 'title': "Username",
-                'description': "Username for authentication"
+                'description': "Username for authentication",
+                'required': False
             },
             'password': {
                 'title': "Password",
                 'description': "Password for authentication",
-                'type': 'password'
+                'type': 'password',
+                'required': False
             },
             'instance_slug': {
                 'title': "Slug of the instance",
                 'description': "The instance slug of this harvester"
             },
+            'key_geometry_list': {
+                'title': "Key Name: Geometry List",
+                'description': "The name of the key that contains geometry in a list",
+                'type': 'select'
+            },
+            'key_geometry_value': {
+                'title': "Key Name: Geometry",
+                'description': "The name of the key that contains geometry value in geometry list",
+                'type': 'select'
+            },
+            'key_indicator_list': {
+                'title': "Key Name: Indicator List",
+                'description': "The name of the key that contains indicator in a list",
+                'type': 'select'
+            },
+            'key_indicator_value': {
+                'title': "Key Name: Indicator",
+                'description': "The name of the key that contains indicator value in indicator list",
+                'type': 'select'
+            },
+            'key_date': {
+                'title': "Key Name: Date",
+                'description': "The name of the key that contains date",
+                'type': 'select'
+            },
+            'date_format': {
+                'description': (
+                    "Format of the date from the data. "
+                    "Check <a href='https://strftime.org/'>here</a>."
+                    "Let it empty to use timestamp instead."
+                ),
+                'required': False
+            },
             'key_value': {
                 'title': "Key Name: Value",
-                'description': "The name of the keys that contains value",
+                'description': "The name of the key that contains value",
                 'type': 'select'
             },
             'extra_keys': {
@@ -56,6 +94,7 @@ class EtoolsProgramCoverageHarvester(BaseHarvester):
 
     def _process(self):
         """ Run the harvester """
+        return
 
         self._update('Fetching data')
         user = f"{self.attributes['username']}:{self.attributes['password']}"

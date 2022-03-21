@@ -28,9 +28,9 @@ ExcelHarvester = (
     'rir_harvester.harveters.excel_harvester.ExcelHarvester',
     'Excel Harvesters',
 )
-EtoolsProgramCoverageHarvesterTuple = (
-    'rir_harvester.harveters.etools.program_coverage.EtoolsProgramCoverageHarvester',
-    'Etools : Program coverage',
+AggregateMultiIndicatorAndGeometryAPIHarvesterTuple = (
+    'rir_harvester.harveters.aggregate_multi_indicator_and_geometry_api_harvester.AggregateMultiIndicatorAndGeometryAPIHarvester',
+    'Aggregate Multi Indicator and Geometry AP IHarvester',
 )
 HARVESTERS = (
     APIWithGeographyAndTodayDate,
@@ -40,7 +40,7 @@ HARVESTERS = (
 )
 ALL_HARVESTERS = HARVESTERS + (
     ExcelHarvester,
-    EtoolsProgramCoverageHarvesterTuple
+    AggregateMultiIndicatorAndGeometryAPIHarvesterTuple
 )
 
 
