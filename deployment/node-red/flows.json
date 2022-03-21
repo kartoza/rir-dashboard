@@ -1,0 +1,331 @@
+[
+    {
+        "id": "cd959a180dca7516",
+        "type": "tab",
+        "label": "Etools",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "c1ed5959cf663dc3",
+        "type": "tab",
+        "label": "FSNAU",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "5fea74d190b05770",
+        "type": "inject",
+        "z": "cd959a180dca7516",
+        "name": "Start",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payloadType": "date",
+        "x": 90,
+        "y": 120,
+        "wires": [
+            [
+                "5e7b73ad74562bc0"
+            ]
+        ]
+    },
+    {
+        "id": "5e7b73ad74562bc0",
+        "type": "http request",
+        "z": "cd959a180dca7516",
+        "name": "",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "https://datamart.unicef.io/urf/exports/fetch/750/",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "basic",
+        "senderr": false,
+        "x": 270,
+        "y": 120,
+        "wires": [
+            [
+                "c8cc74c3ce326987"
+            ]
+        ]
+    },
+    {
+        "id": "c8cc74c3ce326987",
+        "type": "function",
+        "z": "cd959a180dca7516",
+        "name": "Parse data to list",
+        "func": "results = msg.payload.results;\n\n// clean data by [section][geometry]\n\nfunction extractedDate(date) {\n    const year = date.getUTCFullYear();\n    const month = (date.getUTCMonth() + 1).toLocaleString('en-US', {\n        minimumIntegerDigits: 2,\n        useGrouping: false\n    })\n    const day = date.getUTCDate().toLocaleString('en-US', {\n        minimumIntegerDigits: 2,\n        useGrouping: false\n    })\n    return year + '-' + month + '-' + day\n}\n\nvar currentDate = extractedDate(new Date());\n\nconst cleanData = {}\nresults.forEach(result => {\n    result.sections_data.forEach(section => {\n        if (!cleanData[section.name]) {\n            cleanData[section.name] = {}\n        }\n        result.locations_data.forEach(geometry => {\n            if (!cleanData[section.name][geometry.pcode]) {\n                cleanData[section.name][geometry.pcode] = {\n                    'count': 0,\n                    'details': []\n                }\n            }\n            if(result.status === 'active') {\n                cleanData[section.name][geometry.pcode]['count'] += 1\n            }\n            cleanData[section.name][geometry.pcode]['details'].push({\n                'reference_number': result.reference_number,\n                'partner_name': result.partner_name,\n                'title': result.title,\n                'start_date': result.start_date,\n                'end_date': result.end_date,\n                'status': result.status\n            })\n        })\n    })\n})\nmsg.payload = cleanData;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 120,
+        "wires": [
+            [
+                "d44da3456a357f19"
+            ]
+        ]
+    },
+    {
+        "id": "d44da3456a357f19",
+        "type": "function",
+        "z": "cd959a180dca7516",
+        "name": "Parse data to ready to be pushed",
+        "func": "\n\nfunction extractedDate(date) {\n    const year = date.getUTCFullYear();\n    const month = (date.getUTCMonth() + 1).toLocaleString('en-US', {\n        minimumIntegerDigits: 2,\n        useGrouping: false\n    })\n    const day = date.getUTCDate().toLocaleString('en-US', {\n        minimumIntegerDigits: 2,\n        useGrouping: false\n    })\n    return year + '-' + month + '-' + day\n}\n\nvar currentDate = extractedDate(new Date());\n\nconst pushedData = []\nfor (const [key, values] of Object.entries(msg.payload)) {\n    const indicatorData = []\n    for (const [geom, data] of Object.entries(values)) {\n        indicatorData.push({\n            \"geometry_code\": geom,\n            \"date\": currentDate,\n            \"value\": data.count,\n            \"details\": data.details\n\n        })\n    }\n    pushedData.push({\n        'indicator': key,\n        'data': indicatorData\n    })\n}[]\nmsg.payload = pushedData;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 780,
+        "y": 120,
+        "wires": [
+            [
+                "a190548a47369cb9"
+            ]
+        ]
+    },
+    {
+        "id": "a190548a47369cb9",
+        "type": "split",
+        "z": "cd959a180dca7516",
+        "name": "Split Data per Indicator",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 200,
+        "y": 340,
+        "wires": [
+            [
+                "52867c4bcf2e444e"
+            ]
+        ]
+    },
+    {
+        "id": "69a95899c08a8ec9",
+        "type": "switch",
+        "z": "cd959a180dca7516",
+        "name": "Switching by Indicator",
+        "property": "indicator",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "Nutrition",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "Child Protection",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "Health",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 680,
+        "y": 340,
+        "wires": [
+            [
+                "37e96f4555403724"
+            ],
+            [
+                "24fc798182d8a0e2"
+            ],
+            [
+                "b78df9eb12ec49ae"
+            ]
+        ]
+    },
+    {
+        "id": "52867c4bcf2e444e",
+        "type": "function",
+        "z": "cd959a180dca7516",
+        "name": "Update payload",
+        "func": "msg.indicator = msg.payload.indicator;\nmsg.payload = msg.payload.data;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 340,
+        "wires": [
+            [
+                "69a95899c08a8ec9"
+            ]
+        ]
+    },
+    {
+        "id": "37e96f4555403724",
+        "type": "http request",
+        "z": "cd959a180dca7516",
+        "name": "Nutrition",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "http://192.168.1.7:2000/somalia/api/indicator/26/values/batch?replace=True",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "bearer",
+        "senderr": false,
+        "x": 900,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "24fc798182d8a0e2",
+        "type": "http request",
+        "z": "cd959a180dca7516",
+        "name": "Child Protection",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "http://192.168.1.7:2000/somalia/api/indicator/27/values/batch?replace=True",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "bearer",
+        "senderr": false,
+        "x": 920,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b78df9eb12ec49ae",
+        "type": "http request",
+        "z": "cd959a180dca7516",
+        "name": "Health",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "http://192.168.1.7:2000/somalia/api/indicator/28/values/batch?replace=True",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "bearer",
+        "senderr": false,
+        "x": 890,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "72b23a6194149421",
+        "type": "inject",
+        "z": "c1ed5959cf663dc3",
+        "name": "Start",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payloadType": "date",
+        "x": 90,
+        "y": 60,
+        "wires": [
+            [
+                "3717e5d31b5d4513"
+            ]
+        ]
+    },
+    {
+        "id": "3717e5d31b5d4513",
+        "type": "function",
+        "z": "c1ed5959cf663dc3",
+        "name": "Put payload data",
+        "func": "msg.headers = {\n    \"Content-Type\": \"multipart/form-data\"\n}\nmsg.payload = {\n    \"month\": 2,\n    \"year\": 2022,\n    \"criteria\": \"year_range\",\n    \"start_year\": 2021,\n    \"end_year\": 2022,\n    \"btnExport\": \"Fetch Data\",\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 280,
+        "y": 60,
+        "wires": [
+            [
+                "1b1f69679d8a4c7e"
+            ]
+        ]
+    },
+    {
+        "id": "1b1f69679d8a4c7e",
+        "type": "http request",
+        "z": "c1ed5959cf663dc3",
+        "name": "",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "https://www.fsnau.org/ids/exportdata/data.php",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "senderr": false,
+        "x": 510,
+        "y": 60,
+        "wires": [
+            [
+                "0ed82db0358f10df"
+            ]
+        ]
+    },
+    {
+        "id": "0ed82db0358f10df",
+        "type": "debug",
+        "z": "c1ed5959cf663dc3",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 710,
+        "y": 60,
+        "wires": []
+    }
+]

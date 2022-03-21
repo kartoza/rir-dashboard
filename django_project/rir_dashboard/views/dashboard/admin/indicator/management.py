@@ -3,7 +3,6 @@ from rir_dashboard.views.dashboard.admin._base import AdminView
 from rir_data.models.indicator import Indicator
 from rir_data.models.instance import Instance
 from rir_harvester.models.harvester import UsingExposedAPI
-from rir_harvester.harveters.etools import EtoolsProgramCoverageHarvester
 
 
 class IndicatorManagementView(AdminView):
@@ -22,16 +21,6 @@ class IndicatorManagementView(AdminView):
             'indicators': Indicator.objects.filter(group__instance=self.instance),
             'external_exposed_api': UsingExposedAPI[0]
         }
-        etools_program_coverage_harvester = EtoolsProgramCoverageHarvester.get_harvester(self.instance)
-        if etools_program_coverage_harvester:
-            context['etools_program_coverage_harvester'] = reverse(
-                'harvester-detail', args=[self.instance.slug, str(etools_program_coverage_harvester.unique_id)]
-            )
-        else:
-            context['etools_program_coverage_harvester'] = reverse(
-                'etools-program-coverage-harvester-view', args=[self.instance.slug]
-            )
-
         return context
 
     def post(self, request, **kwargs):

@@ -2,7 +2,7 @@ from django.http import Http404, HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, reverse, redirect
 from rir_dashboard.views.dashboard.admin._base import AdminView
 from rir_data.models import Indicator, Instance
-from rir_harvester.models import Harvester, EtoolsProgramCoverageHarvesterTuple, ExcelHarvester, UsingExposedAPI
+from rir_harvester.models import Harvester, ExcelHarvester, UsingExposedAPI
 from rir_harvester.tasks import run_harvester
 
 
@@ -99,18 +99,11 @@ class HarvesterDetail(HarvesterIndicatorDetail):
             harvester = Harvester.objects.get(unique_id=self.kwargs.get('uuid', ''))
         except Indicator.DoesNotExist:
             raise Http404('Harvester does not exist')
-        if harvester.harvester_class == EtoolsProgramCoverageHarvesterTuple[0]:
-            return self.get_context(
-                harvester, reverse(
-                    'etools-program-coverage-harvester-view', args=[self.instance.slug]
-                )
+        return self.get_context(
+            harvester, reverse(
+                'meta-harvester-uuid-view', args=[self.instance.slug, self.kwargs.get('uuid', '')]
             )
-        else:
-            return self.get_context(
-                harvester, reverse(
-                    'meta-harvester-uuid-view', args=[self.instance.slug, self.kwargs.get('uuid', '')]
-                )
-            )
+        )
 
     def post(self, request, slug, uuid):
         """

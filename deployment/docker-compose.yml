@@ -10,6 +10,8 @@ volumes:
   onedrive-conf:
   onedrive-data:
 
+  node-red:
+
 x-common-django:
   &default-common-django
   image: kartoza/rir_dashboard_django:${DJANGO_TAG:-0.0.1}
@@ -89,3 +91,10 @@ services:
     volumes:
       - onedrive-conf:/onedrive/conf
       - ./onedrive/data:/onedrive/data
+
+  node-red:
+    image: nodered/node-red:2.1.3
+    volumes:
+      - node-red:/data
+    ports:
+      - "1880:1880"

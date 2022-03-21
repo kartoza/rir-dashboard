@@ -28,10 +28,6 @@ ExcelHarvester = (
     'rir_harvester.harveters.excel_harvester.ExcelHarvester',
     'Excel Harvesters',
 )
-AggregateMultiIndicatorAndGeometryAPIHarvesterTuple = (
-    'rir_harvester.harveters.aggregate_multi_indicator_and_geometry_api_harvester.AggregateMultiIndicatorAndGeometryAPIHarvester',
-    'Aggregate Multi Indicator and Geometry AP IHarvester',
-)
 HARVESTERS = (
     APIWithGeographyAndTodayDate,
     APIListWithGeographyAndDate,
@@ -40,7 +36,6 @@ HARVESTERS = (
 )
 ALL_HARVESTERS = HARVESTERS + (
     ExcelHarvester,
-    AggregateMultiIndicatorAndGeometryAPIHarvesterTuple
 )
 
 
