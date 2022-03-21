@@ -267,3 +267,15 @@ function numberWithCommas(x, decimalNum = 2) {
     }
     return string;
 }
+
+function onlyUnique(value, index, self) {
+    return self.indexOf(value) === index;
+}
+
+function changeToSelect(elm) {
+    const attr = [];
+    $.each(elm.attributes, function () {
+        attr.push(`${elm.name}='${elm.value}'`);
+    });
+    $(elm).replaceWith(`<select ${attr.join(' ')}></select>`);
+}

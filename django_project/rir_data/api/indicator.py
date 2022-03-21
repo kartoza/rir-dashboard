@@ -203,6 +203,9 @@ class IndicatorValuesByGeometryAndLevel(APIView):
             for value in indicator.values(
                     geometry, geometry_level, date, self.request.GET.get('exact_date', False), more_information=True
             ):
+                if 'date' not in value:
+                    value['date'] = datetime.today().strftime("%Y-%m-%d")
+
                 if value['date'] not in dates_found:
                     values.append(value)
                     dates_found.append(value['date'])
@@ -284,10 +287,12 @@ class IndicatorValues(APIView):
                 return HttpResponseBadRequest('Value need to be number')
 
             # extra data needs to be dictionary
-            try:
-                data['extra_data'].keys()
-            except AttributeError:
-                return HttpResponseBadRequest('The extra_data needs to be json')
+            extra_data = data.get('extra_data', None)
+            if extra_data:
+                try:
+                    extra_data.keys()
+                except AttributeError:
+                    return HttpResponseBadRequest('The extra_data needs to be json')
 
             # Check if value already exist
             try:
@@ -299,7 +304,8 @@ class IndicatorValues(APIView):
             except IndicatorValue.DoesNotExist:
                 pass
             indicator_value = indicator.save_value(
-                date, geometry, value, data['extra_data'])
+                date, geometry, value, extra_data, data.get('details', None)
+            )
             return Response(
                 IndicatorDetailValueSerializer(indicator_value).data
             )
@@ -311,6 +317,89 @@ class IndicatorValues(APIView):
             return HttpResponseBadRequest(f'{e} is required')
         except IndicatorValueRejectedError as e:
             return HttpResponseBadRequest(f'{e}')
+
+
+class IndicatorValuesBatch(APIView):
+    """
+    Return Scenario value for country with the indicator geometry level
+    """
+    authentication_classes = (IndicatorHarvesterTokenAndBearerAuthentication,)
+
+    def post(self, request, slug, pk):
+        """
+        Save value for specific date
+
+        :param slug: slug of the instance
+        :param pk: pk of the indicator
+        :return:
+        """
+        try:
+            instance = get_object_or_404(
+                Instance, slug=slug
+            )
+            rows = request.data
+            indicator = instance.indicators.get(id=pk)
+
+            replace = False
+            if 'replace' in request.query_params:
+                replace = eval(request.query_params['replace'])
+
+            if replace:
+                indicator.indicatorvalue_set.all().delete()
+
+            indicator_values = []
+            for data in rows:
+                geometry = instance.geometries().get(
+                    identifier__iexact=data['geometry_code']
+                )
+                if geometry.geometry_level != indicator.geometry_reporting_level:
+                    continue
+
+                # Validate the data
+                try:
+                    date = datetime.strptime(
+                        data['date'], "%Y-%m-%d").date()
+                except ValueError:
+                    return HttpResponseBadRequest('Date format should be YYYY-MM-DD')
+                try:
+                    value = float(data['value'])
+                except ValueError:
+                    return HttpResponseBadRequest('Value need to be number')
+
+                # extra data needs to be dictionary
+                extra_data = data.get('extra_data', None)
+                if extra_data:
+                    try:
+                        extra_data.keys()
+                    except AttributeError:
+                        return HttpResponseBadRequest('The extra_data needs to be json')
+
+                # Check if value already exist
+                try:
+                    indicator.indicatorvalue_set.get(
+                        date=date,
+                        geometry=geometry
+                    )
+                    return HttpResponseBadRequest('The value on this date already exist')
+                except IndicatorValue.DoesNotExist:
+                    pass
+                indicator_values.append(
+                    indicator.save_value(
+                        date, geometry, value, extra_data, data.get('details', None))
+                )
+            return Response(
+                IndicatorDetailValueSerializer(indicator_values, many=True).data
+            )
+        except Indicator.DoesNotExist:
+            return HttpResponseBadRequest('Indicator does not exist')
+        except Geometry.DoesNotExist:
+            return HttpResponseBadRequest('Geometry does not exist')
+        except KeyError as e:
+            return HttpResponseBadRequest(f'{e} is required')
+        except IndicatorValueRejectedError as e:
+            return HttpResponseBadRequest(f'{e}')
+        except NameError:
+            return HttpResponseBadRequest(f'replace needs to be True or False')
 
 
 class IndicatorReportingUnits(APIView):

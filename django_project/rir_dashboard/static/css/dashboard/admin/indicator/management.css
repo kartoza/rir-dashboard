@@ -101,3 +101,11 @@
 .create-harvester {
     color: darkgreen !important;
 }
+
+.global-harvester-button {
+    height: 30px;
+}
+
+.global-harvester-button button {
+    margin-left: 5px;
+}

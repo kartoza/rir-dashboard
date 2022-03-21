@@ -24,6 +24,7 @@ require([
     mapView = new Map();
     map = mapView.map;
     new LayersControl(map);
+    const docStyle = getComputedStyle(document.documentElement);
 
     function initEvent() {
         // --------------------------------------------------------------------
@@ -151,9 +152,12 @@ require([
                 // doing toggle side panel
                 if (!$rigthSide.data('hidden')) {
                     $rigthSide.removeClass('show');
-                    $rigthSide.animate({ right: `-${width}px` }, 100, function () {
-                        $rigthSide.data('hidden', true);
-                    });
+                    $rigthSide.animate(
+                        {
+                            right: `-${docStyle.getPropertyValue('--right-side-width').trim()}`
+                        }, 100, function () {
+                            $rigthSide.data('hidden', true);
+                        });
                 } else {
                     $rigthSide.addClass('show');
                     $rigthSide.animate({ right: `0` }, 100, function () {

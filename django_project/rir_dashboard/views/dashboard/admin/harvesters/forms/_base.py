@@ -52,7 +52,7 @@ class HarvesterFormView(AdminView):
         harvester = None
         try:
             harvester = self.get_harvester()
-            for _map in harvester.harvestermappingvalue_set.all():
+            for _map in harvester.harvestermappingvalue_set.order_by('remote_value'):
                 mapping.append(
                     {
                         'remote_value': _map.remote_value,
@@ -121,6 +121,7 @@ class HarvesterFormView(AdminView):
         try:
             data = request.POST.copy()
             data['attribute_extra_columns'] = ','.join(request.POST.getlist('attribute_extra_columns'))
+            data['attribute_extra_keys'] = ','.join(request.POST.getlist('attribute_extra_keys'))
             harvester_class = data['harvester']
             try:
                 harvester = self.get_harvester()

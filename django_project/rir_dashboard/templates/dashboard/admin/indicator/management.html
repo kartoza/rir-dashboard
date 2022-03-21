@@ -8,7 +8,7 @@
     {% csrf_token %}
     <div class="section box-shadow-bottom">
         <div style="margin: 50px">
-            <div style="height: 30px">
+            <div class="global-harvester-button">
                 <a href="{% url "meta-harvester-view" instance.slug %}">
                     <button class=" main-button pull-right">Meta Harvester</button>
                 </a>
@@ -22,7 +22,7 @@
                                 <div id="data-{{ indicator.id }}" class="block block-value" data-id="{{ indicator.id }}">
                                     <div class="block-content row">
                                         <div class="col">
-                                            {{ indicator.name }}
+                                            {{ indicator.full_name }}
                                         </div>
                                         <div style="margin-right: 10px">
                                             {% if not indicator.harvester or indicator.harvester.harvester_class != external_exposed_api %}

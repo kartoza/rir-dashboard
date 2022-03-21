@@ -72,6 +72,7 @@ class Harvester(models.Model):
             'User who run the harvester.'),
         on_delete=models.CASCADE
     )
+
     def __str__(self):
         return str(self.unique_id)
 

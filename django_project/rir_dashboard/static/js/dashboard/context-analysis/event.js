@@ -20,6 +20,7 @@ const evt = {
     GEOMETRY_INDICATOR_CLICKED: 'geometry-indicator:clicked', // Geometry clicked
     DATE_CHANGED: 'date:changed', // When global date changed
     INDICATOR_TO_DETAIL: 'indicator:to-detail',
+    INDICATOR_DETAIL_LIST_CHANGED: 'indicator:detail-list-changed',
 };
 define([], function () {
     return Backbone.View.extend({

@@ -11,3 +11,7 @@ __pycache__/
 
 django_project/.pycharm_helpers/
 celerybeat-schedule*
+
+deployment/node-red/*
+!deployment/node-red/flows.json
+!deployment/node-red/package.json
