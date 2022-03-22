@@ -89,11 +89,11 @@ class Harvester(models.Model):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        self.save_attributes()
+        self.save_default_attributes()
 
-    def save_attributes(self, **kwargs):
+    def save_default_attributes(self, **kwargs):
         """
-        Save attributes for the harvesters
+        Save default attributes for the harvesters
         """
         from rir_harvester.models import HarvesterAttribute
         harvester = self.get_harvester_class
@@ -102,6 +102,42 @@ class Harvester(models.Model):
                 harvester=self,
                 name=key
             )
+
+    def save_attributes(self, data):
+        """
+        Save attributes for the harvesters
+        """
+        from rir_harvester.models.harvester_attribute import HarvesterAttribute
+        for key, value in data.items():
+            try:
+                attribute = self.harvesterattribute_set.get(
+                    name=key
+                )
+                attribute.value = value
+                attribute.save()
+            except HarvesterAttribute.DoesNotExist:
+                pass
+
+    def save_mapping(self, data):
+        """
+        Save mapping for the harvesters
+        """
+        from rir_harvester.models.harvester_attribute import HarvesterMappingValue
+        for key, value in data.items():
+            try:
+                mapping_platform = key
+                mapping_remote = value
+                mapping, created = HarvesterMappingValue.objects.get_or_create(
+                    harvester=self,
+                    remote_value=mapping_remote,
+                    defaults={
+                        'platform_value': mapping_platform
+                    }
+                )
+                mapping.platform_value = mapping_platform
+                mapping.save()
+            except KeyError:
+                pass
 
     def get_attributes(self):
         """

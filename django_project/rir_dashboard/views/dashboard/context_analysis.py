@@ -34,19 +34,6 @@ class ContextAnalysisView(BaseDashboardView):
 
         indicators_in_groups = self.instance.get_indicators(self.request.user)
 
-        # intervention
-        # interventions = []
-        # for program_instance in self.instance.programs_instance:
-        #     intervention = program_instance.programintervention_set.filter(
-        #         scenario_level__level=overall_scenario_level).first()
-        #     if intervention:
-        #         interventions.append(intervention)
-        # try:
-        #     context['overall_scenario'] = context['scenarios'][overall_scenario_level - 1]
-        # except IndexError:
-        #     context['overall_scenario'] = 1
-        # context['interventions'] = interventions
-
         context['indicators_in_groups'] = indicators_in_groups
         context['today_date'] = date.today().strftime('%Y-%m-%d')
         context['context_layers'] = json.loads(
