@@ -255,6 +255,12 @@ function copyToClipboard(element) {
 }
 
 function numberWithCommas(x, decimalNum = 2) {
+    let numFloat = parseFloat(x);
+    if (!isNaN(numFloat)) {
+        x = numFloat;
+    } else {
+        return x
+    }
     if (typeof x !== 'number') {
         return x
     }

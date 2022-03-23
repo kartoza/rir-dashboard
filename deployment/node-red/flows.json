@@ -70,7 +70,7 @@
         "type": "function",
         "z": "cd959a180dca7516",
         "name": "Parse data to list",
-        "func": "results = msg.payload.results;\n\n// clean data by [section][geometry]\n\nfunction extractedDate(date) {\n    const year = date.getUTCFullYear();\n    const month = (date.getUTCMonth() + 1).toLocaleString('en-US', {\n        minimumIntegerDigits: 2,\n        useGrouping: false\n    })\n    const day = date.getUTCDate().toLocaleString('en-US', {\n        minimumIntegerDigits: 2,\n        useGrouping: false\n    })\n    return year + '-' + month + '-' + day\n}\n\nvar currentDate = extractedDate(new Date());\n\nconst cleanData = {}\nresults.forEach(result => {\n    result.sections_data.forEach(section => {\n        if (!cleanData[section.name]) {\n            cleanData[section.name] = {}\n        }\n        result.locations_data.forEach(geometry => {\n            if (!cleanData[section.name][geometry.pcode]) {\n                cleanData[section.name][geometry.pcode] = {\n                    'count': 0,\n                    'details': []\n                }\n            }\n            if(result.status === 'active') {\n                cleanData[section.name][geometry.pcode]['count'] += 1\n            }\n            cleanData[section.name][geometry.pcode]['details'].push({\n                'reference_number': result.reference_number,\n                'partner_name': result.partner_name,\n                'title': result.title,\n                'start_date': result.start_date,\n                'end_date': result.end_date,\n                'status': result.status,\n                'budget_total': result.budget_total,\n                'budget_currency': result.budget_currency,\n            })\n        })\n    })\n})\nmsg.payload = cleanData;\nreturn msg;",
+        "func": "results = msg.payload.results;\n\n// clean data by [section][geometry]\n\nfunction extractedDate(date) {\n    const year = date.getUTCFullYear();\n    const month = (date.getUTCMonth() + 1).toLocaleString('en-US', {\n        minimumIntegerDigits: 2,\n        useGrouping: false\n    })\n    const day = date.getUTCDate().toLocaleString('en-US', {\n        minimumIntegerDigits: 2,\n        useGrouping: false\n    })\n    return year + '-' + month + '-' + day\n}\n\nfunction numberWithCommas(x, decimalNum = 2) {\n    let numFloat = parseFloat(x);\n    if (!isNaN(numFloat)) {\n        x = numFloat;\n    } else {\n        return x\n    }\n    if (typeof x !== 'number') {\n        return x\n    }\n    x = x.toFixed(decimalNum)\n    let number = x.split('.')[0];\n    let decimal = x.split('.')[1];\n    let string = number.replace(/\\B(?=(\\d{3})+(?!\\d))/g, \",\");\n    if (decimal && parseInt(decimal)) {\n        string += '.' + decimal.replace(/[0]+$/, '');\n    }\n    return string;\n}\n\nvar currentDate = extractedDate(new Date());\n\nconst cleanData = {}\nresults.forEach(result => {\n    result.sections_data.forEach(section => {\n        if (!cleanData[section.name]) {\n            cleanData[section.name] = {}\n        }\n        result.locations_data.forEach(geometry => {\n            if (!cleanData[section.name][geometry.pcode]) {\n                cleanData[section.name][geometry.pcode] = {\n                    'count': 0,\n                    'details': []\n                }\n            }\n            if(result.status === 'active') {\n                cleanData[section.name][geometry.pcode]['count'] += 1\n            }\n            cleanData[section.name][geometry.pcode]['details'].push({\n                'reference_number': result.reference_number,\n                'partner_name': result.partner_name,\n                'title': result.title,\n                'start_date': result.start_date,\n                'end_date': result.end_date,\n                'status': result.status,\n                'budget_total': numberWithCommas(result.budget_total) +' '+ result.budget_currency\n            })\n        })\n    })\n})\nmsg.payload = cleanData;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -80,7 +80,6 @@
         "y": 120,
         "wires": [
             [
-                "3296532318fa5011",
                 "d44da3456a357f19"
             ]
         ]
@@ -525,22 +524,6 @@
         "statusType": "auto",
         "x": 1270,
         "y": 640,
-        "wires": []
-    },
-    {
-        "id": "3296532318fa5011",
-        "type": "debug",
-        "z": "cd959a180dca7516",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 870,
-        "y": 40,
         "wires": []
     },
     {
