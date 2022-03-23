@@ -97,7 +97,7 @@
                         {% if harvester_attributes %}
                             {% for attribute in harvester_attributes %}
                                 <tr>
-                                    <td valign="top">{{ attribute.human_name }}</td>
+                                    <td valign="top">{{ attribute.title }}</td>
                                     <td name="{{ attribute.name }}">
                                         {% if attribute.value %}
                                             {{ attribute.value|safe }}

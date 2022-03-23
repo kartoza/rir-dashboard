@@ -143,12 +143,22 @@ class Harvester(models.Model):
         """
         Get attributes keys
         """
+        from rir_data.models.instance import Instance
         from rir_harvester.models import HarvesterAttribute
         ids = []
         attributes = []
-        for attribute in self.get_harvester_class.additional_attributes().keys():
+        instance = None
+        try:
+            instance = Instance.objects.get(slug=self.harvesterattribute_set.get(name='instance_slug').value)
+        except (
+                HarvesterAttribute.DoesNotExist,
+                Instance.DoesNotExist
+        ):
+            pass
+        for name, attribute in self.get_harvester_class.additional_attributes(instance=instance).items():
             try:
-                attr = self.harvesterattribute_set.get(name=attribute)
+                attr = self.harvesterattribute_set.get(name=name)
+                attr.title = attribute['title'] if 'title' in attribute else attr.human_name
                 if attr.value:
                     attributes.append(attr)
                     ids.append(attr.id)
