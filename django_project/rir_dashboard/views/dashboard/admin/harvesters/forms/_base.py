@@ -143,7 +143,7 @@ class HarvesterFormView(AdminView):
 
             harvester.harvester_class = harvester_class
             harvester.save()
-            harvester.save_attributes(instance=self.instance)
+            harvester.save_default_attributes(instance=self.instance)
 
             for key, value in data.items():
                 if value:

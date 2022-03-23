@@ -175,10 +175,16 @@ class IndicatorTest(TestCase):
         )
         values = indicator.values(geom_country, country, datetime.today())
         predicted_value = {
-            'geometry_id': geom_country.id, 'geometry_code': geom_country.identifier,
-            'geometry_name': geom_country.name, 'value': 2.0, 'scenario_value': 2,
-            'scenario_text': rules[1].name, 'text_color': None,
-            'background_color': rules[1].color}
+            'indicator_id': indicator.id,
+            'geometry_id': geom_country.id,
+            'geometry_code': geom_country.identifier,
+            'geometry_name': geom_country.name,
+            'value': 2.0,
+            'scenario_value': 2,
+            'scenario_text': rules[1].name,
+            'text_color': None,
+            'background_color': rules[1].color
+        }
         for key, value in values[0].items():
             self.assertEquals(
                 value, predicted_value[key]

@@ -31,7 +31,7 @@ class BaseHarvester(ABC):
     def __init__(self, harvester: Harvester):
         self.harvester = harvester
         for attribute in harvester.harvesterattribute_set.all():
-            self.attributes[attribute.name] = attribute.value
+            self.attributes[attribute.name] = attribute.value if attribute.value else attribute.file
         for attribute in harvester.harvestermappingvalue_set.all():
             self.mapping[attribute.remote_value] = attribute.platform_value
 

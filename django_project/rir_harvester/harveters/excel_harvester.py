@@ -7,7 +7,7 @@ from rir_harvester.harveters._base import (
     BaseHarvester, HarvestingError
 )
 from rir_data.models import (
-    Instance, Geometry, Indicator, IndicatorValue, IndicatorExtraValue
+    Instance, Geometry, Indicator, IndicatorValue
 )
 
 
@@ -52,7 +52,7 @@ class ExcelHarvester(BaseHarvester):
             instance = kwargs['instance']
             for indicator in instance.indicators.order_by('name'):
                 attr[indicator.name] = {
-                    'title': "Column Name: " + indicator.name,
+                    'title': "Column Name: " + indicator.full_name,
                     'description': indicator.description,
                     'class': 'indicator-name',
                     'required': False,
@@ -68,21 +68,27 @@ class ExcelHarvester(BaseHarvester):
 
     def get_records(self):
         """ Get records form upload session """
-        _file = self.harvester.harvesterattribute_set.get(name='file').file
+        _file_attr = self.harvester.harvesterattribute_set.get(name='file')
+        _file = _file_attr.file
 
         records = []
         if _file:
             _file.seek(0)
-            sheet = None
-            if str(_file).split('.')[-1] == 'xls':
-                sheet = xls_get(_file)
-            elif str(_file).split('.')[-1] == 'xlsx':
-                sheet = xlsx_get(_file)
-            if sheet:
-                try:
-                    records = sheet[self.attributes.get('sheet_name', '')]
-                except KeyError:
-                    raise HarvestingError(f'Sheet name : {self.attributes.get("sheet_name", "")} does not exist.')
+        elif _file_attr.value:
+            _file = _file_attr.value
+        else:
+            raise HarvestingError('File is not found')
+
+        sheet = None
+        if str(_file).split('.')[-1] == 'xls':
+            sheet = xls_get(_file)
+        elif str(_file).split('.')[-1] == 'xlsx':
+            sheet = xlsx_get(_file)
+        if sheet:
+            try:
+                records = sheet[self.attributes.get('sheet_name', '')]
+            except KeyError:
+                raise HarvestingError(f'Sheet name : {self.attributes.get("sheet_name", "")} does not exist.')
         return records
 
     def _process(self):
