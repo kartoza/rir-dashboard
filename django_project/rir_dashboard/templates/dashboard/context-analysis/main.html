@@ -222,8 +222,7 @@
                                         {# For the space #}
                                         {% for indicator in group.indicators %}
                                             <tr id="indicator-{{ indicator.id }}" data-group="{{ group_name }}"
-                                                class="indicator-{{ indicator.id }} group-row indicator-row {% if not indicator.show_in_context_analysis %}no-context-analysis hide{% endif %}{% if not indicator.object.url_data_template %}disabled{% endif %}"
-                                                {% if not indicator.object.url_data_template %}title="There is no data for for this time period. Select a different time period or ask your administrator to change the aggregation rules to show the last recorded values."{% endif %}
+                                                class="indicator-{{ indicator.id }} group-row indicator-row {% if not indicator.show_in_context_analysis %}no-context-analysis hide{% endif %} disabled"
                                                 style="display: none">
                                                 <td class="indicator-name">
                                                     <div class="row">
@@ -235,7 +234,7 @@
                                                                    data-url="{{ indicator.object.url_data_template }}"
                                                                    data-levels="{{ indicator.object.levels }}"
                                                                    data-unit="{% if indicator.object.unit %}{{ indicator.object.unit }}{% endif %}"
-                                                                   {% if not indicator.object.url_data_template %}disabled{% endif %}>
+                                                                   disabled>
                                                         </div>
                                                         <div class="col">
                                                             <div class="name">

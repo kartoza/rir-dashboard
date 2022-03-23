@@ -28,15 +28,21 @@ require([
 
             $.each(data.indicators_in_groups, function (groupName, groupValue) {
                 $.each(groupValue.indicators, function (idx, indicator) {
-                    indicatorLatestDate[`${indicator.id}`] = `${indicator.latest_date}`;
-                    $(`#indicator-${indicator.id} .scenario-bullet`).addClass(`scenario-${indicator.scenario_value}`)
-                    $(`#indicator-${indicator.id} td[data-scenario-level='${indicator.scenario_value}']`).addClass(`scenario-${indicator.scenario_value}`);
-                    const $input = $(`#indicator-checkbox-${indicator.id}`);
-                    $input.attr('data-id', indicator.id);
-                    $input.attr('data-name', indicator.name);
-                    $input.attr('data-scenario', indicator.scenario_value);
-                    $(`#indicator-${indicator.id}`).closest('.group').find('.scenario-bullet').addClass(`scenario-${groupValue.overall_scenario}`)
-                    $(`#indicator-${indicator.id}`).closest('.group').find(`td[data-scenario-level='${groupValue.overall_scenario}']`).addClass(`scenario-${groupValue.overall_scenario}`)
+                    if (indicator.scenario_value !== undefined) {
+                        indicatorLatestDate[`${indicator.id}`] = `${indicator.latest_date}`;
+                        $(`#indicator-${indicator.id}`).removeClass("disabled");
+                        $(`#indicator-${indicator.id} .scenario-bullet`).addClass(`scenario-${indicator.scenario_value}`)
+                        $(`#indicator-${indicator.id} td[data-scenario-level='${indicator.scenario_value}']`).addClass(`scenario-${indicator.scenario_value}`);
+                        const $input = $(`#indicator-checkbox-${indicator.id}`);
+                        $input.prop("disabled", false);
+                        $input.attr('data-id', indicator.id);
+                        $input.attr('data-name', indicator.name);
+                        $input.attr('data-scenario', indicator.scenario_value);
+                        $(`#indicator-${indicator.id}`).closest('.group').find('.scenario-bullet').addClass(`scenario-${groupValue.overall_scenario}`)
+                        $(`#indicator-${indicator.id}`).closest('.group').find(`td[data-scenario-level='${groupValue.overall_scenario}']`).addClass(`scenario-${groupValue.overall_scenario}`)
+                    } else {
+                        $(`#indicator-${indicator.id}`).attr("title", "There is no data for for this indicator.");
+                    }
                 })
             });
             $('.scenario-header .scenario-bullet').addClass(`scenario-${data.overall_scenario.level}`)
