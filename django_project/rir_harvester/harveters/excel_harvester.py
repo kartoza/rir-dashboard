@@ -1,5 +1,4 @@
 import json
-from collections import OrderedDict
 from datetime import datetime
 from django.db import transaction
 from pyexcel_xls import get_data as xls_get
