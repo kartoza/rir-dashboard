@@ -1,5 +1,7 @@
 from django.test.testcases import TestCase
-from rir_data.tests.model_factories import IndicatorF, InstanceF, IndicatorGroupF, GeometryLevelNameF, GeometryF
+from rir_data.tests.model_factories import (
+    IndicatorF, InstanceF, IndicatorGroupF, GeometryLevelNameF, GeometryF, IndicatorScenarioRuleF
+)
 
 
 class BaseHarvesterTest(TestCase):
@@ -14,6 +16,10 @@ class BaseHarvesterTest(TestCase):
             ),
             geometry_reporting_level=level
         )
+        IndicatorScenarioRuleF(indicator=self.indicator, rule='x==1'),
+        IndicatorScenarioRuleF(indicator=self.indicator, rule='x==2'),
+        IndicatorScenarioRuleF(indicator=self.indicator, rule='x==3'),
+        IndicatorScenarioRuleF(indicator=self.indicator, rule='x==4'),
 
         GeometryF(
             identifier='A',

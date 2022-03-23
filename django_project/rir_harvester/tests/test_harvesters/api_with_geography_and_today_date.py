@@ -5,8 +5,8 @@ from rir_harvester.tests.model_factories import HarvesterF
 from rir_harvester.tests.test_harvesters._base import BaseHarvesterTest
 
 
-class APIWithGeograpyAndTodayDate(BaseHarvesterTest):
-    """ Test for Harvester : APIWithGeograpyAndDate """
+class APIWithGeograpyAndTodayDateTest(BaseHarvesterTest):
+    """ Test for Harvester : APIWithGeograpyAndTodayDate """
 
     def test_no_attr_error(self):
         harvester = HarvesterF(

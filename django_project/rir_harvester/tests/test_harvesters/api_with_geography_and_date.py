@@ -5,7 +5,7 @@ from rir_harvester.tests.model_factories import HarvesterF
 from rir_harvester.tests.test_harvesters._base import BaseHarvesterTest
 
 
-class APIWithGeograpyAndDate(BaseHarvesterTest):
+class APIWithGeograpyAndDateTest(BaseHarvesterTest):
     """ Test for Harvester : APIWithGeograpyAndDate """
 
     def test_no_attr_error(self):

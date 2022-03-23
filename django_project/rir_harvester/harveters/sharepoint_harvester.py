@@ -112,8 +112,9 @@ class SharepointHarvester(BaseHarvester):
 
             # check index of extra data
             extra_data = {}
-            for extra in self.attributes['extra_columns'].split(','):
-                extra_data[extra] = headers.index(extra)
+            if 'extra_columns' in self.attributes and self.attributes['extra_columns']:
+                for extra in self.attributes['extra_columns'].split(','):
+                    extra_data[extra] = headers.index(extra)
 
             # Save the data in atomic
             # When 1 is error, we need to raise exeptions
