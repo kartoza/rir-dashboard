@@ -1,16 +1,14 @@
 import json
 import os
 from django.db import transaction
-from collections import OrderedDict
 from datetime import datetime
 from pyexcel_xls import get_data as xls_get
-from pyexcel_xlsx import get_data as xlsx_get, save_data
-from django.utils.timezone import now
+from pyexcel_xlsx import get_data as xlsx_get
 from rir_harvester.harveters._base import (
     BaseHarvester, HarvestingError
 )
 from rir_data.models import (
-    Instance, Geometry, Indicator, IndicatorValue, IndicatorExtraValue
+    Geometry, IndicatorValue, IndicatorExtraValue
 )
 
 
@@ -67,25 +65,6 @@ class SharepointHarvester(BaseHarvester):
             },
         }
         return attr
-
-    def get_records(self):
-        """ Get records form upload session """
-        _file = self.harvester.harvesterattribute_set.get(name='file').file
-
-        records = []
-        if _file:
-            _file.seek(0)
-            sheet = None
-            if str(_file).split('.')[-1] == 'xls':
-                sheet = xls_get(_file)
-            elif str(_file).split('.')[-1] == 'xlsx':
-                sheet = xlsx_get(_file)
-            if sheet:
-                try:
-                    records = sheet[self.attributes.get('sheet_name', '')]
-                except KeyError:
-                    raise HarvestingError(f'Sheet name : {self.attributes.get("sheet_name", "")} does not exist.')
-        return records
 
     def _process(self):
         """ Run the harvester """

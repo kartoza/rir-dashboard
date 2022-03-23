@@ -1,5 +1,7 @@
+import json
 from collections import OrderedDict
 from datetime import datetime
+from django.db import transaction
 from pyexcel_xls import get_data as xls_get
 from pyexcel_xlsx import get_data as xlsx_get, save_data
 from django.utils.timezone import now
@@ -38,6 +40,10 @@ class ExcelHarvester(BaseHarvester):
             'sheet_name': {
                 'title': "Sheet name",
                 'description': "Sheet that will be used"
+            },
+            'row_number_for_header': {
+                'title': "Row Number: Header",
+                'description': "Row number that will be used as header."
             },
             'column_name_administration_code': {
                 'title': "Column Name: Administration Code",
@@ -93,29 +99,14 @@ class ExcelHarvester(BaseHarvester):
 
     def _process(self):
         """ Run the harvester """
-
+        default_attr = ExcelHarvester.additional_attributes()
         # fetch data
         self._update('Fetching data')
-        records = self.get_records()
+
         try:
             instance = Instance.objects.get(slug=self.attributes['instance_slug'])
         except Instance.DoesNotExist:
             raise HarvestingError('The instance is not found, please reupload.')
-
-        # get keys
-        indicators_column = {}
-        key_column_name_administration_code = None
-        try:
-            key_column_name_administration_code = records[0].index(self.attributes['column_name_administration_code'])
-        except ValueError as e:
-            if 'not in list' in str(e):
-                raise HarvestingError(str(e).replace('is not in list', '') + ' column is not found')
-
-        for indicator in instance.indicators:
-            try:
-                indicators_column[records[0].index(self.attributes[indicator.name])] = indicator
-            except ValueError:
-                pass
 
         # date
         date = now().date()
@@ -125,61 +116,98 @@ class ExcelHarvester(BaseHarvester):
             except ValueError:
                 raise HarvestingError('Date is not in format %Y-%m-%d')
 
-        # process data
-        total = len(records[1:])
-        output_records = []
-        geometries = {}
-        for idx, record in enumerate(records[1:]):
-            self._update(f'Processing line {idx + 2}/{total + 2}')
-            administrative_code = record[key_column_name_administration_code]
+            # format data
+        row_number_for_header = 'row_number_for_header'
+        try:
+            column_header = int(self.attributes[row_number_for_header])
+        except ValueError:
+            raise HarvestingError(f"{default_attr[row_number_for_header]['title']} is not an integer")
 
-            # we check the values per indicator
-            result = []
-            for idx, indicator in indicators_column.items():
-                value = record[idx]
+        records = self.get_records()[column_header - 1:]
+        headers = records[0]
+
+        # get keys
+        indicators_column = {}
+        key_column_name_administration_code = None
+        try:
+            key_column_name_administration_code = headers.index(self.attributes['column_name_administration_code'])
+        except ValueError as e:
+            if 'not in list' in str(e):
+                raise HarvestingError(str(e).replace('is not in list', '') + ' column is not found')
+
+        for indicator in instance.indicators:
+            try:
+                indicators_column[headers.index(self.attributes[indicator.name])] = indicator
+            except ValueError:
+                pass
+
+        # Save the data in atomic
+        # When 1 is error, we need to raise exeptions
+        success = True
+        details = []
+        error_separator = ':error:'
+        with transaction.atomic():
+            details.append(headers)
+            total = len(records[1:])
+            for record_idx, record in enumerate(records[1:]):
+                self._update(f'Processing line {record_idx + column_header}/{total + column_header}')
+                detail = [str(r) for r in record]
+                administrative_code = record[key_column_name_administration_code]
+
+                geometry = None
                 try:
-                    if value is None or value == '':
-                        result.append(f'{indicator.name} : Value is empty')
-                    else:
-                        try:
-                            if float(value) < indicator.min_value or float(value) > indicator.max_value:
-                                result.append(f'{indicator.name} : Value is not between {indicator.min_value}-{indicator.max_value}')
-                                continue
-                        except ValueError:
-                            rule = indicator.indicatorscenariorule_set.filter(name__iexact=value).first()
-                            if not rule:
-                                result.append(f'{indicator.name} : Value is not recognized')
-                                continue
-                            value = float(rule.rule.replace(' ', '').replace('x==', ''))
-
-                        geometry = geometries[administrative_code] if administrative_code in geometries \
-                            else indicator.reporting_units.get(identifier=administrative_code)
-                        value = float(value)
-                        indicator_value, created = IndicatorValue.objects.get_or_create(
-                            indicator=indicator, date=date, geometry=geometry,
-                            defaults={
-                                'value': value
-                            }
-                        )
-                        indicator_value.value = value
-                        indicator_value.save()
-                        result.append(f'{indicator.name} :' + ('Created' if created else 'Replaced'))
-                except Indicator.DoesNotExist:
-                    result.append(f'{indicator.name} : Indicator does not exist')
+                    geometry = indicator.reporting_units.get(identifier=administrative_code)
                 except Geometry.DoesNotExist:
-                    result.append(f'{indicator.name} : Geometry does not exist')
-                except ValueError:
-                    result.append(f'{indicator.name} : Value is not a number')
-                except TypeError:
-                    result.append(f'{indicator.name} : Date format is not Year-Month-Day')
-            output_records.append([', '.join(result)] + record)
+                    detail[key_column_name_administration_code] += error_separator + 'Geometry does not exist'
 
-        output_records = [['Result'] + records[0]] + output_records
+                # we check the values per indicator
+                for idx, indicator in indicators_column.items():
+                    value = record[idx]
+                    try:
+                        value = value.strip()
+                    except AttributeError:
+                        pass
+                    try:
+                        if value is None or value == '':
+                            continue
+                        else:
+                            try:
+                                if float(value) < indicator.min_value or float(value) > indicator.max_value:
+                                    detail[idx] += error_separator + f'Value is not between {indicator.min_value}-{indicator.max_value}'
+                                    continue
+                            except ValueError:
+                                rule = indicator.indicatorscenariorule_set.filter(name__iexact=value).first()
+                                if not rule:
+                                    detail[idx] += error_separator + 'Value is not recognized'
+                                    continue
+                                value = float(rule.rule.replace(' ', '').replace('x==', ''))
 
-        # save output reports to excel file
-        data = OrderedDict()
-        data.update(
-            {"output": output_records}
-        )
-        save_data(self.harvester.report_file, data)
-        self.done_message = f'Please check the report in this <a href="{self.harvester.report_file_url}">REPORT FILE</a>'
+                            value = float(value)
+                            if geometry:
+                                indicator_value, created = IndicatorValue.objects.get_or_create(
+                                    indicator=indicator,
+                                    date=date,
+                                    geometry=geometry,
+                                    defaults={
+                                        'value': value
+                                    }
+                                )
+                                indicator_value.value = value
+                                indicator_value.save()
+                    except Indicator.DoesNotExist:
+                        detail[idx] += error_separator + 'Indicator does not exist'
+                    except ValueError:
+                        detail[key_column_name_administration_code] += error_separator + 'Value is not a number'
+
+                # check if error separator is in detail
+                if error_separator in json.dumps(detail):
+                    success = False
+
+                # -----------------------------------------------------------------------
+                # End of validation
+                # -----------------------------------------------------------------------
+                details.append(detail)
+
+            if not success:
+                self.log.detail = json.dumps(details)
+                raise HarvestingError('Progress did not success. No data saved. Please check the detail to fix the error.')

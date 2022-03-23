@@ -29,6 +29,7 @@ class APIWithGeograpyAndDate(BaseHarvesterTest):
             {
                 'date': '2010-01-01',
                 'sheet_name': 'Sheet 1',
+                'row_number_for_header': 1,
                 'column_name_administration_code': 'geom_code',
                 'instance_slug': self.instance.slug,
                 'file': filepath,
