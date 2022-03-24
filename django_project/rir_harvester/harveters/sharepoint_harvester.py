@@ -1,5 +1,6 @@
 import json
 import os
+from django.conf import settings
 from django.db import transaction
 from datetime import datetime
 from pyexcel_xls import get_data as xls_get
@@ -84,7 +85,7 @@ class SharepointHarvester(BaseHarvester):
             raise HarvestingError(f"{default_attr[row_number_for_header]['title']} is not an integer")
 
         # get data from file
-        filepath = self.attributes['file']
+        filepath = os.path.join(settings.ONEDRIVE_ROOT, self.attributes['file'])
         if not os.path.exists(filepath):
             raise HarvestingError(f'File {filepath} does not exist or deleted')
 

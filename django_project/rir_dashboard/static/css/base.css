@@ -128,7 +128,13 @@ a:hover {
 .white-button:disabled,
 .green-button:disabled {
     opacity: 0.5;
-    cursor: progress;
+    cursor: not-allowed;
+}
+
+.main-button:disabled:hover,
+.white-button:disabled:hover,
+.green-button:disabled:hover {
+    opacity: 0.5;
 }
 
 /* for leaflet */
@@ -289,4 +295,8 @@ table .helptext {
     100% {
         transform: rotate(360deg);
     }
+}
+
+.jstree-themeicon-custom {
+    background-size: 22px !important;
 }

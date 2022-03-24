@@ -1,7 +1,7 @@
-import os
 from django.conf import settings
 from rir_harvester.harveters.sharepoint_harvester import SharepointHarvester
-from ._base import HarvesterFormView
+from rir_dashboard.views.dashboard.admin.harvesters.forms._base import HarvesterFormView
+from rir_data.utils import path_to_dict
 
 
 class SharepointHarvesterView(HarvesterFormView):
@@ -14,12 +14,5 @@ class SharepointHarvesterView(HarvesterFormView):
         Return context for specific view by instance
         """
         context = super().context_view
-        sharepoint_files = {}
-        for (dirpath, dirnames, filenames) in os.walk(settings.ONEDRIVE_ROOT):
-            if filenames:
-                filenames.sort()
-                for name in filenames:
-                    if name.endswith(".xls") or name.endswith(".xlsx"):
-                        sharepoint_files[name] = os.path.join(dirpath, name)
-        context['files'] = sharepoint_files
+        context['dir'] = path_to_dict(settings.ONEDRIVE_ROOT, settings.ONEDRIVE_ROOT, ['.xlsx', '.xls'])
         return context

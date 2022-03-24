@@ -30,6 +30,9 @@
                         <li>
                             <a href="/admin/">{% trans "Django Admin" %}</a>
                         </li>
+                        <li>
+                            <a href="{% url "backups-view" %}">{% trans "Backups" %}</a>
+                        </li>
                     {% endif %}
                     <li>
                         <a href="{% url 'logout' %}?next=/">{% trans "Logout" %}</a>

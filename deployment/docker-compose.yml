@@ -4,6 +4,7 @@ volumes:
   static-data:
   media-data:
   database:
+  backups-data:
   rabbitmq:
   node-red-data:
 
@@ -32,7 +33,7 @@ x-common-django:
   volumes:
     - static-data:/home/web/static
     - media-data:/home/web/media
-    - onedrive-data:/onedrive/data
+    - ./onedrive/data:/onedrive/data
   restart: on-failure
 
 services:
@@ -54,6 +55,24 @@ services:
       - POSTGRES_DBNAME=${DATABASE_NAME:-django}
       - USERNAME=${DATABASE_USERNAME:-docker}
       - PASS=${DATABASE_PASSWORD:-docker}
+    restart: on-failure:5
+
+  dbbackups:
+    image: kartoza/pg-backup:13.0
+    container_name: "rir_dashboard_dbbackups"
+    environment:
+      # take care to let the project name below match that
+      # declared in the top of the makefile
+      - DUMPPREFIX=PG_RIR
+      # These are all defaults anyway, but setting explicitly in
+      # case we ever want to ever use different credentials
+      - PGDATABASE=${DATABASE_NAME:-django}
+      - PGHOST=db
+      - PGUSER=${DATABASE_USERNAME:-docker}
+      - PGPASSWORD=${DATABASE_PASSWORD:-docker}
+      - PGPORT=5432
+    volumes:
+      - backups-data:/backups
     restart: on-failure:5
 
   django:
