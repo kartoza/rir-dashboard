@@ -66,11 +66,11 @@ services:
       - DUMPPREFIX=PG_RIR
       # These are all defaults anyway, but setting explicitly in
       # case we ever want to ever use different credentials
-      - PGDATABASE=${DATABASE_NAME:-django}
-      - PGHOST=db
-      - PGUSER=${DATABASE_USERNAME:-docker}
-      - PGPASSWORD=${DATABASE_PASSWORD:-docker}
-      - PGPORT=5432
+      - POSTGRES_USER=${DATABASE_USERNAME:-docker}
+      - POSTGRES_PASS=${DATABASE_PASSWORD:-docker}
+      - POSTGRES_PORT=5432
+      - POSTGRES_HOST=db
+      - POSTGRES_DBNAME=${DATABASE_NAME:-django}
     volumes:
       - backups-data:/backups
     restart: on-failure:5
