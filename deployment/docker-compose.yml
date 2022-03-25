@@ -104,8 +104,8 @@ services:
     container_name: "rir_dashboard_onedrive"
     restart: unless-stopped
     environment:
-      - ONEDRIVE_UID=${PUID}
-      - ONEDRIVE_GID=${PGID}
+      - ONEDRIVE_UID=${PUID:-1000}
+      - ONEDRIVE_GID=${PGID:-1000}
       - ONEDRIVE_RESYNC=1
     volumes:
       - onedrive-conf:/onedrive/conf

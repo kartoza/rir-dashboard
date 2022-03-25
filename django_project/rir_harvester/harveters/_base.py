@@ -109,7 +109,7 @@ class BaseHarvester(ABC):
         self.harvester.is_run = False
         self.harvester.save()
 
-        self.log.end_time = datetime.datetime.now()
+        self.log.end_time = timezone.now()
         self.log.status = LogStatus.ERROR
         self.log.note = message
         self.log.save()
@@ -118,7 +118,7 @@ class BaseHarvester(ABC):
         self.harvester.is_run = False
         self.harvester.save()
 
-        self.log.end_time = datetime.datetime.now()
+        self.log.end_time = timezone.now()
         self.log.status = LogStatus.DONE
         self.log.note = message if message else self.done_message
         self.log.save()
