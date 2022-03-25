@@ -166,3 +166,46 @@ help:
 	@echo "* **permissions** - Update the permissions of shared volumes. Note this will destroy any existing permissions you have in place."
 	@echo "* **rm** - remove all containers."
 	@echo "* **shell-frontend-mapstore** - open a bash shell in the frontend mapstore (where django runs) container."
+
+# ----------------------------------------------------------------------------
+#    DEVELOPMENT C O M M A N D S
+# --no-deps will attach to prod deps if running
+# after running you will have ssh and web ports open (see dockerfile for no's)
+# and you can set your pycharm to use the python in the container
+# Note that pycharm will copy in resources to the /root/ user folder
+# for pydevd etc. If they dont get copied, restart pycharm...
+# ----------------------------------------------------------------------------
+db:
+	@echo
+	@echo "------------------------------------------------------------------"
+	@echo "Running db in production mode"
+	@echo "------------------------------------------------------------------"
+	@docker-compose ${ARGS} up -d db
+
+wait-db:
+	@docker-compose ${ARGS} exec -T db su - postgres -c "until pg_isready; do sleep 5; done"
+
+create-test-db:
+	@docker-compose ${ARGS} exec -T db su - postgres -c "psql -c 'create database test_db;'"
+
+devweb: db
+	@echo
+	@echo "------------------------------------------------------------------"
+	@echo "Running in DEVELOPMENT mode"
+	@echo "------------------------------------------------------------------"
+	@docker-compose ${ARGS} up --no-recreate --no-deps -d dev
+
+sleep:
+	@echo
+	@echo "------------------------------------------------------------------"
+	@echo "Sleep for 50 seconds"
+	@echo "------------------------------------------------------------------"
+	@sleep 50
+	@echo "Done"
+
+devweb-test:
+	@echo
+	@echo "------------------------------------------------------------------"
+	@echo "Running in DEVELOPMENT mode"
+	@echo "------------------------------------------------------------------"
+	@docker-compose exec -T dev python manage.py test --keepdb --noinput

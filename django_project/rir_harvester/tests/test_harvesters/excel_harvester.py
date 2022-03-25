@@ -33,7 +33,7 @@ class ExcelHarvesterTest(BaseHarvesterTest):
                 'column_name_administration_code': 'geom_code',
                 'instance_slug': self.instance.slug,
                 'file': filepath,
-                self.indicator.name: 'Indicator 1'
+                self.indicator.id: 'Indicator 1'
 
             }
         )
