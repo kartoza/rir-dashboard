@@ -105,35 +105,46 @@ define(['js/views/layers/context-layers-draggable'], function (ContextLayerDragg
          */
         initLayer: function (layerData) {
             const self = this;
-            const name = layerData.name;
-            const url = layerData.url;
-            const params = {};
-            $.each(layerData.parameters, function (index, value) {
-                params[index] = value;
-                if (!Number.isInteger(value)) params[index] = decodeURIComponent(value);
-            });
-            const options = {
-                token: layerData.token
-            };
-            const style = layerData.style;
             const layerType = layerData.layer_type;
+
+            // we need to check the params using in url or in parameter model
+            const splitted = layerData.url.splitOnce('?')
+            const url = splitted[0];
+            const params = {};
+            if (splitted[1]) {
+                const rawParams = splitted[1] ? splitted[1] : '';
+                rawParams.split('&').forEach((item) => {
+                    if (item) {
+                        const keyValue = item.splitOnce('=')
+                        params[keyValue[0]] = keyValue[1] ? keyValue[1] : '';
+                    }
+                });
+            } else {
+                $.each(layerData.parameters, function (index, value) {
+                    params[index] = value;
+                    if (!Number.isInteger(value)) params[index] = decodeURIComponent(value);
+                });
+            }
+
             switch (layerType) {
-                case 'ARCGIS':
+                case 'ARCGIS': {
+                    const options = {
+                        token: layerData.token
+                    };
                     const argisLayer = (new EsriLeafletLayer(
-                        name, url, params, options, style
+                        layerData.name, url, params, options, layerData.style
                     ));
                     argisLayer.load().then(output => {
                         self.addLayerToData(layerData, output.layer, argisLayer.getLegend(), output.error);
                     });
                     break;
-                case 'Raster Tile':
+                }
+                case 'Raster Tile': {
                     const layer = L.tileLayer.wms(url, params);
-                    let legend = '';
-                    if (layerData.url_legend) {
-                        legend = `<img src="${layerData.url_legend}">`
-                    }
+                    let legend = layerData.url_legend ? `<img src="${layerData.url_legend}">` : '';
                     self.addLayerToData(layerData, layer, legend);
                     break;
+                }
             }
         },
 

@@ -14,6 +14,15 @@ String.prototype.capitalize = function () {
     return (target.charAt(0).toUpperCase() + target.slice(1)).replaceAll('_', ' ');
 }
 
+String.prototype.splitOnce = function (char) {
+    var i = this.indexOf(char);
+    if (i !== -1) {
+        return [this.slice(0, i), this.slice(i + 1)];
+    }
+    return [this.slice(0)];
+}
+
+
 /**
  * Fuction before ajax
  */

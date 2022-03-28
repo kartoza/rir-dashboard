@@ -243,7 +243,9 @@ define([
                     this.controlComparison._setPosition(position);
                 }
             } else if (!this.indicatorRight && !this.indicatorLeft) {
-                this.detailPanelOpened(this.bySummary.id);
+                if (this.bySummary) {
+                    this.detailPanelOpened(this.bySummary.id);
+                }
                 $('#info-toggle').hide();
                 if (!$('#right-side').data('hidden')) {
                     $('#info-toggle').click();

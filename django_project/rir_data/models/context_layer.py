@@ -31,7 +31,7 @@ class ContextLayer(AbstractTerm):
         on_delete=models.SET_NULL
     )
     url = models.CharField(
-        max_length=256
+        max_length=512
     )
     url_legend = models.CharField(
         max_length=256,
@@ -78,6 +78,11 @@ class ContextLayer(AbstractTerm):
 
     class Meta:
         ordering = ('order',)
+
+    def save(self, *args, **kwargs):
+        if not self.order:
+            self.order = ContextLayer.objects.count()
+        super(ContextLayer, self).save(*args, **kwargs)
 
 
 class ContextLayerParameter(models.Model):

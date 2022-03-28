@@ -91,9 +91,6 @@ class Indicator(AbstractTerm, PermissionModel):
             (AggregationMethod.SUM, 'Aggregate data by sum of all data in the levels'),
         )
     )
-    order = models.IntegerField(
-        default=0
-    )
 
     # threshold
     min_value = models.FloatField(
@@ -115,6 +112,11 @@ class Indicator(AbstractTerm, PermissionModel):
             'A dashboard link can be any URL to e.g. a BI platform or another web site. '
             'This is optional, and when populated, a special icon will be shown next to the indicator which, '
             'when clicked, will open up this URL in a frame over the main map area.')
+    )
+
+    # order of indicator rendered on the list
+    order = models.IntegerField(
+        default=0
     )
 
     def __str__(self):
