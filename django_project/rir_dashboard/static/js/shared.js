@@ -78,19 +78,6 @@ const csvToJson = (string, headers, quoteChar = '"', delimiter = ',') => {
     }), {}));
 }
 
-function numberWithCommas(x) {
-    if (x === null) {
-        return '';
-    } else if (isNaN(x)) {
-        return x;
-    } else if (typeof x === 'string') {
-        return x;
-    } else {
-        x = x.toFixed(2);
-        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    }
-}
-
 
 function compareObjects(object1, object2, key) {
     const obj1 = object1['properties'][key].toUpperCase()
@@ -264,23 +251,29 @@ function copyToClipboard(element) {
 }
 
 function numberWithCommas(x, decimalNum = 2) {
-    let numFloat = parseFloat(x);
-    if (!isNaN(numFloat)) {
-        x = numFloat;
+    if (x === null) {
+        return '';
+    } else if (isNaN(x)) {
+        return x;
     } else {
-        return x
+        let numFloat = parseFloat(x);
+        if (!isNaN(numFloat)) {
+            x = numFloat;
+        } else {
+            return x
+        }
+        if (typeof x !== 'number') {
+            return x
+        }
+        x = x.toFixed(decimalNum)
+        let number = x.split('.')[0];
+        let decimal = x.split('.')[1];
+        let string = number.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        if (decimal && parseInt(decimal)) {
+            string += '.' + decimal.replace(/[0]+$/, '');
+        }
+        return string;
     }
-    if (typeof x !== 'number') {
-        return x
-    }
-    x = x.toFixed(decimalNum)
-    let number = x.split('.')[0];
-    let decimal = x.split('.')[1];
-    let string = number.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    if (decimal && parseInt(decimal)) {
-        string += '.' + decimal.replace(/[0]+$/, '');
-    }
-    return string;
 }
 
 function onlyUnique(value, index, self) {
