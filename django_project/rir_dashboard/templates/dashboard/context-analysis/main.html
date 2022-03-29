@@ -241,18 +241,20 @@
                                                     <div class="legend">
                                                         <table>
                                                             {% for name, value in indicator.object.legends.items %}
-                                                                <tr class="legend-row active" data-id="{{ indicator.id }}" data-level="{{ value.level }}">
-                                                                    <td valign="top">
-                                                                        <input type="checkbox" checked>
-                                                                    </td>
-                                                                    <td valign="top">
-                                                                        <div class="polygon" style="background-color: {{ value.color }}"></div>
-                                                                    </td>
-                                                                    <td>
-                                                                        {{ name }}
-                                                                        <br> <i class="threshold">{{ value.rule_str }}</i>
-                                                                    </td>
-                                                                </tr>
+                                                                {% if value.rule_str %}
+                                                                    <tr class="legend-row active" data-id="{{ indicator.id }}" data-level="{{ value.level }}">
+                                                                        <td valign="top">
+                                                                            <input type="checkbox" checked>
+                                                                        </td>
+                                                                        <td valign="top">
+                                                                            <div class="polygon" style="background-color: {{ value.color }}"></div>
+                                                                        </td>
+                                                                        <td>
+                                                                            {{ name }}
+                                                                            <br> <i class="threshold">{{ value.rule_str }}</i>
+                                                                        </td>
+                                                                    </tr>
+                                                                {% endif %}
                                                             {% endfor %}
                                                         </table>
                                                     </div>

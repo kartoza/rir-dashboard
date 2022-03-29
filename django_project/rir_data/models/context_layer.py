@@ -31,7 +31,8 @@ class ContextLayer(AbstractTerm):
         on_delete=models.SET_NULL
     )
     url = models.CharField(
-        max_length=512
+        max_length=512,
+        help_text="Can put full url with parameters and system will use that. Or system will use 'CONTEXT LAYER PARAMETERS' if there is no parameters on the url."
     )
     url_legend = models.CharField(
         max_length=256,

@@ -12,7 +12,7 @@ class HarvesterIndicatorDetail(AdminView):
 
     @property
     def dashboard_title(self):
-        return f'Harvester for {self.indicator.__str__()}'
+        return f'Harvester for {self.indicator.full_name}'
 
     def get_context(self, harvester, edit_url):
         context = {

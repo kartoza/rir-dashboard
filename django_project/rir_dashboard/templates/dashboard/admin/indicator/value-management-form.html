@@ -93,7 +93,7 @@
         <form id="form" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="header box-shadow-bottom ">
-                Indicator Value Manager Form : {{ indicator.name }}
+                {{ dashboard_title|safe }}
                 <div class="pull-right">
                     Date: <input type="text" id="datepicker" name="date">
                     <button id="submit" class="main-button">Submit</button>

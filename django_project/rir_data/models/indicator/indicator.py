@@ -120,7 +120,7 @@ class Indicator(AbstractTerm, PermissionModel):
     )
 
     def __str__(self):
-        return self.name
+        return self.full_name
 
     def save(self, *args, **kwargs):
         if not self.order:
@@ -182,12 +182,11 @@ class Indicator(AbstractTerm, PermissionModel):
             # check the rule
             for indicator_rule in self.indicatorscenariorule_set.all():
                 try:
-                    if eval(indicator_rule.rule.replace('x', f'{value}').lower()):
+                    if indicator_rule.rule and eval(indicator_rule.rule.replace('x', f'{value}').lower()):
                         return indicator_rule.scenario_level
                 except NameError:
                     pass
-        else:
-            return None
+        return None
 
     def scenario_rule_by_value(self, value):
         """

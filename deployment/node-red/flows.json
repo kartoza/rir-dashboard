@@ -32,7 +32,7 @@
         "repeat": "",
         "crontab": "",
         "once": false,
-        "onceDelay": 0.1,
+        "onceDelay": "0",
         "topic": "",
         "payloadType": "date",
         "x": 90,
@@ -70,7 +70,7 @@
         "type": "function",
         "z": "cd959a180dca7516",
         "name": "Parse data to list",
-        "func": "results = msg.payload.results;\n\n// clean data by [section][geometry]\n\nfunction extractedDate(date) {\n    const year = date.getUTCFullYear();\n    const month = (date.getUTCMonth() + 1).toLocaleString('en-US', {\n        minimumIntegerDigits: 2,\n        useGrouping: false\n    })\n    const day = date.getUTCDate().toLocaleString('en-US', {\n        minimumIntegerDigits: 2,\n        useGrouping: false\n    })\n    return year + '-' + month + '-' + day\n}\n\nfunction numberWithCommas(x, decimalNum = 2) {\n    let numFloat = parseFloat(x);\n    if (!isNaN(numFloat)) {\n        x = numFloat;\n    } else {\n        return x\n    }\n    if (typeof x !== 'number') {\n        return x\n    }\n    x = x.toFixed(decimalNum)\n    let number = x.split('.')[0];\n    let decimal = x.split('.')[1];\n    let string = number.replace(/\\B(?=(\\d{3})+(?!\\d))/g, \",\");\n    if (decimal && parseInt(decimal)) {\n        string += '.' + decimal.replace(/[0]+$/, '');\n    }\n    return string;\n}\n\nvar currentDate = extractedDate(new Date());\n\nconst cleanData = {}\nresults.forEach(result => {\n    result.sections_data.forEach(section => {\n        if (!cleanData[section.name]) {\n            cleanData[section.name] = {}\n        }\n        result.locations_data.forEach(geometry => {\n            if (!cleanData[section.name][geometry.pcode]) {\n                cleanData[section.name][geometry.pcode] = {\n                    'count': 0,\n                    'details': []\n                }\n            }\n            if(result.status === 'active') {\n                cleanData[section.name][geometry.pcode]['count'] += 1\n            }\n            cleanData[section.name][geometry.pcode]['details'].push({\n                'reference_number': result.reference_number,\n                'partner_name': result.partner_name,\n                'title': result.title,\n                'start_date': result.start_date,\n                'end_date': result.end_date,\n                'status': result.status,\n                'budget_total': numberWithCommas(result.budget_total) +' '+ result.budget_currency\n            })\n        })\n    })\n})\nmsg.payload = cleanData;\nreturn msg;",
+        "func": "results = msg.payload.results;\n\n// clean data by [section][geometry]\n\nfunction extractedDate(date) {\n    const year = date.getUTCFullYear();\n    const month = (date.getUTCMonth() + 1).toLocaleString('en-US', {\n        minimumIntegerDigits: 2,\n        useGrouping: false\n    })\n    const day = date.getUTCDate().toLocaleString('en-US', {\n        minimumIntegerDigits: 2,\n        useGrouping: false\n    })\n    return year + '-' + month + '-' + day\n}\n\nfunction numberWithCommas(x, decimalNum = 2) {\n    let numFloat = parseFloat(x);\n    if (!isNaN(numFloat)) {\n        x = numFloat;\n    } else {\n        return x\n    }\n    if (typeof x !== 'number') {\n        return x\n    }\n    x = x.toFixed(decimalNum)\n    let number = x.split('.')[0];\n    let decimal = x.split('.')[1];\n    let string = number.replace(/\\B(?=(\\d{3})+(?!\\d))/g, \",\");\n    if (decimal && parseInt(decimal)) {\n        string += '.' + decimal.replace(/[0]+$/, '');\n    }\n    return string;\n}\n\n\nfunction extractDetails(result){\n    return {\n        'reference_number': result.reference_number,\n        'partner_name': result.partner_name,\n        'title': result.title,\n        'start_date': result.start_date,\n        'end_date': result.end_date,\n        'status': result.status,\n        'budget_total': numberWithCommas(result.budget_total) +' '+ result.budget_currency,\n        'sections': result.sections\n    }\n}\n\nvar currentDate = extractedDate(new Date());\nconst cleanData = {}\nresults.forEach(result => {\n    result.locations_data.forEach(geometry => {\n        // ----------------------------------------------------\n        // this is for all section\n        const indicatorName = 'All';\n        if (!cleanData[indicatorName]) {\n            cleanData[indicatorName] = {}\n        }\n        if (!cleanData[indicatorName][geometry.pcode]) {\n            cleanData[indicatorName][geometry.pcode] = {\n                'count': 0,\n                'details': []\n            }\n        }\n        if(result.status === 'active') {\n            cleanData[indicatorName][geometry.pcode]['count'] += 1\n        }\n        cleanData[indicatorName][geometry.pcode]['details'].push(extractDetails(result))\n        \n        // ----------------------------------------------------\n        // this is for sections\n        result.sections_data.forEach(section => {\n            if (!cleanData[section.name]) {\n                cleanData[section.name] = {}\n            }\n            if (!cleanData[section.name][geometry.pcode]) {\n                cleanData[section.name][geometry.pcode] = {\n                    'count': 0,\n                    'details': []\n                }\n            }\n            if(result.status === 'active') {\n                cleanData[section.name][geometry.pcode]['count'] += 1\n            }\n            cleanData[section.name][geometry.pcode]['details'].push(extractDetails(result))\n        })\n    })\n})\nmsg.payload = cleanData;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -89,7 +89,7 @@
         "type": "function",
         "z": "cd959a180dca7516",
         "name": "Parse data to ready to be pushed",
-        "func": "\n\nfunction extractedDate(date) {\n    const year = date.getUTCFullYear();\n    const month = (date.getUTCMonth() + 1).toLocaleString('en-US', {\n        minimumIntegerDigits: 2,\n        useGrouping: false\n    })\n    const day = date.getUTCDate().toLocaleString('en-US', {\n        minimumIntegerDigits: 2,\n        useGrouping: false\n    })\n    return year + '-' + month + '-' + day\n}\n\nvar currentDate = extractedDate(new Date());\n\nconst pushedData = []\nfor (const [key, values] of Object.entries(msg.payload)) {\n    const indicatorData = []\n    for (const [geom, data] of Object.entries(values)) {\n        indicatorData.push({\n            \"geometry_code\": geom,\n            \"date\": currentDate,\n            \"value\": data.count,\n            \"details\": data.details\n\n        })\n    }\n    pushedData.push({\n        'indicator': key,\n        'data': indicatorData\n    })\n}[]\nmsg.payload = pushedData;\nreturn msg;",
+        "func": "\n\nfunction extractedDate(date) {\n    const year = date.getUTCFullYear();\n    const month = (date.getUTCMonth() + 1).toLocaleString('en-US', {\n        minimumIntegerDigits: 2,\n        useGrouping: false\n    })\n    const day = date.getUTCDate().toLocaleString('en-US', {\n        minimumIntegerDigits: 2,\n        useGrouping: false\n    })\n    return year + '-' + month + '-' + day\n}\n\nvar currentDate = extractedDate(new Date());\n\nconst pushedData = []\nfor (const [key, values] of Object.entries(msg.payload)) {\n    const indicatorData = []\n    for (const [geom, data] of Object.entries(values)) {\n        indicatorData.push({\n            \"geometry_code\": geom,\n            \"date\": currentDate,\n            \"value\": data.count,\n            \"details\": data.details\n\n        })\n    }\n    pushedData.push({\n        'indicator': key,\n        'data': indicatorData\n    })\n}\nmsg.payload = pushedData;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -169,11 +169,16 @@
                 "t": "eq",
                 "v": "C4D/Resilience",
                 "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "All",
+                "vt": "str"
             }
         ],
         "checkall": "true",
         "repair": false,
-        "outputs": 8,
+        "outputs": 9,
         "x": 680,
         "y": 340,
         "wires": [
@@ -200,6 +205,9 @@
             ],
             [
                 "2e105acd8d7d6aae"
+            ],
+            [
+                "342219cfdcfd956b"
             ]
         ]
     },
@@ -527,6 +535,44 @@
         "wires": []
     },
     {
+        "id": "342219cfdcfd956b",
+        "type": "http request",
+        "z": "cd959a180dca7516",
+        "name": "All",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "https://staging.rir.kartoza.com/somalia/api/indicator/48/values/batch",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "bearer",
+        "senderr": false,
+        "x": 970,
+        "y": 700,
+        "wires": [
+            [
+                "88c0a70c848ed8f7"
+            ]
+        ]
+    },
+    {
+        "id": "88c0a70c848ed8f7",
+        "type": "debug",
+        "z": "cd959a180dca7516",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1270,
+        "y": 700,
+        "wires": []
+    },
+    {
         "id": "72b23a6194149421",
         "type": "inject",
         "z": "c1ed5959cf663dc3",
@@ -546,8 +592,8 @@
         "onceDelay": 0.1,
         "topic": "",
         "payloadType": "date",
-        "x": 90,
-        "y": 60,
+        "x": 110,
+        "y": 120,
         "wires": [
             [
                 "3717e5d31b5d4513"
@@ -558,14 +604,14 @@
         "id": "3717e5d31b5d4513",
         "type": "function",
         "z": "c1ed5959cf663dc3",
-        "name": "Put payload data",
-        "func": "msg.headers = {\n    \"Content-Type\": \"multipart/form-data\"\n}\nmsg.payload = {\n    \"month\": 2,\n    \"year\": 2022,\n    \"criteria\": \"year_range\",\n    \"start_year\": 2021,\n    \"end_year\": 2022,\n    \"btnExport\": \"Fetch Data\",\n}\nreturn msg;",
+        "name": "Payload for all data",
+        "func": "// Use this as initiate data\nmsg.headers = {\n    \"Content-Type\": \"multipart/form-data\"\n}\nmsg.payload = {\n    \"criteria\": \"year_range\",\n    \"start_year\": 2021,\n    \"end_year\": 2022,\n    \"btnExport\": \"Fetch Data\",\n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 280,
+        "x": 310,
         "y": 60,
         "wires": [
             [
@@ -579,7 +625,7 @@
         "z": "c1ed5959cf663dc3",
         "name": "",
         "method": "POST",
-        "ret": "obj",
+        "ret": "txt",
         "paytoqs": "ignore",
         "url": "https://www.fsnau.org/ids/exportdata/data.php",
         "tls": "",
@@ -587,16 +633,137 @@
         "proxy": "",
         "authType": "",
         "senderr": false,
-        "x": 510,
-        "y": 60,
+        "x": 550,
+        "y": 120,
         "wires": [
             [
-                "0ed82db0358f10df"
+                "7187ee8c56216988"
             ]
         ]
     },
     {
-        "id": "0ed82db0358f10df",
+        "id": "7187ee8c56216988",
+        "type": "function",
+        "z": "c1ed5959cf663dc3",
+        "name": "Format data",
+        "func": "String.prototype.replaceAll = function (search, replacement) {\n    let target = this;\n    return target.replace(new RegExp(search, 'g'), replacement);\n}\n\nconst data = [];\nmsg.payload.split('\\n').forEach(row => data.push(row.split(',')));\n\nfunction getMonthFromString(mon){\n    return (new Date(Date.parse(mon +\" 1, 2012\")).getMonth()+1).toLocaleString('en-US', {\n        minimumIntegerDigits: 2,\n        useGrouping: false\n    })\n}\n\nconst districtMap = {\n    \"adan yabaal\":\"SO2102\",\n    \"afgooye\":\"SO2302\",\n    \"afmadow\":\"SO2802\",\n    \"baardheere\":\"SO2602\",\n    \"badhaadhe\":\"SO2803\",\n    \"baidoa\":\"SO2401\",\n    \"baki\":\"SO1102\",\n    \"balcad\":\"SO2103\",\n    \"banadir\":\"SO2201\",\n    \"bandarbeyla\":\"SO1602\",\n    \"baraawe\":\"SO2303\",\n    \"belet weyne\":\"SO2001\",\n    \"belet xaawo\":\"SO2603\",\n    \"berbera\":\"SO1202\",\n    \"borama\":\"SO1101\",\n    \"bossaSO\":\"SO1601\",\n    \"bu'aale\":\"SO2701\",\n    \"bulo burto\":\"SO2002\",\n    \"burco\":\"SO1301\",\n    \"burtinle\":\"SO1702\",\n    \"buuhoodle\":\"SO1302\",\n    \"buur hakaba\":\"SO2402\",\n    \"cabudwaaq\":\"SO1902\",\n    \"cadaado\":\"SO1903\",\n    \"cadale\":\"SO2104\",\n    \"caluula\":\"SO1603\",\n    \"caynabo\":\"SO1402\",\n    \"ceel afweyn\":\"SO1502\",\n    \"ceel barde\":\"SO2502\",\n    \"ceel buur\":\"SO1904\",\n    \"ceel dheer\":\"SO1905\",\n    \"ceel waaq\":\"SO2604\",\n    \"ceerigaabo\":\"SO1501\",\n    \"dhuusamarreeb\":\"SO1901\",\n    \"diinSOor\":\"SO2403\",\n    \"doolow\":\"SO2605\",\n    \"eyl\":\"SO1703\",\n    \"gaalkacyo\":\"SO1801\",\n    \"galdogob\":\"SO1802\",\n    \"garbahaarey\":\"SO2601\",\n    \"garoowe\":\"SO1701\",\n    \"gebiley\":\"SO1203\",\n    \"hargeysa\":\"SO1201\",\n    \"hobyo\":\"SO1803\",\n    \"iskushuban\":\"SO1604\",\n    \"jalalaqsi\":\"SO2003\",\n    \"jamaame\":\"SO2804\",\n    \"jariiban\":\"SO1804\",\n    \"jilib\":\"SO2702\",\n    \"jowhar\":\"SO2101\",\n    \"kismayo\":\"SO2801\",\n    \"kurtunwaarey\":\"SO2304\",\n    \"laas caanood\":\"SO1401\",\n    \"laasqoray\":\"SO1503\",\n    \"lughaye\":\"SO1103\",\n    \"luuq\":\"SO2606\",\n    \"marka\":\"SO2301\",\n    \"owdweyne\":\"SO1303\",\n    \"qandala\":\"SO1605\",\n    \"qansax dheere\":\"SO2404\",\n    \"qardho\":\"SO1606\",\n    \"qoryooley\":\"SO2305\",\n    \"rab dhuure\":\"SO2505\",\n    \"saakow\":\"SO2703\",\n    \"sablaale\":\"SO2306\",\n    \"sheikh\":\"SO1304\",\n    \"taleex\":\"SO1403\",\n    \"tayeeglow\":\"SO2503\",\n    \"waajid\":\"SO2504\",\n    \"wanla weyn\":\"SO2307\",\n    \"xarardheere\":\"SO1805\",\n    \"xudun\":\"SO1404\",\n    \"xudur\":\"SO2501\",\n    \"zeylac\":\"SO1104\",\n}\n\n\n// Make everything in json\n// Key is indicator key\nconst indicatorData = {};\nconst header = data[0];\nconst districtIdx = header.indexOf('District');\nconst marketIdx = header.indexOf('Market');\nconst marketTypeIdx = header.indexOf('\"Market Type\"');\nconst yearIdx = header.indexOf('Year');\nconst MonthIdx = header.indexOf('Month');\n\ndata.forEach((row, rowIdx) => {\n    if(rowIdx > 0){\n    \n        if(!row[districtIdx] || !row[marketIdx] || !row[marketTypeIdx] || !row[yearIdx] || ![MonthIdx]) {\n            return\n        }\n        const district = districtMap[\n            row[districtIdx].replaceAll('\"','').toLowerCase()\n        ];\n        if(!district) {\n            return\n        }\n        const market = row[marketIdx].replaceAll('\"','');\n        const marketType = row[marketTypeIdx].replaceAll('\"','');\n        const year = row[yearIdx].replaceAll('\"','');\n        const month = row[MonthIdx].replaceAll('\"','');\n        const date = year+'-'+getMonthFromString(month)+'-01';\n        \n        row.forEach((elm, idx) => {\n            if(idx > MonthIdx){\n                const key = header[idx];\n                if(!elm || elm === '-') {\n                    return\n                }\n                try {\n                    const value = parseFloat(elm);\n                    if(!indicatorData[key]) {\n                        indicatorData[key] = {}\n                    }\n                    if(!indicatorData[key][district]) {\n                        indicatorData[key][district] = {}\n                    }\n                    if(!indicatorData[key][district][date]) {\n                        indicatorData[key][district][date] = {\n                            \"data\" : null,\n                            \"details\": []\n                        }\n                    }\n                    if(!indicatorData[key][district][date]['data'] || marketType === \"Main market\") {\n                        indicatorData[key][district][date]['data'] = {\n                            \"geometry_code\": district,\n                            \"extra_data\": {\n                                \"Market\": market,\n                                \"Market type\": marketType\n                            },\n                            \"date\": date,\n                            \"value\": value\n                        }\n                    }\n                    indicatorData[key][district][date]['details'].push(\n                        {\n                            \"Market\": market,\n                            \"Market type\": marketType,\n                            \"Price\" : value\n                        }\n                    )\n                } catch(err){\n                    return\n                }\n            }\n        })\n    }\n});\n\nmsg.payload = indicatorData;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 730,
+        "y": 120,
+        "wires": [
+            [
+                "fde98dda29d8d75a",
+                "5230a479b74b11ab"
+            ]
+        ]
+    },
+    {
+        "id": "ef81e75baa2b69dc",
+        "type": "function",
+        "z": "c1ed5959cf663dc3",
+        "name": "Payload for today",
+        "func": "// Use this as initiate data\nmsg.headers = {\n    \"Content-Type\": \"multipart/form-data\"\n}\nconst today = new Date();\nmsg.payload = {\n    \"criteria\": \"month_year\",\n    \"month\": today.getMonth(),\n    \"year\": today.getFullYear(),\n    \"start_year\": today.getFullYear(),\n    \"end_year\": today.getFullYear(),\n    \"btnExport\": \"Fetch Data\",\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 310,
+        "y": 140,
+        "wires": [
+            [
+                "1b1f69679d8a4c7e"
+            ]
+        ]
+    },
+    {
+        "id": "fde98dda29d8d75a",
+        "type": "function",
+        "z": "c1ed5959cf663dc3",
+        "name": "Format data per indicator",
+        "func": "// we need to change the district name to geocode\nconst pushedData = []\nfor (const [indicator, indicatorValue] of Object.entries(msg.payload)) {\n    const indicatorPayload = []\n    for (const [district, districtValue] of Object.entries(indicatorValue)) {\n        for (const [date, dateData] of Object.entries(districtValue)) {\n            dateData['data']['details'] = dateData['details']\n            indicatorPayload.push(dateData['data'])\n        }\n    }\n    pushedData.push({\n        'indicator': indicator,\n        'data': indicatorPayload\n    })\n}\nmsg.payload = pushedData;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 950,
+        "y": 120,
+        "wires": [
+            [
+                "ab91777ac0df6b0f"
+            ]
+        ]
+    },
+    {
+        "id": "ab91777ac0df6b0f",
+        "type": "split",
+        "z": "c1ed5959cf663dc3",
+        "name": "Split Data per Indicator",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 180,
+        "y": 240,
+        "wires": [
+            [
+                "891ee7f9297b6d9a"
+            ]
+        ]
+    },
+    {
+        "id": "891ee7f9297b6d9a",
+        "type": "function",
+        "z": "c1ed5959cf663dc3",
+        "name": "Update payload",
+        "func": "msg.indicator = msg.payload.indicator;\nmsg.payload = msg.payload.data;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 240,
+        "wires": [
+            [
+                "4cd056deb9c76c9c"
+            ]
+        ]
+    },
+    {
+        "id": "4cd056deb9c76c9c",
+        "type": "switch",
+        "z": "c1ed5959cf663dc3",
+        "name": "Switching by Indicator",
+        "property": "indicator",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "WhiteSorghum1kg",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 660,
+        "y": 240,
+        "wires": [
+            [
+                "2098afae95e3da30"
+            ]
+        ]
+    },
+    {
+        "id": "2098afae95e3da30",
         "type": "debug",
         "z": "c1ed5959cf663dc3",
         "name": "",
@@ -604,11 +771,26 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
+        "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 710,
+        "x": 890,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "5230a479b74b11ab",
+        "type": "debug",
+        "z": "c1ed5959cf663dc3",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 970,
         "y": 60,
         "wires": []
     }

@@ -1,4 +1,4 @@
-from django.http import Http404, HttpResponseBadRequest, HttpResponse
+from django.http import Http404, HttpResponseBadRequest
 from django.utils.module_loading import import_string
 from django.shortcuts import get_object_or_404, redirect, reverse
 from rir_dashboard.views.dashboard.admin._base import AdminView
@@ -14,7 +14,7 @@ class HarvesterFormView(AdminView):
 
     @property
     def dashboard_title(self):
-        return f'Harvester for {self.indicator.__str__()}'
+        return f'Harvester for {self.indicator.full_name}'
 
     def get_indicator(self):
         """
