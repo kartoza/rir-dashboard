@@ -23,14 +23,16 @@ define(['js/views/layers/context-layers-draggable'], function (ContextLayerDragg
                     self.layers[layer.id] = layer;
                 }
             );
+            this.orders = orders;
 
             // get order cookie
-            const orderCookie = getCookieInList(this.cookieOrderName);
-            if (orderCookie.length) {
-                const newIds = orders.filter(x => !orderCookie.includes('' + x));
-                orders = orderCookie.concat(newIds);
-            }
-            this.orders = orders;
+            // TODO:
+            //  We disable this for now
+            // const orderCookie = getCookieInList(this.cookieOrderName);
+            // if (orderCookie.length) {
+            //     const newIds = orders.filter(x => !orderCookie.includes('' + x));
+            //     orders = orderCookie.concat(newIds);
+            // }
         },
         /** Init listener for layers
          */
