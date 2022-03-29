@@ -17,16 +17,16 @@ class UsingExposedAPI(BaseHarvester):
                 'indicator-values-api', args=[kwargs['instance'].slug, kwargs['indicator'].id]
             )
         return {
-            'API URL': {
-                'title': "API URL",
-                'description': "Note for this API.",
-                'value': f'<a href="{api_url}">{api_url}</a>',
-                'read_only': True
-            },
             'token': {
                 'title': "Token",
                 'description': "Token that will be used for pushing data using API.",
                 'value': str(uuid.uuid4()),
+                'read_only': True
+            },
+            'API URL': {
+                'title': "API URL",
+                'description': "Note for this API.",
+                'value': f'<a href="{api_url}">{api_url}</a>',
                 'read_only': True
             },
             'note': {

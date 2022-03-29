@@ -172,9 +172,10 @@
 
     <script>
         {#  API URL #}
+        let url = '';
         $('*[name="API URL"]').find('a').each(function () {
-            const newUrl = window.location.protocol + '//' + window.location.host + $(this).attr('href');
-            $('*[name="API URL"]').html(newUrl);
+            url = window.location.protocol + '//' + window.location.host + $(this).attr('href');
+            $('*[name="API URL"]').html(url);
         });
 
         {# make the text to copy to clipboard#}
@@ -193,8 +194,35 @@
                 },
                 "date": "2022-01-01",
                 "value": 1
-            }, undefined, 2) + '<pre></div>'
+            }, undefined, 2) + '<pre></div>' +
+            '<br>' +
+            '<b> For batch </b><br>' +
+            '<div id="batch-url">' + url + '/batch</div>' +
+            '<br>' +
+            '<br>' +
+            '<div class="helptext api-url-hepltext">Example data :' +
+            '<br><pre>' + JSON.stringify([
+                {
+                    "geometry_code": "SO",
+                    "extra_data": {
+                        "Data 1": "1",
+                        "Data 2": "2",
+                    },
+                    "date": "2022-01-01",
+                    "value": 1
+                },
+                {
+                    "geometry_code": "SO",
+                    "extra_data": {
+                        "Data 1": "1",
+                        "Data 2": "2",
+                    },
+                    "date": "2022-02-01",
+                    "value": 1
+                }
+            ], undefined, 2) + '<pre></div>'
         )
+        changeToCopyToClipboard($('#batch-url'));
 
         {# update the log #}
         {% if current_log.status == 'Running' %}
