@@ -14,7 +14,7 @@ class IndicatorValueManagementMapView(AdminView):
 
     @property
     def dashboard_title(self):
-        return f'<span>Indicator Value Manager Map</span> : {self.indicator.full_name} '
+        return f'Indicator Value Manager Map : {self.indicator.full_name} '
 
     @property
     def context_view(self) -> dict:

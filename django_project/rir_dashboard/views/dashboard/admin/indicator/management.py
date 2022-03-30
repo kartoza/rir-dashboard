@@ -28,12 +28,13 @@ class IndicatorManagementView(AdminView):
             Instance, slug=kwargs.get('slug', '')
         )
         orders = request.POST.get('orders', None)
+        indicators = self.instance.indicators
         if orders:
             orders = orders.split(',')
             for idx, id in enumerate(orders):
                 try:
-                    indicator = self.instance.indicators.get(id=id)
-                    indicator.order = idx
+                    indicator = indicators.get(id=id)
+                    indicator.order = idx + 1
                     indicator.save()
                 except Indicator.DoesNotExist:
                     pass

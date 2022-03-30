@@ -5,7 +5,7 @@ html, body {
 
 :root {
     --navigation-width: 200px;
-    --header-height: 43px;
+    --header-height: 50px;
 }
 
 .navbar {
@@ -51,7 +51,7 @@ html, body {
     background: white;
     height: var(--header-height);
     font-weight: 600;
-    padding: 10px 20px 10px 30px;
+    padding: 14px 20px 10px 30px;
     position: absolute;
     top: 0;
     left: 0;
@@ -103,7 +103,7 @@ html, body {
 
 #content .header .main-button,
 #content .header .empty-button {
-    margin-top: -3px;
+    margin-top: -5px;
 }
 
 #content label {
@@ -128,6 +128,10 @@ html, body {
 
 #content .content-table th, #content .content-table td {
     padding: 10px;
+}
+
+#content .header button {
+    margin-left: 1px;
 }
 
 #navigation {
@@ -168,7 +172,7 @@ html, body {
 
 #navigation .toggle-button {
     position: absolute;
-    top: 8px;
+    top: 11px;
     color: white;
     background-color: var(--primary-color);
     padding: 5px;

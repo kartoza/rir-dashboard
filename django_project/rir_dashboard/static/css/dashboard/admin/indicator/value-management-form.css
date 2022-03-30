@@ -14,7 +14,7 @@
 #content-view input[type="number"],
 #datepicker {
     border: 1px solid var(--primary-color);
-    width: 85px;
+    width: 86px;
 }
 
 #content-view input[type="text"] {
@@ -25,6 +25,8 @@
 #datepicker {
     margin-left: 10px;
     margin-right: 10px;
+    margin-top: -8px;
+    padding: 5px 6px;
 }
 
 #content-view input[type="number"]:focus,
@@ -97,7 +99,7 @@
     cursor: pointer;
     width: auto;
     position: absolute;
-    top: -31px;
+    top: -33px;
     right: 0;
 }
 

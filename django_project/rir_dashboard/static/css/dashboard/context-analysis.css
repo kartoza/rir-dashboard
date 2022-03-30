@@ -187,11 +187,11 @@
 }
 
 #page.shrink .scenario-header {
-    padding: 10px 14px 11px 25px;
+    padding: 13px 14px 12px 25px;
 }
 
 #content h3 {
-    padding: 13px 12px 12px 12px;
+    padding: 15px 12px 14px 12px;
 }
 
 .side-panel-header h3 {
@@ -285,7 +285,7 @@
 #left-side .side-panel-button {
     right: -35px;
     position: absolute;
-    top: 43px;
+    top: 46px;
 }
 
 #left-side .side-panel-toggle-button {
@@ -1092,7 +1092,7 @@
     padding: 1px 5px;
     position: absolute;
     right: -17px;
-    top: 8px;
+    top: 13px;
     width: 17px;
     z-index: 999;
 }

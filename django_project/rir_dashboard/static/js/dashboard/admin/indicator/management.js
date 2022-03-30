@@ -25,26 +25,6 @@ $(document).ready(function () {
         }
     }
 
-    $('.block').draggable({
-        drag: dragFunction,
-        revert: 'invalid'
-    });
-    $dropArea.droppable({
-        hoverClass: "ui-state-hovered",
-        drop: function (e, ui) {
-            onDropArea($(ui.draggable), $dropArea);
-        },
-        over: function () {
-            $dropAreaOver = $dropArea;
-        },
-        out: function () {
-            $dropAreaOver = null;
-
-            // delete temporary
-            removeTemporary();
-        },
-    });
-
     /**
      * Remove temporary level
      */
@@ -76,4 +56,35 @@ $(document).ready(function () {
         });
         $('#order-input').val(orders.join(','))
     }
+
+    // init
+    $('.block').draggable({
+        drag: dragFunction,
+        revert: 'invalid'
+    });
+    $dropArea.droppable({
+        hoverClass: "ui-state-hovered",
+        drop: function (e, ui) {
+            onDropArea($(ui.draggable), $dropArea);
+        },
+        over: function () {
+            $dropAreaOver = $dropArea;
+        },
+        out: function () {
+            $dropAreaOver = null;
+
+            // delete temporary
+            removeTemporary();
+        },
+    });
+    $('.block').draggable('disable')
+    $('#cancel-order').click(function () {
+        $dropArea.removeClass('ordering');
+        $('.block').draggable('disable');
+        return false;
+    })
+    $('#change-order').click(function () {
+        $dropArea.addClass('ordering');
+        $('.block').draggable('enable');
+    })
 });
