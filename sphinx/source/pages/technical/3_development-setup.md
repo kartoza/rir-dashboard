@@ -1,4 +1,4 @@
-# Development environment
+# Development Environment
 
 ## How to setup development environment
 This section is for setup development so we can develop the project and check the changes in runtime.

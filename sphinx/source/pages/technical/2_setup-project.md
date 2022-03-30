@@ -1,4 +1,4 @@
-# Setting up the project
+# Setting Up the Project
 
 ## Clone rir-dashboard repository to your machine
 

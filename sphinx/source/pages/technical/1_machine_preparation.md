@@ -1,4 +1,4 @@
-# Setup the machine
+# Setup the Machine
 
 ## Install make dependency
 
