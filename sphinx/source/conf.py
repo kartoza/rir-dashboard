@@ -58,10 +58,10 @@ html_theme = 'sizzle'
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']   # Raises warning
+html_static_path = ['static']   # Raises warning
 #html_static_path = []  # see https://github.com/readthedocs/readthedocs.org/issues/1776#issuecomment-149700114
 html_css_files = [
-    'css/css.css',
+    'css/main.css',
 ]
 html_js_files = [
     'js/js.js',
@@ -70,7 +70,7 @@ html_js_files = [
 # Theme specific options:
 # See https://docs.red-dove.com/sphinx_sizzle_theme/
 html_theme_options = {
-    'globaltoc_depth': 1,
+    'globaltoc_depth': 2,
     'show_index': False,
     'show_filter': False,
     # 'show_source': False, # not working

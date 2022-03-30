@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>RIR Dashboard - Setting up the project</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha256-NuCn4IvuZXdBaFKJOAcsU2Q3ZpwbdFisd5dux4jkQ5w=" crossorigin="anonymous"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap-theme.css" integrity="sha256-xOpS+e/dER8z72w+qryCieOGysQI8cELAVt3MHG0phY=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tooltipster@4.2.7/dist/css/tooltipster.bundle.min.css" integrity="sha256-Qc4lCfqZWYaHF5hgEOFrYzSIX9Rrxk0NPHRac+08QeQ=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tooltipster@4.2.7/dist/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-light.min.css" integrity="sha256-Wa1I4jhSXeWd3N6RhfPlkqr1WlT+zS3Vh2YGCg0129E=" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans|Source+Code+Pro|Source+Sans+Pro|Source+Serif+Pro|Roboto|Roboto+Mono" rel="stylesheet">
+<link href="https://fonts.red-dove.com/iosevka-ss09-regular/webfont.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/css/sizzle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/css/sizzle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/css/main.css" type="text/css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js" integrity="sha256-G7A4JrJjJlFqP0yamznwPjAApIKPkadeHfyIwiaa9e0=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/tooltipster@4.2.7/dist/js/tooltipster.bundle.min.js" integrity="sha256-NOU7KrY2aTI4PxDegqYUIknk9qfxVCS0E4JfE9aMwaA=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  false,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+      $(document).data('sizzle', {on_load: []});
+    </script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/js.js"></script>
+      <script src="../../../../app-data.js"></script>
+<link rel="index" title="Index" href="../../genindex.html" />
+<link rel="search" title="Search" href="../../search.html" />
+<link rel="next" title="Development environment" href="3_development-setup.html" />
+<link rel="prev" title="Setup the machine" href="1_machine_preparation.html" />
+
+</head>
+<body class="full-height test">
+<noscript>
+  <div>
+    <div id="noscript-message">JavaScript is not enabled. It is needed for this website to work.</div>
+  </div>
+</noscript>
+<div id="whole-page" class="container-fluid content full-height">
+  <div id="header-row" class="row">
+    <div id="header-container" class="col-md-12">
+      <div id="hdr-left">
+        <i class="fa fa-bars menu-toggle"></i>
+        
+<a href="../../index.html" class="text-logo">RIR Dashboard 1.0 documentation</a>
+
+      </div>
+      <div id="hdr-centre" class="text-center stretch">
+        <h3 title="Setting up the project">Setting up the project</h3>
+        <h6>Setting up the project</h6>
+      </div>
+      <div id="hdr-search">
+        
+<div class="input-group" title="Enter something to search for and then either press Enter or click the magnifying glass">
+  <input type="text" class="form-control search-query" placeholder="Search docs ...">
+  <div class="input-group-addon">
+    <i class="fa fa-search"></i>
+  </div>
+</div>
+      </div>
+
+      <div id="hdr-source">
+        <a href="../../_sources/pages/technical/2_setup-project.md.txt" class="btn btn-default" title="See the source for this page"><i class="fa fa-code"></i></a>
+      </div>
+
+      <div id="hdr-right">
+        
+  
+  <div class="prev-next">
+    
+      <div class="pull-left">
+        <a class="btn btn-default prev" href="1_machine_preparation.html" title="Previous chapter (Setup the machine)"><i class="fa fa-chevron-left mr-1em" aria-hidden="true"></i><span class="btn-text">Setup the machine</span></a>
+      </div>
+    
+      <div class="pull-right">
+        <a class="btn btn-default next" href="3_development-setup.html" title="Next chapter (Development environment)"><span class="btn-text">Development environment</span>&nbsp;<i class="fa fa-chevron-right ml-1em" aria-hidden="true"></i></a>
+      </div>
+    </div>
+  
+      </div>
+      <div id="alt-hdr-right">
+
+        <a href="1_machine_preparation.html"><i class="fa fa-chevron-left mr-8"></i></a>
+
+
+        <a href="../../index.html"><i class="fa fa-home mr-8"></i></a>
+
+
+        <a href="../../search.html"><i class="fa fa-search mr-8"></i></a>
+
+
+
+        <a href="3_development-setup.html"><i class="fa fa-chevron-right"></i></a>
+
+      </div>
+    </div>
+  </div>
+
+  <div id="content-row" class="row">
+    <div id="page-content" class="col-md-12 flex-col">
+      <div id="content-container">
+        <div id="nav">
+          
+  <div class="navsidebar">
+    <div id="sidebar-search">
+      
+<div class="input-group" title="Enter something to search for and then either press Enter or click the magnifying glass">
+  <input type="text" class="form-control search-query" placeholder="Search docs ...">
+  <div class="input-group-addon">
+    <i class="fa fa-search"></i>
+  </div>
+</div>
+    </div>
+      <div class="sidebar-block">
+        <div class="sidebar-tocheading">
+          <div class="pull-left">
+            <h2>Table Of Contents</h2>
+          </div>
+          <div class="pull-right" title="Hide this sidebar (hover at left edge to bring it back)"><i class="fa fa-chevron-left hidetoc"></i></div>
+        </div>
+        <div class="sidebar-toc">
+      
+        <div style="clear: both"></div>
+      
+        
+  
+    <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html"><strong>Introduction</strong></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../introduction.html#what-is-the-risk-informed-response-platform">What is the Risk Informed Response platform?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction.html#disclaimer">Disclaimer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction.html#license">License</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction.html#contributing">Contributing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction.html#credits">Credits</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../using/index.html">User Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../using/platform_tour.html">Platform Tour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../using/indicators.html">Indicators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../using/map_interactions.html">Map Interactions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../using/layers.html">Layers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../administration/index.html">Administrator Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../administration/instances_and_program_interventions.html">Instances and Program Interventions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../administration/layers.html">Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../administration/geography_management.html">Geography Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../administration/indicators.html">Indicators</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html#rir-platform">Developer documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="1_machine_preparation.html">Setup the machine</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#setting-up-the-project">Setting up the project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3_development-setup.html">Development environment</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../roadmap.html#future-plans">Future plans</a></li>
+</ul>
+</li>
+</ul>
+
+  
+        </div>
+      </div>
+  </div>
+        </div>
+        <div id="content" tabindex="0" class="stretch">
+          <div id="mnav">
+            
+  
+    <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html"><strong>Introduction</strong></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../introduction.html#what-is-the-risk-informed-response-platform">What is the Risk Informed Response platform?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction.html#disclaimer">Disclaimer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction.html#license">License</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction.html#contributing">Contributing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction.html#credits">Credits</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../using/index.html">User Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../using/platform_tour.html">Platform Tour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../using/indicators.html">Indicators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../using/map_interactions.html">Map Interactions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../using/layers.html">Layers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../administration/index.html">Administrator Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../administration/instances_and_program_interventions.html">Instances and Program Interventions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../administration/layers.html">Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../administration/geography_management.html">Geography Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../administration/indicators.html">Indicators</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html#rir-platform">Developer documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="1_machine_preparation.html">Setup the machine</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#setting-up-the-project">Setting up the project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3_development-setup.html">Development environment</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../roadmap.html#future-plans">Future plans</a></li>
+</ul>
+</li>
+</ul>
+
+  
+          </div>
+          <div class="body">
+            
+  <div class="tex2jax_ignore mathjax_ignore section" id="setting-up-the-project">
+<h1>Setting up the project<a class="headerlink" href="#setting-up-the-project" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="clone-rir-dashboard-repository-to-your-machine">
+<h2>Clone rir-dashboard repository to your machine<a class="headerlink" href="#clone-rir-dashboard-repository-to-your-machine" title="Permalink to this headline">¶</a></h2>
+<p>This will clone the rir-dashboard rpository to your machine or virtual box</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">kartoza</span><span class="o">/</span><span class="n">rir</span><span class="o">-</span><span class="n">dashboard</span><span class="o">.</span><span class="n">git</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="set-up-the-project">
+<h2>Set up the project<a class="headerlink" href="#set-up-the-project" title="Permalink to this headline">¶</a></h2>
+<p>This will set up the rir-dashboard project on your machine</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">rir</span><span class="o">-</span><span class="n">dashboard</span>
+<span class="n">cd</span> <span class="n">deployment</span>
+<span class="n">cp</span> <span class="n">docker</span><span class="o">-</span><span class="n">compose</span><span class="o">.</span><span class="n">override</span><span class="o">.</span><span class="n">template</span><span class="o">.</span><span class="n">yml</span> <span class="n">docker</span><span class="o">-</span><span class="n">compose</span><span class="o">.</span><span class="n">override</span><span class="o">.</span><span class="n">yml</span>
+<span class="n">cp</span> <span class="o">.</span><span class="n">template</span><span class="o">.</span><span class="n">env</span> <span class="o">.</span><span class="n">env</span>
+<span class="n">cd</span> <span class="o">..</span>
+<span class="n">make</span> <span class="n">up</span>
+</pre></div>
+</div>
+<p>Wait until everything is done.</p>
+<p>After everything is done, open up a web browser and go to <a class="reference external" href="http://127.0.0.1/">http://127.0.0.1/</a> and the dashboard will open:</p>
+<p><img alt="RIR Dashboard on 127.0.0.1" src="../../_images/rir-dashboard-linux-machine.PNG" /></p>
+<p>By Default, we can use the admin credential:<br>
+username : admin<br>
+password : admin</p>
+</div>
+<div class="section" id="setup-different-environment">
+<h2>Setup different environment<a class="headerlink" href="#setup-different-environment" title="Permalink to this headline">¶</a></h2>
+<p>to setup different environment, for example the Default credential, or the port of server, open <strong>deployment/.env</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">COMPOSE_PROJECT_NAME</span><span class="o">=</span><span class="n">rir_dashboard</span>
+<span class="n">NGINX_TAG</span><span class="o">=</span><span class="mf">0.0</span><span class="o">.</span><span class="mi">1</span>  <span class="o">-&gt;</span> <span class="n">Change</span> <span class="n">this</span> <span class="k">for</span> <span class="n">different</span> <span class="n">nginx</span> <span class="n">image</span>
+<span class="n">DJANGO_TAG</span><span class="o">=</span><span class="mf">0.0</span><span class="o">.</span><span class="mi">1</span> <span class="o">-&gt;</span> <span class="n">Change</span> <span class="n">this</span> <span class="k">for</span> <span class="n">different</span> <span class="n">django</span> <span class="n">image</span>
+<span class="n">DJANGO_DEV_TAG</span><span class="o">=</span><span class="mf">0.0</span><span class="o">.</span><span class="mi">1</span> <span class="o">-&gt;</span> <span class="n">Change</span> <span class="n">this</span> <span class="k">for</span> <span class="n">different</span> <span class="n">django</span> <span class="n">dev</span> <span class="n">image</span>
+
+<span class="c1"># Environments</span>
+<span class="n">DJANGO_SETTINGS_MODULE</span><span class="o">=</span><span class="n">core</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">prod</span> <span class="o">-&gt;</span> <span class="n">Change</span> <span class="n">this</span> <span class="n">to</span> <span class="n">use</span> <span class="n">different</span> <span class="n">django</span> <span class="n">config</span> <span class="n">file</span>
+<span class="n">ADMIN_USERNAME</span><span class="o">=</span><span class="n">admin</span> <span class="o">-&gt;</span> <span class="n">Default</span> <span class="n">admin</span> <span class="n">username</span> 
+<span class="n">ADMIN_PASSWORD</span><span class="o">=</span><span class="n">admin</span> <span class="o">-&gt;</span> <span class="n">Default</span> <span class="n">admin</span> <span class="n">password</span>
+<span class="n">ADMIN_EMAIL</span><span class="o">=</span><span class="n">admin</span><span class="nd">@example</span><span class="o">.</span><span class="n">com</span> <span class="o">-&gt;</span> <span class="n">Default</span> <span class="n">admin</span> <span class="n">email</span>
+<span class="n">INITIAL_FIXTURES</span><span class="o">=</span><span class="kc">True</span>
+<span class="n">HTTP_PORT</span><span class="o">=</span><span class="mi">80</span> <span class="o">-&gt;</span> <span class="n">Change</span> <span class="n">the</span> <span class="n">port</span> <span class="n">of</span> <span class="n">nginx</span>
+
+<span class="c1"># Database Environment</span>
+<span class="n">DATABASE_NAME</span><span class="o">=</span><span class="n">django</span> <span class="o">-&gt;</span> <span class="n">Default</span> <span class="n">database</span> <span class="n">name</span>
+<span class="n">DATABASE_USERNAME</span><span class="o">=</span><span class="n">docker</span> <span class="o">-&gt;</span> <span class="n">Default</span> <span class="n">database</span> <span class="n">username</span>
+<span class="n">DATABASE_PASSWORD</span><span class="o">=</span><span class="n">docker</span> <span class="o">-&gt;</span> <span class="n">Default</span> <span class="n">database</span> <span class="n">password</span>
+<span class="n">DATABASE_HOST</span><span class="o">=</span><span class="n">db</span> <span class="o">-&gt;</span> <span class="n">Default</span> <span class="n">database</span> <span class="n">host</span><span class="o">.</span> <span class="n">Change</span> <span class="n">this</span> <span class="k">if</span> <span class="n">you</span> <span class="n">use</span> <span class="n">cloud</span> <span class="n">database</span> <span class="ow">or</span> <span class="nb">any</span> <span class="n">new</span> <span class="n">docker</span> <span class="n">container</span><span class="o">.</span>
+<span class="n">RABBITMQ_HOST</span><span class="o">=</span><span class="n">rabbitmq</span>
+
+<span class="c1"># Onedrive</span>
+<span class="n">PUID</span><span class="o">=</span><span class="mi">1000</span>
+<span class="n">PGID</span><span class="o">=</span><span class="mi">1000</span>
+</pre></div>
+</div>
+<p>Change the desired variable and do <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">up</span></code>. It will rerun the project with new environment.</p>
+</div>
+<div class="section" id="for-using-virtual-box">
+<h2>For using virtual box<a class="headerlink" href="#for-using-virtual-box" title="Permalink to this headline">¶</a></h2>
+<p>Open network settings of your virtual box</p>
+<p><img alt="Network settings vbox" src="../../_images/Virtualbox-network-settings1.PNG" /></p>
+<p>Click on port forwarding and add 2 new rules as indicated in the image below:</p>
+<p><img alt="Network settings 2 vbox" src="../../_images/Virtualbox-network-settings2.PNG" /></p>
+<p>Click OK and close. Download <a class="reference external" href="http://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html">PuTTY</a>.
+Create a connection by following these <a class="reference external" href="https://the.earth.li/~sgtatham/putty/0.67/htmldoc/Chapter2.html#gs-insecure">directions</a>, enter “localhost” as the host name, “SSH” as the protocol, and “2222” as the port.</p>
+<p>Once you have logged in on PuTTY enter this command below in the prompt:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ssh</span> <span class="n">yourlogin</span><span class="nd">@127</span><span class="o">.</span><span class="mf">0.0</span><span class="o">.</span><span class="mi">1</span> <span class="o">-</span><span class="n">p</span> <span class="mi">22</span>
+</pre></div>
+</div>
+<p>(Make sure that you replace your username with “yourlogin”)</p>
+<p>When asked for your password, press enter three times and the prompt will display this message:  Permission denied (publickey,password).</p>
+<p>Open the RIR dashboard server using a web browser on your machine by going to 127.0.0.1:8080
+<img alt="RIR Dashboard on 127.0.0.1:8080" src="../../_images/rir-dashboard-vbox.PNG" /></p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="footer-row" class="row">
+
+    <div class="col-md-12">
+        <span></span><span class="pull-right">&copy; Copyright 2021, Kartoza (Pty) Ltd..
+        Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0 and the
+        <a href="https://pypi.org/project/sphinx-sizzle-theme/"
+
+           title="0.0.9/821a5457 [2020-04-16T19:31:16]"
+
+        >Sizzle</a> theme.</span>
+    </div>
+
+  </div>
+</div>
+
+<div id="tooltips" class="hidden">
+</div>
+
+<script>
+$(document).ready(function() {
+  'use strict';
+  var $search = $('.search-query');
+
+  var $nav = $('#nav');
+
+  //$('#whole-page').removeClass('hidden');
+  var nav_width = $nav.width();
+
+
+  var search_url = '../../search.html';
+
+  function perform_search(e) {
+    var $elem;
+
+    if (e.type === 'keypress') {
+      $elem = $(e.target);
+    }
+    else if (e.type === 'click') {
+      $elem = $(e.target).parents('.input-group').find('input');
+    }
+    var q = $elem.val().trim();
+
+    if (q) {
+      var url = search_url + '?q=' + q + '&check_keywords=yes&area=default';
+
+      location.href = url;
+    }
+  }
+
+
+
+  $search.on('keypress', function(e) {
+    if (e.which == 13) {
+      perform_search(e);
+    }
+  });
+  $search.parents('.input-group').find('.input-group-addon').on('click', perform_search);
+  $(document).on('click', '.summary .fa-caret-right', function(e) {
+    var $elem = $(e.target).parents('li');
+    var $next = $elem.next();
+    $elem.addClass('hidden');
+    $next.removeClass('hidden');
+  });
+  $(document).on('click', '.detail .fa-caret-down', function(e) {
+    var $elem = $(e.target).parents('li');
+    var $prev = $elem.prev();
+    $elem.addClass('hidden');
+    $prev.removeClass('hidden');
+  });
+
+  $('#content').on('click', function() {
+    $('#mnav').hide();
+  });
+
+  var counter = 0;
+  var timer = null;
+
+  function show_nav() {
+    $('#content').off('mousemove', track_mouse);
+    if (timer !== null) {
+      clearTimeout(timer);
+      timer = null;
+    }
+    $nav.show();
+  }
+
+  function track_mouse(e) {
+    var x = e.clientX;
+
+    if (x < 15) {
+      ++counter;
+      if (timer === null) {
+        timer = setTimeout(show_nav, 2000);
+      }
+    }
+    else {
+      counter = 0;
+    }
+    if (counter >= 20) {
+      show_nav();
+    }
+  };
+
+  function hide_nav() {
+    $nav.hide();
+    counter = 0;
+    $('#content').on('mousemove', track_mouse);
+  }
+
+  $('.hidetoc').on('click', hide_nav);
+
+  $(document).on('keyup', function(e) {
+    if (e.ctrlKey) {
+      if (e.which == 37) {      // Ctrl+left arrow
+        hide_nav();
+      }
+      else if (e.which == 39) { // Ctrl+right arrow
+        show_nav();
+      }
+    }
+  });
+
+  $('.menu-toggle').on('click', function(e) {
+    $('#mnav').toggle();
+  });
+
+  function scroll_nav(frag) {
+    var sel = '#nav ' + (frag ? 'a[href="' + frag + '"]' : '.toctree-l1 a.current');
+
+    var $link = $(sel);
+
+    if ($link.length > 0) {
+      $link[0].scrollIntoView({block: 'center'});
+    }
+  }
+
+  // If the navigator is long, then the item we clicked on to get here might
+  // not be in view. Try to scroll it into the view - a slight delay is needed
+  // to get it to sync properly with other stuff going on (as the page has just
+  // loaded). Hence the setTimeout with a timeout of 0.
+
+  function do_scroll() {
+    scroll_nav(window.location.hash);
+  }
+
+  setTimeout(do_scroll, 0);
+
+  function adjust_size() {
+    // we need to set the height explicitly so that scrolling regions in the
+    // content area work properly.
+    var h = $('#page-content').height();
+
+    $('#nav, #content').height(h);
+    if ($('#nav').is(':visible')) {
+      $('#mnav').hide();
+    }
+  }
+
+  adjust_size();
+
+  $(window).on('resize', adjust_size);
+
+  function focus_content() {
+    $('#content').focus();  // so that keyboard can be used to scroll, etc.
+  }
+
+  setTimeout(focus_content, 150);
+
+  var sizzle = $(document).data('sizzle');
+
+  function make_tooltip(id, h, b) {
+    var $e = $('<div>').attr('id', id);
+    var $b = $('<div>').addClass('tc-body').html(b);
+
+    if (h) {
+      var $h = $('<div>').addClass('tc-heading').html(h);
+      $e.append($h);
+    }
+    $e.append($b);
+    return $e;
+  }
+
+  var default_tt_options = {
+    theme: ['tooltipster-light', 'tooltipster-light-customized'],
+    interactive: true,
+    maxWidth: 600,
+    contentCloning: true
+  };
+
+  function activate_tooltips() {
+    var $tt = $('.tt');
+
+    //console.log('tt links:', $tt.length);
+    $tt.tooltipster(default_tt_options);
+  }
+
+
+
+  function add_glossary_tooltips() {
+    var links = $('a');  // can qualify with .reference.internal
+    var glinks = {};
+    var pat = /(.*)\.html#(term-.*)$/;
+    var found = false;  // links in this document
+
+    $.each(links, function(i, link) {
+        var $link = $(link);
+        var href = $link.attr('href');
+        var m = href.match(pat);
+
+        if (m) {
+          var s = m[1].replace(/^(\.\.\/)+/, '');
+
+          if (s === sizzle.app_data.glossary.document) {
+            var k = m[2];
+
+            if (k in glinks) {
+              glinks[k].push($link);
+            }
+            else {
+              glinks[k] = [$link];
+            }
+            found = true;
+          }
+        }
+    });
+    if (found) {
+      var $t = $('#tooltips');
+      var data = sizzle.app_data.glossary.terms;
+
+      $.each(glinks, function(k, v) {
+        var d = data[k];
+
+        if (d) {  // as a sanity check
+          var s = 'tc-'+ k;
+          var $e = make_tooltip(s, d.term, d.defn);
+          $t.append($e);
+
+          $.each(v, function(i, link) {
+            link.addClass('tt').attr('data-tooltip-content', '#' + s);
+          });
+        }
+      });
+    }
+  }
+
+  if (sizzle.app_data && sizzle.app_data.glossary &&
+      sizzle.app_data.glossary.document) {
+    add_glossary_tooltips();
+  }
+
+
+
+
+  function add_custom_tooltips() {
+    var info_tips = sizzle.app_data.custom_data['info-tips'] || {};
+
+    if ($.isEmptyObject(info_tips)) {
+      return;
+    }
+
+    var tt_options = $.extend({contentAsHTML: true}, default_tt_options);
+
+    $('.tc-info').each(function() {
+      var $elem = $(this).prev();
+      var classes = $elem.attr('class');
+      var m = /\btci-([\S]+)/.exec(classes);
+
+      if (m !== null) {
+        var key = m[1];
+
+        if (key in info_tips) {
+          var v = info_tips[key];
+          var tt = $elem.tooltipster(tt_options).tooltipster('content', v);
+        }
+      }
+    });
+  }
+
+  add_custom_tooltips();
+
+  setTimeout(activate_tooltips, 1000);
+
+
+  // Clipboard copy for code blocks with captions
+
+  $('.code-block-caption').each(function() {
+    var $cap = $(this);
+    var $btn = $('<span class="clip-copy"><span class="copied hidden">Copied!</span><i class="fa fa-clipboard" title="Copy contents"></i></span>');
+    var $code = $cap.parent().find('.highlight');
+
+    $cap.append($btn);
+    $btn.find('.fa-clipboard').data('clip-text', $code.text());
+  });
+
+  var clipboard = new ClipboardJS('.code-block-caption .fa-clipboard', {
+    'text': function(trigger) {
+      return $(trigger).data('clip-text');
+    }
+  });
+
+  clipboard.on('success', function(e) {
+    var $copied = $(e.trigger).prev();
+
+    $copied.removeClass('hidden');
+
+    setTimeout(function() {$copied.addClass('hidden'); }, 1000);
+  });
+
+  if (sizzle.on_load) {
+    sizzle.on_load.forEach(function(f) {
+      f();
+    });
+  }
+});
+</script>
+</body>
+</html>
