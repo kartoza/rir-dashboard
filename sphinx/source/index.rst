@@ -24,9 +24,9 @@ shared and reused for your own purposes under the terms of our license.
    :maxdepth: 1
    :caption: Contents:
 
-   introduction
-   using/index.rst
-   administration/index.rst
-   technical/index.rst
-   roadmap
+   pages/introduction
+   pages/using/index.rst
+   pages/administration/index.rst
+   pages/technical/index.rst
+   pages/roadmap
 
