@@ -28,6 +28,10 @@
     display: none;
 }
 
+.toctree-l1:last-child .toctree-l2 {
+    display: none;
+}
+
 .toctree-l1 > a {
     font-weight: 700;
 }
