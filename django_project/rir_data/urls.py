@@ -1,13 +1,16 @@
 from django.conf.urls import url
 from django.urls import include
 from rir_data.api.download import DownloadMasterData, DownloadMasterDataCheck
+from rir_data.api.download_file import DownloadSharepointFile, DownloadBackupsFile
 from rir_data.api.geometry import GeometryGeojsonAPI, GeometryDetailAPI
 from rir_data.api.indicator import (
     IndicatorsList, IndicatorValues, IndicatorValuesByGeometryAndLevel, IndicatorValuesByDateAndGeojson, IndicatorValuesByDate,
-    IndicatorValuesByGeometry, IndicatorReportingUnits
+    IndicatorValuesByGeometry, IndicatorReportingUnits, IndicatorValuesBatch
 )
 from rir_data.api.indicators import IndicatorsValuesByGeometryDate
+from rir_data.api.context_analysis import ContextAnalysisData
 from rir_dashboard.views.instances import InstancesView
+from rir_dashboard.views.backups import BackupsView
 
 geometry_api = [
     url(
@@ -35,6 +38,10 @@ indicator_api = [
     url(
         r'^(?P<pk>\d+)/values/(?P<geometry_identifier>.+)/(?P<geometry_level>.+)',
         IndicatorValuesByGeometryAndLevel.as_view(), name='indicator-values-by-geometry-and-level-api'
+    ),
+    url(
+        r'^(?P<pk>\d+)/values/batch',
+        IndicatorValuesBatch.as_view(), name='indicator-values-batch-api'
     ),
     url(
         r'^(?P<pk>\d+)/values',
@@ -67,6 +74,16 @@ api = [
         DownloadMasterData.as_view(),
         name='download-master-data'
     ),
+    url(
+        r'^download/sharepoint',
+        DownloadSharepointFile.as_view(),
+        name='download-sharepoint'
+    ),
+    url(
+        r'^context-analysis',
+        ContextAnalysisData.as_view(),
+        name='context-analysis'
+    ),
 ]
 
 instance_url = [
@@ -77,5 +94,11 @@ instance_url = [
 
 urlpatterns = [
     url(r'^(?P<slug>[^/]+)/', include(instance_url)),
+    url(r'^backups', BackupsView.as_view(), name='backups-view'),
+    url(
+        r'^download/backups',
+        DownloadBackupsFile.as_view(),
+        name='download-backups'
+    ),
     url(r'^', InstancesView.as_view(), name='instances-view'),
 ]

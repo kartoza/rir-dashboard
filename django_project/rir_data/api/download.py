@@ -108,7 +108,7 @@ class DownloadMasterData(APIView):
                     indicator_text_col = header.index(indicator.name)
                     indicator_value_col = header.index(f'{indicator.name} value')
                     insert_sheet(row, indicator_text_col, value['scenario_text'], value['background_color'])
-                    insert_sheet(row, indicator_value_col, value['scenario_value'], value['background_color'])
+                    insert_sheet(row, indicator_value_col, value['value'], value['background_color'])
 
             # safe header to excel
             for idx, _header in enumerate(header):

@@ -51,7 +51,8 @@ class APIWithGeographyAndDate(BaseHarvester):
                     "Format of the date from the data. "
                     "Check <a href='https://strftime.org/'>here</a>."
                     "Let it empty to use timestamp instead."
-                )
+                ),
+                'required': False
             },
         }
 
@@ -96,6 +97,8 @@ class APIWithGeographyAndDate(BaseHarvester):
                         date_data = datetime.fromtimestamp(date_data).date()
                     except ValueError:
                         date_data = datetime.fromtimestamp(int(date_data) / 1000).date()
+                    except TypeError:
+                        raise HarvestingError(f'The date is not in timestamp, so needs to put time format in attributes.')
 
                 geography_name = self.eval_json(row, keys_for_geography_identifier)
                 geography_identifier = self.mapping[geography_name]

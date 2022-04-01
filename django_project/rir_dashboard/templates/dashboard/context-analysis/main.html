@@ -6,6 +6,7 @@
     <link href="{% static 'libs/leaflet/1.5.1/leaflet.css' %}" rel="stylesheet" type="text/css" media="screen, projection"/>
     <link href="{% static 'libs/leaflet.plugin.layerswiper/leaflet-lyrSwiper.css' %}" rel="stylesheet" type="text/css" media="screen, projection"/>
     <link href="{% static 'css/dashboard/context-analysis.css' %}" rel="stylesheet" type="text/css" media="screen, projection"/>
+    <link href="{% static 'libs/datatable/1.11.5/css/jquery.dataTables.min.css' %}" rel="stylesheet" type="text/css" media="screen, projection"/>
     <style>
         {% for scenario in scenarios %}
             .scenario-{{ scenario.level }} {
@@ -149,12 +150,6 @@
                         </div>
                     </div>
                 </div>
-                <div id="dashboard-section">
-                    <div class="inner">
-                        <i class="fa fa-times main-button" aria-hidden="true"></i>
-                        <iframe style="border:none;"></iframe>
-                    </div>
-                </div>
 
                 {# content #}
                 <div class="content-wrapper box-shadow-bottom">
@@ -188,7 +183,7 @@
                                     <i class="fa fa-caret-left" aria-hidden="true"></i>
                                 </div>
                                 <div class="col">
-                                    Scenario {% if overall_scenario.level %}{{ overall_scenario.level }}: {{ overall_scenario.name }}{% else %} <i>unknown</i> {% endif %}
+                                    Scenario <i class="loading">loading</i>
                                 </div>
                                 <div>
                                     {% include 'dashboard/context-analysis/_template-scenario-download.html' %}
@@ -221,8 +216,7 @@
                                         {# For the space #}
                                         {% for indicator in group.indicators %}
                                             <tr id="indicator-{{ indicator.id }}" data-group="{{ group_name }}"
-                                                class="indicator-{{ indicator.id }} group-row indicator-row {% if not indicator.show_in_context_analysis %}no-context-analysis hide{% endif %}{% if not indicator.object.url_data_template %}disabled{% endif %}"
-                                                {% if not indicator.object.url_data_template %}title="There is no data for for this time period. Select a different time period or ask your administrator to change the aggregation rules to show the last recorded values."{% endif %}
+                                                class="indicator-{{ indicator.id }} group-row indicator-row {% if not indicator.show_in_context_analysis %}no-context-analysis hide{% endif %} disabled"
                                                 style="display: none">
                                                 <td class="indicator-name">
                                                     <div class="row">
@@ -234,7 +228,7 @@
                                                                    data-url="{{ indicator.object.url_data_template }}"
                                                                    data-levels="{{ indicator.object.levels }}"
                                                                    data-unit="{% if indicator.object.unit %}{{ indicator.object.unit }}{% endif %}"
-                                                                   {% if not indicator.object.url_data_template %}disabled{% endif %}>
+                                                                   disabled>
                                                         </div>
                                                         <div class="col">
                                                             <div class="name">
@@ -247,29 +241,32 @@
                                                     <div class="legend">
                                                         <table>
                                                             {% for name, value in indicator.object.legends.items %}
-                                                                <tr class="legend-row active" data-id="{{ indicator.id }}" data-level="{{ value.level }}">
-                                                                    <td valign="top">
-                                                                        <input type="checkbox" checked>
-                                                                    </td>
-                                                                    <td valign="top">
-                                                                        <div class="polygon" style="background-color: {{ value.color }}"></div>
-                                                                    </td>
-                                                                    <td>
-                                                                        {{ name }}
-                                                                        <br> <i class="threshold">{{ value.rule_str }}</i>
-                                                                    </td>
-                                                                </tr>
+                                                                {% if value.rule_str %}
+                                                                    <tr class="legend-row active" data-id="{{ indicator.id }}" data-level="{{ value.level }}">
+                                                                        <td valign="top">
+                                                                            <input type="checkbox" checked>
+                                                                        </td>
+                                                                        <td valign="top">
+                                                                            <div class="polygon" style="background-color: {{ value.color }}"></div>
+                                                                        </td>
+                                                                        <td>
+                                                                            {{ name }}
+                                                                            <br> <i class="threshold">{{ value.rule_str }}</i>
+                                                                        </td>
+                                                                    </tr>
+                                                                {% endif %}
                                                             {% endfor %}
                                                         </table>
                                                     </div>
                                                 </td>
+                                                {# this is for full screen #}
                                                 {% for scenario in scenarios %}
                                                     {% if indicator.scenario_value == scenario.level %}
                                                         <td class="scenario indicator scenario-{{ scenario.level }}">
                                                             {{ indicator.value }}
                                                         </td>
                                                     {% else %}
-                                                        <td class="scenario indicator">
+                                                        <td class="scenario indicator" data-scenario-level="{{ scenario.level }}">
                                                             {% get_scenario_rule indicator scenario.level as rule %}
                                                             {{ rule }}
                                                         </td>
@@ -305,6 +302,13 @@
                 <div class="indicator-right-pane-level-selection box-shadow-bottom level-selection">
                 </div>
                 <div class="indicator-right-pane-text indicator-name-swiper box-shadow-bottom"></div>
+
+                <div id="dashboard-section">
+                    <div class="inner">
+                        <i class="fa fa-times main-button" aria-hidden="true"></i>
+                        <iframe style="border:none;"></iframe>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -391,6 +395,7 @@
         const indicatorRules = {};
         const indicatorLatestDate = {};
         const indicatorUnit = {};
+        const contextAnalysisDataURL = '{% url "context-analysis" instance.slug %}'
         {% for group_name, group in indicators_in_groups.items %}
             {% for indicator in group.indicators %}
                 indicatorRules['{{ indicator.id }}'] = {{ indicator.rules|safe }};
@@ -433,6 +438,7 @@
     <script src="{% static "libs/jquery.js/3.4.1/jquery.min.js" %}"></script>
     <script src="{% static "libs/jquery-ui/1.12.1/jquery-ui.js" %}"></script>
     <script src="{% static "libs/backbone.js/1.4.0/backbone-min.js" %}"></script>
+    <script src="{% static "libs/datatable/1.11.5/js/jquery.dataTables.min.js" %}"></script>
 
     <script src="{% static "libs/highcharts/9.1.2/stock/highstock.js" %}"></script>
     <script src="{% static "libs/highcharts/9.1.2/stock/modules/data.js" %}"></script>

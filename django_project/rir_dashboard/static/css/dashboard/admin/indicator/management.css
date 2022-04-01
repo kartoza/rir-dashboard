@@ -14,7 +14,6 @@
 
 .block {
     background: white;
-    cursor: pointer;
 }
 
 .block-content {
@@ -34,6 +33,15 @@
     text-align: center;
 }
 
+.block-content .col {
+    padding-top: 6px;
+    padding-left: 0;
+}
+
+.block-content .main-button {
+    border: 0;
+}
+
 .block.disabled {
     cursor: not-allowed;
     opacity: 0.5;
@@ -44,7 +52,7 @@
     border: 1px dashed var(--primary-color);
     min-height: 100px;
     text-align: center;
-    padding: 20px 0;
+    padding: 0;
 }
 
 #drop-area.ui-state-hovered {
@@ -100,4 +108,64 @@
 
 .create-harvester {
     color: darkgreen !important;
+}
+
+.global-harvester-button {
+    height: 33px;
+}
+
+.global-harvester-button button {
+    margin-left: 5px;
+}
+
+#drop-area.ordering .block {
+    cursor: pointer;
+}
+
+#drop-area .drop-area-header {
+    position: relative;
+    padding: 20px 0 0 0;
+    height: 65px;
+}
+
+#drop-area .drop-area-header form,
+#drop-area #cancel-order {
+    display: none;
+}
+
+#drop-area .drop-area-header button {
+    position: absolute;
+    left: 23px;
+    top: 16px;
+}
+
+#drop-area .drop-area-header #cancel-order {
+    text-align: center;
+    width: 118px;
+}
+
+#drop-area .drop-area-header #submit-order {
+    left: 141px;
+}
+
+#drop-area.ordering form,
+#drop-area.ordering #cancel-order {
+    display: block;
+}
+
+#drop-area.ordering #change-order {
+    display: none;
+}
+
+#drop-area .order-icon {
+    display: inline-block;
+    width: 9px;
+}
+
+#drop-area .order-icon i {
+    display: none;
+}
+
+#drop-area.ordering i {
+    display: block;
 }

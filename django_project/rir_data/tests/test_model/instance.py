@@ -299,7 +299,7 @@ class InstanceTest(TestCase):
             geometry=geom_province_3
         )
 
-        indicators, overall_scenario = instance.get_indicators_and_overall_scenario
+        indicators, overall_scenario = instance.get_indicators_and_overall_scenario()
         self.assertEquals(overall_scenario, 2)
         indicators_group_1 = indicators[group_1.name]
         self.assertEquals(indicators_group_1['overall_scenario'], 1)

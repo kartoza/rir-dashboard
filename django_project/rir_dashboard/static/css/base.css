@@ -78,6 +78,7 @@ a:hover {
 
 .main-button {
     background-color: var(--primary-color);
+    border: 1px solid var(--primary-color);
     color: white;
 }
 
@@ -128,7 +129,13 @@ a:hover {
 .white-button:disabled,
 .green-button:disabled {
     opacity: 0.5;
-    cursor: progress;
+    cursor: not-allowed;
+}
+
+.main-button:disabled:hover,
+.white-button:disabled:hover,
+.green-button:disabled:hover {
+    opacity: 0.5;
 }
 
 /* for leaflet */
@@ -220,4 +227,77 @@ table .helptext {
 .copy-to-clipboard-indicator.copied {
     background: green;
     color: white;
+}
+
+/* For modal */
+.modal {
+    z-index: 10050;
+}
+
+.modal-backdrop {
+    z-index: 10040;
+}
+
+#global-modal {
+    width: 100%;
+    overflow-x: auto;
+}
+
+#global-modal td,
+#global-modal th {
+    padding: 5px 20px;
+    width: fit-content;
+    border: 1px solid #f7f7f7;
+}
+
+#page-loading {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: var(--primary-color);
+    z-index: 99999999;
+    display: none;
+}
+
+#page-loading .page-center {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    text-align: center;
+}
+
+#page-loading .loader-text {
+    color: white;
+    font-size: 24px;
+}
+
+#page-loading .loader-text img {
+    margin-top: 50px;
+    width: 150px;
+}
+
+#page-loading .loader {
+    position: absolute;
+    left: 50%;
+    margin-left: -60px;
+    margin-top: -180px;
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.jstree-themeicon-custom {
+    background-size: 22px !important;
 }

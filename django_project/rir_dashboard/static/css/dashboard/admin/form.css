@@ -43,7 +43,8 @@ p[data-field-name="instance"] {
     display: none;
 }
 
-input[type="text"]:disabled {
+input[type="text"]:disabled,
+input[type="number"]:disabled {
     background: #eee;
     border: 1px solid #ccc;
 }

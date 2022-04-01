@@ -90,6 +90,57 @@ class Instance(SlugTerm, IconTerm):
         from rir_data.models.geometry import Geometry
         return Geometry.objects.by_date(date).filter(instance=self)
 
+    def get_indicators(self, user=None):
+        """
+        Return all indicators and overall scenario of the instance
+        """
+        from rir_data.models.geometry import Geometry, GeometryLevelName
+        from rir_data.serializer.indicator import IndicatorSerializer
+
+        indicators = []
+        indicators_in_group = {}
+        try:
+            country_level = self.geometry_instance_levels.filter(parent=None).first()
+            if not country_level:
+                raise GeometryLevelName.DoesNotExist
+
+            country_level = country_level.level
+            geometry_country = self.geometries().filter(geometry_level=country_level).first()
+            if not geometry_country:
+                raise Geometry.DoesNotExist
+
+            for indicator in self.indicators:
+                # TODO:
+                #  we need to move it to self.indicators
+                if indicator.access_level == PermissionLevels.SIGNIN and not user.username:
+                    continue
+                if indicator.access_level == PermissionLevels.ADMIN and not user.is_staff:
+                    continue
+
+                data = IndicatorSerializer(indicator).data
+                data['object'] = indicator
+                indicators.append(data)
+
+                group_name = indicator.group.name
+                if group_name not in indicators_in_group:
+                    indicators_in_group[group_name] = {
+                        'indicators': [],
+                        'indicator_ids': [],
+                        'overall_scenario': 1,
+                        'overall_scenario_raw': {},
+                        'dashboard_link': indicator.group.dashboard_link
+                    }
+                indicators_in_group[group_name]['indicators'].append(data)
+                indicators_in_group[group_name]['indicator_ids'].append(str(indicator.id))
+        except (Geometry.DoesNotExist, GeometryLevelName.DoesNotExist):
+            pass
+
+
+        # overall scenario for each of group
+        for group_name, group in indicators_in_group.items():
+            group['indicator_ids'] = ','.join(group['indicator_ids'])
+        return indicators_in_group
+
     def get_indicators_and_overall_scenario(self, user=None):
         """
         Return all indicators and overall scenario of the instance
@@ -118,18 +169,17 @@ class Instance(SlugTerm, IconTerm):
                 if indicator.access_level == PermissionLevels.ADMIN and not user.is_staff:
                     continue
 
+                data = IndicatorSerializer(indicator).data
+                scenario_value = None
                 values = indicator.values(
                     geometry_country,
                     country_level,
                     date.today()
                 )
-                data = IndicatorSerializer(indicator).data
-                scenario_value = None
                 for value in values:
                     scenario_value = value['scenario_value']
                     data['value'] = int(value['value'])
                     data['scenario_value'] = value['scenario_value']
-                    data['object'] = indicator
                     data['latest_date'] = indicator.indicatorvalue_set.order_by('date').first().date.strftime("%Y-%m-%d")
 
                 indicators.append(data)

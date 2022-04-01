@@ -87,11 +87,9 @@ class Indicator(AbstractTerm, PermissionModel):
         default=AggregationMethod.AVERAGE,
         choices=(
             (AggregationMethod.AVERAGE, 'Aggregate data by average data in the levels'),
-            (AggregationMethod.MAJORITY, 'Aggregate data by majority data in the levels')
+            (AggregationMethod.MAJORITY, 'Aggregate data by majority data in the levels'),
+            (AggregationMethod.SUM, 'Aggregate data by sum of all data in the levels'),
         )
-    )
-    order = models.IntegerField(
-        default=0
     )
 
     # threshold
@@ -116,11 +114,25 @@ class Indicator(AbstractTerm, PermissionModel):
             'when clicked, will open up this URL in a frame over the main map area.')
     )
 
+    # order of indicator rendered on the list
+    order = models.IntegerField(
+        default=0
+    )
+
     def __str__(self):
-        return self.name
+        return self.full_name
+
+    def save(self, *args, **kwargs):
+        if not self.order:
+            self.order = Indicator.objects.count()
+        super(Indicator, self).save(*args, **kwargs)
 
     class Meta:
         ordering = ('order',)
+
+    @property
+    def full_name(self):
+        return f'{self.group}/{self.name}'
 
     @property
     def allow_to_harvest_new_data(self):
@@ -170,12 +182,11 @@ class Indicator(AbstractTerm, PermissionModel):
             # check the rule
             for indicator_rule in self.indicatorscenariorule_set.all():
                 try:
-                    if eval(indicator_rule.rule.replace('x', f'{value}').lower()):
+                    if indicator_rule.rule and eval(indicator_rule.rule.replace('x', f'{value}').lower()):
                         return indicator_rule.scenario_level
                 except NameError:
                     pass
-        else:
-            return None
+        return None
 
     def scenario_rule_by_value(self, value):
         """
@@ -261,11 +272,21 @@ class Indicator(AbstractTerm, PermissionModel):
             ).order_by('geometry_id', '-date').distinct('geometry_id')
             for indicator_value in query_report:
                 attributes = {}
+
                 if more_information:
                     attributes['date'] = indicator_value.date
                     attributes.update({
                         extra.name: extra.value for extra in indicator_value.indicatorextravalue_set.all()
                     })
+                    # for details
+                    details = []
+                    for row in indicator_value.indicatorvalueextradetailrow_set.all():
+                        columns = {}
+                        for column in row.indicatorvalueextradetailcolumn_set.all():
+                            columns[column.name] = column.value
+                        details.append(columns)
+                    attributes['details'] = details
+
                 if serializer:
                     attributes.update(
                         serializer(indicator_value).data)
@@ -327,6 +348,16 @@ class Indicator(AbstractTerm, PermissionModel):
                                 attributes[extra_value.name] += aggregated_value
                             except ValueError:
                                 pass
+
+                        # for details
+                        details = []
+                        for indicator_value in query_report:
+                            for row in indicator_value.indicatorvalueextradetailrow_set.all():
+                                columns = {}
+                                for column in row.indicatorvalueextradetailcolumn_set.all():
+                                    columns[column.name] = column.value
+                                details.append(columns)
+                        attributes['details'] = details
 
                     data = self.serialize(geometry_target, value, attributes)
                     if use_exact_date:
@@ -404,9 +435,12 @@ class Indicator(AbstractTerm, PermissionModel):
             HARVESTERS[0][0], args=[self.group.instance.slug, self.id]
         )
 
-    def save_value(self, date: date, geometry: Geometry, value: float, extras: dict = None):
+    def save_value(self, date: date, geometry: Geometry, value: float, extras: dict = None, details: list = None):
         """ Save new value for the indicator """
-        from rir_data.models.indicator import IndicatorValue, IndicatorExtraValue
+        from rir_data.models.indicator import (
+            IndicatorValue, IndicatorExtraValue,
+            IndicatorValueExtraDetailRow, IndicatorValueExtraDetailColumn
+        )
         if value < self.min_value or value > self.max_value:
             raise IndicatorValueRejectedError(f'Value needs between {self.min_value} - {self.max_value}')
         indicator_value, created = IndicatorValue.objects.get_or_create(
@@ -428,4 +462,20 @@ class Indicator(AbstractTerm, PermissionModel):
                 )
                 indicator_extra_value.value = extra_value
                 indicator_extra_value.save()
+
+        if details:
+            for detail in details:
+                try:
+                    items = detail.items()
+                    row = IndicatorValueExtraDetailRow.objects.create(
+                        indicator_value=indicator_value
+                    )
+                    for extra_key, extra_value in items:
+                        IndicatorValueExtraDetailColumn.objects.create(
+                            row=row,
+                            name=extra_key,
+                            value=extra_value
+                        )
+                except AttributeError:
+                    pass
         return indicator_value

@@ -4,6 +4,9 @@ services:
     volumes:
       - ./volumes/database:/var/lib/postgresql/13
       - ./volumes/backups:/backups
+  dbbackups:
+    volumes:
+      - ./volumes/backups:/backups
   django:
     build:
       context: ../
@@ -13,6 +16,8 @@ services:
       - ../django_project:/home/web/django_project
       - ./volumes/static:/home/web/static
       - ./volumes/media:/home/web/media
+      - ./volumes/backups:/backups
+      - ./onedrive/data:/onedrive/data
   worker:
     build:
       context: ../
@@ -21,6 +26,7 @@ services:
       - ../django_project:/home/web/django_project
       - ./volumes/static:/home/web/static
       - ./volumes/media:/home/web/media
+      - ./onedrive/data:/onedrive/data
   nginx:
     build:
       context: ../
@@ -28,6 +34,13 @@ services:
     volumes:
       - ./volumes/static:/home/web/static:ro
       - ./volumes/media:/home/web/media:ro
+
+  # onedrive service
+  onedrive:
+    volumes:
+      - ./onedrive/data:/onedrive/data
+
+  # dev
   dev:
     build:
       context: ../
@@ -39,6 +52,8 @@ services:
       - ../django_project:/home/web/django_project
       - ./volumes/static:/home/web/static
       - ./volumes/media:/home/web/media
+      - ./volumes/backups:/backups
+      - ./onedrive/data:/onedrive/data
     environment:
       # editable in .env
       - DATABASE_NAME=${DATABASE_NAME:-django}
@@ -59,3 +74,10 @@ services:
       # for ssh
       - "2001:22"
     entrypoint: []
+
+  node-red:
+    image: nodered/node-red:2.1.3
+    volumes:
+      - ./node-red:/data
+    ports:
+      - "1880:1880"

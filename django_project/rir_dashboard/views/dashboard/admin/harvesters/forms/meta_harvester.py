@@ -63,5 +63,4 @@ class MetaHarvesterView(HarvesterFormView):
         """
         harvester.user = self.request.user
         harvester.save()
-        harvester.harvesterlog_set.all().delete()
         run_harvester.delay(harvester.pk)

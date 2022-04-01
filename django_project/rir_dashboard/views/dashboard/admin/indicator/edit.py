@@ -74,7 +74,7 @@ class IndicatorEditView(AdminView):
                 rule = request.POST.get(f'scenario_{scenario.id}_rule', None)
                 name = request.POST.get(f'scenario_{scenario.id}_name', None)
                 color = request.POST.get(f'scenario_{scenario.id}_color', None)
-                if rule and name:
+                if name:
                     scenario_rule, created = IndicatorScenarioRule.objects.get_or_create(
                         indicator=indicator,
                         scenario_level=scenario

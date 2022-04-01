@@ -34,7 +34,11 @@
                 $(this).replaceWith(`<select ${attr.join(' ')}></select>`);
             });
 
-            {# disabled it at first time#}
+            {# disabled inputs at first time#}
+            const $inputRowHeader = $('#attribute_row_number_for_header');
+            $inputRowHeader.attr('type', 'number');
+            $inputRowHeader.val(1);
+
             $selectInput = $(' #attribute_sheet_name, #attribute_column_name_administration_code, .indicator-name');
             $selectInput.prop('disabled', true);
             $selectInput.change(function () {
@@ -46,6 +50,12 @@
                     $(this).val($(this).data('value'))
                 });
             }
+
+
+            {# when input row header changed #}
+            $inputRowHeader.change(function () {
+                $('#attribute_sheet_name').trigger('change')
+            });
 
             {# this event is for when file is selected #}
             let workbook = null;
@@ -74,7 +84,7 @@
                         $inputs.prop('disabled', false);
                         $inputs.html('');
                         $inputs.append(`<option value=""></option`);
-                        $.each(array[0], function (idx, value) {
+                        $.each(array[$inputRowHeader.val() - 1], function (idx, value) {
                             $inputs.append(`<option value="${value}">${value}</option`);
                         });
                         setupDefaultValue($inputs);
@@ -114,8 +124,10 @@
                     });
 
                     {# prepate sheet name selection#}
-                    $.each(workbook.SheetNames, function (idx, value) {
-                        $('#attribute_sheet_name').append(`<option value="${value}">${value}</option`);
+                    $.each(workbook.Workbook.Sheets, function (index, sheet) {
+                        if (sheet.Hidden === 0) {
+                            $('#attribute_sheet_name').append(`<option value="${sheet.name}">${sheet.name}</option`);
+                        }
                     });
                     $('#attribute_sheet_name').trigger('change')
 

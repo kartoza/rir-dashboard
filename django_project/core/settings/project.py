@@ -72,3 +72,13 @@ CELERY_WORKER_DISABLE_RATE_LIMITS = True
 CELERY_WORKER_SEND_TASK_EVENTS = False
 
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 10000
+
+# -------------------------------------------------- #
+# ----------           ONEDRIVE         ------------ #
+# -------------------------------------------------- #
+ONEDRIVE_ROOT = '/onedrive/data'
+# -------------------------------------------------- #
+
+# ----------           BACKUPS          ------------ #
+# -------------------------------------------------- #
+BACKUPS_ROOT = '/backups'

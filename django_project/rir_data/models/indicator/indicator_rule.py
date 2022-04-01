@@ -43,6 +43,8 @@ class IndicatorScenarioRule(models.Model):
         """ Return rules in string list
         """
         values = []
+        if not self.rule:
+            return ''
         rules = self.rule.lower().replace(' ', '').split('and')
         for rule in rules:
             current_symbol = None

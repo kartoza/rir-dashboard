@@ -7,8 +7,8 @@
 {% block content %}
     {% csrf_token %}
     <div class="section box-shadow-bottom">
-        <div style="margin: 50px">
-            <div style="height: 30px">
+        <div style="margin: 20px 50px">
+            <div class="global-harvester-button">
                 <a href="{% url "meta-harvester-view" instance.slug %}">
                     <button class=" main-button pull-right">Meta Harvester</button>
                 </a>
@@ -16,13 +16,25 @@
             <div id="drop-area-section">
                 <div id="drop-area">
                     <div>
-                        <i>Drag and drop here to change the indicators order</i><br><br>
+                        <div class="drop-area-header">
+                            <button id="change-order" class="white-button">Change Order</button>
+                            <form method="post">
+                                {% csrf_token %}
+                                <i>Drag and drop to change the indicators order</i>
+                                <input id="order-input" type="text" name="orders" style="display: none">
+                                <button id="cancel-order" class="white-button">Cancel</button>
+                                <button id="submit-order" class="main-button">Save New Order</button>
+                            </form>
+                        </div>
                         <div>
                             {% for indicator in indicators %}
                                 <div id="data-{{ indicator.id }}" class="block block-value" data-id="{{ indicator.id }}">
                                     <div class="block-content row">
                                         <div class="col">
-                                            {{ indicator.name }}
+                                            <span class="order-icon">
+                                                <i class="fa fa-sort" aria-hidden="true"></i>
+                                            </span>
+                                            {{ indicator.full_name }}
                                         </div>
                                         <div style="margin-right: 10px">
                                             {% if not indicator.harvester or indicator.harvester.harvester_class != external_exposed_api %}
@@ -85,11 +97,6 @@
                         </div>
                     </div>
                 </div>
-                <form method="post">
-                    {% csrf_token %}
-                    <input id="order-input" type="text" name="orders" style="display: none">
-                    <button class="main-button">Save New Order</button>
-                </form>
             </div>
         </div>
     </div>

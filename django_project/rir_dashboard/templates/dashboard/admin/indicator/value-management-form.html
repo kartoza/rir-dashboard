@@ -93,7 +93,7 @@
         <form id="form" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="header box-shadow-bottom ">
-                Indicator Value Manager Form : {{ indicator.name }}
+                {{ dashboard_title|safe }}
                 <div class="pull-right">
                     Date: <input type="text" id="datepicker" name="date">
                     <button id="submit" class="main-button">Submit</button>
@@ -265,8 +265,10 @@
                 });
 
                 {# prepate sheet name selection#}
-                $.each(workbook.SheetNames, function (idx, value) {
-                    $('#attribute_sheet_name').append(`<option value="${value}">${value}</option`);
+                $.each(workbook.Workbook.Sheets, function (index, sheet) {
+                    if (sheet.Hidden === 0) {
+                        $('#attribute_sheet_name').append(`<option value="${sheet.name}">${sheet.name}</option`);
+                    }
                 });
                 inputDefaultValue($('#attribute_sheet_name'));
                 $('#attribute_sheet_name').trigger('change');

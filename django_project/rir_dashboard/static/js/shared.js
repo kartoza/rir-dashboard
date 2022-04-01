@@ -14,6 +14,15 @@ String.prototype.capitalize = function () {
     return (target.charAt(0).toUpperCase() + target.slice(1)).replaceAll('_', ' ');
 }
 
+String.prototype.splitOnce = function (char) {
+    var i = this.indexOf(char);
+    if (i !== -1) {
+        return [this.slice(0, i), this.slice(i + 1)];
+    }
+    return [this.slice(0)];
+}
+
+
 /**
  * Fuction before ajax
  */
@@ -67,19 +76,6 @@ const csvToJson = (string, headers, quoteChar = '"', delimiter = ',') => {
         ...acc,
         [heads[i] || `extra_${i}`]: (cur.length > 0) ? (Number(cur) || cur) : null
     }), {}));
-}
-
-function numberWithCommas(x) {
-    if (x === null) {
-        return '';
-    } else if (isNaN(x)) {
-        return x;
-    } else if (typeof x === 'string') {
-        return x;
-    } else {
-        x = x.toFixed(2);
-        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    }
 }
 
 
@@ -255,15 +251,39 @@ function copyToClipboard(element) {
 }
 
 function numberWithCommas(x, decimalNum = 2) {
-    if (typeof x !== 'number') {
-        return x
+    if (x === null) {
+        return '';
+    } else if (isNaN(x)) {
+        return x;
+    } else {
+        let numFloat = parseFloat(x);
+        if (!isNaN(numFloat)) {
+            x = numFloat;
+        } else {
+            return x
+        }
+        if (typeof x !== 'number') {
+            return x
+        }
+        x = x.toFixed(decimalNum)
+        let number = x.split('.')[0];
+        let decimal = x.split('.')[1];
+        let string = number.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        if (decimal && parseInt(decimal)) {
+            string += '.' + decimal.replace(/[0]+$/, '');
+        }
+        return string;
     }
-    x = x.toFixed(decimalNum)
-    let number = x.split('.')[0];
-    let decimal = x.split('.')[1];
-    let string = number.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    if (decimal && parseInt(decimal)) {
-        string += '.' + decimal.replace(/[0]+$/, '');
-    }
-    return string;
+}
+
+function onlyUnique(value, index, self) {
+    return self.indexOf(value) === index;
+}
+
+function changeToSelect(elm) {
+    const attr = [];
+    $.each(elm.attributes, function () {
+        attr.push(`${elm.name}='${elm.value}'`);
+    });
+    $(elm).replaceWith(`<select ${attr.join(' ')}></select>`);
 }

@@ -54,7 +54,7 @@
     margin-left: 20px;
 }
 
-.navbar .navbar-options:hover {
+.navbar .navbar-options a:hover {
     opacity: 0.8;
 }
 

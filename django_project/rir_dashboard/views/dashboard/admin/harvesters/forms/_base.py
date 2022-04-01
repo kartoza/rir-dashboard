@@ -1,4 +1,4 @@
-from django.http import Http404, HttpResponseBadRequest, HttpResponse
+from django.http import Http404, HttpResponseBadRequest
 from django.utils.module_loading import import_string
 from django.shortcuts import get_object_or_404, redirect, reverse
 from rir_dashboard.views.dashboard.admin._base import AdminView
@@ -14,7 +14,7 @@ class HarvesterFormView(AdminView):
 
     @property
     def dashboard_title(self):
-        return f'Harvester for {self.indicator.__str__()}'
+        return f'Harvester for {self.indicator.full_name}'
 
     def get_indicator(self):
         """
@@ -52,7 +52,7 @@ class HarvesterFormView(AdminView):
         harvester = None
         try:
             harvester = self.get_harvester()
-            for _map in harvester.harvestermappingvalue_set.all():
+            for _map in harvester.harvestermappingvalue_set.order_by('remote_value'):
                 mapping.append(
                     {
                         'remote_value': _map.remote_value,
@@ -121,6 +121,7 @@ class HarvesterFormView(AdminView):
         try:
             data = request.POST.copy()
             data['attribute_extra_columns'] = ','.join(request.POST.getlist('attribute_extra_columns'))
+            data['attribute_extra_keys'] = ','.join(request.POST.getlist('attribute_extra_keys'))
             harvester_class = data['harvester']
             try:
                 harvester = self.get_harvester()
@@ -142,7 +143,7 @@ class HarvesterFormView(AdminView):
 
             harvester.harvester_class = harvester_class
             harvester.save()
-            harvester.save_attributes(instance=self.instance)
+            harvester.save_default_attributes(instance=self.instance)
 
             for key, value in data.items():
                 if value:

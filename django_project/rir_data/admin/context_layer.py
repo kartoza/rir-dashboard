@@ -15,8 +15,9 @@ class ContextLayerStyleInline(admin.TabularInline):
 
 
 class ContextLayerAdmin(admin.ModelAdmin):
-    list_display = ('name', 'url', 'group', 'show_on_map', 'enable_by_default', 'order', 'instance')
+    list_display = ('name', 'group', 'show_on_map', 'enable_by_default', 'order', 'instance', 'url')
     inlines = (ContextLayerParameterInline, ContextLayerStyleInline)
+    list_filter = ('instance','group')
     list_editable = ('show_on_map', 'enable_by_default', 'order')
 
 

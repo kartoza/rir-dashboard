@@ -31,7 +31,7 @@ class BaseHarvester(ABC):
     def __init__(self, harvester: Harvester):
         self.harvester = harvester
         for attribute in harvester.harvesterattribute_set.all():
-            self.attributes[attribute.name] = attribute.value
+            self.attributes[attribute.name] = attribute.value if attribute.value else attribute.file
         for attribute in harvester.harvestermappingvalue_set.all():
             self.mapping[attribute.remote_value] = attribute.platform_value
 
@@ -79,12 +79,18 @@ class BaseHarvester(ABC):
         if self.allow_to_harvest_new_data or force:
             try:
                 self.log = HarvesterLog.objects.create(harvester=self.harvester)
+                # check the attributes
+                for attr_key, attr_value in self.__class__.additional_attributes().items():
+                    if attr_value.get('required', True):
+                        if not self.attributes[attr_key]:
+                            raise HarvestingError(f'{attr_key} is required and it is empty')
+
                 self._process()
                 self._done()
             except HarvestingError as e:
                 self._error(f'{e}')
             except Exception:
-                self._error(f'{traceback.format_exc()}')
+                self._error(f'{traceback.format_exc().replace(" File", "<br>File")}')
 
     def _request_api(self, url: str):
         """ Request function"""
@@ -103,7 +109,7 @@ class BaseHarvester(ABC):
         self.harvester.is_run = False
         self.harvester.save()
 
-        self.log.end_time = datetime.datetime.now()
+        self.log.end_time = timezone.now()
         self.log.status = LogStatus.ERROR
         self.log.note = message
         self.log.save()
@@ -112,7 +118,7 @@ class BaseHarvester(ABC):
         self.harvester.is_run = False
         self.harvester.save()
 
-        self.log.end_time = datetime.datetime.now()
+        self.log.end_time = timezone.now()
         self.log.status = LogStatus.DONE
         self.log.note = message if message else self.done_message
         self.log.save()

@@ -16,6 +16,10 @@ APIListWithGeographyAndDate = (
     'rir_harvester.harveters.api_with_geography_and_date.APIWithGeographyAndDate',
     'API With Geography And Date',
 )
+SharepointHarvester = (
+    'rir_harvester.harveters.sharepoint_harvester.SharepointHarvester',
+    'Sharepoint File',
+)
 UsingExposedAPI = (
     'rir_harvester.harveters.using_exposed_api.UsingExposedAPI',
     'Harvested using exposed API by external client',
@@ -27,12 +31,10 @@ ExcelHarvester = (
 HARVESTERS = (
     APIWithGeographyAndTodayDate,
     APIListWithGeographyAndDate,
+    SharepointHarvester,
     UsingExposedAPI,
 )
-ALL_HARVESTERS = (
-    APIWithGeographyAndTodayDate,
-    APIListWithGeographyAndDate,
-    UsingExposedAPI,
+ALL_HARVESTERS = HARVESTERS + (
     ExcelHarvester,
 )
 
@@ -71,6 +73,9 @@ class Harvester(models.Model):
         on_delete=models.CASCADE
     )
 
+    def __str__(self):
+        return str(self.unique_id)
+
     @property
     def get_harvester_class(self):
         return import_string(self.harvester_class)
@@ -84,11 +89,11 @@ class Harvester(models.Model):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        self.save_attributes()
+        self.save_default_attributes()
 
-    def save_attributes(self, **kwargs):
+    def save_default_attributes(self, **kwargs):
         """
-        Save attributes for the harvesters
+        Save default attributes for the harvesters
         """
         from rir_harvester.models import HarvesterAttribute
         harvester = self.get_harvester_class
@@ -97,6 +102,72 @@ class Harvester(models.Model):
                 harvester=self,
                 name=key
             )
+
+    def save_attributes(self, data):
+        """
+        Save attributes for the harvesters
+        """
+        from rir_harvester.models.harvester_attribute import HarvesterAttribute
+        for key, value in data.items():
+            try:
+                attribute = self.harvesterattribute_set.get(
+                    name=key
+                )
+                attribute.value = value
+                attribute.save()
+            except HarvesterAttribute.DoesNotExist:
+                pass
+
+    def save_mapping(self, data):
+        """
+        Save mapping for the harvesters
+        """
+        from rir_harvester.models.harvester_attribute import HarvesterMappingValue
+        for key, value in data.items():
+            try:
+                mapping_platform = key
+                mapping_remote = value
+                mapping, created = HarvesterMappingValue.objects.get_or_create(
+                    harvester=self,
+                    remote_value=mapping_remote,
+                    defaults={
+                        'platform_value': mapping_platform
+                    }
+                )
+                mapping.platform_value = mapping_platform
+                mapping.save()
+            except KeyError:
+                pass
+
+    def get_attributes(self):
+        """
+        Get attributes keys
+        """
+        from rir_data.models.instance import Instance
+        from rir_harvester.models import HarvesterAttribute
+        ids = []
+        attributes = []
+        instance = None
+        try:
+            instance = Instance.objects.get(slug=self.harvesterattribute_set.get(name='instance_slug').value)
+        except (
+                HarvesterAttribute.DoesNotExist,
+                Instance.DoesNotExist
+        ):
+            pass
+        for name, attribute in self.get_harvester_class.additional_attributes(instance=instance).items():
+            try:
+                attr = self.harvesterattribute_set.get(name=name)
+                attr.title = attribute['title'] if 'title' in attribute else attr.human_name
+                if attr.value:
+                    attributes.append(attr)
+                    ids.append(attr.id)
+            except HarvesterAttribute.DoesNotExist:
+                pass
+        for attr in self.harvesterattribute_set.exclude(id__in=ids):
+            if attr.value:
+                attributes.append(attr)
+        return attributes
 
     def run(self, force=False):
         """
