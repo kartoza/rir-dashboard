@@ -15,14 +15,11 @@ Once the data has uploaded, “click” on ‘Edit Metadata’. “Fill” in as
 “Click” on ‘Editing Tools’. “Click” on ‘Upload’ under ‘Styles’. “Choose” your SLD file and then return to layer once again. In ‘Editing tools’ you can also
 change the thumbnail for the layer by uploading a screenshot of the layer. <br>
 ![Adding SLD File](../../img/adding_sld.gif  "Adding SLD File") <br><br>
-“Right-click” on the layer and “Select” ‘Inspect’. “Select” ‘Network’ and hard refresh the page. “Select the web address for a tile from the layer
+“Right-click” on the layer and “Select” ‘Inspect’. “Select” ‘Network’ and hard refresh the page. “Select" the web address for a tile from the layer
 (usually the third option) but if you click on the address, you’ll be able to see if it is the right one). <br>
 ![Finding Link](../../img/finding_link.gif  "Finding Link") <br> <br>
-Copy the link address and paste it into a notepad. Use the first part as the URL when adding a new layer. The rest of the address needs to be broken down and added as layer parameters. <br>
-For example, if the link address is:
-https://staging.osgs.rir.kartoza.com/geoserver/owsaccess_token=EybMy8jdEBc7ugrIAyzAP6sImNlOEk&LAYERS=geonode%3ADrought_Priority_Areas_Affected_Population&TRANSPARENT=TRUE&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&STYLES=&FORMAT=image%2Fpng&SRS=EPSG%3A900913&BBOX=5009377.085,0,6261721.35625,1252344.27125&WIDTH=256&HEIGHT=256, 
-the URL you need to use is https://staging.osgs.rir.kartoza.com/geoserver/ows. Your parameters are TRANSPARENT=TRUE, VERSION=1.1.1, WIDTH=256, HEIGHT=256, etc. 
-and your token would be EybMy8jdEBc7ugrIAyzAP6sImNlOEk. <br>
+Copy the link address and paste it into a notepad and change all the words in full caital letters to lower case letters. Use this edditied link addreess as the URL when adding a new layer. The rest of the address needs to be broken down and added as layer parameters. <br>
+
 ![Uploading](../../img/uploading.gif  "Uploading") <br><br>
 This was how to upload a context layer but the process of pushing data and creating the SLD file would apply to manually add any layer to the dashboard.
 
