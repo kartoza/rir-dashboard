@@ -18,7 +18,7 @@ change the thumbnail for the layer by uploading a screenshot of the layer. <br>
 “Right-click” on the layer and “Select” ‘Inspect’. “Select” ‘Network’ and hard refresh the page. “Select" the web address for a tile from the layer
 (usually the third option) but if you click on the address, you’ll be able to see if it is the right one). <br>
 ![Finding Link](../../img/finding_link.gif  "Finding Link") <br> <br>
-Copy the link address and paste it into a notepad and change all the words in full caital letters to lower case letters. Use this edditied link addreess as the URL when adding a new layer. The rest of the address needs to be broken down and added as layer parameters. <br>
+Copy the link address and paste it into a notepad and change all the words in full capital letters to lower case letters. Use this edited link addreess as the URL when adding a new layer.  <br>
 
 ![Uploading](../../img/uploading.gif  "Uploading") <br><br>
 This was how to upload a context layer but the process of pushing data and creating the SLD file would apply to manually add any layer to the dashboard.
