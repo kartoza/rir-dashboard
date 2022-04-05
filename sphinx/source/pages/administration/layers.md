@@ -20,7 +20,7 @@ change the thumbnail for the layer by uploading a screenshot of the layer. <br>
 ![Finding Link](../../img/finding_link.gif  "Finding Link") <br> <br>
 Copy the link address and paste it into a notepad and change all the words in full capital letters to lower case letters. Use this edited link addreess as the URL when adding a new layer.  <br>
 
-![Uploading](../../img/uploading.gif  "Uploading") <br><br>
+
 This was how to upload a context layer but the process of pushing data and creating the SLD file would apply to manually add any layer to the dashboard.
 
 ![ Layers ](../../img/layers-diagramflow.png "Layers") 
