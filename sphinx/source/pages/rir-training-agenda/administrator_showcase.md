@@ -7,10 +7,10 @@ The RIR platform is a situational awareness platform to monitor health, child pr
 ## Session outline<br> <br>
 In this session, we will tour the RIR administration functions using examples and workflows that would be used by site administers. <br> <br>
 ### Platform administration: <br>
--        User Management: Creating and editing user profiles. <br>
--         Managing Instances: Creating new and editing preexisting instances. <br>
--        Managing Context Layers: Using layers that you have uploaded to GeoNode or GeoServer to create a context layer in the platform. <br>
--        Geography management: Adding geography levels to your instance. <br>
+-        User Management: Creating and editing user profiles. 
+-         Managing Instances: Creating new and editing preexisting instances. 
+-        Managing Context Layers: Using layers that you have uploaded to GeoNode or GeoServer to create a context layer in the platform. 
+-        Geography management: Adding geography levels to your instance.
  
 ### indicator management: <br>
  -        Ingestors: Adding data to create indicators for an instance. <br>
