@@ -1,12 +1,12 @@
-Introduction <br> <br>
+# User Showcase <br> <br>
 The RIR platform is a situational awareness platform to monitor health, child protection, nutrition wash and education in a geographic region. To fully understand the platform and the information you can obtain from it, you need to understand how it works. <br> <br>
 Session outline <br>
 In this session, we will tour the RIR platform functionality using simple examples and workflows that would be used by the everyday platform user.
-Important Links: <br>
+## Important Links: <br> <br>
 RIR platform <br>
 RIR full documentation <br>
-Platform tour <br>
-In the section we will be shown how to navigate the platform, where all the information is and be given a summary of what each tool and button does including simple examples and workflows: <br>
+Platform tour <br> <br>
+In the section we will be shown how to navigate the platform, where all the information is and be given a summary of what each tool and button does including simple examples and workflows: <br> <br>
  
 •        Access and log in to the platform <br>
 •        Programme Interventions Panel: This group of buttons is used to navigate through the key areas of factors or indicators that the RIR platform accounts for. <br>
@@ -25,4 +25,4 @@ In the section we will be shown how to navigate the platform, where all the info
 •        The Info Button <br>
 •        Graphical Representation <br>
 •        Links Button: If you “click” on the “links” button, a dropdown menu appears. These are the various links to the different servers that the RIR platform              connects to. <br><br>
-Full documentation Here: Platform Tour  <br>
+## Full documentation Here: Platform Tour  <br>
