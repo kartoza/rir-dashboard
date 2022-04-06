@@ -25,4 +25,4 @@ In the section we will be shown how to navigate the platform, where all the info
 •        The Info Button <br>
 •        Graphical Representation <br>
 •        Links Button: If you “click” on the “links” button, a dropdown menu appears. These are the various links to the different servers that the RIR platform connects to. <br> <br>
- User Documentation **Here:**[**Here**](https://kartoza.github.io/rir-dashboard/pages/using/index.html/ "**Here**") <br>
+ User Documentation [**Here**](https://kartoza.github.io/rir-dashboard/pages/using/index.html/ "**Here**") <br>
