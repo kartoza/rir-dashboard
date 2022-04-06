@@ -25,5 +25,5 @@ In the section we will be shown how to navigate the platform, where all the info
 ◦         Timelaps (eg. IDP arrival over time) <br>
 •        The Info Button <br>
 •        Graphical Representation <br>
-•        Links Button: If you “click” on the “links” button, a dropdown menu appears. These are the various links to the different servers that the RIR platform              connects to. <br> br>
+•        Links Button: If you “click” on the “links” button, a dropdown menu appears. These are the various links to the different servers that the RIR platform connects to. <br> <br>
  **Full documentation Here:** Platform Tour  <br>
