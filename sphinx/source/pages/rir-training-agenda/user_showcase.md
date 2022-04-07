@@ -13,7 +13,7 @@ In the section we will be shown how to navigate the platform, where all the info
 1. Access and log in to the platform <br>
 2. Programme Interventions Panel: This group of buttons is used to navigate through the key areas of factors or indicators that the RIR platform accounts for. <br>
 3. The Indicator Panel: This panel contains a list of indicators that relate to the factors accounted for by the platform. (Full documentation here: [Indicators](https://kartoza.github.io/rir-dashboard/pages/using/indicators.html#indicators)) <br>
-4. The Indicator Icon: This button expands and collapses the indicator panel if the button is in blue as illustrated in the image below. <br>
+4. The Indicator Icon: This button expands and collapses the indicator panel. <br>
 5. Layers (Full documentation here: [Layers](https://kartoza.github.io/rir-dashboard/pages/using/layers.html#layers)) <br>
 ◦            The Layers Icon  <br>
 ◦           The Basemap Icon <br>
