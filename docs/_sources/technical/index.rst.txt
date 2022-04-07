@@ -5,6 +5,7 @@ Developer documentation
    :maxdepth: 1
    :caption: Contents:
 
+   process_overview
    server_preparation
    cloning_the_project_folder
    setting_up_server

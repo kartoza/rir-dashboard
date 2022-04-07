@@ -1,4 +1,4 @@
-# Indicators
+# **Indicators**
 
 
 ![Indicators ](../img/indicator-diagramflow.png "Indicators")

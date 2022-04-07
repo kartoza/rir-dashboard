@@ -13,7 +13,7 @@ To make the map stop moving, "release" your mouse.
 The second method can be used when you are looking to zoom into a specific area. This method requires the user to "click" "shift" and then "drag" a square around the area they would like to focus in on. If you are using a scroll pad and not a mouse, you can zoom out by bringing your fingers together on your trackpad and zoom out by moving them away from each other on your trackpad.
 <br>![Zooming in ](../../img/Zooming-in.gif "Zooming in")<br><br>
 
-3. **Information Display Window**: To gain instant information on a specific area within the map, "click" on that area with your mouse. By clicking on an area, a popup window with information related to your selected layers for that area will be displayed on the screen. This action will also change the info window in the ‘Summary Tab'
+3. **Information Display Window**: To gain instantce information on a specific area within the map, "click" on that area with your mouse. By clicking on an area, a popup window with information related to your selected layers for that area will be displayed on the screen. This action will also change the info window in the ‘Summary Tab'
 to the  ‘Indicators Tab'. You can also view more details by "clicking" on ‘details’ in the popup window. This will also change the info window’s tab to the ‘Details Tab'.
 <br>![Information Display Window](../../img/info.png "Information Display Window")<br><br>
 

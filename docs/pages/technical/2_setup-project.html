@@ -255,9 +255,9 @@ password : admin</p>
 <h2>Setup different environment<a class="headerlink" href="#setup-different-environment" title="Permalink to this headline">¶</a></h2>
 <p>to setup different environment, for example the Default credential, or the port of server, open <strong>deployment/.env</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">COMPOSE_PROJECT_NAME</span><span class="o">=</span><span class="n">rir_dashboard</span>
-<span class="n">NGINX_TAG</span><span class="o">=</span><span class="mf">0.0</span><span class="o">.</span><span class="mi">1</span>  <span class="o">-&gt;</span> <span class="n">Change</span> <span class="n">this</span> <span class="k">for</span> <span class="n">different</span> <span class="n">nginx</span> <span class="n">image</span>
-<span class="n">DJANGO_TAG</span><span class="o">=</span><span class="mf">0.0</span><span class="o">.</span><span class="mi">1</span> <span class="o">-&gt;</span> <span class="n">Change</span> <span class="n">this</span> <span class="k">for</span> <span class="n">different</span> <span class="n">django</span> <span class="n">image</span>
-<span class="n">DJANGO_DEV_TAG</span><span class="o">=</span><span class="mf">0.0</span><span class="o">.</span><span class="mi">1</span> <span class="o">-&gt;</span> <span class="n">Change</span> <span class="n">this</span> <span class="k">for</span> <span class="n">different</span> <span class="n">django</span> <span class="n">dev</span> <span class="n">image</span>
+<span class="n">NGINX_TAG</span><span class="o">=</span><span class="mf">0.0.1</span>  <span class="o">-&gt;</span> <span class="n">Change</span> <span class="n">this</span> <span class="k">for</span> <span class="n">different</span> <span class="n">nginx</span> <span class="n">image</span>
+<span class="n">DJANGO_TAG</span><span class="o">=</span><span class="mf">0.0.1</span> <span class="o">-&gt;</span> <span class="n">Change</span> <span class="n">this</span> <span class="k">for</span> <span class="n">different</span> <span class="n">django</span> <span class="n">image</span>
+<span class="n">DJANGO_DEV_TAG</span><span class="o">=</span><span class="mf">0.0.1</span> <span class="o">-&gt;</span> <span class="n">Change</span> <span class="n">this</span> <span class="k">for</span> <span class="n">different</span> <span class="n">django</span> <span class="n">dev</span> <span class="n">image</span>
 
 <span class="c1"># Environments</span>
 <span class="n">DJANGO_SETTINGS_MODULE</span><span class="o">=</span><span class="n">core</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">prod</span> <span class="o">-&gt;</span> <span class="n">Change</span> <span class="n">this</span> <span class="n">to</span> <span class="n">use</span> <span class="n">different</span> <span class="n">django</span> <span class="n">config</span> <span class="n">file</span>
@@ -290,7 +290,7 @@ password : admin</p>
 <p>Click OK and close. Download <a class="reference external" href="http://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html">PuTTY</a>.
 Create a connection by following these <a class="reference external" href="https://the.earth.li/~sgtatham/putty/0.67/htmldoc/Chapter2.html#gs-insecure">directions</a>, enter “localhost” as the host name, “SSH” as the protocol, and “2222” as the port.</p>
 <p>Once you have logged in on PuTTY enter this command below in the prompt:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ssh</span> <span class="n">yourlogin</span><span class="nd">@127</span><span class="o">.</span><span class="mf">0.0</span><span class="o">.</span><span class="mi">1</span> <span class="o">-</span><span class="n">p</span> <span class="mi">22</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ssh</span> <span class="n">yourlogin</span><span class="o">@</span><span class="mf">127.0.0.1</span> <span class="o">-</span><span class="n">p</span> <span class="mi">22</span>
 </pre></div>
 </div>
 <p>(Make sure that you replace your username with “yourlogin”)</p>
@@ -310,7 +310,7 @@ Create a connection by following these <a class="reference external" href="https
 
     <div class="col-md-12">
         <span></span><span class="pull-right">&copy; Copyright 2021, Kartoza (Pty) Ltd..
-        Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0 and the
+        Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.3.2 and the
         <a href="https://pypi.org/project/sphinx-sizzle-theme/"
 
            title="0.0.9/821a5457 [2020-04-16T19:31:16]"

@@ -74,23 +74,8 @@ sudo apt-get install  docker-ce-cli containerd.io
 
 This will check if installation of docker was successful
 ```
-docker version
+sudo docker run hello-world
 ```
-And it should return like this
-
-```
-Client: Docker Engine - Community
- Version:           20.10.9
- API version:       1.41
- Go version:        go1.16.8
- Git commit:        c2ea9bc
- Built:             Mon Oct  4 16:08:29 2021
- OS/Arch:           linux/amd64
- Context:           default
- Experimental:      true
-
-```
-
 ### Ensure that docker daemon is running on local host 
 
 This will ensure that the docker daemon is running

@@ -15,13 +15,13 @@ you will be redirected to the dashboard link.
 There are two ways to manually add data to indicators. The first is by using the 'Value Manager Form'. To access this form, go to 'Indicator Management' and 
 "scroll" to the indicator that you would like to add data to. On the right-hand side of the indicator's name, there will be a small 'Settings' symbol.
 "Click on 'Settings' for the desired indicator and then "click" on 'Value Manager Form'. You will be redirected to a form that gives you all the geographic 
-locations within the instant and spaces to add values. You can also add a file to fill in the data by clicking 'Use File to Refill Form'
+locations within the instantce and spaces to add values. You can also add a file to fill in the data by clicking 'Use File to Refill Form'
 <br>![Value Manager Form](../../img/data-form.gif "Value Manager Form")<br><br>
 
 3. **Value Manager Map**:
 The second way to add data to an indicator is through the 'Value Manager Map' option. Go to 'Indicator Management' and "scroll" to the indicator that you would
 like to add data to. On the right-hand side of the indicator's name, there will be a small 'Settings' symbol. "Click on 'Settings' for the desired indicator and
-then "click" on 'Value Manager  Map'. This will take you back to the map canvas. Now you will be able to "click" on any geographic location within the instant 
+then "click" on 'Value Manager  Map'. This will take you back to the map canvas. Now you will be able to "click" on any geographic location within the instantce 
 and a popup window will appear which will allow you to fill in value data for that location.
 <br>![Value Manager Map](../../img/value-manager-map.gif "Value Manager Map")<br>
 <br>![Harvesters](../../img/harvester-diagramflow.png "Harvester")<br><br>
