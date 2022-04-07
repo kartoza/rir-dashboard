@@ -3,7 +3,7 @@
 The RIR platform is a situational awareness platform to monitor health, child protection, nutrition wash and education in a geographic region. To fully understand the platform and the information you can obtain from it, you need to understand how it works. <br> <br>
 ## Important Links: <br> <br>
 [RIR Platform](https://staging.rir.kartoza.com/ "RIR Platform") <br>
-[RIR Full Documentation](https://kartoza.github.io/rir-dashboard/pages/introduction.html/ "RIR Full Documentation")  <br> <br>
+[RIR Full Documentation](https://kartoza.github.io/rir-dashboard/pages/introduction.html "RIR Full Documentation")  <br> <br>
 ## Session outline<br> <br>
 In this session, we will tour the RIR administration functions using examples and workflows that would be used by site administers. <br> <br>
 <br>![Admin Guide](../../img/adminp1.drawio.png "Admin Guide")<br><br>
@@ -23,5 +23,5 @@ In this session, we will tour the RIR administration functions using examples an
  
 •         Harvesters: Pulling data from an external source to create indicators for an instance. <br><br>
 
-Admin Documentation [**Here**](https://kartoza.github.io/rir-dashboard/pages/administration/index.html/ "**Here**") <br>
+Admin Documentation [**Here**](https://kartoza.github.io/rir-dashboard/pages/administration/index.html "**Here**") <br>
 
