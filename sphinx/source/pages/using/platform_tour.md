@@ -1,6 +1,5 @@
 # Platform Tour
 
-
 The RIR platform is a situational awareness platform to monitor health, child protection, nutrition, wash (water, sanitation and hygiene) and education in a geographic region. To fully understand 
 the platform and the information you can obtain from it, you need to understand how it works.
 
@@ -22,7 +21,7 @@ the platform and the information you can obtain from it, you need to understand 
 5. **The Basemap Icon**: To expand or collapse the basemap panel, "click" on this icon. When expanded, you will be able to choose which basemap you would like to be displayed on your canvas extent.
 <br>![The basemap icon](../../img/basemap-button.png "The basemap icon")<br><br>
 
-6. **Map**: The map displays a geographic area based on the instant being used. In this case, it’s Somalia. The information that is displayed on the map is determined by the layers that are selected as well the factors that have been selected within the 'Indicator Panel'. A complete guide of the map and accompanying interactions will be available in a document to follow.
+6. **Map**: The map displays a geographic area based on the instantce being used. In this case, it’s Somalia. The information that is displayed on the map is determined by the layers that are selected as well the factors that have been selected within the 'Indicator Panel'. A complete guide of the map and accompanying interactions will be available in a document to follow.
  <br><br>
 7. **The Info Button**: The 'Info Button' expands a panel that contains a summary of the severity of the selected indicators in different locations within the geographic area. It also has an 'Indicators' option to select which illustrates the severity of all the factors for a specific location within the geographic area, this location can be selected by using your mouse and simply "clicking" on the area of interest.
 <br>![The info button](../../img/info-button.png "The info button")<br><br>
@@ -30,7 +29,7 @@ the platform and the information you can obtain from it, you need to understand 
 8.  **Geography Level Panel**: This panel allows you to view the area of interest at a country, region, and district geography level. 
 <br>![Geography level panel](../../img/geography-level-panel.png "Geography level panel")<br><br>
 
-9. **Graphical Representation**: This pie chart illustrates the severities of the selected indicators for the whole geographical area or instant. This chart gives you the cumulative total of each severity out of the total number of regions or districts (depending on your settings in the geography level panel). To find out how many regions or districts fall within a specific severity level, "run" your mouse over that area of the pie chart. 
+9. **Graphical Representation**: This pie chart illustrates the severities of the selected indicators for the whole geographical area or instantce. This chart gives you the cumulative total of each severity out of the total number of regions or districts (depending on your settings in the geography level panel). To find out how many regions or districts fall within a specific severity level, "run" your mouse over that area of the pie chart. 
 <br>![Graphical representation](../../img/graphical-representation.png "Graphical representation")<br><br>
  
 10. **Timelapse Bar**: The 'Timelapse Bar' will show you the severity of the selected indicators over some time. As the map and the 'Info Panel' change, the corresponding date for that data will be displayed within the bar. To initiate the time-lapse, "click" on the "play" button. 
