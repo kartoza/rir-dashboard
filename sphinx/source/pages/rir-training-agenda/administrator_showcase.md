@@ -15,7 +15,7 @@ In this session, we will tour the RIR administration functions using examples an
 <br>![Admin Guide](../../img/adminp2.drawio.png "Admin Guide")<br><br>
  
 ### Indicator Management: <br>
- •         Ingestors: Adding data to create indicators for an instance. <br>
+ •         Ingestors: Adding data to create indicators for the instance. <br>
 ◦  Map <br>
 ◦   Form <br>
 ◦  Single Upload <br>
