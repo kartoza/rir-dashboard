@@ -5,7 +5,8 @@ In this session, we will tour the RIR platform functionality using simple exampl
 ## Important Links: <br> <br>
 [RIR Platform](https://staging.rir.kartoza.com/ "RIR Platform") <br>
 [RIR Full Documentation](https://kartoza.github.io/rir-dashboard/pages/introduction.html/ "RIR Full Documentation")  <br> <br>
-## Platform tour <br> <br>
+<br>![Platform Tour ](../../img/user_diagram.drawio.png "Platform Tour")<br><br>
+## Platform Tour <br> <br>
 In the section we will be shown how to navigate the platform, where all the information is and be given a summary of what each tool and button does including simple examples and workflows: <br> <br>
  
 •        Access and log in to the platform <br>
