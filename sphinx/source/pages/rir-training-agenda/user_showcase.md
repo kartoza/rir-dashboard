@@ -4,7 +4,7 @@ The RIR platform is a situational awareness platform to monitor health, child pr
 In this session, we will tour the RIR platform functionality using simple examples and workflows that would be used by the everyday platform user.
 ### Important Links: <br> <br>
 [RIR Platform](https://staging.rir.kartoza.com/ "RIR Platform") <br>
-[RIR Full Documentation](https://kartoza.github.io/rir-dashboard/pages/introduction.html/ "RIR Full Documentation")  <br> <br>
+[RIR Full Documentation](https://kartoza.github.io/rir-dashboard/pages/introduction.html "RIR Full Documentation")  <br> <br>
 ### Session breakdown diagram: <br> <br>
 <br>![Platform Tour ](../../img/user_diagram.drawio.png "Platform Tour")<br><br>
 ## Platform Tour <br> <br>
@@ -27,4 +27,4 @@ In the section we will be shown how to navigate the platform, where all the info
 7. The Info Button <br>
 8. Graphical Representation <br>
 9. Links Button: If you “click” on the “links” button, a dropdown menu appears. These are the various links to the different servers that the RIR platform connects to. <br> <br>
- User Documentation [**Here**](https://kartoza.github.io/rir-dashboard/pages/using/index.html/ "**Here**") <br>
+ User Documentation [**Here**](https://kartoza.github.io/rir-dashboard/pages/using/index.html "**Here**") <br>
