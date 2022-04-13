@@ -26,5 +26,6 @@ In the section we will be shown how to navigate the platform, where all the info
 ◦           Timelaps (eg. IDP arrival over time) <br>
 7. The Info Button <br>
 8. Graphical Representation <br>
-9. Questions
+9. Questions <br>
+
  User Documentation [Here](https://kartoza.github.io/rir-dashboard/pages/using/index.html "**Here**") <br>
