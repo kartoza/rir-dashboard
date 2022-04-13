@@ -164,11 +164,9 @@ To pan on the map just click and drag the map around.
 
 Once you have zoomed and panned to an area or interest click on it and you will see an information window as we saw earlier. For more information click on the detail button and information will be shown in the information panel on the right. Click off the window to get out.
 
-![image](https://user-images.githubusercontent.com/77841514/163172520-2efd4391-b36b-4d70-b5fc-0985bcd00ec2.png)
+![image](https://user-images.githubusercontent.com/77841514/163173282-27af9f69-126c-434c-94db-56860a7d2c64.png)
 
-You can choose two indicators for comparison on the map. 
-
-For example while child protection is selected lets see where there is program coverage for child protection in Somalia. 
+You can choose two indicators for comparison on the map. For example while child protection is selected lets see where there is program coverage for child protection in Somalia. 
 
 Under the  program coverage indicator select child protection. You will see a slider appear and the layer names represented on each side on the bottom left and right of the screen. 
 
