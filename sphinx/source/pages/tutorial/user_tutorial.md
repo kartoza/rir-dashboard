@@ -36,7 +36,7 @@ In the section we will be shown how to navigate the platform, where all the info
 
 # Session tutorial
 
-Access and sign in:
+## Access and sign in
 
 Access the platform here: https://staging.rir.kartoza.com . 
 
@@ -145,7 +145,7 @@ You can now see some of the topographic features underneath the departures layer
 
 Finally while we have the IDP data handy you can change the geography level of the indicators. By specifying country region or district in the menu on the bottom right of the map canvas.
 
-- lets turn off the the Acess layer by going to the layers and unchecking it so that we can see the regions better
+- Turn off the the Acess layer by going to the layers and unchecking it so that we can see the regions better
 - On the menue at the bottom right of the page select Region you will see that the geograpy level of the areas change. 
 - click on Country and see what happens. 
 
@@ -176,7 +176,9 @@ If you click on the middle toggle and drag you can see that in several of the re
 
 You can make the slide horizontal by clicking the map button at the bottom right of the map canvas. 
 
-Finally there is a time laps bar that can show changes in data over time. A great example of this is the internal displacement of people. Lets turn of the child protection indicators and activate the IDP layer for departures. You can see where indicators are selected because the tab heading will be bolded. 
+## Time laps
+
+There is a time laps bar that can show changes in data over time. A great example of this is the internal displacement of people. Lets turn of the child protection indicators and activate the IDP layer for departures. You can see where indicators are selected because the tab heading will be bolded. 
 
 ![image](https://user-images.githubusercontent.com/77841514/163174875-c25800a3-97b5-4bf8-ba3e-f490156cf72b.png)
 
@@ -200,8 +202,4 @@ this will open the details pannel where you can see a line graph showing the cha
 ![image](https://user-images.githubusercontent.com/77841514/163176117-25712899-f3fd-45f4-ae2d-0fd7d92233f6.png)
 
 ![image](https://user-images.githubusercontent.com/77841514/163175994-7750d241-bc18-4d9d-86c5-eb83bbb19ab3.png)
-
-## Bringint it all together
-
-
 
