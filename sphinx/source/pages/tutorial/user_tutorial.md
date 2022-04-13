@@ -236,7 +236,7 @@ Now click the play button on the time bar and you will see the changes in what r
 
 ### More on Information Pannel
 
-While the IDP Departures is open, let's look at the last options and functionalities on the information panel that I did not cover previously. If the Information panel in minimized or you want to minimize it. Click on the blue Info button that looks like a tab on the right-side panel to maximize and minimize it. 
+While the IDP Departures is open, let's look at the last options and functionalities on the information panel that we did not cover previously. If the Information panel in minimized or you want to minimize it. Click on the blue Info button that looks like a tab on the right-side panel to maximize and minimize it. 
 
 Inside the information panel, there is a summary of all the region/or districts and for example how many people departed that area because we are looking at the departures layer. 
 
