@@ -22,11 +22,11 @@ This session will tour the RIR platform functionality using simple examples and 
 
 Here is a simplified overview of the topics we will cover in this session:
 
-![image](https://user-images.githubusercontent.com/77841514/163254651-eeb519e8-ef99-4b1c-a2ac-6b9df34be2e7.png)
+![image](https://user-images.githubusercontent.com/77841514/163260759-7839cbee-2e45-4e1f-afe4-8f29713a52a5.png)
 
-![image](https://user-images.githubusercontent.com/77841514/163254555-c85808f9-bc44-4bc7-bdc7-f4eddf1956cc.png)
+![image](https://user-images.githubusercontent.com/77841514/163261010-bb5f4e5f-50b2-44d8-bfbd-d5deeb2f095e.png)
 
-![image](https://user-images.githubusercontent.com/77841514/163254749-1608e726-b083-493c-babf-3fce4367c82f.png)
+![image](https://user-images.githubusercontent.com/77841514/163260841-2dd75fe2-df7a-4487-8b3e-410d549ff29a.png)
 
 During this tutorial, we will complete the following activities:
 
