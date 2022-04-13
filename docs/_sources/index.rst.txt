@@ -26,6 +26,7 @@ shared and reused for your own purposes under the terms of our license.
 
    pages/introduction
    pages/using/index.rst
+   pages/tutorial/index.rst
    pages/administration/index.rst
    pages/technical/index.rst
    pages/roadmap

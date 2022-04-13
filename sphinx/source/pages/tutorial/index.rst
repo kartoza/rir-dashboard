@@ -2,5 +2,5 @@
    :maxdepth: 1
    :caption: Contents:
    
-   user_showcase
-   administrator_showcase 
+   user_tutorial
+   administrator_tutorial

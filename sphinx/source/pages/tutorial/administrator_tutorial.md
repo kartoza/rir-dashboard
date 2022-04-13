@@ -1,10 +1,13 @@
-# Administrator Showcase <br> <br>
-## Introduction <br> <br>
+# Administrator Tutorial
+
+## Introduction 
 The RIR platform is a situational awareness platform to monitor health, child protection, nutrition wash and education in a geographic region. To fully understand the platform and the information you can obtain from it, you need to understand how it works. <br> <br>
-## Important Links: <br> <br>
+
+## Important Links
 [RIR Platform](https://staging.rir.kartoza.com/ "RIR Platform") <br>
 [RIR Full Documentation](https://kartoza.github.io/rir-dashboard/pages/introduction.html "RIR Full Documentation")  <br> <br>
-## Session outline<br> <br>
+
+## Session outline
 In this session, we will tour the RIR administration functions using examples and workflows that would be used by site administers. <br> <br>
 <br>![Admin Guide](../../img/adminp1.drawio.png "Admin Guide")<br><br>
 ### Platform Administration: <br>

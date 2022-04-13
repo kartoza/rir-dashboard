@@ -1,4 +1,4 @@
-# User Showcase <br> <br>
+# User Tutorial <br> <br>
 The RIR platform is a situational awareness platform to monitor health, child protection, nutrition, water, sanitation and hygiene as well as education in a geographic region. To fully understand the platform and the information you can obtain from it, you need to understand how it works. <br> <br>
 ## Session outline <br> <br>
 In this session, we will tour the RIR platform functionality using simple examples and workflows that would be used by the everyday platform user.

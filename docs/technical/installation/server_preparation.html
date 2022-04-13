@@ -41,8 +41,8 @@
       <script src="../../../../app-data.js"></script>
 <link rel="index" title="Index" href="../../genindex.html" />
 <link rel="search" title="Search" href="../../search.html" />
-<link rel="next" title="Initial Configuration" href="initial_configuration.html" />
-<link rel="prev" title="Installation" href="index.html" />
+<link rel="next" title="Cloning the project folder from kartoza github repository" href="cloning_the_project_folder.html" />
+<link rel="prev" title="Overview of process of installation of the RIR Dashboard" href="process_overview.html" />
 
 </head>
 <body class="full-height test">
@@ -84,18 +84,18 @@
   <div class="prev-next">
     
       <div class="pull-left">
-        <a class="btn btn-default prev" href="index.html" title="Previous chapter (Installation)"><i class="fa fa-chevron-left mr-1em" aria-hidden="true"></i><span class="btn-text">Installation</span></a>
+        <a class="btn btn-default prev" href="process_overview.html" title="Previous chapter (Overview of process of installation of the RIR Dashboard)"><i class="fa fa-chevron-left mr-1em" aria-hidden="true"></i><span class="btn-text">Overview of process of installation of the RIR Dashboard</span></a>
       </div>
     
       <div class="pull-right">
-        <a class="btn btn-default next" href="initial_configuration.html" title="Next chapter (Initial Configuration)"><span class="btn-text">Initial Configuration</span>&nbsp;<i class="fa fa-chevron-right ml-1em" aria-hidden="true"></i></a>
+        <a class="btn btn-default next" href="cloning_the_project_folder.html" title="Next chapter (Cloning the project folder from kartoza github repository)"><span class="btn-text">Cloning the project folder from kartoza github repository</span>&nbsp;<i class="fa fa-chevron-right ml-1em" aria-hidden="true"></i></a>
       </div>
     </div>
   
       </div>
       <div id="alt-hdr-right">
 
-        <a href="index.html"><i class="fa fa-chevron-left mr-8"></i></a>
+        <a href="process_overview.html"><i class="fa fa-chevron-left mr-8"></i></a>
 
 
         <a href="../../index.html"><i class="fa fa-home mr-8"></i></a>
@@ -105,7 +105,7 @@
 
 
 
-        <a href="initial_configuration.html"><i class="fa fa-chevron-right"></i></a>
+        <a href="cloning_the_project_folder.html"><i class="fa fa-chevron-right"></i></a>
 
       </div>
     </div>
@@ -141,11 +141,11 @@
   
     <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html#introduction">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../using/index.html">RIR User Documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../administration/index.html">RIR Administrator Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../administration/index.html#rir-administrator-documentation">RIR Administrator Documentation</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html#rir-platform">RIR Technical Documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../roadmap.html">RIR Roadmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../roadmap.html#rir-roadmap">RIR Roadmap</a></li>
 </ul>
 
   
@@ -159,11 +159,11 @@
   
     <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html#introduction">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../using/index.html">RIR User Documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../administration/index.html">RIR Administrator Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../administration/index.html#rir-administrator-documentation">RIR Administrator Documentation</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html#rir-platform">RIR Technical Documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../roadmap.html">RIR Roadmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../roadmap.html#rir-roadmap">RIR Roadmap</a></li>
 </ul>
 
   
@@ -254,58 +254,6 @@ sudo systemctl enable docker
 <p>Restart the server</p>
 <p>The docker daemon should be running now</p>
 </div>
-<div class="section" id="clone-rir-dashboard-repository-to-your-machine">
-<h3>Clone rir-dashboard repository to your machine<a class="headerlink" href="#clone-rir-dashboard-repository-to-your-machine" title="Permalink to this headline">¶</a></h3>
-<p>This will clone the rir-dashboard rpository to your machine or virtual box</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">kartoza</span><span class="o">/</span><span class="n">rir</span><span class="o">-</span><span class="n">dashboard</span><span class="o">.</span><span class="n">git</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="set-up-server">
-<h3>Set up server<a class="headerlink" href="#set-up-server" title="Permalink to this headline">¶</a></h3>
-<p>This will set up the rir-dashboard server on your machine or virtual box</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">rir</span><span class="o">-</span><span class="n">dashboard</span>
-<span class="n">cd</span> <span class="n">deployment</span>
-<span class="n">ls</span>
-<span class="n">cp</span> <span class="n">docker</span><span class="o">-</span><span class="n">compose</span><span class="o">.</span><span class="n">override</span><span class="o">.</span><span class="n">template</span><span class="o">.</span><span class="n">yml</span> <span class="n">docker</span><span class="o">-</span><span class="n">compose</span><span class="o">.</span><span class="n">override</span><span class="o">.</span><span class="n">yml</span>
-<span class="n">cp</span> <span class="o">.</span><span class="n">template</span><span class="o">.</span><span class="n">env</span> <span class="o">.</span><span class="n">env</span>
-<span class="n">ls</span>
-<span class="n">cd</span> <span class="o">..</span>
-<span class="n">make</span> <span class="n">up</span>
-<span class="n">docker</span> <span class="n">ps</span>
-<span class="n">docker</span> <span class="n">logs</span> <span class="o">-</span><span class="n">f</span> <span class="n">rir_dashboard_django</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="open-server-if-using-a-linux-machine">
-<h3>Open server if using a linux machine<a class="headerlink" href="#open-server-if-using-a-linux-machine" title="Permalink to this headline">¶</a></h3>
-<p>This will open the dashboard on a webpage:</p>
-<p>Open up a web browser and go to 127.0.0.1 and the dashboard will open:
-<img alt="RIR Dashboard on 127.0.0.1" src="../../_images/rir-dashboard-linux-machine.PNG" /></p>
-</div>
-<div class="section" id="if-using-a-virtual-box">
-<h3>If using a virtual box<a class="headerlink" href="#if-using-a-virtual-box" title="Permalink to this headline">¶</a></h3>
-<p>Open network settings of your virtual box</p>
-<p><img alt="Network settings vbox" src="../../_images/Virtualbox-network-settings1.PNG" /></p>
-<p>Click on port forwarding and add 2 new rules as indicated in the image below:</p>
-<p><img alt="Network settings 2 vbox" src="../../_images/Virtualbox-network-settings2.PNG" /></p>
-<p>Click OK and close. Download <a class="reference external" href="http://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html">PuTTY</a>.
-Create a connection by following these <a class="reference external" href="https://the.earth.li/~sgtatham/putty/0.67/htmldoc/Chapter2.html#gs-insecure">directions</a>, enter “localhost” as the host name, “SSH” as the protocol, and “2222” as the port.</p>
-<p>Once you have logged in on PuTTY enter this command below in the prompt:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ssh</span> <span class="n">yourlogin</span><span class="o">@</span><span class="mf">127.0.0.1</span> <span class="o">-</span><span class="n">p</span> <span class="mi">22</span>
-</pre></div>
-</div>
-<p>(Make sure that you replace your username with “yourlogin”)</p>
-<p>When asked for your password, press enter three times and the prompt will display this message:  Permission denied (publickey,password).</p>
-<p>Open the RIR dashboard server using a web browser on your machine by going to 127.0.0.1:8080
-<img alt="RIR Dashboard on 127.0.0.1:8080" src="../../_images/rir-dashboard-vbox.PNG" /></p>
-</div>
-<div class="section" id="signing-in">
-<h3>Signing in<a class="headerlink" href="#signing-in" title="Permalink to this headline">¶</a></h3>
-<p>Click on Sign in and for username and password type admin</p>
-<p>Change your password on the Django admin page</p>
-<p>Currently the dashboard is just a template and the working RIR Dashboard has not been setup yet</p>
-</div>
 </div>
 </div>
 
@@ -319,7 +267,7 @@ Create a connection by following these <a class="reference external" href="https
 
     <div class="col-md-12">
         <span></span><span class="pull-right">&copy; Copyright 2021, Kartoza (Pty) Ltd..
-        Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.3.2 and the
+        Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0 and the
         <a href="https://pypi.org/project/sphinx-sizzle-theme/"
 
            title="0.0.9/821a5457 [2020-04-16T19:31:16]"
