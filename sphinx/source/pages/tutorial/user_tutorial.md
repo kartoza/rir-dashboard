@@ -139,9 +139,20 @@ For example it may be useful to have a topographic map to visualise geographic f
 - click the dropdown for Internal Displacement
 - select the IDP Departure layer
 
+You can now see some of the topographic features underneath the departures layer. 
+
+![image](https://user-images.githubusercontent.com/77841514/163171012-f5f02f76-6c4f-47d4-8aca-4fafca512022.png)
+
 Finally while we have the IDP data handy you can change the geography level of the indicators. By specifying country region or district in the menu on the bottom right of the map canvas.
 
-Map Interactions: 
+- lets turn off the the Acess layer by going to the layers and unchecking it so that we can see the regions better
+- On the menue at the bottom right of the page select Region you will see that the geograpy level of the areas change. 
+- click on Country and see what happens. 
+
+![image](https://user-images.githubusercontent.com/77841514/163171820-746865ac-711e-4d9e-ac14-4e307ac541d9.png)
+
+
+## Map Interactions
 
 Lets now get into actually interacting with the Map. 
 
