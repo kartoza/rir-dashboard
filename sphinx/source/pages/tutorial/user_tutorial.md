@@ -156,9 +156,15 @@ Finally while we have the IDP data handy you can change the geography level of t
 
 Lets now get into actually interacting with the Map. 
 
-Activate the child protection indicator again (and deactivte depatures). You can zoom into and out of  the map by using your scroll wheel on your mouse or you can click hold down shift and draw a square around the area you whish to zoom in on. To pan on the map just click and drag the map around. 
+Activate the child protection indicator again (and deactivte depatures). You can zoom into and out of  the map by using your scroll wheel on your mouse or you can click hold down shift and draw a square around the area you whish to zoom in on. 
+
+![image](https://user-images.githubusercontent.com/77841514/163172369-2427987e-d2b6-4a79-854a-f0f290b3dd23.png)
+
+To pan on the map just click and drag the map around. 
 
 Once you have zoomed and panned to an area or interest click on it and you will see an information window as we saw earlier. For more information click on the detail button and information will be shown in the information panel on the right. Click off the window to get out.
+
+![image](https://user-images.githubusercontent.com/77841514/163172520-2efd4391-b36b-4d70-b5fc-0985bcd00ec2.png)
 
 You can choose two indicators for comparison on the map. 
 
