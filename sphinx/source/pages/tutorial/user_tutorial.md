@@ -213,10 +213,12 @@ With your knowlage of the RIR dashboard try an analysis were we look at what dis
 -  activate both the arrivals and departures indicator layers
 -  click on different districts and observe the detail in the information panel
 -  slide the slider to see if neighboring districts accept departing people, thus have higher arrivals then previously observed. (see the linear graphs to compare)
-- 
+
 Answer the following questions:
 - what regions have the highest number of departures?
 - What regions have the highest number of arrivals? 
 - what region has had the most changes in departures over time? 
+
+![RIR4](https://user-images.githubusercontent.com/77841514/163191464-e44d5141-02b8-4c0d-868f-e49ef1798d71.gif)
 
 
