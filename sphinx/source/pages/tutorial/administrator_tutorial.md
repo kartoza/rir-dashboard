@@ -39,7 +39,7 @@ Go to site administration. “click” on ‘+Add’ in the same row as ‘Users
 <br>![New User](../../img/new-user.gif "New User")<br><br>
 Once you have created the user account, go back to ‘Site Administration’ and “select” the ‘user’ option. “Select” the user you created and then you can edit their personal information as well as select or deselect their ‘Permissions’. Remember to ‘Save’ your changes. 
 <br>![Permissions](../../img/permissions.gif "Permissions")<br>
-<br>![Creating a New Instance](../../img/instance-diagramflow.png "Creating a New Instance")
+
 3.  **Creating an instance**: 
 Once you’ve signed in, you’ll be redirected back to the home page which contains the various instances that you can select. To create a new Instance, select the
 dropdown arrow next to your username and “click” on ‘Django Admin’. Once you’re on the ‘Site Administration’ page, “scroll” down until you find ‘Instances’. 
