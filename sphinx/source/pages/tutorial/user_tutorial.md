@@ -176,12 +176,13 @@ If you click on the middle toggle and drag you can see that in several of the re
 
 You can make the slide horizontal by clicking the map button at the bottom right of the map canvas. 
 
+Finally there is a time laps bar that can show changes in data over time. A great example of this is the internal displacement of people. Lets turn of the child protection indicators and activate the IDP layer for departures. You can see where indicators are selected because the tab heading will be bolded. 
 
-Finally there is a time laps bar that can show changes in data over time. (show time laps bar with mouse) 
-
-A great example of this is the internal displacement of people. Lets turn of the child protection indicators and activate the IDP layer for departures. You can see where indicators are selected because the tab heading will be bolded. 
+![image](https://user-images.githubusercontent.com/77841514/163174875-c25800a3-97b5-4bf8-ba3e-f490156cf72b.png)
 
 Now click the play button on the time bar and you will see the changes in what region people are leaving over time. People will leave due to conflict, drought and other reasons. This is also interesting to compare to IDP arrivals using the slide bar to see where people are leaving and what regions they are going to who may need extra financial and technical support. 
+
+## Information Pannel
 
 While the IDP Departures is open lets look at the last for options and functionalities on the information panel that I did not cover previously. 
 
