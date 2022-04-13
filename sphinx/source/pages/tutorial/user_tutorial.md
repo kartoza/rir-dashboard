@@ -242,7 +242,8 @@ Inside the information panel, there is a summary of all the region/or districts 
 
 ![image](https://user-images.githubusercontent.com/77841514/163175429-eb9b3e24-204c-4bad-9eb3-df7117d266ae.png)
 
-** Graphical Representation **
+**Graphical Representation**
+
 There is also a graphical representation of the scenarios in this case a pie chart showing the proportion of best-case regions to worst-case and the status quo. You can hover your mouse over the chart and interact with it. For example, it will show that the best case is the reality for 14 out of the 18 regions in a pop-up label. 
 
 ![image](https://user-images.githubusercontent.com/77841514/163175571-9788f294-1d33-4ecb-9a1f-9f2b74c6c43b.png)
