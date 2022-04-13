@@ -22,8 +22,11 @@ This session will tour the RIR platform functionality using simple examples and 
 
 Here is a simplified overview of the topics we will cover in this session:
 
-![Platform Tour ](../../img/user_diagram.drawio.png "Platform Tour")
+![image](https://user-images.githubusercontent.com/77841514/163254651-eeb519e8-ef99-4b1c-a2ac-6b9df34be2e7.png)
 
+![image](https://user-images.githubusercontent.com/77841514/163254555-c85808f9-bc44-4bc7-bdc7-f4eddf1956cc.png)
+
+![image](https://user-images.githubusercontent.com/77841514/163254749-1608e726-b083-493c-babf-3fce4367c82f.png)
 
 During this tutorial, we will complete the following activities:
 
