@@ -34,9 +34,9 @@ In the section we will be shown how to navigate the platform, where all the info
 8. Graphical Representation 
 9. Questions 
 
-# Session tutorial
+## Session tutorial
 
-## Access and sign in
+### Access and signin
 
 Access the platform here: https://staging.rir.kartoza.com . 
 
@@ -60,7 +60,7 @@ Sign in ia important as some data and work flows may only be available to named 
 
 ![image](https://user-images.githubusercontent.com/77841514/163162736-5d6ce187-d044-4bcf-a5a7-1de3f558c092.png)
 
-## Instances
+### Instances
 
 Click on the instance labeled Somalia and the dashboard will load and open. 
 
@@ -70,7 +70,7 @@ You will see I am still signed in and there are 3 options available to me on the
 
 ![image](https://user-images.githubusercontent.com/77841514/163188759-aa06062e-14d5-4bd1-8e14-7f2598dc55cc.png)
 
-## Dashboard Tour
+### Dashboard Tour
 
 Lets tour the dashboard together, going to go from left to right across the screen showing what each button and panel does with a few simple examples. 
 
@@ -117,7 +117,7 @@ You can also download the data of interest by clicking on the round symbol with 
 ![image](https://user-images.githubusercontent.com/77841514/163169337-c14c4cfd-7691-443f-83f5-dfc4fb10ecee.png)
 
 
-## Layers
+### Layers
 
 Let's explore the layers available to visualise and give context to the indicators. 
 
@@ -152,7 +152,7 @@ Finally while we have the IDP data handy you can change the geography level of t
 ![image](https://user-images.githubusercontent.com/77841514/163171820-746865ac-711e-4d9e-ac14-4e307ac541d9.png)
 
 
-## Map Interactions
+### Map Interactions
 
 Let's now get into actually interacting with the Map. 
 
@@ -176,7 +176,6 @@ If you click on the middle toggle and drag you can see that in several of the re
 
 You can make the slide horizontal by clicking the map button at the bottom right of the map canvas. 
 
-### Time laps
 
 There is a time laps bar that can show changes in data over time. A great example of this is the internal displacement of people. Turn of the child protection indicators and activate the IDP layer for departures. You can see where indicators are selected because the tab heading will be bolded. 
 
@@ -186,7 +185,7 @@ Now click the play button on the time bar and you will see the changes in what r
 
 ![RIR](https://user-images.githubusercontent.com/77841514/163184016-ed9b2298-9527-4481-8528-f1614d8b44e8.gif)
 
-## Information Pannel
+### More on Information Pannel
 
 While the IDP Departures is open lets look at the last options and functionalities on the information panel that I did not cover previously. If the Information panel in minimised or you want to minimise it. click on the blue Info button that looks like a tab on the right side panel to maximise and minimise it. 
 
@@ -205,7 +204,7 @@ this will open the details pannel where you can see a line graph showing the cha
 
 ![image](https://user-images.githubusercontent.com/77841514/163175994-7750d241-bc18-4d9d-86c5-eb83bbb19ab3.png)
 
-## Bringing it all together
+### Bringing it all together
 
 With your knowlage of the RIR dashboard try an analysis were we look at what districts people are departing from and what districts they are arriving to. 
 
