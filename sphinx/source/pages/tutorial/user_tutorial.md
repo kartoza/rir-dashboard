@@ -194,7 +194,9 @@ There is also graphical representation of the scenarios in this case a pie chart
 
 ![image](https://user-images.githubusercontent.com/77841514/163175571-9788f294-1d33-4ecb-9a1f-9f2b74c6c43b.png)
 
-Further click on the name Adan Yabaal and in the Indicators select IDP departute 
+Further click on the name Adan Yabaal and in the Indicators select IDP departute. 
+
+![image](https://user-images.githubusercontent.com/77841514/163176117-25712899-f3fd-45f4-ae2d-0fd7d92233f6.png)
 
 ![image](https://user-images.githubusercontent.com/77841514/163175994-7750d241-bc18-4d9d-86c5-eb83bbb19ab3.png)
 
