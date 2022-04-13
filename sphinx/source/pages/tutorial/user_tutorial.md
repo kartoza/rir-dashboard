@@ -194,16 +194,14 @@ There is also graphical representation of the scenarios in this case a pie chart
 
 ![image](https://user-images.githubusercontent.com/77841514/163175571-9788f294-1d33-4ecb-9a1f-9f2b74c6c43b.png)
 
-Further click on the name Adan Yabaal and in the Indicators select IDP departute. 
+Further click on the name Adan Yabaal and in the Indicators select IDP departute.
+this will open the details pannel where you can see a line graph showing the change over time for the Adan Yabaal district as well as other pertinant information. 
 
 ![image](https://user-images.githubusercontent.com/77841514/163176117-25712899-f3fd-45f4-ae2d-0fd7d92233f6.png)
 
 ![image](https://user-images.githubusercontent.com/77841514/163175994-7750d241-bc18-4d9d-86c5-eb83bbb19ab3.png)
 
-
-At the top of the pannel nest to summary, we can also select the indicators option that will show the overall summary of the indicators status for the region selected if a region is selected. 
-
-Thank you all for listening and please ask any questions or lets make some custom comparisons together. 
+## Bringint it all together
 
 
 
