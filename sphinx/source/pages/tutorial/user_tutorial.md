@@ -196,7 +196,7 @@ There is also graphical representation of the scenarios in this case a pie chart
 
 Further click on the name Adan Yabaal and in the Indicators select IDP departute 
 
-
+![image](https://user-images.githubusercontent.com/77841514/163175994-7750d241-bc18-4d9d-86c5-eb83bbb19ab3.png)
 
 
 At the top of the pannel nest to summary, we can also select the indicators option that will show the overall summary of the indicators status for the region selected if a region is selected. 
