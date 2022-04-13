@@ -184,11 +184,11 @@ Now click the play button on the time bar and you will see the changes in what r
 
 ## Information Pannel
 
-While the IDP Departures is open lets look at the last for options and functionalities on the information panel that I did not cover previously. 
-
-If the Information panel in minimised click on the blue Info button that looks like a tab on the right side pannel to maximise and minimise it. 
+While the IDP Departures is open lets look at the last options and functionalities on the information panel that I did not cover previously. If the Information panel in minimised or you want to minimise it. click on the blue Info button that looks like a tab on the right side pannel to maximise and minimise it. 
 
 Inside the information panel there is a summary of all the region/or districts and for example how many people departed that area because we are looking at the departures layer. 
+
+
 
 There is also graphical representation of the scenarios in this case a pie chart showing the proportion of best case regions to worst case and the status quo. 
 
