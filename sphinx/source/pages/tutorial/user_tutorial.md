@@ -109,8 +109,6 @@ At the top left of the screen, you will see the **Context Analysis Button**. Thi
 
 Below the **Context Analysis Button** is the **Programme Interventions Panel** panel. It contains a set of buttons that allow access to key risk response indicators. If you click on the arrow next to the house symbol, the tabs will extend and be labelled so you can see what each symbol means, Health, Child Protection, Nutrition, Wash, and Education.
 
-![image](https://user-images.githubusercontent.com/77841514/163163962-6fb8b2ae-087a-4d8d-bfd5-df5b85e852d5.png)
-
 For example, the second button-down with a picture of the caduceus/ medical symbol indicates **Health**. Once opened the panel shows a report on the status of or degree to which the intervention for that factor is helping and other information like costing.
  
 Click on each button to see the information for each factor. 
