@@ -188,11 +188,16 @@ While the IDP Departures is open lets look at the last options and functionaliti
 
 Inside the information panel there is a summary of all the region/or districts and for example how many people departed that area because we are looking at the departures layer. 
 
+![image](https://user-images.githubusercontent.com/77841514/163175429-eb9b3e24-204c-4bad-9eb3-df7117d266ae.png)
+
+There is also graphical representation of the scenarios in this case a pie chart showing the proportion of best case regions to worst case and the status quo. You can hover your mouse over the chart and interact with it. For example it will show that best case is the reality for 14 out of the 18 regions in a pop up label. 
+
+![image](https://user-images.githubusercontent.com/77841514/163175571-9788f294-1d33-4ecb-9a1f-9f2b74c6c43b.png)
+
+Further click on the name Adan Yabaal and in the Indicators select IDP departute 
 
 
-There is also graphical representation of the scenarios in this case a pie chart showing the proportion of best case regions to worst case and the status quo. 
 
-You can hover your mouse over the chart and interact with it. For example it will show that best case is the reality for 14 out of the 18 regions in a pop up label. 
 
 At the top of the pannel nest to summary, we can also select the indicators option that will show the overall summary of the indicators status for the region selected if a region is selected. 
 
