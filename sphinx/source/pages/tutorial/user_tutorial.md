@@ -168,11 +168,14 @@ Once you have zoomed and panned to an area or interest click on it and you will 
 
 You can choose two indicators for comparison on the map. For example while child protection is selected lets see where there is program coverage for child protection in Somalia. 
 
-Under the  program coverage indicator select child protection. You will see a slider appear and the layer names represented on each side on the bottom left and right of the screen. 
+Under the  Program Coverage indicator select child protection option. You will see a slider appear and the layer names represented on each side on the bottom left and right of the screen. 
 
 If you click on the middle toggle and drag you can see that in several of the regions in the north with the worse case scenario for child protection there are no active programs to combat the issue depicted in red. These would be ideal candidates to fund child releaf projects in. 
 
+![image](https://user-images.githubusercontent.com/77841514/163174476-5114ada8-dabc-48c1-aafc-95888752b951.png)
+
 You can make the slide horizontal by clicking the map button at the bottom right of the map canvas. 
+
 
 Finally there is a time laps bar that can show changes in data over time. (show time laps bar with mouse) 
 
