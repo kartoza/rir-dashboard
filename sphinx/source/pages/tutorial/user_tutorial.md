@@ -124,7 +124,7 @@ Click back on the **Context Analysis Button** and observe the **Indicator Panel*
 
 ![image](https://user-images.githubusercontent.com/77841514/163164267-b8ec21e5-5e1a-4e78-b713-54f3b82e2674.png)
 
-Open the drop-down for **People In Need** by clicking on the triangle next to the label and selecting the box next to the **PIN- Child Protection**. A tick will appear and you will see the layer appear on the map. The map shows darkening color of blue, indicating a decrease in child protection per region. You can select only one sub-sections (e.g. best-case or worst-case) of the layer by ticking or un-ticking the checkboxes next to the cases. An ** Information panel ** will also open on the right-hand side of the screen when an indicator is selected. We will go through the ** Information Panel** in more detail shortly. 
+Open the drop-down for **People In Need** by clicking on the triangle next to the label and selecting the box next to the **PIN- Child Protection**. A tick will appear and you will see the layer appear on the map. The map shows darkening color of blue, indicating a decrease in child protection per region. You can select only one sub-sections (e.g. best-case or worst-case) of the layer by ticking or un-ticking the checkboxes next to the cases. An **Information panel** will also open on the right-hand side of the screen when an indicator is selected. We will go through the **Information Panel** in more detail shortly. 
 
 ![image](https://user-images.githubusercontent.com/77841514/163164460-5ff8aa70-9321-4872-9d4b-2f5f161e97bb.png)
 
