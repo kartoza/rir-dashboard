@@ -8,14 +8,17 @@ The RIR platform is a situational awareness platform to monitor health, child pr
 [RIR Full Documentation](https://kartoza.github.io/rir-dashboard/pages/introduction.html "RIR Full Documentation")  <br> <br>
 
 ## Session outline
-In this session, we will tour the RIR administration functions using examples and workflows that would be used by site administrators. <br> <br>
-<br>![Admin Guide](../../img/adminp1.drawio.png "Admin Guide")<br><br>
+In this session, we will tour the RIR administration functions using examples and workflows that would be used by site administrators. 
+
+![image](https://user-images.githubusercontent.com/77841514/163354387-91e9ca4a-503b-4b23-b970-39b18d97cf79.png)
+
 ### Platform Administration: <br>
 •         User Management: Creating and editing user profiles. <br>
 •         Managing Instances: Creating new and editing preexisting instances.<br> 
 •        Managing Context Layers: Using layers that you have uploaded to GeoNode or GeoServer to create a context layer in the platform. <br>
 •         Geography management: Adding geography levels to your instance.<br>
-<br>![Admin Guide](../../img/adminp2.drawio.png "Admin Guide")<br><br>
+
+![image](https://user-images.githubusercontent.com/77841514/163354685-26adab94-984a-4545-a69e-82a42f213480.png)
  
 ### Indicator Management: <br>
  •         Ingestors: Adding data to create indicators for an instance. <br>
