@@ -16,6 +16,7 @@ class InstanceCategory(AbstractTerm):
 
     class Meta:
         ordering = ('order',)
+        verbose_name_plural = 'instance categories'
 
 
 class Instance(SlugTerm, IconTerm):
