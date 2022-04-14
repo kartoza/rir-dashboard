@@ -132,9 +132,13 @@ The coloured circles next to each indicator show the current severity level for 
 
 ![image](https://user-images.githubusercontent.com/77841514/163168300-267af4f4-8f92-47f8-acf5-98204d4def9a.png)
 
+**The Traffic Light**
+
 You can access what we call traffic lights for the indicators by clicking on the arrow in the top right of the panel. This will expand the information on the severity level, for example, you can see that for our selected layer of **PIN- Child Protection** overall in Somalia the situation is worsening for children hence the yellow color. Several regions need additional responses or support to protect vulnerable children. Click the triangle (now on the top right) again to see the map again. 
 
 ![image](https://user-images.githubusercontent.com/77841514/163168402-9fcf7cd2-623c-4be5-96b5-8386a14b1396.png)
+
+**The Information Panel**
 
 On the right-hand side of the map, the **Information Panel** shows the severity case of the indicator for each region or district. For example in Adan Yabaal Child protection has a value of 3. Your will also see an interactive pie chart infographic summarising all the data in the layer. 
 
