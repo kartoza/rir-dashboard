@@ -55,11 +55,14 @@
                     <img src="{% if instance.icon %}{{ instance.icon.url }}{% else %}{% static "img/no-image-found.jpg" %}{% endif %}">
                 </a>
                 <ul class="dropdown-menu box-shadow-bottom">
-                    {% for instance in instances %}
-                        <li data-slug="{{ instance.slug }}">
-                            {{ instance.name }}
-                            <img src="{% if instance.icon %}{{ instance.icon }}{% else %}{% static "img/no-image-found.jpg" %}{% endif %}">
-                        </li>
+                    {% for category, instances in instance_categories.items %}
+                        <li class="category">{{ category }}</li>
+                        {% for instance in instances %}
+                            <li data-slug="{{ instance.slug }}">
+                                {{ instance.name }}
+                                <img src="{% if instance.icon %}{{ instance.icon }}{% else %}{% static "img/no-image-found.jpg" %}{% endif %}">
+                            </li>
+                        {% endfor %}
                     {% endfor %}
                 </ul>
             </div>

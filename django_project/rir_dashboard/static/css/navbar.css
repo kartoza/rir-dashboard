@@ -98,6 +98,20 @@ select:focus-visible {
     text-decoration: none;
 }
 
+.dropdown-menu li.category {
+    border-bottom: none !important;
+    cursor: default;
+    font-weight: 700;
+    text-align: left !important;
+    padding: 10px 10px 0 10px !important;
+    height: auto !important;
+}
+
+.dropdown-menu li.category:hover {
+    background-color: inherit;
+    text-decoration: none;
+}
+
 .dropdown-button {
     background: #eee;
     display: inline !important;
