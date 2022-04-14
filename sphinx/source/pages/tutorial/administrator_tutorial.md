@@ -138,6 +138,7 @@ scroll down to the log to see if your harvest is running in the background. Go t
 created a harvester for and select **Value Manager Map** to view your progress.
 
 ![Harvester](../../img/harvester.gif "Harvester")
+
 Lastly we are going to create a Meta Harvester, go to **Indicator Management** and in the top right-hand corner of the page, there will be a **Meta Harvester** option that you will 
 need to select. Fill in _Sheet name_, _Column name: administration code_, and add the appropriate data file (once again you can use the SA Data file that is above). **Submit** your work. Click **Report File** to view your progress.
 ![Harvester](../../img/meta-harvester.gif "Harvester")
