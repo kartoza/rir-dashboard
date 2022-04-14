@@ -1,7 +1,9 @@
 # Administrator Tutorial
 
 ## Introduction 
-The RIR platform is a situational awareness platform to monitor health, child protection, nutrition wash and education in a geographic region. To fully understand the platform and the information you can obtain from it, you need to understand how it works. <br> <br>
+
+The RIR platform is a situational awareness platform to monitor health, child protection, nutrition, wash and education in a geographic region. To fully understand the platform and the information you can obtain from it, you need to understand how it works.
+
 
 ## Important Links
 [RIR Platform](https://staging.rir.kartoza.com/ "RIR Platform") <br>
@@ -13,9 +15,9 @@ In this session, we will tour the RIR administration functions using examples an
 ![image](https://user-images.githubusercontent.com/77841514/163354387-91e9ca4a-503b-4b23-b970-39b18d97cf79.png)
 
 ### Platform Administration: <br>
-•         User Management: Creating and editing user profiles. <br>
-•         Managing Instances: Creating new and editing preexisting instances.<br> 
-•        Managing Context Layers: Using layers that you have uploaded to GeoNode or GeoServer to create a context layer in the platform. <br>
+• User Management: Creating and editing user profiles. <br>
+• Managing Instances: Creating new and editing preexisting instances.<br> 
+• Managing Context Layers: Using layers that you have uploaded to GeoNode or GeoServer to create a context layer in the platform. <br>
 •         Geography management: Adding geography levels to your instance.<br>
 
 ![image](https://user-images.githubusercontent.com/77841514/163354685-26adab94-984a-4545-a69e-82a42f213480.png)
