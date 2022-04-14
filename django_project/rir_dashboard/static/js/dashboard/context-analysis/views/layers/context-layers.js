@@ -116,9 +116,11 @@ define(['js/views/layers/context-layers-draggable'], function (ContextLayerDragg
             if (splitted[1]) {
                 const rawParams = splitted[1] ? splitted[1] : '';
                 rawParams.split('&').forEach((item) => {
-                    if (item) {
-                        const keyValue = item.splitOnce('=')
-                        params[keyValue[0]] = keyValue[1] ? keyValue[1] : '';
+                    const keyValue = item.splitOnce('=');
+                    const key = ['crs'].includes(keyValue[0].toLowerCase()) ? keyValue[0].toUpperCase() : keyValue[0].toLowerCase();
+                    const value = keyValue[1];
+                    if (!['bbox'].includes(key.toLowerCase())) {
+                        params[key] = value ? value : '';
                     }
                 });
             } else {

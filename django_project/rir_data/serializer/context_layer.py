@@ -6,9 +6,13 @@ from rir_data.models.context_layer import (
 
 
 class ContextLayerSerializer(serializers.ModelSerializer):
+    url = serializers.SerializerMethodField()
     parameters = serializers.SerializerMethodField()
     style = serializers.SerializerMethodField()
     group_name = serializers.SerializerMethodField()
+
+    def get_url(self, obj: ContextLayer):
+        return urllib.parse.unquote(obj.url)
 
     def get_parameters(self, obj: ContextLayer):
         parameters = {}

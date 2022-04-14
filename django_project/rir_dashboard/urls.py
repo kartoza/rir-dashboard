@@ -19,7 +19,7 @@ from rir_dashboard.views.dashboard.admin.harvesters import (
 )
 from rir_dashboard.views.dashboard.admin.harvesters.forms import (
     HarvesterAPIWithGeographyAndDateView, HarvestedUsingExposedAPIByExternalClientView,
-    HarvesterAPIWithGeographyAndTodayDateView, MetaHarvesterView,
+    HarvesterAPIWithGeographyAndTodayDateView, MetaIngestorView,
     SharepointHarvesterView
 )
 
@@ -53,14 +53,14 @@ indicator_url = [
 
     # this is for harvester with global indicators
     url(
-        r'^meta-harvester/(?P<uuid>[0-9a-f-]+)',
-        MetaHarvesterView.as_view(),
-        name='meta-harvester-uuid-view'
+        r'^meta-ingestor/(?P<uuid>[0-9a-f-]+)',
+        MetaIngestorView.as_view(),
+        name='meta-ingestor-uuid-view'
     ),
     url(
-        r'^meta-harvester',
-        MetaHarvesterView.as_view(),
-        name='meta-harvester-view'
+        r'^meta-ingestor',
+        MetaIngestorView.as_view(),
+        name='meta-ingestor-view'
     ),
 ]
 

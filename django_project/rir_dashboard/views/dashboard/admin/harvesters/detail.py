@@ -101,7 +101,7 @@ class HarvesterDetail(HarvesterIndicatorDetail):
             raise Http404('Harvester does not exist')
         return self.get_context(
             harvester, reverse(
-                'meta-harvester-uuid-view', args=[self.instance.slug, self.kwargs.get('uuid', '')]
+                'meta-ingestor-uuid-view', args=[self.instance.slug, self.kwargs.get('uuid', '')]
             )
         )
 

@@ -3,19 +3,19 @@ from rir_harvester.models.harvester import Harvester
 from rir_harvester.tasks import run_harvester
 from ._base import HarvesterFormView
 
-MetaHarvesters = (
+MetaIngestor = (
     'rir_harvester.harveters.excel_harvester.ExcelHarvester',
     'Local Master File',
 )
 
 
-class MetaHarvesterView(HarvesterFormView):
+class MetaIngestorView(HarvesterFormView):
     harvester_class = ExcelHarvester
-    template_name = 'dashboard/admin/harvesters/forms/meta_harvester.html'
+    template_name = 'dashboard/admin/harvesters/forms/meta_ingestor.html'
 
     @property
     def dashboard_title(self):
-        return f'Meta Harvester'
+        return f'Meta Ingestor'
 
     def get_indicator(self):
         """
@@ -39,7 +39,7 @@ class MetaHarvesterView(HarvesterFormView):
         """
          Return harvesters
         """
-        return (MetaHarvesters,)
+        return (MetaIngestor,)
 
     @property
     def context_view(self) -> dict:
