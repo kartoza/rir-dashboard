@@ -16,14 +16,19 @@
 {% endblock %}
 
 {% block info %}
-    <div class="row">
-        {% for instance in instances %}
-            <div class="col-2">
-                <a href="{% url 'dashboard-view' instance.slug %}" class="instance">
-                    <img src="{% if instance.icon %}{{ instance.icon.url }}{% else %}{% static "img/no-image-found.jpg" %}{% endif %}">
-                    <span>{{ instance }}</span>
-                </a>
-            </div>
-        {% endfor %}
-    </div>
+    {% for category, category_instances in instance_categories.items %}
+        <div>
+            <h4>{{ category }}</h4>
+        </div>
+        <div class="row">
+            {% for instance in category_instances %}
+                <div class="col-2">
+                    <a href="{% url 'dashboard-view' instance.slug %}" class="instance">
+                        <img src="{% if instance.icon %}{{ instance.icon.url }}{% else %}{% static "img/no-image-found.jpg" %}{% endif %}">
+                        <span>{{ instance }}</span>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
 {% endblock %}

@@ -32,9 +32,36 @@
     </p>
 {% endblock %}
 {% block scripts %}
+    <link rel="stylesheet" href="{% static 'libs/select2/4.1.0-rc.0/select2.min.css' %}" type="text/css" media="screen, projection"/>
+    <script type="text/javascript" src="{% static 'libs/select2/4.1.0-rc.0/select2.min.js' %}"></script>
     <script>
         {% if is_create %}
             $('#nav-instance-create').addClass('active')
         {% endif %}
+
+
+        {# for group selector #}
+        const placeholder = "Select a category or create by typing new one.";
+        $('#id_category').select2({
+            placeholder: placeholder,
+            tags: true,
+            createTag: function (params) {
+                return {
+                    id: params.term,
+                    text: params.term,
+                    newOption: true
+                }
+            },
+            templateResult: function (data) {
+                var $result = $("<span></span>");
+                $result.text(data.text);
+                if (data.newOption) {
+                    $result.append(" <em>(new)</em>");
+                }
+                return $result;
+            }
+        }).on('select2:open', function (e) {
+            $('input.select2-search__field').prop('placeholder', placeholder);
+        });
     </script>
 {% endblock %}
