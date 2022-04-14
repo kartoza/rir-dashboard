@@ -10,7 +10,13 @@ class IndicatorEditView(AdminView):
 
     @property
     def dashboard_title(self):
-        return f'<span>Edit Indicator</span>'
+        try:
+            indicator = self.instance.indicators.get(
+                id=self.kwargs.get('pk', '')
+            )
+        except Indicator.DoesNotExist:
+            raise Http404('Indicator does not exist')
+        return f'<span>Edit Indicator : {indicator.full_name}</span>'
 
     @property
     def context_view(self) -> dict:
@@ -24,28 +30,11 @@ class IndicatorEditView(AdminView):
         except Indicator.DoesNotExist:
             raise Http404('Indicator does not exist')
 
-        scenarios = []
-        for scenario in ScenarioLevel.objects.order_by('level'):
-            try:
-                scenario_rule = IndicatorScenarioRule.objects.get(
-                    scenario_level=scenario,
-                    indicator=indicator
-                )
-            except IndicatorScenarioRule.DoesNotExist:
-                scenario_rule = None
-            scenarios.append({
-                'id': scenario.id,
-                'name': scenario.name,
-                'rule_name': scenario_rule.name if scenario_rule else '',
-                'rule_value': scenario_rule.rule if scenario_rule else '',
-                'rule_color': scenario_rule.color if scenario_rule else '',
-            })
+        scenarios = indicator.scenarios_dict()
         context = {
             'form': IndicatorForm(
                 initial=IndicatorForm.model_to_initial(indicator),
-                level=self.instance.geometry_levels_in_order,
                 indicator_instance=self.instance,
-                indicator_object=indicator,
             ),
             'scenarios': scenarios
         }
@@ -65,7 +54,6 @@ class IndicatorEditView(AdminView):
         form = IndicatorForm(
             request.POST,
             instance=indicator,
-            level=self.instance.geometry_levels_in_order,
             indicator_instance=self.instance
         )
         if form.is_valid():

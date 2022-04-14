@@ -82,8 +82,13 @@
                                                         {% if indicator.harvester %}
                                                             <a href="{% url "harvester-indicator-detail" instance.slug indicator.id %}">Harvester</a>
                                                         {% else %}
-                                                            <a class="create-harvester" href="{{ indicator.create_harvester_url }}">Create Harvester</a>
+                                                            <a class="create-harvester create" href="{{ indicator.create_harvester_url }}">Create Harvester</a>
                                                         {% endif %}
+                                                    </li>
+                                                    <li>
+                                                        <a href="{% url "indicator-management-new" instance.slug %}?from={{ indicator.id }}" class="create">
+                                                            Create From This
+                                                        </a>
                                                     </li>
                                                     <li>
                                                         <a class="delete-harvester" href="{% url "indicator-detail" instance.slug indicator.id %}" onclick="deleteClick(this); return false;">Delete</a>

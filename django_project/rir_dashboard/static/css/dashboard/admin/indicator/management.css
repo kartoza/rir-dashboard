@@ -106,7 +106,8 @@
     color: red !important;
 }
 
-.create-harvester {
+.create-harvester,
+.create {
     color: darkgreen !important;
 }
 
