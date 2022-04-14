@@ -18,6 +18,7 @@ Whenever you see a phrase in **bold**, it refers to a link or button on the user
 
 In this session, we will tour the RIR administration functions using examples and workflows that would be used by site administrators. 
 
+
 ![image](https://user-images.githubusercontent.com/77841514/163354387-91e9ca4a-503b-4b23-b970-39b18d97cf79.png)
 
 ### Platform Administration
@@ -32,6 +33,7 @@ We will cover the following adminstrative tasks:
 
 
 ![image](https://user-images.githubusercontent.com/77841514/163354685-26adab94-984a-4545-a69e-82a42f213480.png)
+
  
 ## Session Tutorial
 
@@ -55,9 +57,15 @@ Once you have created the user account, go back to Site Administration and selec
 
 Once you’ve signed in as an admin user, you will be redirected back to the home page which contains various instances that you can select. To create a new instance, select the dropdown arrow next to your username and click on **Django Admin**. Once you’re on the Site Administration page, scroll down until you find **Instances**. 
 Click on the **+Add** option on the right-hand side of the Instances row. Add the name of the new instance that you would like to create, a description  as well as the icon files. The icon file in case would be a flag of the country for the instance. Once you have added all of the information, click **Save**.
+
+
 ![Creating a New Instance](../../img/new-instance.gif "Creating a New Instance")
+
  
- For this tutorial, we will create an instance for Soth Africa: ![SA flag](https://user-images.githubusercontent.com/98025261/163401265-9bcfedbf-3e65-40cf-a385-4426a995ffa1.png)
+ For this tutorial, we will create an instance for South Africa, click on the image save the link: 
+ 
+ ![SA flag](https://user-images.githubusercontent.com/98025261/163401265-9bcfedbf-3e65-40cf-a385-4426a995ffa1.png)
+ 
 
 ###   **Adding a new Context layer**
 
@@ -83,7 +91,9 @@ We will use the instance that we have just created, South Africa. Enter the info
 Let’s start in  **Site Administration**. Scroll down to **Geometry Level Instances** and select **+Add**. Add the name and description to your instance. Go back to the main page of your instance. Below the **Program Interventions** panel are three icons; **Indicator Management**, **Geography Management**, and **Instance Management**.
 
 Click on the **Geography Management** icon. You will be redirected to the geography view map page and you will see that in the top right corner there is an **+uploader** button. Select this button and start filling in the form. The first thing you need to do is add the data for the geography level. Once the data is uploaded, you will be able to fill in the rest of the form.  
+
 [Geography level Data](https://github.com/ThiashaV/rir-dashboard/blob/documentation/sphinx/source/img/RIR%20test%20data.zip "Geography Level Data")
+
 For a province level, the code column is 'pr_mdb_c', the name column is 'pr_name' and the parent code column is 'c_pcode'. The country does not need parent, but we need the code for a country level. In here, the country is ZA (under 'adm0_pcode')
 
 
