@@ -2,6 +2,8 @@ from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rir_data.models.instance import Instance
+from rir_data.models.program import ProgramIntervention
+from rir_data.models.scenario import ScenarioLevel
 from rir_data.serializer.scenario import ScenarioLevelSerializer
 from rir_data.serializer.program import ProgramInterventionSerializer
 
@@ -21,6 +23,9 @@ class ContextAnalysisData(APIView):
         context['scenarios'] = ScenarioLevelSerializer(
             instance.scenario_levels, many=True
         ).data
+
+        scenario_level = ScenarioLevel.objects.get(level=overall_scenario_level)
+
         # intervention
         interventions = []
         for program_instance in instance.programs_instance:
@@ -28,6 +33,16 @@ class ContextAnalysisData(APIView):
                 scenario_level__level=overall_scenario_level).first()
             if intervention:
                 interventions.append(ProgramInterventionSerializer(intervention).data)
+            else:
+                # temporary with no url
+                interventions.append(
+                    ProgramInterventionSerializer(
+                        ProgramIntervention(
+                            program_instance=program_instance,
+                            scenario_level=scenario_level
+                        )
+                    ).data
+                )
         try:
             context['overall_scenario'] = context['scenarios'][overall_scenario_level - 1]
         except IndexError:

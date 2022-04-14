@@ -22,6 +22,7 @@ define([], function () {
             this.scenario = scenario;
             this.unit = unit;
             this.isShow = false;
+            this.isLoaded = false;
 
 
             // for the legend
@@ -190,7 +191,9 @@ define([], function () {
             $(`.indicator-${this.id} .scenario-bullet`).addClass('show');
             $(`.indicator-${this.id} .spinner`).addClass('loading');
             $(`.indicator-${this.id} .spinner`).show();
+            this.isLoaded = false;
             this.getLayer(function (layer) {
+                self.isLoaded = true;
                 $(`.${self.side}-info .loading-info`).hide();
                 $(`.indicator-${self.id} .spinner`).removeClass('loading');
                 $(`.indicator-${self.id} .scenario-bullet`).addClass('show');
