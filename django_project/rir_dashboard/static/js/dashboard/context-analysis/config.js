@@ -46,7 +46,11 @@ require([
                 })
             });
             $('.scenario-header .scenario-bullet').addClass(`scenario-${data.overall_scenario.level}`)
-            $('.scenario-header .loading').replaceWith(`${data.overall_scenario.level}: ${data.overall_scenario.name}`);
+            if (data.overall_scenario.level) {
+                $('.scenario-header .loading').replaceWith(`${data.overall_scenario.level}: ${data.overall_scenario.name}`);
+            } else {
+                $('.scenario-header .loading').replaceWith(`<i>- Unkonwn</i>`);
+            }
 
             $.each(data.interventions, function (idx, intervention) {
                 $('#map-wrapper').before(_.template($('#_intervention-template').html())(intervention))
