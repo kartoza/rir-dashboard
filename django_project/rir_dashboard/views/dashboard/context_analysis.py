@@ -32,9 +32,7 @@ class ContextAnalysisView(BaseDashboardView):
             self.instance.scenario_levels, many=True
         ).data
 
-        indicators_in_groups = self.instance.get_indicators(self.request.user)
-
-        context['indicators_in_groups'] = indicators_in_groups
+        context['indicators_in_groups'] = self.instance.get_indicators(self.request.user)
         context['today_date'] = date.today().strftime('%Y-%m-%d')
         context['context_layers'] = json.loads(
             json.dumps(ContextLayerSerializer(self.instance.context_layers, many=True).data)

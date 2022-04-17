@@ -1,90 +1,67 @@
 $(document).ready(function () {
     const $dropArea = $('#drop-area');
-    let $temporary = null;
-    let $dropAreaOver = null;
 
-    function dragFunction(evt) {
-        if ($dropAreaOver) {
-            removeTemporary();
-            var relY = $(evt.target).position().top - $dropAreaOver.offset().top;
-            let $blockElement = null;
-            $dropAreaOver.find('.block-value').each(function (index) {
-                const levelY = $(this).position().top - $dropAreaOver.offset().top
-                if (relY < levelY) {
-                    $blockElement = $(this);
-                    return false
-                }
+    function updateDone() {
+        // const orders = [];
+        // $dropArea.find('.block-value').each(function () {
+        //     orders.push($(this).data('id'));
+        // });
+        // $('#order-input').val(orders.join(','));
+
+        const orders = {};
+        $('.group-row').each(function () {
+            const group = $(this).data('group');
+            orders[group] = []
+            $(this).find('.block-value').each(function () {
+                orders[group].push($(this).data('id'));
             });
-            const htmlTemporary = `<div id="temporary" class="block"><div class="block-content">Temporary</div></div>`
-            if (!$blockElement) {
-                $dropAreaOver.append(htmlTemporary);
+        })
+        $('#order-input').val(JSON.stringify(orders));
+    }
+
+    function checkIndicatorList() {
+        // check every group, if empty show No Indicator
+        $('.group-row').each(function () {
+            if ($(this).find('.block-value').not('.ui-sortable-helper').length === 0) {
+                $(this).find('.no-value').remove();
+                $(this).find('ul').append(
+                    '<li class="block no-value"><i>No indicator</i></li>'
+                )
             } else {
-                $blockElement.before(htmlTemporary)
+                $(this).find('.no-value').remove();
             }
-            $temporary = $('#temporary')
-        }
+        })
     }
 
-    /**
-     * Remove temporary level
-     */
-    function removeTemporary() {
-        if ($temporary) {
-            $temporary.remove();
-            $temporary = null;
-        }
-    }
-
-    /**
-     * When the element dropped
-     */
-    function onDropArea($elm, $dropArea) {
-        const id = $elm.data('id');
-        const htmlNewElement = `<div id="data-${id}" class="block block-value" data-id="${id}">${$elm.html()}</div>`;
-        if ($temporary) {
-            $temporary.replaceWith(htmlNewElement)
-        }
-        $elm.remove()
-        $(`#data-${id}`).draggable({
-            drag: dragFunction,
-            revert: 'invalid'
-        });
-
-        const orders = [];
-        $dropArea.find('.block-value').each(function () {
-            orders.push($(this).data('id'));
-        });
-        $('#order-input').val(orders.join(','))
-    }
-
-    // init
-    $('.block').draggable({
-        drag: dragFunction,
-        revert: 'invalid'
+    // for group list
+    const $groupList = $("#group-list");
+    $groupList.sortable({
+        update: updateDone
     });
-    $dropArea.droppable({
-        hoverClass: "ui-state-hovered",
-        drop: function (e, ui) {
-            onDropArea($(ui.draggable), $dropArea);
-        },
-        over: function () {
-            $dropAreaOver = $dropArea;
-        },
-        out: function () {
-            $dropAreaOver = null;
+    $groupList.sortable('disable');
 
-            // delete temporary
-            removeTemporary();
-        },
+    // for the indicator list
+    const $indicatorList = $(".indicator-list");
+    $indicatorList.sortable({
+        connectWith: '.indicator-list',
+        update: updateDone,
+        sort: checkIndicatorList
     });
-    $('.block').draggable('disable')
+    $indicatorList.sortable('disable');
+
+
     $('#cancel-order').click(function () {
         $dropArea.removeClass('ordering');
-        $('.block').draggable('disable');
+        $groupList.sortable('disable');
+        $indicatorList.sortable('disable');
         return false;
-    })
+    });
     $('#change-order').click(function () {
         $dropArea.addClass('ordering');
-        $('.block').draggable('enable');
-    })
+        $groupList.sortable('enable');
+        $indicatorList.sortable('enable');
+    });
+
+    checkIndicatorList();
+    updateDone();
 });
