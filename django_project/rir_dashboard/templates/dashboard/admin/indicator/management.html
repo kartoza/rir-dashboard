@@ -17,19 +17,31 @@
                 <div id="drop-area">
                     <div>
                         <div class="drop-area-header">
-                            <button id="change-order" class="white-button">Change Order</button>
-                            <form method="post" class="row">
+                            <div class="main-button-group row">
+                                <button id="change-order" class="white-button">Change Order</button>
+                                <button id="multi-edit" class="white-button" style="margin-left: -1px">Multi Edit</button>
+                            </div>
+                            {# Orders button #}
+                            <form id="orders-buttons" method="post" class="row">
                                 {% csrf_token %}
                                 <input id="order-input" type="text" name="orders" style="display: none">
                                 <button id="cancel-order" class="white-button">Cancel</button>
                                 <button id="submit-order" class="main-button">Save New Order</button>
                             </form>
+                            {# Multi edit #}
+                            <div id="multi-edit-buttons">
+                                <button id="cancel-multi-edit" class="white-button">Cancel</button>
+                                <button id="to-multi-edit" class="main-button" data-url="{% url 'indicator-multi-edit-view' instance.slug %}" disabled>Multi Edit Form</button>
+                            </div>
                         </div>
                         <ul id="group-list" class="block block-group">
                             {% for group, indicator_group in indicators_in_groups.items %}
                                 <li class="group-row" data-group="{{ group }}">
                                     <div class="block-content group-name">
                                         <i class="fa fa-sort order-icon" aria-hidden="true"></i>
+                                        <div class="checkbox-indicator">
+                                            <input type="checkbox">
+                                        </div>
 
                                         {# this is for the show/hide #}
                                         <i class="fa fa-eye" aria-hidden="true"></i>
@@ -43,6 +55,9 @@
                                                     <div class="block-content row">
                                                         <div class="col indicator-name">
                                                             <i class="fa fa-sort order-icon" aria-hidden="true"></i>
+                                                            <div class="checkbox-indicator">
+                                                                <input type="checkbox">
+                                                            </div>
 
                                                             {# this is for the show/hide #}
                                                             <i class="fa fa-eye" aria-hidden="true" data-url="{% url 'indicator-hide' instance.slug indicator.id %}"></i>

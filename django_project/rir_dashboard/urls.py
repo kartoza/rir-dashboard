@@ -7,6 +7,7 @@ from rir_dashboard.views.dashboard.admin.indicator import (
     IndicatorCreateView,
     IndicatorManagementView, IndicatorEditView, IndicatorReportingUnitView,
     IndicatorValueManagementMapView, IndicatorValueManagementTableView,
+    IndicatorMultiEditView
 )
 from rir_dashboard.views.dashboard.admin.instance import (
     InstanceManagementView, InstanceCreateView, InstanceEditView
@@ -80,6 +81,7 @@ admin_indicator_url = [
     url(r'^(?P<pk>\d+)/reporting-unit', IndicatorReportingUnitView.as_view(), name='indicator-reporting-unit'),
     url(r'^(?P<pk>\d+)/edit', IndicatorEditView.as_view(), name='indicator-edit'),
     url(r'^create', IndicatorCreateView.as_view(), name='indicator-management-new'),
+    url(r'^multi-edit', IndicatorMultiEditView.as_view(), name='indicator-multi-edit-view'),
     url(r'^', IndicatorManagementView.as_view(), name='indicator-management-view'),
 ]
 admin_instance_url = [

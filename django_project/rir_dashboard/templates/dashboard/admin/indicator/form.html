@@ -1,37 +1,5 @@
 {% extends 'dashboard/admin/form.html' %}
 {% load static %}
-
-{% block additional_field %}
-    <br>
-    <h3>Geometry Mapping</h3>
-    <table id="mapping-table" class="content-table">
-        <tr>
-            <th>From (Remote Name)</th>
-            <th>To (Geometry ID)</th>
-        </tr>
-        {% for reporting_unit in reporting_units %}
-            <tr>
-                <td style="width: 50%">
-                    <input type="text" data-identifier="{{ reporting_unit.identifier }}" name="mapping_remote_{{ reporting_unit.pk }}" value="{{ attribute.value }}">
-                </td>
-                <td style="width: 50%">
-                    {{ reporting_unit.str }}
-                    <input type="text" name="mapping_platform_{{ reporting_unit.pk }}" value="{{ reporting_unit.identifier }}" style="display: none">
-
-                </td>
-            </tr>
-        {% endfor %}
-    </table>
-{% endblock %}
-{% block extrascripts %}
-    <script>
-        {% for map in mapping %}
-            $('*[data-identifier="{{ map.platform_value }}"]').val("{{ map.remote_value }}");
-        {% endfor %}
-    </script>
-{% endblock %}
-
-{% load static %}
 {% block stylesheet %}
     <link rel="stylesheet" href="{% static 'css/form.css' %}" type="text/css" media="screen, projection"/>
     <link rel="stylesheet" href="{% static 'css/dashboard/admin/form.css' %}" type="text/css" media="screen, projection"/>
@@ -61,7 +29,18 @@
         html {
             overflow-y: hidden;
         }
+
+        p[data-field-name="show_in_context_analysis"] input {
+            display: inline-block;
+        }
+
+        p[data-field-name="show_in_context_analysis"] span {
+            display: inline-block;
+            width: fit-content;
+        }
     </style>
+    {% block extrastyle %}
+    {% endblock %}
 {% endblock stylesheet %}
 
 {% block content %}
@@ -109,7 +88,7 @@
         </tr>
         {% for scenario in scenarios %}
             <tr>
-                <td>{{ scenario.name }}</td>
+                <td class="scenario-name-rule">{{ scenario.name }}</td>
                 <td><input type="text" name="scenario_{{ scenario.id }}_name" value="{{ scenario.rule_name }}" spellcheck="false"></td>
                 <td class="row rule-row">
                     <input type="text" class="scenario-input" name="scenario_{{ scenario.id }}_rule" value="{{ scenario.rule_value }}" spellcheck="false" style="display: none">
@@ -171,6 +150,7 @@
         {% if is_create %}
             $('#nav-indicator-create').addClass('active')
         {% endif %}
+        $('p[data-field-name="show_in_context_analysis"] br').remove();
 
         {# for group selector #}
         const placeholder = "Select a group or create by typing new one.";
@@ -216,7 +196,6 @@
         })
 
         {# check the functions #}
-
         function onChange() {
             const $row = $(this).closest('.rule-row');
             const $scenarioInput = $row.find('.scenario-input');
@@ -286,4 +265,6 @@
             $('#reporting-behaviour-help').modal('show');
         })
     </script>
+    {% block extrascripts %}
+    {% endblock %}
 {% endblock %}

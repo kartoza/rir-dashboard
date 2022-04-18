@@ -1,4 +1,8 @@
 $(document).ready(function () {
+
+    // ---------------------------
+    // ORDERS
+    // ---------------------------
     const $dropArea = $('#drop-area');
 
     function updateDone() {
@@ -15,6 +19,7 @@ $(document).ready(function () {
             $(this).find('.block-value').each(function () {
                 orders[group].push($(this).data('id'));
             });
+            checkShowHideGroup($(this));
         })
         $('#order-input').val(JSON.stringify(orders));
     }
@@ -65,8 +70,10 @@ $(document).ready(function () {
     checkIndicatorList();
     updateDone();
 
-    // this is for show/hide button
-    function checkGroup($element) {
+    // ---------------------------
+    // SHOW/HIDE
+    // ---------------------------
+    function checkShowHideGroup($element) {
         if ($element.find('.indicator-name .fa-eye:visible').length === 0) {
             $element.addClass('hidden');
         } else {
@@ -89,7 +96,7 @@ $(document).ready(function () {
             },
             beforeSend: beforeAjaxSend
         });
-        checkGroup($(this).closest('.group-row'));
+        checkShowHideGroup($(this).closest('.group-row'));
     });
 
     // if group is clicked
@@ -102,6 +109,54 @@ $(document).ready(function () {
 
     // init check group
     $('.group-row').each(function () {
-        checkGroup($(this))
+        checkShowHideGroup($(this));
+    })
+
+    // ---------------------------
+    // MULTI EDIT
+    // ---------------------------
+
+    $('#cancel-multi-edit').click(function () {
+        $dropArea.removeClass('multi-edit');
+        return false;
+    });
+    $('#multi-edit').click(function () {
+        $dropArea.addClass('multi-edit');
+        $('.checkbox-indicator input').prop('checked', false);
+    });
+    // if checkbox checked in individual
+    $('.indicator-name .checkbox-indicator input').click(function () {
+        const $group = $(this).closest('.group-row');
+        $group.find('.group-name .checkbox-indicator input').prop(
+            'checked',
+            $group.find('.indicator-name .checkbox-indicator input:checked').length === $group.find('.indicator-name .checkbox-indicator input').length
+        );
+        if ($('.indicator-name .checkbox-indicator input:checked').length !== 0) {
+            $('#to-multi-edit').prop("disabled", false);
+        } else {
+            $('#to-multi-edit').prop("disabled", true);
+        }
+    });
+    // if checkbox checked in group name
+    $('.group-name .checkbox-indicator input').click(function () {
+        const $group = $(this).closest('.group-row');
+        $group.find('.indicator-name .checkbox-indicator input').prop(
+            'checked',
+            $(this).is(':checked')
+        );
+        if ($('.indicator-name .checkbox-indicator input:checked').length !== 0) {
+            $('#to-multi-edit').prop("disabled", false);
+        } else {
+            $('#to-multi-edit').prop("disabled", true);
+        }
+    })
+    $('#to-multi-edit').click(function () {
+        if ($('.indicator-name .checkbox-indicator input:checked').length !== 0) {
+            const ids = [];
+            $('.indicator-name .checkbox-indicator input:checked').each(function () {
+                ids.push($(this).closest('.block-value').data('id'));
+            })
+            window.location.href = $(this).data('url') + '?ids=' + ids.join(',');
+        }
     })
 });

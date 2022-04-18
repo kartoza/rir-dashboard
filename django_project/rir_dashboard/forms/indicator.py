@@ -37,7 +37,7 @@ class IndicatorForm(forms.ModelForm):
 
     class Meta:
         model = Indicator
-        exclude = ('order', 'geometry_reporting_units', 'instance')
+        exclude = ('order', 'geometry_reporting_units', 'instance', 'show_in_context_analysis')
 
     def clean_frequency(self):
         frequency = self.cleaned_data['frequency']
