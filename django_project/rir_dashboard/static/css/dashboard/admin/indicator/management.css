@@ -52,7 +52,7 @@
     padding-left: 25px;
 }
 
-.block-value:hover .block-content{
+.block-value:hover .block-content {
     background-color: var(--almost-white-color);
 }
 
@@ -157,24 +157,59 @@
     padding: 3px;
 }
 
-#drop-area .drop-area-header #submit-order,
-#drop-area .drop-area-header #cancel-order {
+#drop-area #orders-buttons,
+#drop-area #multi-edit-buttons {
     display: none;
-    font-size: 12px;
-    text-align: center;
 }
 
-#drop-area.ordering .drop-area-header #submit-order,
-#drop-area.ordering .drop-area-header #cancel-order {
+#drop-area #orders-buttons button,
+#drop-area #multi-edit-buttons button {
     display: inline-block;
 }
 
-#drop-area.ordering .drop-area-header #change-order {
+#drop-area #orders-buttons .main-button,
+#drop-area #multi-edit-buttons .main-button {
+    margin-left: -3px;
+}
+
+
+#drop-area.multi-edit .main-button-group,
+#drop-area.ordering .main-button-group {
     display: none;
+}
+
+#drop-area.ordering #orders-buttons {
+    display: block;
+}
+
+#drop-area.multi-edit #multi-edit-buttons {
+    display: block;
 }
 
 #drop-area .order-icon {
     display: none;
+}
+
+#drop-area .checkbox-indicator {
+    display: none;
+    margin-left: 3px;
+    position: relative;
+    width: 13px;
+    height: 13px;
+}
+
+#drop-area.multi-edit .checkbox-indicator {
+    display: inline-block;
+}
+
+#drop-area.multi-edit .checkbox-indicator input {
+    cursor: pointer;
+}
+
+#drop-area .checkbox-indicator input {
+    position: absolute;
+    top: 2px;
+    left: 0;
 }
 
 #drop-area .fa-eye,
