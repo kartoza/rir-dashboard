@@ -64,4 +64,44 @@ $(document).ready(function () {
 
     checkIndicatorList();
     updateDone();
+
+    // this is for show/hide button
+    function checkGroup($element) {
+        if ($element.find('.indicator-name .fa-eye:visible').length === 0) {
+            $element.addClass('hidden');
+        } else {
+            $element.removeClass('hidden');
+        }
+    }
+
+    $('.indicator-name .fa-eye, .indicator-name .fa-eye-slash').click(function () {
+        if ($(this).hasClass('fa-eye')) {
+            $(this).closest('li').addClass('hidden');
+        } else {
+            $(this).closest('li').removeClass('hidden');
+        }
+        $.ajax({
+            url: $(this).data('url'),
+            type: 'POST',
+            success: function (data, textStatus, request) {
+            },
+            error: function (error, textStatus, request) {
+            },
+            beforeSend: beforeAjaxSend
+        });
+        checkGroup($(this).closest('.group-row'));
+    });
+
+    // if group is clicked
+    $('.group-name .fa-eye').click(function () {
+        $(this).closest('li').find('.indicator-name .fa-eye').click();
+    });
+    $('.group-name .fa-eye-slash').click(function () {
+        $(this).closest('li').find('.indicator-name .fa-eye-slash').click();
+    });
+
+    // init check group
+    $('.group-row').each(function () {
+        checkGroup($(this))
+    })
 });

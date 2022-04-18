@@ -5,7 +5,8 @@ from rir_data.api.download_file import DownloadSharepointFile, DownloadBackupsFi
 from rir_data.api.geometry import GeometryGeojsonAPI, GeometryDetailAPI
 from rir_data.api.indicator import (
     IndicatorsList, IndicatorValues, IndicatorValuesByGeometryAndLevel, IndicatorValuesByDateAndGeojson, IndicatorValuesByDate,
-    IndicatorValuesByGeometry, IndicatorReportingUnits, IndicatorValuesBatch
+    IndicatorValuesByGeometry, IndicatorReportingUnits, IndicatorValuesBatch,
+    IndicatorShow, IndicatorHide
 )
 from rir_data.api.indicators import IndicatorsValuesByGeometryDate
 from rir_data.api.context_analysis import ContextAnalysisData
@@ -50,6 +51,14 @@ indicator_api = [
     url(
         r'^(?P<pk>\d+)/reporting-units',
         IndicatorReportingUnits.as_view(), name='indicator-reporting-units-api'
+    ),
+    url(
+        r'^(?P<pk>\d+)/show',
+        IndicatorShow.as_view(), name='indicator-show'
+    ),
+    url(
+        r'^(?P<pk>\d+)/hide',
+        IndicatorHide.as_view(), name='indicator-hide'
     ),
     url(r'^', IndicatorsList.as_view(), name='indicator-list-api'),
 ]

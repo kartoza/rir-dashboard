@@ -186,3 +186,7 @@ class Harvester(models.Model):
     @property
     def report_file_url(self):
         return os.path.join(settings.MEDIA_URL, 'harvester', 'report', str(self.unique_id) + '.xlsx')
+
+    @property
+    def short_log_list(self):
+        return self.harvesterlog_set.all()[:10]

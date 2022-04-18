@@ -28,19 +28,25 @@
                         <ul id="group-list" class="block block-group">
                             {% for group, indicator_group in indicators_in_groups.items %}
                                 <li class="group-row" data-group="{{ group }}">
-                                    <div class="block-content">
+                                    <div class="block-content group-name">
                                         <i class="fa fa-sort order-icon" aria-hidden="true"></i>
-                                        <span class="indicator-name"><b>{{ group }}</b></span>
+
+                                        {# this is for the show/hide #}
+                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                        <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                                        <span><b>{{ group }}</b></span>
                                     </div>
                                     <ul class="indicator-list">
                                         {% for indicator_data in indicator_group.indicators %}
                                             {% with indicator=indicator_data.object %}
-                                                <li id="data-{{ indicator.id }}" class="block block-value" data-id="{{ indicator.id }}">
+                                                <li id="data-{{ indicator.id }}" class="block block-value {% if not indicator.show_in_context_analysis %}hidden{% endif %}" data-id="{{ indicator.id }}">
                                                     <div class="block-content row">
-                                                        <div class="col">
-                                                            <span class="order-icon">
-                                                                <i class="fa fa-sort" aria-hidden="true"></i>
-                                                            </span>
+                                                        <div class="col indicator-name">
+                                                            <i class="fa fa-sort order-icon" aria-hidden="true"></i>
+
+                                                            {# this is for the show/hide #}
+                                                            <i class="fa fa-eye" aria-hidden="true" data-url="{% url 'indicator-hide' instance.slug indicator.id %}"></i>
+                                                            <i class="fa fa-eye-slash" aria-hidden="true" data-url="{% url 'indicator-show' instance.slug indicator.id %}"></i>
                                                             <span class="indicator-name"> {{ indicator.name }}</span>
                                                         </div>
                                                         <div style="margin-right: 10px">
