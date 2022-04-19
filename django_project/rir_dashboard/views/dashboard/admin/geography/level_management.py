@@ -28,7 +28,7 @@ class GeographyLevelManagementView(AdminView):
         self.instance = get_object_or_404(
             Instance, slug=kwargs.get('slug', '')
         )
-        levels = request.POST.get('level', None)
+        levels = request.POST.get('levels', None)
         if levels:
             levels = json.loads(levels)
             self.instance.geometry_instance_levels.delete()
@@ -47,4 +47,4 @@ class GeographyLevelManagementView(AdminView):
                 level_id=id,
                 parent_id=parent_id
             )
-            self.save_level_tree(id, value['child'])
+            self.save_level_tree(id, value)
