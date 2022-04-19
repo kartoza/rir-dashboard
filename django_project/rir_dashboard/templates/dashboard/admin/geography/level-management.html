@@ -23,11 +23,11 @@
         </div>
         <form method="post" id="login-form">
             {% csrf_token %}
-            <input id="level-input" type="text" name="level" style="display: none">
+            <input id="level-input" type="text" name="levels" style="display: none">
             <button class="main-button">Submit</button>
         </form>
         <div id="level-list" style="padding:10px;margin-top: 20px">
-            <div style="margin-bottom: 5px; color: gray">Available Levels</div>
+            <div style="margin-bottom: 5px; color: gray">Available Levels</div>yes
             <div class="row">
                 {% for level in levels %}
                     <div id="level-{{ level.id }}" class="level-block level-block-value" data-id="{{ level.id }}">

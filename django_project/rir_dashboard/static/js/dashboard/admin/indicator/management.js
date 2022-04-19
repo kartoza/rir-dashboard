@@ -89,7 +89,7 @@ $(document).ready(function () {
         }
         $.ajax({
             url: $(this).data('url'),
-            type: 'POST',
+            type: 'PATCH',
             success: function (data, textStatus, request) {
             },
             error: function (error, textStatus, request) {

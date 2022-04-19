@@ -12,7 +12,7 @@ from rir_data.models.indicator.indicator import Indicator
 User = get_user_model()
 
 
-class IndicatorListAPITest(TestCase):
+class IndicatorValuesAPITest(TestCase):
     """ Test API for Geometry """
 
     def setUp(self):

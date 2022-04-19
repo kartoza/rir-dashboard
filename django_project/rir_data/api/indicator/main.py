@@ -11,23 +11,7 @@ from rir_data.authentication import IndicatorHarvesterTokenAndBearerAuthenticati
 from rir_data.models.instance import Instance
 from rir_data.models.indicator import Indicator, IndicatorValue, IndicatorValueRejectedError
 from rir_data.models.geometry import Geometry, GeometryLevelName, GeometryLevelInstance
-from rir_data.serializer.indicator import IndicatorSerializer, IndicatorValueSerializer, IndicatorDetailValueSerializer
-
-
-class IndicatorsList(APIView):
-    """
-    Return Indicator List With it's Scenario
-    """
-
-    def get(self, request, slug):
-        instance = get_object_or_404(
-            Instance, slug=slug
-        )
-        return Response(
-            IndicatorSerializer(
-                instance.indicators, many=True
-            ).data
-        )
+from rir_data.serializer.indicator import IndicatorValueSerializer, IndicatorDetailValueSerializer
 
 
 class IndicatorValuesByGeometry(APIView):

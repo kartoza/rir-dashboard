@@ -11,18 +11,11 @@ from rir_data.models.indicator import Indicator
 
 class IndicatorShow(APIView):
     """
-    Change indicator show
+    Show indicator
     """
     permission_classes = (IsAuthenticated, AdminAuthenticationPermission,)
 
-    def post(self, request, slug, pk):
-        """
-        Save reporting units of indicator
-
-        :param slug: slug of the instance
-        :param pk: pk of the indicator
-        :return:
-        """
+    def patch(self, request, slug, pk):
         try:
             instance = get_object_or_404(
                 Instance, slug=slug
@@ -30,25 +23,18 @@ class IndicatorShow(APIView):
             indicator = instance.indicators.get(id=pk)
             indicator.show_in_context_analysis = True
             indicator.save()
-            return Response('OK')
+            return Response()
         except Indicator.DoesNotExist:
             raise Http404('Indicator does not exist')
 
 
 class IndicatorHide(APIView):
     """
-    Change indicator show
+    Hide indicator
     """
     permission_classes = (IsAuthenticated, AdminAuthenticationPermission,)
 
-    def post(self, request, slug, pk):
-        """
-        Save reporting units of indicator
-
-        :param slug: slug of the instance
-        :param pk: pk of the indicator
-        :return:
-        """
+    def patch(self, request, slug, pk):
         try:
             instance = get_object_or_404(
                 Instance, slug=slug
@@ -56,6 +42,6 @@ class IndicatorHide(APIView):
             indicator = instance.indicators.get(id=pk)
             indicator.show_in_context_analysis = False
             indicator.save()
-            return Response('OK')
+            return Response()
         except Indicator.DoesNotExist:
             raise Http404('Indicator does not exist')

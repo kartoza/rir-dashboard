@@ -75,17 +75,15 @@ $(document).ready(function () {
     function getData($element) {
         const data = {}
         $($element.children('.level-block-value').each(function () {
-            data[$(this).data('id')] = {
-                'child': getData(
-                    $($(this).children('.row')[0])
-                )
-            }
+            data[$(this).data('id')] = getData(
+                $($(this).children('.row')[0])
+            )
         }))
         return data;
     }
 
     // init instance level
-    renderLevelTree(instanceLevelTree);
+    renderLevelTree(0, instanceLevelTree);
 
     function dragInit(id) {
         // make draggable
@@ -105,14 +103,14 @@ $(document).ready(function () {
 
     }
 
-    function renderLevelTree(levels) {
+    function renderLevelTree(parent, levels) {
         $.each(levels, function (id, level) {
             const $element = $(`#level-${id}`);
-            const $target = $(`#level-${level.parent} > .row`);
+            const $target = $(`#level-${parent} > .row`);
             $element.remove()
             $target.append($element.outerHTML());
-            if (level.child) {
-                renderLevelTree(level.child);
+            if (level) {
+                renderLevelTree(id, level);
             }
             dragInit(id);
         });
