@@ -49,7 +49,12 @@ img {
     display: none;
 }
 
+img[alt="Creating a New Instance"],
+img[alt="Change Order of Instance Categories"],
+img[alt="Scenario Level"],
 img[alt="New Indicator"],
+img[alt="Program"],
+img[alt="Program Instance"],
 img[alt="Create Harvester"],
 img[alt="Create from Existing Indicator"],
 img[alt="Edit Indicator"],
