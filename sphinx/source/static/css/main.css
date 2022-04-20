@@ -48,3 +48,15 @@ img {
 .sidebar-toc > .caption {
     display: none;
 }
+
+img[alt="New Indicator"],
+img[alt="Create Harvester"],
+img[alt="Create from Existing Indicator"],
+img[alt="Edit Indicator"],
+img[alt="Edit Multiple Indicator"],
+img[alt="Show Hide Indicator"],
+img[alt="Change Order Indicator"],
+img[alt="Value Manager Map"],
+img[alt="Value Manager Form"] {
+    width: 600px;
+}
