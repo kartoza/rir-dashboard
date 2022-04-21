@@ -1,14 +1,3 @@
 .idea
 .venv
-deployment/.env
-deployment/backups
-deployment/docker-compose.override.yml
-deployment/volumes
-deployment/sites-enabled/default.conf
-
 __pycache__/
-
-django_project/.pycharm_helpers/
-celerybeat-schedule*
-
-sphinx/build
