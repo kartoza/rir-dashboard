@@ -1,3 +1,17 @@
 .idea
 .venv
+deployment/.env
+deployment/backups
+deployment/docker-compose.override.yml
+deployment/volumes
+deployment/onedrive/data
+deployment/sites-enabled/default.conf
+
 __pycache__/
+
+django_project/.pycharm_helpers/
+celerybeat-schedule*
+
+deployment/node-red/*
+!deployment/node-red/flows.json
+!deployment/node-red/package.json

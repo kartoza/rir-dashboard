@@ -1,0 +1,20 @@
+#map-section {
+    display: flex;
+    flex-direction: column;
+    padding: 0 !important;
+}
+
+#upload-section {
+    overflow: auto !important;
+    height: 100%;
+    width: 100%;
+}
+
+#upload-section > div {
+    padding: 20px;
+}
+
+#map-section, #map, #uploaded-map {
+    height: 100%;
+    width: 100%;
+}
