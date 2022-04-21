@@ -1,0 +1,116 @@
+site_name: RIR Dashboard 1.0
+site_description: 'A platform provides a way to understand risk modalities across different geographic contexts.'
+site_author: 'Tim Sutton'
+repo_name: 'kartoza/rir-dashboard'
+repo_url: 'https://github.com/kartoza/rir-dashboard'
+copyright: Copyright Tim Sutton and Contributors, 2022
+
+# Navigation
+nav:
+  - Introduction:
+      - index.md
+      - Disclaimer: introduction/disclaimer.md
+      - License: introduction/license.md
+      - Contributing: introduction/contributing.md
+      - Credits: introduction/credits.md
+      - Platform tour:
+          - Overview: introduction/platform_tour/platform_tour.md
+          - Indicator: introduction/platform_tour/indicator.md
+          - Map interaction: introduction/platform_tour/map_interaction.md
+          - Layers: introduction/platform_tour/layers.md
+  - Setup:
+      - setup/index.md
+      - Installation:
+          - Preparation: setup/installation/preparation.md
+          - Project setup: setup/installation/project_setup.md
+          - Development setup:
+              - setup/installation/development_setup/index.md
+              - Using pycharm: setup/installation/development_setup/pycharm.md
+      - Configuration:
+          - Preferences: setup/configuration/preferences.md
+          - User: setup/configuration/user.md
+          - Instance: setup/configuration/instances.md
+          - Navigation link: setup/configuration/navigation_link.md
+          - Scenario: setup/configuration/scenario.md
+          - Program intervention: setup/configuration/program_intervention.md
+          - Layer: setup/configuration/layer.md
+          - Geography: setup/configuration/geography.md
+          - Indicator: setup/configuration/indicator.md
+  - Tutorial:
+      - tutorial/index.md
+      - User: tutorial/user_tutorial.md
+      - Administrator: tutorial/administrator_tutorial.md
+  - Roadmap: setup/roadmap.md
+
+# Configuration
+theme:
+  name: material
+  language: en
+  features:
+    - content.code.annotate
+    - navigation.expand
+    - navigation.indexes
+    - navigation.sections
+    - navigation.tabs
+    - navigation.top
+    - navigation.tracking
+    - search.highlight
+    - search.share
+    - search.suggest
+    - toc.follow
+  palette:
+    - scheme: default
+      primary: blue
+      accent: gray
+      toggle:
+        icon: material/brightness-4
+        name: Switch to dark mode
+    - scheme: slate
+      primary: blue
+      accent: gray
+      toggle:
+        icon: material/brightness-6
+        name: Switch to light mode]
+
+extra_css:
+  - assets/stylesheets/extra.css
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - meta
+  - md_in_html
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+      emoji_index: !!python/name:materialx.emoji.twemoji
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.magiclink:
+      repo_url_shorthand: true
+      user: squidfunk
+      repo: mkdocs-material
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
