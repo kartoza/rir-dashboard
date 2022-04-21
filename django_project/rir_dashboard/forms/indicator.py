@@ -1,5 +1,7 @@
+import json
 from django import forms
 from django.forms.models import model_to_dict
+from django.shortcuts import reverse
 from rir_data.models.instance import Instance
 from rir_data.models.indicator import (
     Indicator, IndicatorFrequency, IndicatorGroup, frequency_help_text,
@@ -17,23 +19,25 @@ class IndicatorForm(forms.ModelForm):
     frequency = forms.IntegerField(
         help_text=frequency_help_text
     )
-    group = forms.CharField()
+    group = forms.ChoiceField()
 
     def __init__(self, *args, **kwargs):
-        level = None
-        try:
-            level = kwargs.pop("level")
-        except KeyError:
-            pass
         instance = kwargs.pop("indicator_instance")
         super().__init__(*args, **kwargs)
-        if level:
-            self.fields['geometry_reporting_level'].choices = [(u.id, u.name) for u in level]
         self.fields['instance'].initial = instance
+        self.fields['geometry_reporting_level'].choices = [(u.id, u.name) for u in instance.geometry_levels_in_order]
+        self.fields['aggregation_behaviour'].label = 'Reporting Behaviour'
+        self.fields['group'].choices = [('', '')] + [(group.name, group.name) for group in IndicatorGroup.objects.filter(instance=instance).order_by('name')]
+
+        try:
+            if self.data['group']:
+                self.fields['group'].choices += [(self.data['group'], self.data['group'])]
+        except KeyError:
+            pass
 
     class Meta:
         model = Indicator
-        exclude = ('unit', 'order', 'geometry_reporting_units')
+        exclude = ('order', 'geometry_reporting_units', 'instance', 'show_in_context_analysis')
 
     def clean_frequency(self):
         frequency = self.cleaned_data['frequency']
@@ -63,6 +67,6 @@ class IndicatorForm(forms.ModelForm):
             initial['group'] = None
         try:
             initial['frequency'] = IndicatorFrequency.objects.get(id=initial['frequency']).frequency
-        except IndicatorGroup.DoesNotExist:
+        except IndicatorFrequency.DoesNotExist:
             initial['frequency'] = None
         return initial

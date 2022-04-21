@@ -30,7 +30,7 @@ $(document).ready(function () {
             onEachFeature: function (feature, layer) {
                 const id = feature.id;
                 feature.properties['id'] = id;
-                feature.properties['url'] = urlValueByGeometry.replace('0', id);
+                feature.properties['url'] = urlValueByGeometry.replace('/0/', '/' + id + '/');
 
                 // update bind popup
                 layer.bindPopup(
@@ -91,7 +91,7 @@ $(document).ready(function () {
 
         } else {
             $.ajax({
-                url: urlValueByGeometry.replace('0', geometryID),
+                url: urlValueByGeometry.replace('/0/', '/' + geometryID + '/'),
                 dataType: 'json',
                 success: function (data, textStatus, request) {
                     valueData[geometryID] = data;

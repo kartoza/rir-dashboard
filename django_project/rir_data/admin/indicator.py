@@ -27,11 +27,11 @@ class IndicatorAdmin(admin.ModelAdmin):
 
     list_display = (
         'name', 'group', 'frequency', 'show_in_context_analysis',
-        'geometry_reporting_level',)
+        'geometry_reporting_level', 'access_level', 'order')
     filter_horizontal = ('geometry_reporting_units',)
-    list_editable = ('show_in_context_analysis',)
+    list_editable = ('show_in_context_analysis', 'access_level', 'order')
+    list_filter = ('group', 'show_in_context_analysis', 'access_level')
     inlines = (IndicatorScenarioRuleInline,)
-    list_filter = ('group', 'show_in_context_analysis')
 
 
 class IndicatorGroupAdmin(admin.ModelAdmin):

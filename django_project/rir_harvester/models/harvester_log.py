@@ -1,5 +1,8 @@
+import json
 from django.contrib.gis.db import models
+from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
+from core.models.preferences import SitePreferences
 from rir_harvester.models.harvester import Harvester
 
 
@@ -34,6 +37,28 @@ class HarvesterLog(models.Model):
     note = models.TextField(
         blank=True, null=True
     )
+    detail = models.TextField(
+        blank=True, null=True,
+        help_text=_(
+            'The detail of the harvesters. '
+            'Should be filled with array so can construct the data in array.'
+        )
+    )
 
     class Meta:
         ordering = ('-start_time',)
+
+    def html_detail(self):
+        """
+        Return html string for the detail
+        """
+        try:
+            pref = SitePreferences.preferences()
+            return render_to_string(
+                'pages/harvester_log_detail.html', {
+                    'table': json.loads(self.detail),
+                    'color': pref.primary_color
+                }
+            )
+        except (TypeError, ValueError):
+            return ''

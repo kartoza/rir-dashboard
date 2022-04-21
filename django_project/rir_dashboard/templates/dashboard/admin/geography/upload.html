@@ -24,20 +24,12 @@
                 <button class="main-button">Submit</button>
             </form>
         </div>
-        {#        <div class="col-6">#}
-        {#            <h3>Upload Result</h3>#}
-        {#            <table>#}
-        {#                <tr>#}
-        {#                    <th>Code</th>#}
-        {#                    <th>Name</th>#}
-        {#                    <th>Upload Status</th>#}
-        {#                </tr>#}
-        {#            </table>#}
-        {#        </div>#}
     </div>
 {% endblock %}
 {% block scripts %}
     <script type="text/javascript" src="{% static 'libs/leaflet/1.5.1/leaflet.js' %}"></script>
+    <script type="text/javascript" src="{% static 'libs/shapefile.js' %}"></script>
+    <script type="text/javascript" src="{% static 'libs/shp.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/dashboard/admin/geography/upload.js' %}"></script>
     <script>
         const instanceLevels = [];
@@ -45,5 +37,115 @@
             instanceLevels.push({{ level.id }});
         {% endfor %}
         $('#nav-geography-upload').addClass('active')
+
+        let $selectInput = $('#id_code_column, #id_name_column, #id_parent_code_column');
+        $('#id_code_column, #id_name_column, #id_parent_code_column').each(function () {
+            $(this).replaceWith(`<select name="${$(this).attr('name')}" id="${$(this).attr('id')}" disabled="" ${$(this).attr('required')}></select>`)
+        })
+        $selectInput = $('#id_code_column, #id_name_column, #id_parent_code_column');
+        $selectInput.prop('disabled', true);
+
+        $('#id_file_type').closest('p').hide();
+        $('#id_file').change(function () {
+            const firstFile = this.files[0];
+            $('label[for="file"]').html('Unknown File');
+            $('#id_file_type').val('');
+            $selectInput.prop('disabled', true);
+            $selectInput.html('');
+
+            switch (extension(firstFile.name)) {
+                {# case if the file is geojson #}
+                case 'geojson':
+                    var file = this.files[0];
+                    var fr = new FileReader();
+                    fr.onload = function () {
+                        const json = JSON.parse(fr.result)
+                        const properties = json['features'][0]['properties'];
+                        $('#id_parent_code_column').append(`<option ></option`);
+                        $.each(properties, function (key, values) {
+                            $selectInput.append(`<option value="${key}">${key}</option`);
+                        })
+                    };
+                    fr.readAsText(file);
+                    $('label[for="file"]').html('Geojson');
+                    $('#id_file_type').val('geojson');
+                    break;
+
+                {# case if the are zip file #}
+                case 'zip':
+                    let theZipFile = null;
+                    $.each(this.files, function (index, file) {
+                        if (extension(file.name) === 'zip') {
+                            theZipFile = file;
+                        }
+                    });
+
+                    if (theZipFile) {
+                        $('label[for="file"]').html('Zipfile');
+                        $('#id_file_type').val('zipfile');
+
+                        {# Read the shapefile to make selection #}
+                        const fr = new FileReader();
+                        fr.onload = function () {
+                            shp(fr.result)
+                                .then(function (data) {
+                                    const properties = data.features[0].properties;
+                                    $('#id_parent_code_column').append(`<option></option`);
+                                    $.each(properties, function (key, values) {
+                                        $selectInput.append(`<option value="${key}">${key}</option`);
+                                    })
+                                })
+                                .catch(error => console.error(error.stack));
+                        };
+                        fr.readAsArrayBuffer(theZipFile);
+                    }
+                    break;
+
+                {# case if the files are shapefile #}
+                default:
+                    let theShpFile = null;
+                    let theDbfFile = null;
+                    $.each(this.files, function (index, file) {
+                        if (extension(file.name) === 'shp') {
+                            theShpFile = file;
+                        }
+                        if (extension(file.name) === 'dbf') {
+                            theDbfFile = file;
+                        }
+                    });
+
+                    if (theShpFile && theDbfFile) {
+                        $('label[for="file"]').html('Shapefile');
+                        $('#id_file_type').val('shapefile');
+
+                        {# Read the shapefile to make selection #}
+                        let theShpFileData = null;
+                        let theDbfFileData = null;
+                        const fr1 = new FileReader();
+                        fr1.onload = function () {
+                            theShpFileData = fr1.result;
+                            const fr2 = new FileReader();
+                            fr2.onload = function () {
+                                theDbfFileData = fr2.result;
+                                shapefile.open(theShpFileData, theDbfFileData)
+                                    .then(source => source.read()
+                                        .then(function log(result) {
+                                            if (result.done) return;
+                                            $('#id_parent_code_column').append(`<option></option`);
+                                            $.each(result.value.properties, function (key, values) {
+                                                $selectInput.append(`<option value="${key}">${key}</option`);
+                                            })
+                                            return source.read().then(log);
+                                        }))
+                                    .catch(error => console.error(error.stack));
+                            };
+                            fr2.readAsArrayBuffer(theDbfFile);
+                        };
+                        fr1.readAsArrayBuffer(theShpFile);
+                    }
+                    break;
+            }
+            $selectInput.prop('disabled', false);
+        })
     </script>
 {% endblock %}

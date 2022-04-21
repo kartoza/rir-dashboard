@@ -1,5 +1,4 @@
 import datetime
-import uuid
 from django.contrib.gis.db import models
 from django.db.models import Q
 from django.utils.translation import ugettext_lazy as _
@@ -35,6 +34,29 @@ class GeometryLevelInstance(models.Model):
 
     class Meta:
         unique_together = ('instance', 'level')
+
+    def get_level_tree(self):
+        tree = []
+        level_instance = self
+        parent = True
+        while parent:
+            tree.append(level_instance.level.name)
+            parent = level_instance.parent
+            if parent:
+                level_instance = GeometryLevelInstance.objects.filter(
+                    instance=self.instance,
+                    level=parent
+                ).first()
+        return tree
+
+    def get_child_tree(self):
+        tree = [self.level.name]
+        for child in GeometryLevelInstance.objects.filter(
+                instance=self.instance,
+                parent=self.level
+        ):
+            tree += child.get_child_tree()
+        return tree
 
 
 class FindGeometry(models.Manager):
@@ -104,6 +126,17 @@ class Geometry(models.Model):
         null=True
     )
 
+    # dashboard link
+    dashboard_link = models.CharField(
+        default='',
+        max_length=1024,
+        null=True, blank=True,
+        help_text=(
+            'A dashboard link can be any URL to e.g. a BI platform or another web site. '
+            'This is optional, and when populated, a special icon will be shown next to the indicator which, '
+            'when clicked, will open up this URL in a frame over the main map area.')
+    )
+
     objects = FindGeometry()
 
     class Meta:
@@ -113,7 +146,10 @@ class Geometry(models.Model):
         return self.str()
 
     def str(self):
-        return f'{self.name} ({self.identifier})'
+        name = f'{self.name}'
+        if self.name != self.identifier:
+            name += f' ({self.identifier})'
+        return name
 
     def geometries_by_level(self, geometry_level: GeometryLevelName):
         """
@@ -127,38 +163,12 @@ class Geometry(models.Model):
             geometries = Geometry.objects.filter(child_of__in=geometry_ids)
 
             if geometries.first():
+                levels = geometries.values_list('geometry_level', flat=True).distinct()
+                for level in levels:
+                    if level == geometry_level.id:
+                        return geometries.filter(geometry_level=level)
+
                 current_geometry_level = geometries.first().geometry_level
             else:
                 current_geometry_level = geometry_level
         return geometries
-
-
-class GeometryUploader(models.Model):
-    """
-    Geometry uploader
-    """
-    unique_id = models.UUIDField(
-        default=uuid.uuid4, editable=False, unique=True
-    )
-    file = models.FileField(
-        upload_to='upload'
-    )
-    time = models.DateTimeField(
-        auto_now_add=True
-    )
-
-
-class GeometryUploaderLog(models.Model):
-    """
-    Log for geometry uploader
-    """
-    uploader = models.ForeignKey(
-        GeometryUploader,
-        on_delete=models.CASCADE
-    )
-    identifier = models.CharField(
-        max_length=512
-    )
-    note = models.TextField(
-        null=True, blank=True
-    )

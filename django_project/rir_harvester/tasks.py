@@ -12,4 +12,4 @@ def run_harvesters():
 
 @app.task
 def run_harvester(id):
-    call_command('run_harvesters', '--id', id)
+    call_command('run_harvesters', '--id', id, '-force', True)

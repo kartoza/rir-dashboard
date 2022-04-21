@@ -3,7 +3,8 @@ import json
 from django.http import Http404
 from django.shortcuts import redirect, reverse, render, get_object_or_404
 from rir_dashboard.views.dashboard.admin._base import AdminView
-from rir_data.models import Indicator, Instance, IndicatorValue
+from rir_data.models import Indicator, Instance, IndicatorExtraValue
+from rir_data.models.indicator.indicator import IndicatorValueRejectedError
 from rir_data.serializer.geometry import GeometryContextSerializer
 
 
@@ -13,7 +14,7 @@ class IndicatorValueManagementMapView(AdminView):
 
     @property
     def dashboard_title(self):
-        return f'<span>Indicator Value Manager Map</span> : {self.indicator.name} '
+        return f'Indicator Value Manager Map : {self.indicator.full_name} '
 
     @property
     def context_view(self) -> dict:
@@ -57,7 +58,7 @@ class IndicatorValueManagementMapView(AdminView):
             }
             return context
         except Indicator.DoesNotExist:
-            raise Http404('Indicator does not found')
+            raise Http404('Indicator does not exist')
 
 
 class IndicatorValueManagementTableView(AdminView):
@@ -66,7 +67,7 @@ class IndicatorValueManagementTableView(AdminView):
 
     @property
     def dashboard_title(self):
-        return f'<span>Indicator Value Manager Form</span> : {self.indicator.name} '
+        return f'<span>Indicator Value Manager Form</span> : {self.indicator.full_name} '
 
     @property
     def context_view(self) -> dict:
@@ -85,7 +86,7 @@ class IndicatorValueManagementTableView(AdminView):
             }
             return context
         except Indicator.DoesNotExist:
-            raise Http404('Indicator does not found')
+            raise Http404('Indicator does not exist')
 
     def post(self, request, **kwargs):
         self.instance = get_object_or_404(
@@ -97,6 +98,7 @@ class IndicatorValueManagementTableView(AdminView):
             )
             date = request.POST.get('date', None)
             if date:
+                indicator_values = {}
                 for reporting_unit in indicator.reporting_units:
                     try:
                         value = float(request.POST.get(f'{reporting_unit.id}', None))
@@ -104,20 +106,28 @@ class IndicatorValueManagementTableView(AdminView):
                         pass
                     else:
                         try:
-                            indicator_value = IndicatorValue.objects.get(
-                                indicator=indicator,
-                                date=date,
-                                geometry=reporting_unit
-                            )
-                        except IndicatorValue.DoesNotExist:
-                            indicator_value = IndicatorValue(
-                                indicator=indicator,
-                                date=date,
-                                geometry=reporting_unit
-                            )
-                        indicator_value.value = value
-                        indicator_value.save()
+                            indicator_value = indicator.save_value(date, reporting_unit, value)
+                            indicator_values[f'{reporting_unit.id}'] = indicator_value
+                        except IndicatorValueRejectedError:
+                            pass
 
+                # we need to check extra value
+                for key, extra_value in request.POST.dict().items():
+                    if 'extra-value' in key:
+                        keys = key.split('-')
+                        reporting_id = keys[0]
+                        extra_name = request.POST.get(f'{"-".join(keys[:3])}-name', None)
+                        if extra_name and extra_value:
+                            try:
+                                indicator_value = indicator_values[reporting_id]
+                                indicator_extra_value, created = IndicatorExtraValue.objects.get_or_create(
+                                    indicator_value=indicator_value,
+                                    name=extra_name
+                                )
+                                indicator_extra_value.value = extra_value
+                                indicator_extra_value.save()
+                            except KeyError:
+                                pass
 
             return redirect(
                 reverse(
@@ -125,4 +135,4 @@ class IndicatorValueManagementTableView(AdminView):
                 )
             )
         except Indicator.DoesNotExist:
-            raise Http404('Indicator does not found')
+            raise Http404('Indicator does not exist')

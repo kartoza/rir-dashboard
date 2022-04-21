@@ -3,6 +3,15 @@ html, body {
     font-size: 14px;
 }
 
+:root {
+    --navigation-width: 200px;
+    --header-height: 50px;
+}
+
+.navbar {
+    padding: 10px 0 10px 20px !important;
+}
+
 .row {
     margin: 0;
 }
@@ -18,7 +27,7 @@ html, body {
     flex-grow: 1;
     height: 100%;
     position: relative;
-    padding-top: 52px;
+    padding-top: var(--header-height);
 }
 
 #content h3 {
@@ -35,14 +44,14 @@ html, body {
 #content-view {
     max-height: 100%;
     overflow-y: auto;
-    padding: 20px;
+    padding: 10px;
 }
 
 #content .header {
     background: white;
-    height: 52px;
+    height: var(--header-height);
     font-weight: 600;
-    padding: 13px 20px;
+    padding: 14px 20px 10px 30px;
     position: absolute;
     top: 0;
     left: 0;
@@ -92,8 +101,9 @@ html, body {
     border-bottom: 2px solid var(--primary-color);
 }
 
-#content .header .main-button {
-    margin-top: -3px;
+#content .header .main-button,
+#content .header .empty-button {
+    margin-top: -5px;
 }
 
 #content label {
@@ -120,28 +130,93 @@ html, body {
     padding: 10px;
 }
 
-#navigation {
-    background: white;
-    display: flex;
-    flex-flow: column;
-    height: 100%;
-    width: 200px;
-    z-index: 1;
+#content .header button {
+    margin-left: 1px;
 }
 
-#navigation > div {
-    padding: 15px;
+#navigation {
+    background: white;
+    height: 100%;
+    position: relative;
+    width: var(--navigation-width);
+}
+
+#navigation.shrink {
+    width: 50px;
+}
+
+#inner-navigation {
+    background: white;
+    height: 100%;
+    direction: rtl;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100%;
+}
+
+#navigation-content {
+    height: 100%;
+    width: 100%;
+    direction: ltr;
+}
+
+#navigation.first .toggle-button {
+    color: var(--primary-color);
+    background-color: white;
+}
+
+#navigation.shrink.first .toggle-button {
+    color: white;
+    background-color: var(--primary-color);
+}
+
+#navigation .toggle-button {
+    position: absolute;
+    top: 11px;
+    color: white;
+    background-color: var(--primary-color);
+    padding: 5px;
+    z-index: 999;
+    cursor: pointer;
+    right: 0;
+    width: 17px;
+    height: 24px;
+    border-radius: 5px 0 0 5px;
+}
+
+#navigation .toggle-button:hover {
+    opacity: 0.8;
+}
+
+#navigation.shrink .toggle-button {
+    margin-right: -17px;
+    border-radius: 0 5px 5px 0;
+}
+
+#navigation .toggle-button .fa-caret-right {
+    display: none;
+}
+
+#navigation .toggle-button .fa-caret-left {
+    display: block;
+}
+
+#navigation.shrink .toggle-button .fa-caret-right {
+    display: block;
+}
+
+#navigation.shrink .toggle-button .fa-caret-left {
+    display: none;
 }
 
 #navigation .content {
-    flex-grow: 1;
-    overflow-y: auto;
-    padding: 0 !important;
+    width: 200px;
+    direction: ltr;
 }
 
 #navigation .content .section div,
 #navigation .content .section a {
-    padding: 5px 5px 5px 15px;
+    padding: 5px 5px 5px 0;
     text-decoration: none;
     color: inherit;
 }
@@ -174,10 +249,18 @@ html, body {
     opacity: 0.5;
 }
 
-#navigation .content .section .nav .icon {
+#navigation .content .section .nav .icon,
+#navigation .content .section .nav .right-icon {
     font-size: 20px;
     text-align: center;
-    width: 37px;
+}
+
+#navigation .content .section .nav .icon {
+    width: 50px;
+}
+
+#navigation .content .section .nav .right-icon {
+    width: 20px;
 }
 
 #navigation .content .section .nav .icon img {
@@ -212,12 +295,17 @@ html, body {
 
 #navigation .header {
     font-size: 14px;
-    padding: 13px 15px !important;
+    padding: 13px 15px 13px 0 !important;
 }
 
 #navigation .header img {
-    height: 30px;
-    margin-right: 5px;
+    width: 40px;
+    margin: 0 5px !important;
+}
+
+#navigation .sub-header {
+    font-size: 14px;
+    padding: 13px 15px 13px 52px !important;
 }
 
 #navigation .footer {

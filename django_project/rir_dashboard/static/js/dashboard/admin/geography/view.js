@@ -9,13 +9,46 @@ $(document).ready(function () {
 
     // Indicator Layer
     const onEachFeature = function onEachFeature(feature, layer) {
-        layer.bindPopup('' +
-            '<table>' +
-            `<tr><td style="text-align: right"><b>Identifier</b></td><td>${feature.properties.identifier}</td></tr>` +
-            `<tr><td style="text-align: right"><b>Name</b></td><td>${feature.properties.name}</td></tr>` +
-            `<tr><td style="text-align: right"><b>Alias</b></td><td>${feature.properties.alias}</td></tr>` +
-            '</table>');
-    }
+        layer.bindPopup(_.template(
+            $('#_popup-template').html())(feature.properties)
+        );
+        layer.on('click', function (e) {
+            this.openPopup();
+
+            // event for the buttons
+            $('.edit-button').click(function () {
+                $('.leaflet-popup-content .input').show();
+                $('.leaflet-popup-content .value').hide();
+                return false;
+            });
+            $('.cancel-button').click(function () {
+                $('.leaflet-popup-content .input').hide();
+                $('.leaflet-popup-content .value').show();
+                return false;
+            });
+            $('.save-button').click(function () {
+                $(this).closest('form').find('.input').prop('disabled', true);
+
+                const data = {};
+                $(this).closest('form').find('input').each(function () {
+                    data[$(this).attr('name')] = $(this).val();
+                });
+                $.ajax({
+                    url: urls['geometry-detail-api'].replace('9999', feature.id),
+                    data: data,
+                    dataType: 'json',
+                    type: 'POST',
+                    success: function (data, textStatus, request) {
+                        window.location.reload()
+                    },
+                    error: function (error, textStatus, request) {
+                    },
+                    beforeSend: beforeAjaxSend
+                });
+                return false;
+            })
+        });
+    };
     const geometry = {};
     const geometryLayer = L.geoJSON(null, {
             style: {
@@ -32,7 +65,7 @@ $(document).ready(function () {
     let init = true;
     let identifierSelected = null;
     const $levelSelection = $('#level-selection');
-    const date = `${new Date().getUTCFullYear()}-${new Date().getUTCMonth() + 1}-${new Date().getUTCDate()}`;
+    const date = dateToYYYYMMDD(new Date());
     selectLevel($($levelSelection.find('div')[0]));
 
     function selectLevel($level) {
@@ -46,8 +79,10 @@ $(document).ready(function () {
 
         // get geojson
         geometryLayer.clearLayers();
+        $('#form table .list').html('');
         if (!geometry[identifier]) {
             const urlRequest = url.replace('level', level).replace('date', date)
+            $('#form table .list').html('<tr><td><i>Loading</i><td></tr>');
             $.ajax({
                 url: urlRequest,
                 dataType: 'json',
@@ -64,10 +99,77 @@ $(document).ready(function () {
                 map.fitBounds(geometryLayer.getBounds());
             }
             init = false;
+            $.each(geometry[identifier].features, function (index, feature) {
+                $('#form .list').append(_.template(
+                    $('#_row-table-template').html())({
+                        id: feature.id,
+                        name: feature.properties.name,
+                        alias: feature.properties.alias,
+                        identifier: feature.properties.identifier,
+                        dashboard_link: feature.properties.dashboard_link
+                    })
+                )
+            });
+            $('#form input').keyup(function () {
+                $(this).closest('tr').addClass('changed');
+            });
+
         }
     }
 
     $levelSelection.find('div').click(function () {
-        selectLevel($(this));
+        if (!$(this).hasClass('disabled')) {
+            selectLevel($(this));
+        }
+    });
+
+    if (window.location.hash) {
+        const hash = window.location.hash.replaceAll('#', '');
+        $(`#level-selection div[data-level="${hash}"]`).click();
+    }
+
+    $('#form form').css('padding-right', $('#level-selection').width() + 20)
+    $('#toggle-button').click(function () {
+        $('#map-section').toggle();
+        $('#form').toggle();
+        if ($('#form').is(":visible")) {
+            $(this).html('To map');
+            $('#submit-button').show();
+        } else {
+            $(this).html('To table');
+            $('#submit-button').hide();
+        }
+    })
+
+    // When submit
+    $('#submit-button').click(function () {
+
+        const data = {};
+        $('#form .changed').each(function () {
+            $(this).find('input').each(function () {
+                data[$(this).attr('name')] = $(this).val();
+            })
+        })
+
+        $('#form input').prop('disabled', true);
+        $('#toggle-button').prop('disabled', true);
+        $('#submit-button').prop('disabled', true);
+        $('#level-selection div').addClass('disabled');
+
+        $.ajax({
+            url: window.location.href,
+            data: data,
+            dataType: 'json',
+            type: 'POST',
+            success: function (data, textStatus, request) {
+                window.location.reload()
+            },
+            error: function (error, textStatus, request) {
+                if (error.status === 200) {
+                    window.location.reload()
+                }
+            },
+            beforeSend: beforeAjaxSend
+        });
     })
 });

@@ -1,5 +1,6 @@
 PROJECT_ID := rir_dashboard
 export COMPOSE_FILE=deployment/docker-compose.yml:deployment/docker-compose.override.yml
+export ONEDRIVE_DATA_DIR=$(shell pwd)/deployment/onedrive/data
 
 SHELL := /bin/bash
 
@@ -28,8 +29,22 @@ dev:
 	@echo "------------------------------------------------------------------"
 	@echo "Running in dev mode"
 	@echo "------------------------------------------------------------------"
-	@docker-compose ${ARGS} up -d devZZ
+	@docker-compose ${ARGS} up -d dev
 	@docker-compose ${ARGS} up --no-recreate --no-deps -d
+	@docker exec $(PROJECT_ID)_dev python manage.py runserver 0.0.0.0:8080
+
+dev-kill:
+	@echo
+	@echo "------------------------------------------------------------------"
+	@echo "Kill dev"
+	@echo "------------------------------------------------------------------"
+	@docker kill $(PROJECT_ID)_dev
+
+dev-reload: dev-kill dev
+	@echo
+	@echo "------------------------------------------------------------------"
+	@echo "Reload DEV"
+	@echo "------------------------------------------------------------------"
 
 build:
 	@echo
@@ -119,6 +134,27 @@ migrate:
 	@echo "------------------------------------------------------------------"
 	@docker-compose exec django python manage.py migrate
 
+
+onedrive-volume:
+	@echo
+	@echo "------------------------------------------------------------------"
+	@echo "Create volume"
+	@echo "------------------------------------------------------------------"
+	@docker volume create --name $(PROJECT_ID)_onedrive-conf
+	@docker volume rm $(PROJECT_ID)_onedrive-conf
+	@rm -rf ${ONEDRIVE_DATA_DIR}
+	@mkdir -p ${ONEDRIVE_DATA_DIR}
+	@docker volume create --name $(PROJECT_ID)_onedrive-conf
+	@docker run --name hello-world -v "$(PROJECT_ID)_onedrive-conf:/onedrive/conf" hello-world; docker cp deployment/onedrive/config hello-world:/onedrive/conf; docker rm hello-world
+
+
+onedrive-firstrun: onedrive-volume
+	@echo
+	@echo "------------------------------------------------------------------"
+	@echo "First run one drive"
+	@echo "------------------------------------------------------------------"
+	@docker run -it --name onedrive -v $(PROJECT_ID)_onedrive-conf:/onedrive/conf -v "${ONEDRIVE_DATA_DIR}:/onedrive/data" -e "ONEDRIVE_UID=1000" -e "ONEDRIVE_GID=1000" -e "ONEDRIVE_RESYNC=1" driveone/onedrive:latest
+
 # --------------- help --------------------------------
 
 help:
@@ -130,3 +166,46 @@ help:
 	@echo "* **permissions** - Update the permissions of shared volumes. Note this will destroy any existing permissions you have in place."
 	@echo "* **rm** - remove all containers."
 	@echo "* **shell-frontend-mapstore** - open a bash shell in the frontend mapstore (where django runs) container."
+
+# ----------------------------------------------------------------------------
+#    DEVELOPMENT C O M M A N D S
+# --no-deps will attach to prod deps if running
+# after running you will have ssh and web ports open (see dockerfile for no's)
+# and you can set your pycharm to use the python in the container
+# Note that pycharm will copy in resources to the /root/ user folder
+# for pydevd etc. If they dont get copied, restart pycharm...
+# ----------------------------------------------------------------------------
+db:
+	@echo
+	@echo "------------------------------------------------------------------"
+	@echo "Running db in production mode"
+	@echo "------------------------------------------------------------------"
+	@docker-compose ${ARGS} up -d db
+
+wait-db:
+	@docker-compose ${ARGS} exec -T db su - postgres -c "until pg_isready; do sleep 5; done"
+
+create-test-db:
+	@docker-compose ${ARGS} exec -T db su - postgres -c "psql -c 'create database test_db;'"
+
+devweb: db
+	@echo
+	@echo "------------------------------------------------------------------"
+	@echo "Running in DEVELOPMENT mode"
+	@echo "------------------------------------------------------------------"
+	@docker-compose ${ARGS} up --no-recreate --no-deps -d dev
+
+sleep:
+	@echo
+	@echo "------------------------------------------------------------------"
+	@echo "Sleep for 50 seconds"
+	@echo "------------------------------------------------------------------"
+	@sleep 50
+	@echo "Done"
+
+devweb-test:
+	@echo
+	@echo "------------------------------------------------------------------"
+	@echo "Running in DEVELOPMENT mode"
+	@echo "------------------------------------------------------------------"
+	@docker-compose exec -T dev python manage.py test --keepdb --noinput

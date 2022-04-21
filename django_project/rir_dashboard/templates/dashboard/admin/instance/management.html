@@ -9,7 +9,7 @@
         {% for instance in instances %}
             <div class="block box-shadow-bottom">
                 <div class="icon">
-                    <img src="{% if instance.icon %}{{ instance.icon.url }}{% else %}{% static "img/no-image-found.jpg" %}{% endif %}">
+                    <img src="{% if instance.icon %}{{ instance.icon }}{% else %}{% static "img/no-image-found.jpg" %}{% endif %}">
                 </div>
                 <div class="content">
                     <div><h2>{{ instance.name }}</h2></div>

@@ -1,0 +1,350 @@
+{% extends 'dashboard/admin/harvesters/forms/_base_attribute.html' %}
+{% load static %}
+
+{% block extrastyle %}
+    <style>
+        #json-display.highlighted {
+            color: #ddd
+        }
+
+        #json-display .content {
+            padding-left: 20px;
+        }
+
+        #json-display span {
+            font-size: 14px;
+            clear: both;
+            color: black;
+            position: relative;
+            display: inline-block;
+        }
+
+        #json-display.highlighted span {
+            color: #ddd
+        }
+
+        #json-display span.highlighted {
+            color: black;
+            cursor: pointer;
+        }
+
+        .attribute-selection {
+            cursor: pointer;
+            padding: 2px 5px;
+            background: green;
+            color: white;
+            border-radius: 3px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            font-size: 12px;
+        }
+
+        .attribute-selection.disabled {
+            cursor: not-allowed;
+            background-color: #dddd;
+            opacity: 0.2;
+            color: black;
+        }
+
+        .attribute-selection.selected {
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        .attribute-selection.indicator {
+            position: absolute;
+            top: -2px;
+            white-space: nowrap;
+            cursor: default;
+            z-index: 9;
+        }
+
+        #apply-modal {
+            margin-top: 0;
+        }
+
+        .modal-dialog {
+            max-width: 1000px;
+        }
+    </style>
+{% endblock %}
+{% block additional_field %}
+    <br>
+    <h3>Geometry Mapping</h3>
+    <table id="mapping-table" class="content-table">
+        <tr>
+            <th>From (Remote Name)</th>
+            <th>To (Server Name)</th>
+        </tr>
+        {% for reporting_unit in reporting_units %}
+            <tr>
+                <td style="width: 50%">
+                    {{ attribute.value }}
+                    <input type="text" data-identifier="{{ reporting_unit.identifier }}" name="mapping_remote_{{ reporting_unit.pk }}" value="{{ attribute.value }}" class="mapping-remote">
+                </td>
+                <td style="width: 50%">
+                    {{ reporting_unit.str }}
+                    <input type="text" name="mapping_platform_{{ reporting_unit.pk }}" value="{{ reporting_unit.identifier }}" style="display: none">
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+
+    {# modal to select attributes from data#}
+    <div id="attribute-selection-modal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <span id="attribute-selection-message">Click a box below then click list or key on the highlighted in json. After everything has been setup, apply it by click button on the most bottom.</span>
+                    <br>
+                    <br>
+                    <div id="attribute-selection" class="row" style="padding-bottom:10px; margin-bottom: 10px; border-bottom: 1px solid #ddd">
+                        {% for attribute in attributes %}
+                            <div class="attribute-selection" id="attribute_{{ attribute.name }}">{{ attribute.title }}</div>
+                        {% endfor %}
+                    </div>
+                    <div id="json-display">
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="apply-modal" class="main-button">Apply</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block extrascripts %}
+    <script type="text/javascript" src="{% static 'js/json-display.js' %}"></script>
+    <script>
+        const isNew = '{{ indicator.harvester }}' === '';
+        let reportingUnits = {};
+        {% for reporting_unit in reporting_units%}
+            reportingUnits["{{ reporting_unit.str }}"] = "{{ reporting_unit.identifier }}"
+        {% endfor %}
+
+        $(document).ready(function () {
+            {% for map in mapping %}
+                $('*[data-identifier="{{ map.platform_value }}"]').val("{{ map.remote_value }}");
+            {% endfor %}
+        })
+
+        {# disabled other input #}
+        if (isNew) {
+            $('#content-view .mapping-remote, #attributes-table input').prop('disabled', true);
+        }
+
+        {# let's we handle to call API first #}
+        const $urlInput = $('input[name="attribute_api_url"]');
+        const $listInput = $('input[name="attribute_keys_for_list"]');
+        const $geographyInput = $('input[name="attribute_keys_for_geography_identifier"]');
+        const $valueInput = $('input[name="attribute_keys_for_value"]');
+        const $dateInput = $('input[name="attribute_keys_for_date"]');
+        const $urlInputLoading = $urlInput.closest('tr').find('.loading');
+        const $urlInputError = $urlInput.closest('tr').find('.error');
+        $urlInput.prop('disabled', false);
+
+        const $modal = $('#attribute-selection-modal');
+        const $applyModal = $('#apply-modal');
+        const $attributeSelection = $('#attribute-selection');
+        const $jsonDisplay = $('#json-display');
+        $modal.find('#attribute_api_url').remove();
+        $modal.find('#attribute_date_format').remove();
+
+        const $ListSelection = $attributeSelection.find('#attribute_keys_for_list');
+        const $geographySelection = $attributeSelection.find('#attribute_keys_for_geography_identifier');
+        const $valueSelection = $attributeSelection.find('#attribute_keys_for_value');
+        const $dateSelection = $attributeSelection.find('#attribute_keys_for_date');
+
+        let $arraySelected = null;
+        let currentJson = {};
+        $('#submit').prop('disabled', true);
+        $('input').change(function () {
+            $('#submit').prop('disabled', false);
+        })
+
+        function displayJson(json) {
+            $modal.modal('show');
+            $('#submit').prop('disabled', true);
+            currentJson = json;
+            $arraySelected = null;
+            $jsonDisplay.html(jsonSampleToDisplay(json, "x"));
+
+            {# disabled some button #}
+            $ListSelection.removeClass('disabled');
+            $geographySelection.addClass('disabled');
+            $valueSelection.addClass('disabled');
+            $dateSelection.addClass('disabled');
+            $applyModal.prop('disabled', true);
+
+            {# when list button clicked #}
+            $ListSelection.click(function () {
+                $arraySelected = null;
+                $jsonDisplay.find(`.indicator`).remove();
+                $jsonDisplay.addClass('highlighted');
+
+                {# enabled some button #}
+                $ListSelection.addClass('selected');
+                $geographySelection.addClass('disabled');
+                $valueSelection.addClass('disabled');
+                $dateSelection.addClass('disabled');
+                $applyModal.prop('disabled', true);
+
+                const $array = $jsonDisplay.find('.array');
+                $array.addClass('highlighted');
+                $array.off("click");
+                $array.click(function () {
+                    if ($(this).hasClass('highlighted')) {
+                        $arraySelected = $(this).closest('div');
+
+                        $array.removeClass('highlighted');
+                        $jsonDisplay.removeClass('highlighted');
+                        $ListSelection.removeClass('selected');
+                        $geographySelection.removeClass('disabled');
+                        $valueSelection.removeClass('disabled');
+                        $dateSelection.removeClass('disabled');
+
+                        const right = '-' + ($ListSelection.width() + 25) + 'px';
+                        $(this).append(`<div class="attribute-selection indicator ${$ListSelection.attr('id')}" data-name="${$ListSelection.attr('id')}" style="right:${right}">${$ListSelection.html()}</div>`);
+                    }
+                })
+            });
+
+
+            function clicked() {
+                const $that = $(this)
+                if ($(this).hasClass('disable') || !$arraySelected) {
+                    return false
+                }
+                $that.addClass('selected');
+                $applyModal.prop('disabled', true);
+                $jsonDisplay.addClass('highlighted');
+                $jsonDisplay.find(`.${$that.attr('id')}`).remove();
+
+                const $keys = $arraySelected.find('.content').find('.key');
+                $keys.off("click");
+                $keys.addClass('highlighted');
+                $keys.click(function () {
+                    if ($(this).hasClass('highlighted')) {
+                        $jsonDisplay.removeClass('highlighted');
+                        $that.removeClass('selected');
+                        $keys.removeClass('highlighted');
+
+                        const right = '-' + ($that.width() + 25) + 'px';
+                        $(this).append(`<div class="attribute-selection indicator ${$that.attr('id')}" data-name="${$that.attr('id')}" style="right:${right}">${$that.html()}</div>`)
+                    }
+
+                    {# check if apply can be clicked #}
+                    $('#attribute-selection .attribute-selection').each(function () {
+                        $applyModal.prop('disabled', false);
+
+                        if ($jsonDisplay.find(`.${$(this).attr('id')}`).length === 0) {
+                            $applyModal.prop('disabled', true);
+                        }
+
+                    })
+                })
+            }
+
+            $geographySelection.click(clicked);
+            $valueSelection.click(clicked);
+            $dateSelection.click(clicked);
+        }
+
+        $urlInput.change(function () {
+            $('#submit').prop('disabled', true);
+            $urlInputLoading.show();
+            $urlInputError.hide();
+            $urlInput.prop('disabled', true);
+
+            $ListSelection.removeClass('disabled');
+            $geographySelection.addClass('disabled');
+            $valueSelection.addClass('disabled');
+            $dateSelection.addClass('disabled');
+
+            $listInput.val('');
+            $geographyInput.val('');
+            $valueInput.val('');
+            $dateInput.val('');
+            $listInput.prop('disabled', true);
+            $geographyInput.prop('disabled', true);
+            $valueInput.prop('disabled', true);
+            $dateInput.prop('disabled', true);
+
+            $applyModal.prop('disabled', true);
+            $('.mapping-remote').prop('disabled', true);
+
+            $.ajax({
+                url: $(this).val()
+            })
+                .done(function (output) {
+                    if (output.constructor !== Object && output.constructor !== Array) {
+                        $urlInputError.html("The data is not in json");
+                        $urlInputError.show();
+                        return ""
+                    }
+                    displayJson(output);
+                })
+                .fail(function (xhr, status, errorThrown) {
+                    $urlInputError.html(xhr.statusText);
+                    $urlInputError.show();
+                })
+                .always(function () {
+                    $urlInput.prop('disabled', false);
+                    $urlInputLoading.hide();
+                });
+        })
+        $('#apply-modal').click(function () {
+            $('#submit').prop('disabled', false);
+            $('#attributes-table input').prop('disabled', false);
+            $('.mapping-remote').prop('disabled', false);
+            $('.mapping-remote').val('');
+
+            let listKey = ""
+            $jsonDisplay.find('.indicator').each(function () {
+                let key = $($(this).closest('span')).data('keys');
+                if ($(this).data('name') === "attribute_keys_for_list") {
+                    listKey = key;
+                } else {
+                    key = key.replace((listKey + "[0]"), "x");
+                }
+                $(`input[name="${$(this).data('name')}"]`).val(key);
+            })
+            $modal.modal('hide');
+
+            {# autofill the mapping #}
+            const mappingList = eval($listInput.val().replaceAll('x', 'currentJson'));
+            const adminNames = []
+            $.each(mappingList, function (idx, value) {
+                const geometryIdentifier = eval($geographyInput.val().replaceAll('x', 'value'));
+                if (!adminNames.includes(geometryIdentifier)) {
+                    adminNames.push(geometryIdentifier);
+                }
+            });
+            adminNames.sort();
+
+            const options = ["<option></option>"];
+            $.each(adminNames, function (idx, geometryIdentifier) {
+                options.push(`<option val="${geometryIdentifier}">${geometryIdentifier}</option>`);
+            })
+            $('.mapping-remote').each(function () {
+                $(this).replaceWith(`<select data-identifier="${$(this).data('identifier')}" name="${$(this).attr('name')}" class="mapping-remote">`)
+            })
+            $('.mapping-remote').html(options.join(''));
+            $.each(mappingList, function (idx, value) {
+                const geometryIdentifier = eval($geographyInput.val().replaceAll('x', 'value'));
+                $.each(reportingUnits, function (key, name) {
+                    key = key.toLowerCase()
+                    if (key.includes(geometryIdentifier.toLowerCase())) {
+                        $(`select[data-identifier="${name}"]`).val(geometryIdentifier);
+                        return false;
+                    }
+
+                })
+            })
+            return false;
+        })
+    </script>
+{% endblock %}

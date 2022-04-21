@@ -30,3 +30,10 @@ class IndicatorGroup(AbstractTerm):
         Instance,
         on_delete=models.CASCADE
     )
+
+    # dashboard link
+    dashboard_link = models.CharField(
+        max_length=1024,
+        null=True, blank=True,
+        help_text='Dashboard link of the indicator group.'
+    )

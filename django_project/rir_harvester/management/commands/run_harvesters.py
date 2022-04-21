@@ -31,5 +31,4 @@ class Command(BaseCommand):
             harvesters = harvesters.filter(id=id)
 
         for harvester in harvesters:
-            print(f'Run harvester for {harvester.indicator.name}')
             harvester.run(force)

@@ -1,8 +1,16 @@
+import uuid
+from django.core.files.base import ContentFile
+from django.core.files.storage import default_storage
 from django.contrib.gis.geos import GEOSGeometry, MultiPolygon, Polygon
 from django.shortcuts import redirect, reverse, render, get_object_or_404
 from rir_dashboard.views.dashboard.admin._base import AdminView
 from rir_dashboard.forms.geometry import GeometryForm, ADD_JUST_NEW, REPLACE_AND_ADD
-from rir_data.models.geometry import Geometry, GeometryUploader, GeometryUploaderLog
+from rir_data.models.geometry import (
+    Geometry, GeometryLevelInstance
+)
+from rir_data.models.geometry_uploader import (
+    GeometryUploader, GeometryUploaderLog, GeometryUploaderFile
+)
 from rir_data.models.instance import Instance
 
 
@@ -33,23 +41,39 @@ class GeographyUploadView(AdminView):
         self.instance = get_object_or_404(
             Instance, slug=kwargs.get('slug', '')
         )
-        form = GeometryForm(request.POST, request.FILES, level=self.instance.geometry_levels_in_order)
+        form_uuid = uuid.uuid4()
+        form = GeometryForm(
+            request.POST, request.FILES,
+            level=self.instance.geometry_levels_in_order,
+            uuid=form_uuid)
+        for _file in request.FILES.getlist('file'):
+            default_storage.save(
+                form.temporary_filename(_file.name), ContentFile(_file.read())
+            )
         if form.is_valid():
-            geojson = form.cleaned_data['geojson']
+            file = form.cleaned_data['file']
             instance_geometries = self.instance.geometries()
             geometries = instance_geometries.filter(
                 geometry_level=form.cleaned_data['level']
             )
-            levels = self.instance.geometry_levels_in_order
-            level_idx = levels.index(form.cleaned_data['level'])
-            is_most_top_level = level_idx == 0
+            try:
+                instance_levels = self.instance.geometry_instance_levels
+                instance_level = instance_levels.get(
+                    level=form.cleaned_data['level']
+                )
+                is_most_top_level = instance_level.parent is None
+            except GeometryLevelInstance.DoesNotExist as e:
+                return
 
             # save data
-            uploader = GeometryUploader.objects.create(
-                file=request.FILES['geojson']
-            )
+            uploader = GeometryUploader.objects.create()
+            for _file in request.FILES.getlist('file'):
+                GeometryUploaderFile.objects.create(
+                    uploader=uploader,
+                    file=_file
+                )
             level = form.cleaned_data['level']
-            for feature in geojson['features']:
+            for feature in file['features']:
                 try:
                     properties = feature['properties']
                     identifier = properties['identifier']
@@ -68,7 +92,7 @@ class GeographyUploadView(AdminView):
                                 if not is_most_top_level:
                                     parent = instance_geometries.get(
                                         identifier__iexact=parent_identifier,
-                                        geometry_level=levels[level_idx - 1]
+                                        geometry_level=instance_level.parent
                                     )
                                 geometry = GEOSGeometry(str(feature['geometry']))
                                 if isinstance(geometry, Polygon):
@@ -85,7 +109,7 @@ class GeographyUploadView(AdminView):
                                 )
                                 note = 'Geometry created'
                             except Geometry.DoesNotExist:
-                                note = f'Parent {parent_identifier} does not found'
+                                note = f'Parent {parent_identifier} does not exist'
 
                         GeometryUploaderLog.objects.create(
                             uploader=uploader,

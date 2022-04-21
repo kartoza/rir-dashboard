@@ -5,11 +5,25 @@
         <img src="{% if preferences.icon %}{{ preferences.icon }}{% endif %}">
         <div class="title">{{ preferences.site_title }} {% if page_title %} - {{ page_title }}{% endif %}</div>
     </a>
-    <div class="profile-button">
+    <div class="navigation-list row">
+        {% if links %}
+            <div class="navbar-options">
+                <a data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    Links <i class="fa fa-caret-down" aria-hidden="true"></i>
+                </a>
+                <ul class="dropdown-menu box-shadow-bottom">
+                    {% for link in links %}
+                        <li>
+                            <a href="{{ link.url }}">{{ link.name }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
         {% if user.is_authenticated %}
             <div class="navbar-options">
                 <a data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    {{ user.username }}
+                    {% if user.get_full_name %}{{ user.get_full_name }}{% else %}{{ user.get_username }}{% endif %} <i class="fa fa-caret-down" aria-hidden="true"></i>
                 </a>
                 <ul class="dropdown-menu box-shadow-bottom">
                     {% if user.is_staff %}
@@ -17,7 +31,7 @@
                             <a href="/admin/">{% trans "Django Admin" %}</a>
                         </li>
                         <li>
-                            <a href="/node-red/">{% trans "Node Red" %}</a>
+                            <a href="{% url "backups-view" %}">{% trans "Backups" %}</a>
                         </li>
                     {% endif %}
                     <li>
@@ -26,27 +40,38 @@
                 </ul>
             </div>
         {% else %}
-            <a href="{% url "login" %}">
-                Sign In
-            </a>
+            <div class="navbar-options">
+                <a href="{% url "login" %}">
+                    Sign In
+                </a>
+            </div>
         {% endif %}
     </div>
-    <div id="instance-selection-wrapper">
-        <select id="instance-selection">
-        </select>
-    </div>
+    {% if instance %}
+        <div id="instance-selection-wrapper">
+            <div class="navbar-options">
+                <a data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    {{ instance }}
+                    <img src="{% if instance.icon %}{{ instance.icon.url }}{% else %}{% static "img/no-image-found.jpg" %}{% endif %}">
+                </a>
+                <ul class="dropdown-menu box-shadow-bottom">
+                    {% for category, instances in instance_categories.items %}
+                        <li class="category">{{ category }}</li>
+                        {% for instance in instances %}
+                            <li data-slug="{{ instance.slug }}">
+                                {{ instance.name }}
+                                <img src="{% if instance.icon %}{{ instance.icon }}{% else %}{% static "img/no-image-found.jpg" %}{% endif %}">
+                            </li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    {% endif %}
 </nav>
 <script>
-    const $instanceSelection = $('#instance-selection');
     const currentInstance = {% if instance %} "{{ instance.slug }}" {% else %} "" {% endif %};
-    if (currentInstance) {
-        $instanceSelection.show();
-        {% for instance in instances %}
-            $instanceSelection.append('<option value="{{ instance.slug }}">{{ instance.name }}</option>')
-        {% endfor %}
-        $instanceSelection.val(currentInstance);
-        $instanceSelection.change(function () {
-            window.location = window.location.href.replaceAll(currentInstance, $(this).val())
-        })
-    }
+    $('#instance-selection-wrapper li').click(function () {
+        window.location = window.location.href.replaceAll(currentInstance, $(this).data('slug'))
+    })
 </script>

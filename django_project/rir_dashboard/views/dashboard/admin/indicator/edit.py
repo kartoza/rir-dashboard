@@ -1,4 +1,3 @@
-from django.forms.models import model_to_dict
 from django.http import Http404
 from django.shortcuts import redirect, reverse, render, get_object_or_404
 from rir_dashboard.forms.indicator import IndicatorForm
@@ -11,7 +10,13 @@ class IndicatorEditView(AdminView):
 
     @property
     def dashboard_title(self):
-        return f'<span>Edit Indicator</span>'
+        try:
+            indicator = self.instance.indicators.get(
+                id=self.kwargs.get('pk', '')
+            )
+        except Indicator.DoesNotExist:
+            raise Http404('Indicator does not exist')
+        return f'<span>Edit Indicator : {indicator.full_name}</span>'
 
     @property
     def context_view(self) -> dict:
@@ -23,28 +28,13 @@ class IndicatorEditView(AdminView):
                 id=self.kwargs.get('pk', '')
             )
         except Indicator.DoesNotExist:
-            raise Http404('Indicator does not found')
+            raise Http404('Indicator does not exist')
 
-        scenarios = []
-        for scenario in ScenarioLevel.objects.order_by('level'):
-            try:
-                scenario_rule = IndicatorScenarioRule.objects.get(
-                    scenario_level=scenario,
-                    indicator=indicator
-                )
-            except IndicatorScenarioRule.DoesNotExist:
-                scenario_rule = None
-            scenarios.append({
-                'id': scenario.id,
-                'name': scenario.name,
-                'rule_name': scenario_rule.name if scenario_rule else '',
-                'rule_value': scenario_rule.rule if scenario_rule else '',
-            })
+        scenarios = indicator.scenarios_dict()
         context = {
             'form': IndicatorForm(
                 initial=IndicatorForm.model_to_initial(indicator),
-                level=self.instance.geometry_levels_in_order,
-                indicator_instance=self.instance
+                indicator_instance=self.instance,
             ),
             'scenarios': scenarios
         }
@@ -59,12 +49,11 @@ class IndicatorEditView(AdminView):
                 id=self.kwargs.get('pk', '')
             )
         except Indicator.DoesNotExist:
-            raise Http404('Indicator does not found')
+            raise Http404('Indicator does not exist')
 
         form = IndicatorForm(
             request.POST,
             instance=indicator,
-            level=self.instance.geometry_levels_in_order,
             indicator_instance=self.instance
         )
         if form.is_valid():
@@ -72,13 +61,15 @@ class IndicatorEditView(AdminView):
             for scenario in ScenarioLevel.objects.order_by('level'):
                 rule = request.POST.get(f'scenario_{scenario.id}_rule', None)
                 name = request.POST.get(f'scenario_{scenario.id}_name', None)
-                if rule and name:
+                color = request.POST.get(f'scenario_{scenario.id}_color', None)
+                if name:
                     scenario_rule, created = IndicatorScenarioRule.objects.get_or_create(
                         indicator=indicator,
                         scenario_level=scenario
                     )
                     scenario_rule.name = name
                     scenario_rule.rule = rule
+                    scenario_rule.color = color
                     scenario_rule.save()
             return redirect(
                 reverse(

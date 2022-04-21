@@ -40,3 +40,10 @@
     background: var(--hovered-color);
     text-decoration: none;
 }
+
+#container h4 {
+    font-weight: 700;
+    padding: 0 20px;
+    font-size: 20px;
+    margin-top: 20px;
+}

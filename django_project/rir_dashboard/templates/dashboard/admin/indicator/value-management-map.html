@@ -106,7 +106,8 @@
                         <div>
                             <div><b>Add new value</b></div>
                             <input id="feature-value-date" type="text" name="date" placeholder="Date" autocomplete="off">
-                            <input id="feature-value-value" type="number" name="value" placeholder="Value" autocomplete="off">
+                            <input id="feature-value-value" type="number" name="value" placeholder="Value" autocomplete="off" value="{{ indicator.min_value }}"
+                                   min="{{ indicator.min_value }}" max="{{ indicator.max_value }}">
                             <input class="main-button" type="submit" value="Submit">
                         </div>
                     </form>

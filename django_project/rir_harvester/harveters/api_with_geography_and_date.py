@@ -12,35 +12,48 @@ class APIWithGeographyAndDate(BaseHarvester):
     description = "Harvester to harvest from API with list of geography with it's value and the value's date"
 
     @staticmethod
-    def additional_attributes() -> dict:
+    def additional_attributes(**kwargs) -> dict:
         return {
-            'api_url': "URL of api",
-            'keys_for_list': (
-                "The string keys for where the list. "
-                "Use like this : x['features']. "
-                "It will check data['features']."
-                "Let it empty if it is directly list."
-            ),
-            'keys_for_geography_identifier': (
-                "Key for the geography identifier in row of list. "
-                "Example: x['properties']['name']. "
-                "It will check row['properties']['name']."
-            ),
-            'keys_for_value': (
-                "Key for the value in row of list. "
-                "Example: x['properties']['value']. "
-                "It will check row['properties']['value']."
-            ),
-            'keys_for_date': (
-                "Key for the date in row of list. "
-                "Example: x['properties']['date']. "
-                "it will check row['properties']['date']."
-            ),
-            'date_format': (
-                "Format of the date from the data. "
-                "Check <a href='https://strftime.org/'>here</a>."
-                "Let it empty to use timestamp instead."
-            ),
+            'api_url': {
+                'description': "URL of api"
+            },
+            'keys_for_list': {
+                'description': (
+                    "The string keys for where the list. "
+                    "Use like this : x['features']. "
+                    "It will check data['features']."
+                    "Let it empty if it is directly list."
+                )
+            },
+            'keys_for_geography_identifier': {
+                'description': (
+                    "Key for the geography identifier in row of list. "
+                    "Example: x['properties']['name']. "
+                    "It will check row['properties']['name']."
+                )
+            },
+            'keys_for_value': {
+                'description': (
+                    "Key for the value in row of list. "
+                    "Example: x['properties']['value']. "
+                    "It will check row['properties']['value']."
+                )
+            },
+            'keys_for_date': {
+                'description': (
+                    "Key for the date in row of list. "
+                    "Example: x['properties']['date']. "
+                    "it will check row['properties']['date']."
+                )
+            },
+            'date_format': {
+                'description': (
+                    "Format of the date from the data. "
+                    "Check <a href='https://strftime.org/'>here</a>."
+                    "Let it empty to use timestamp instead."
+                ),
+                'required': False
+            },
         }
 
     def _process(self):
@@ -83,7 +96,9 @@ class APIWithGeographyAndDate(BaseHarvester):
                     try:
                         date_data = datetime.fromtimestamp(date_data).date()
                     except ValueError:
-                        date_data = datetime.fromtimestamp(int(date_data)/1000).date()
+                        date_data = datetime.fromtimestamp(int(date_data) / 1000).date()
+                    except TypeError:
+                        raise HarvestingError(f'The date is not in timestamp, so needs to put time format in attributes.')
 
                 geography_name = self.eval_json(row, keys_for_geography_identifier)
                 geography_identifier = self.mapping[geography_name]
@@ -97,7 +112,7 @@ class APIWithGeographyAndDate(BaseHarvester):
                         value, date_data, geometry
                     )
                 else:
-                    self._update(f'Geometry {geography_identifier} does not found')
+                    self._update(f'Geometry {geography_identifier} does not exist')
 
             except KeyError as e:
                 self._update(f'{e} is found.')
