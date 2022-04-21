@@ -9,10 +9,15 @@ copyright: Copyright Tim Sutton and Contributors, 2022
 nav:
   - Introduction:
       - index.md
-      - Platform tour: introduction/platform_tour.md
-      - Indicator: introduction/indicator.md
-      - Map interaction: introduction/map_interaction.md
-      - Layers: introduction/layers.md
+      - Disclaimer: introduction/disclaimer.md
+      - License: introduction/license.md
+      - Contributing: introduction/contributing.md
+      - Credits: introduction/credits.md
+      - Platform tour:
+          - Overview: introduction/platform_tour/platform_tour.md
+          - Indicator: introduction/platform_tour/indicator.md
+          - Map interaction: introduction/platform_tour/map_interaction.md
+          - Layers: introduction/platform_tour/layers.md
   - Setup:
       - setup/index.md
       - Installation:
