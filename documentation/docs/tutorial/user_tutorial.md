@@ -22,14 +22,13 @@ This session will tour the RIR platform functionality using simple examples and 
 
 Here is a simplified overview of the topics we will cover in this session:
 
-![image](https://user-images.githubusercontent.com/77841514/163260759-7839cbee-2e45-4e1f-afe4-8f29713a52a5.png)
+![Dashboard Flow Diagram](../assets/screenshots/dashboard-tour.png)
 
-![image](https://user-images.githubusercontent.com/77841514/163261010-bb5f4e5f-50b2-44d8-bfbd-d5deeb2f095e.png)
+![Layers FLow Diagram](../assets/screenshots/layers.png)
 
-![image](https://user-images.githubusercontent.com/77841514/163260841-2dd75fe2-df7a-4487-8b3e-410d549ff29a.png)
+![Map Interactions Flow Diagram](../assets/screenshots/map-interactions.png)
 
 During this tutorial, we will complete the following activities:
-
 
 ### Activity: Overview / Course Outline
 
@@ -66,39 +65,39 @@ You can access the platform here: https://staging.rir.kartoza.com:
 
 On the top right-hand side of the landing screen, there is a drop-down menu for **Links** and a link to a sign-in page. The **Links** drop-down menu is a quick way to access the documentation for using the platform and the different data and resources associated with the platform (which are not covered in this tutorial).
 
-![image](https://user-images.githubusercontent.com/77841514/163159541-48367a42-c184-4573-84c8-9f9267b9aab0.png)
+![Links Menu](../assets/screenshots/links.png)
 
 
 > **Instructor note:** Briefly show the documentation and how to navigate it.
 
 
-![image](https://user-images.githubusercontent.com/77841514/163159830-34a9195b-1aed-47a3-970a-ab197bda597a.png)
+![Documentation](../assets/screenshots/documentation.png)
 
 ### Instances
 
 On the landing page, you will see several **instances**. An Instance is a configured dashboard for a specific region or country. We will use the Somalia instance for the examples in this tutorial.
 
-![image](https://user-images.githubusercontent.com/77841514/163159336-a060f842-ff43-4149-a4ce-88beaef7b96c.png)
+![Instances](../assets/screenshots/instances.png)
 
 ### Signing In
 
 Return to the RIR platform, click on the **Sign In** link, and a page will open where you can add in your user name and password. Your credentials are created for you by an administrator and may not be necessary. As a web user, you will still be able to interact with the platform without a login.
 
-![image](https://user-images.githubusercontent.com/77841514/163160673-0fdb10a2-7a8e-4093-861c-da178cf0e8bd.png)
+![Sign In](../assets/screenshots/log-in.png)
 
 **Sign In** is only important to access specific workflows. Some data and workflows may only be available to named users who are signed into the platform. Once you are signed in to the platform, your name will appear on the top right and depending on your admin privileges, there will be a drop-down with the option to log out and reach the admin page if you are an administrator. 
 
-![image](https://user-images.githubusercontent.com/77841514/163162736-5d6ce187-d044-4bcf-a5a7-1de3f558c092.png)
+![Signed In](../assets/screenshots/signed-in.png)
 
 ### The Somalia Dashboard
 
 Click on the instance labelled Somalia, and the dashboard will load and open. 
 
-![image](https://user-images.githubusercontent.com/77841514/163163356-c9e6b23f-02b9-4041-b51d-c9453610a6b3.png)
+![Dashboard](../assets/screenshots/dashboard.png)
 
 You will see I am still signed in, and there are three options available to me on the bottom left. If I sign out, these buttons will disappear because web users do not have access to some functionality. For this tour, a web user status will work.
 
-![image](https://user-images.githubusercontent.com/77841514/163188759-aa06062e-14d5-4bd1-8e14-7f2598dc55cc.png)
+![Web User](../assets/screenshots/web-user.png)
 
 ### Dashboard Tour
 
@@ -108,7 +107,7 @@ Let's tour the dashboard together. We will start from left to right across the s
 
 At the top left of the screen, you will see the **Context Analysis Button**. This button gives access to the **Indicator Panel** it is selected, and the is panel open by default.
 
-![image](https://user-images.githubusercontent.com/77841514/163163874-4a2f018a-5453-4dcf-8ced-e19278273cdf.png)
+![Context Analysis Button](../assets/screenshots/context-analysis-button.png)
 
 Below the **Context Analysis Button** is the **Programme Interventions Panel** panel. It contains a set of buttons that allow access to key risk response indicators. If you click on the arrow next to the house symbol, the tabs will extend and be labelled so you can see what each symbol means, Health, Child Protection, Nutrition, Wash, and Education.
 
@@ -116,17 +115,17 @@ For example, the second button-down with a picture of the caduceus/ medical symb
  
 Click on each button to see the information for each factor. 
 
-![image](https://user-images.githubusercontent.com/77841514/163222939-d9bdc070-a4cc-497b-83a1-96fe6342db90.png)
+![Program Interventions Panel](../assets/screenshots/program-interventions-panel.png)
 
 **The Indicator Panel**
 
-Click back on the **Context Analysis Button** and observe the **Indicator Panel**. This panel contains a list of indicators that relate to the main factors on the platform like health and nutrition. The panel is expanded by default but can be collapsed if you click on the tab labeled with a house on the right side of the panel to observe the map better. 
+Click back on the **Context Analysis Button** and observe the **Indicator Panel**. This panel contains a list of indicators (special layers) that relate to the main factors on the platform like health and nutrition. The panel is expanded by default but can be collapsed if you click on the tab labeled with a house on the right side of the panel to observe the map better. 
 
-![image](https://user-images.githubusercontent.com/77841514/163164267-b8ec21e5-5e1a-4e78-b713-54f3b82e2674.png)
+![Indicator Panel](../assets/screenshots/indicator-pannel.png)
 
 Open the drop-down for **People In Need** by clicking on the triangle next to the label and selecting the box next to the **PIN- Child Protection**. A tick will appear and you will see the layer appear on the map. The map shows darkening color of blue, indicating a decrease in child protection per region. You can select only one sub-sections (e.g. best-case or worst-case) of the layer by ticking or un-ticking the checkboxes next to the cases. An **Information panel** will also open on the right-hand side of the screen when an indicator is selected. We will go through the **Information Panel** in more detail shortly. 
 
-![image](https://user-images.githubusercontent.com/77841514/163164460-5ff8aa70-9321-4872-9d4b-2f5f161e97bb.png)
+![People in Need](../assets/screenshots/people-in-need.png)
 
 The coloured circles next to each indicator show the current severity level for that indicator. Blue is the best case, yellow mid, and red is the worst case. The case scenario will indicate if that region or state needs additional responses or interventions. 
 
