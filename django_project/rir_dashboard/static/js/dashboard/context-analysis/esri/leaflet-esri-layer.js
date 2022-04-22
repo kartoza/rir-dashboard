@@ -1,6 +1,6 @@
 class EsriLeafletLayer {
 
-    constructor(name, url, params, options, style) {
+    constructor(name, url, params, options, style, onEachFeature) {
         this.name = name;
         this.url = url;
         this.params = params;
@@ -15,6 +15,7 @@ class EsriLeafletLayer {
         this.$legend = $('#legend');
         this.layer = null;
         this.defaultStyle = style;
+        this.onEachFeature = onEachFeature;
     }
 
     preFetch(url) {
@@ -96,15 +97,6 @@ class EsriLeafletLayer {
         this.overrideStyle();
 
         const params = JSON.parse(JSON.stringify(this.params));
-        const forEachFeature = function (feature, layer) {
-            // check others properties
-            let defaultHtml = '';
-            $.each(feature.properties, function (key, value) {
-                defaultHtml += `<tr><td valign="top"><b>${key.capitalize()}</b></td><td valign="top">${numberWithCommas(value)}</td></tr>`
-            });
-            layer.bindPopup('' +
-                '<table><tr><td colspan="2" style="text-align: center; background: #eee"><b>' + self.name + '</b></td></tr>' + defaultHtml + '</table>');
-        }
         params.url = this.url;
         if (this.token) {
             params.token = this.token;
@@ -146,7 +138,7 @@ class EsriLeafletLayer {
                     }
                 }
 
-                params['onEachFeature'] = forEachFeature;
+                params['onEachFeature'] = self.onEachFeature;
                 return L.esri.featureLayer(params);
             }
 
@@ -199,7 +191,7 @@ class EsriLeafletLayer {
                     }
                 };
 
-                params['onEachFeature'] = forEachFeature;
+                params['onEachFeature'] = self.onEachFeature;
                 return L.esri.featureLayer(params);
             }
 

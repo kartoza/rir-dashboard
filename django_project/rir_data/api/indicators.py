@@ -7,6 +7,23 @@ from rest_framework.views import APIView
 from rir_data.models.instance import Instance
 from rir_data.models.geometry import Geometry, GeometryLevelName
 from rir_data.models.scenario import ScenarioLevel
+from rir_data.serializer.indicator import IndicatorSerializer
+
+
+class IndicatorsList(APIView):
+    """
+    Return Indicator List With it's Scenario
+    """
+
+    def get(self, request, slug):
+        instance = get_object_or_404(
+            Instance, slug=slug
+        )
+        return Response(
+            IndicatorSerializer(
+                instance.indicators, many=True
+            ).data
+        )
 
 
 class IndicatorsGroupValuesByGeometryDate(APIView):

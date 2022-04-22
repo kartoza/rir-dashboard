@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.forms.models import model_to_dict
-from rir_data.models.instance import Instance
+from rir_data.models.instance import Instance, InstanceCategory
 
 
 class InstanceForm(forms.ModelForm):
@@ -9,9 +9,17 @@ class InstanceForm(forms.ModelForm):
     Form to upload CSV file.
     """
     label_suffix = ""
+    category = forms.ChoiceField(required=False)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields['category'].choices = [('', '')] + [(group.name, group.name) for group in InstanceCategory.objects.order_by('name')]
+
+        try:
+            if self.data['category']:
+                self.fields['category'].choices += [(self.data['category'], self.data['category'])]
+        except KeyError:
+            pass
 
     class Meta:
         model = Instance
@@ -23,6 +31,20 @@ class InstanceForm(forms.ModelForm):
             raise ValidationError('This name already exist')
         return name
 
+    def clean_category(self):
+        category = self.cleaned_data['category']
+        if not category:
+            return None
+        instance_category, created = InstanceCategory.objects.get_or_create(
+            name=category
+        )
+        return instance_category
+
     @staticmethod
     def model_to_initial(instance: Instance):
-        return model_to_dict(instance)
+        initial = model_to_dict(instance)
+        try:
+            initial['category'] = InstanceCategory.objects.get(id=initial['category']).name
+        except InstanceCategory.DoesNotExist:
+            initial['category'] = None
+        return initial

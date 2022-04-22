@@ -22,22 +22,10 @@ class IndicatorForm(forms.ModelForm):
     group = forms.ChoiceField()
 
     def __init__(self, *args, **kwargs):
-        level = None
-        try:
-            level = kwargs.pop("level")
-        except KeyError:
-            pass
         instance = kwargs.pop("indicator_instance")
-
-        try:
-            indicator_object = kwargs.pop("indicator_object")
-        except KeyError:
-            indicator_object = None
-
         super().__init__(*args, **kwargs)
-        if level:
-            self.fields['geometry_reporting_level'].choices = [(u.id, u.name) for u in level]
         self.fields['instance'].initial = instance
+        self.fields['geometry_reporting_level'].choices = [(u.id, u.name) for u in instance.geometry_levels_in_order]
         self.fields['aggregation_behaviour'].label = 'Reporting Behaviour'
         self.fields['group'].choices = [('', '')] + [(group.name, group.name) for group in IndicatorGroup.objects.filter(instance=instance).order_by('name')]
 
@@ -49,7 +37,7 @@ class IndicatorForm(forms.ModelForm):
 
     class Meta:
         model = Indicator
-        exclude = ('order', 'geometry_reporting_units', 'instance')
+        exclude = ('order', 'geometry_reporting_units', 'instance', 'show_in_context_analysis')
 
     def clean_frequency(self):
         frequency = self.cleaned_data['frequency']

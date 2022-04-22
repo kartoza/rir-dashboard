@@ -153,7 +153,7 @@
                             <th>Status</th>
                             <th>Note</th>
                         </tr>
-                        {% for log in harvester.harvesterlog_set.all %}
+                        {% for log in harvester.short_log_list %}
                             <tr>
                                 <td>{{ log.start_time }}</td>
                                 <td>{{ log.end_time }}</td>

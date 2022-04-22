@@ -7,19 +7,18 @@ from rir_dashboard.views.dashboard.admin.indicator import (
     IndicatorCreateView,
     IndicatorManagementView, IndicatorEditView, IndicatorReportingUnitView,
     IndicatorValueManagementMapView, IndicatorValueManagementTableView,
+    IndicatorMultiEditView
 )
 from rir_dashboard.views.dashboard.admin.instance import (
     InstanceManagementView, InstanceCreateView, InstanceEditView
 )
-from rir_dashboard.views.dashboard import (
-    ContextAnalysisView, indicator_detail_view
-)
+from rir_dashboard.views.dashboard import ContextAnalysisView
 from rir_dashboard.views.dashboard.admin.harvesters import (
     HarvesterDetail, HarvesterIndicatorDetail
 )
 from rir_dashboard.views.dashboard.admin.harvesters.forms import (
     HarvesterAPIWithGeographyAndDateView, HarvestedUsingExposedAPIByExternalClientView,
-    HarvesterAPIWithGeographyAndTodayDateView, MetaHarvesterView,
+    HarvesterAPIWithGeographyAndTodayDateView, MetaIngestorView,
     SharepointHarvesterView
 )
 
@@ -49,18 +48,17 @@ indicator_url = [
     url(r'^(?P<pk>\d+)/harvester', HarvesterIndicatorDetail.as_view(), name='harvester-indicator-detail'),
     url(r'^(?P<pk>\d+)/value-manager-map', IndicatorValueManagementMapView.as_view(), name='indicator-value-mapview-manager'),
     url(r'^(?P<pk>\d+)/value-manager-form', IndicatorValueManagementTableView.as_view(), name='indicator-value-form-manager'),
-    url(r'^(?P<pk>\d+)', indicator_detail_view, name='indicator-detail'),
 
     # this is for harvester with global indicators
     url(
-        r'^meta-harvester/(?P<uuid>[0-9a-f-]+)',
-        MetaHarvesterView.as_view(),
-        name='meta-harvester-uuid-view'
+        r'^meta-ingestor/(?P<uuid>[0-9a-f-]+)',
+        MetaIngestorView.as_view(),
+        name='meta-ingestor-uuid-view'
     ),
     url(
-        r'^meta-harvester',
-        MetaHarvesterView.as_view(),
-        name='meta-harvester-view'
+        r'^meta-ingestor',
+        MetaIngestorView.as_view(),
+        name='meta-ingestor-view'
     ),
 ]
 
@@ -80,6 +78,7 @@ admin_indicator_url = [
     url(r'^(?P<pk>\d+)/reporting-unit', IndicatorReportingUnitView.as_view(), name='indicator-reporting-unit'),
     url(r'^(?P<pk>\d+)/edit', IndicatorEditView.as_view(), name='indicator-edit'),
     url(r'^create', IndicatorCreateView.as_view(), name='indicator-management-new'),
+    url(r'^multi-edit', IndicatorMultiEditView.as_view(), name='indicator-multi-edit-view'),
     url(r'^', IndicatorManagementView.as_view(), name='indicator-management-view'),
 ]
 admin_instance_url = [

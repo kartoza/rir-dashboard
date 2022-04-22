@@ -1,12 +1,32 @@
 from datetime import date
+from django.contrib.gis.db import models
 from django.db.models import Q
+from core.models import AbstractTerm
 from core.models.general import IconTerm, SlugTerm, PermissionLevels
+
+
+class InstanceCategory(AbstractTerm):
+    """
+    The category of instance
+    """
+    # order of category rendered on the list
+    order = models.IntegerField(
+        default=0
+    )
+
+    class Meta:
+        ordering = ('order',)
+        verbose_name_plural = 'instance categories'
 
 
 class Instance(SlugTerm, IconTerm):
     """
     Instance model
     """
+    category = models.ForeignKey(
+        InstanceCategory, on_delete=models.SET_NULL,
+        blank=True, null=True
+    )
 
     class Meta:
         ordering = ('name',)
@@ -134,7 +154,6 @@ class Instance(SlugTerm, IconTerm):
                 indicators_in_group[group_name]['indicator_ids'].append(str(indicator.id))
         except (Geometry.DoesNotExist, GeometryLevelName.DoesNotExist):
             pass
-
 
         # overall scenario for each of group
         for group_name, group in indicators_in_group.items():

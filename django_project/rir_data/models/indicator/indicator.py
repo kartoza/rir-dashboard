@@ -188,6 +188,29 @@ class Indicator(AbstractTerm, PermissionModel):
                     pass
         return None
 
+    def scenarios_dict(self):
+        """
+        Return scenarios in list of dict
+        """
+        from rir_data.models import ScenarioLevel, IndicatorScenarioRule
+        scenarios = []
+        for scenario in ScenarioLevel.objects.order_by('level'):
+            try:
+                scenario_rule = IndicatorScenarioRule.objects.get(
+                    scenario_level=scenario,
+                    indicator=self
+                )
+            except IndicatorScenarioRule.DoesNotExist:
+                scenario_rule = None
+            scenarios.append({
+                'id': scenario.id,
+                'name': scenario.name,
+                'rule_name': scenario_rule.name if scenario_rule else '',
+                'rule_value': scenario_rule.rule if scenario_rule else '',
+                'rule_color': scenario_rule.color if scenario_rule else '',
+            })
+        return scenarios
+
     def scenario_rule_by_value(self, value):
         """
         Return scenario level of the value

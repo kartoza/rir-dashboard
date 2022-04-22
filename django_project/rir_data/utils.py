@@ -38,16 +38,13 @@ def get_level_instance_in_tree(instance, level_instances) -> dict:
     from rir_data.models import GeometryLevelInstance
     levels = {}
     for top in level_instances:
-        levels[top.level.id] = {
-            'parent': top.parent.id if top.parent else 0,
-            'child': get_level_instance_in_tree(
-                instance,
-                GeometryLevelInstance.objects.filter(
-                    instance=instance,
-                    parent=top.level
-                )
+        levels[top.level.id] = get_level_instance_in_tree(
+            instance,
+            GeometryLevelInstance.objects.filter(
+                instance=instance,
+                parent=top.level
             )
-        }
+        )
 
     return levels
 

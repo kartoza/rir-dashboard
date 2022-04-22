@@ -17,16 +17,6 @@
     </style>
 {% endblock %}
 {% block content %}
-    {% for intervention in interventions %}
-        <div data-program="{{ intervention.program_instance.program.slug }}" class="section box-shadow-bottom table-section scenario-section">
-            <div class="scenario-header scenario-{{ overall_scenario.level }}">
-                <div>{{ intervention.program_instance.program.name }} Intervention</div>
-            </div>
-            <div class="intervention">
-                <iframe src="{{ intervention.intervention_url }}" title="{{ intervention.program_instance.program.name }}" frameBorder="0"></iframe>
-            </div>
-        </div>
-    {% endfor %}
     <div id="map-wrapper" data-program="context-analysis" class="section table-section left-right">
         <div id="map"></div>
         <div id="right-side" class="side-panel box-shadow-bottom" data-hidden="true">

@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, reverse, render, get_object_or_404
 from rir_dashboard.forms.indicator import IndicatorForm
 from rir_dashboard.views.dashboard.admin._base import AdminView
-from rir_data.models import Instance, ScenarioLevel, IndicatorScenarioRule
+from rir_data.models import Instance, ScenarioLevel, IndicatorScenarioRule, Indicator
 
 
 class IndicatorCreateView(AdminView):
@@ -24,10 +24,23 @@ class IndicatorCreateView(AdminView):
                 'rule_name': scenario.name,
                 'rule_color': scenario.background_color
             })
+
+        from_id = self.request.GET.get('from')
+        initial = None
+        if from_id:
+            try:
+                indicator = self.instance.indicators.get(id=from_id)
+                initial = IndicatorForm.model_to_initial(indicator)
+                initial['name'] = None
+                initial['description'] = None
+                scenarios = indicator.scenarios_dict()
+            except Indicator.DoesNotExist:
+                pass
+
         context = {
             'form': IndicatorForm(
-                level=self.instance.geometry_levels_in_order,
-                indicator_instance=self.instance
+                indicator_instance=self.instance,
+                initial=initial,
             ),
             'scenarios': scenarios,
             'is_create': True
@@ -40,7 +53,6 @@ class IndicatorCreateView(AdminView):
         )
         form = IndicatorForm(
             request.POST,
-            level=self.instance.geometry_levels_in_order,
             indicator_instance=self.instance
         )
         if form.is_valid():

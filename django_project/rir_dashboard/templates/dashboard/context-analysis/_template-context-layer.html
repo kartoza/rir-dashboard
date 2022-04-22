@@ -93,7 +93,11 @@
             <div><%= name %> Intervention</div>
         </div>
         <div class="intervention">
+            <% if (intervention_url) { %>
             <iframe src="<%= intervention_url %>" title="<%= name %>" frameBorder="0"></iframe>
+            <% } else { %>
+            <div>No intervention found</div>
+            <% } %>
         </div>
     </div>
 </script>

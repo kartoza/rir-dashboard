@@ -4,10 +4,11 @@ from rir_data.api.download import DownloadMasterData, DownloadMasterDataCheck
 from rir_data.api.download_file import DownloadSharepointFile, DownloadBackupsFile
 from rir_data.api.geometry import GeometryGeojsonAPI, GeometryDetailAPI
 from rir_data.api.indicator import (
-    IndicatorsList, IndicatorValues, IndicatorValuesByGeometryAndLevel, IndicatorValuesByDateAndGeojson, IndicatorValuesByDate,
-    IndicatorValuesByGeometry, IndicatorReportingUnits, IndicatorValuesBatch
+    IndicatorValues, IndicatorValuesByGeometryAndLevel, IndicatorValuesByDateAndGeojson, IndicatorValuesByDate,
+    IndicatorValuesByGeometry, IndicatorReportingUnits, IndicatorValuesBatch,
+    IndicatorShow, IndicatorHide, IndicatorDetailAPI
 )
-from rir_data.api.indicators import IndicatorsValuesByGeometryDate
+from rir_data.api.indicators import IndicatorsValuesByGeometryDate, IndicatorsList
 from rir_data.api.context_analysis import ContextAnalysisData
 from rir_dashboard.views.instances import InstancesView
 from rir_dashboard.views.backups import BackupsView
@@ -51,7 +52,22 @@ indicator_api = [
         r'^(?P<pk>\d+)/reporting-units',
         IndicatorReportingUnits.as_view(), name='indicator-reporting-units-api'
     ),
-    url(r'^', IndicatorsList.as_view(), name='indicator-list-api'),
+    url(
+        r'^(?P<pk>\d+)/show',
+        IndicatorShow.as_view(), name='indicator-show-api'
+    ),
+    url(
+        r'^(?P<pk>\d+)/hide',
+        IndicatorHide.as_view(), name='indicator-hide-api'
+    ),
+    url(
+        r'^(?P<pk>\d+)',
+        IndicatorDetailAPI.as_view(), name='indicator-detail-api'
+    ),
+    url(
+        r'^',
+        IndicatorsList.as_view(), name='indicator-list-api'
+    ),
 ]
 indicators_api = [
     # API for returning all indicators

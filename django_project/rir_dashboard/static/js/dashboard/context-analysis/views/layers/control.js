@@ -70,6 +70,8 @@ define([
 
             // Auto play the time slider
             const $timeSliderWrapper = $('#time-slider-wrapper');
+
+            // start autoplay
             $timeSliderWrapper.find('.fa-play-circle').click(
                 function () {
                     $(this).hide();
@@ -335,8 +337,29 @@ define([
                     }
                     $slider.val(currentValue);
                     self.timeSliderChanged();
-                    self.autoplay();
-                }, 1000);
+                    self.autoplayCheck();
+                }, 1000
+            );
+        },
+        /**
+         * Autoplay Check
+         * Will go to next autoplay if the indicators loaded
+         */
+        autoplayCheck: function () {
+            const self = this;
+            let loaded = true;
+            if ((this.indicatorLeft && !this.indicatorLeft.isLoaded) || (this.indicatorRight && !this.indicatorRight.isLoaded)) {
+                loaded = false;
+            }
+            if (loaded) {
+                self.autoplay();
+            } else {
+                setTimeout(
+                    function () {
+                        self.autoplayCheck();
+                    }, 100
+                );
+            }
         },
 
         // -----------------------------------------------------------
