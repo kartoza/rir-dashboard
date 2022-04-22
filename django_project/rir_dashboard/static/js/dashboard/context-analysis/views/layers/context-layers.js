@@ -6,23 +6,36 @@ define(['js/views/layers/context-layers-draggable'], function (ContextLayerDragg
     return Backbone.View.extend({
         /** Initialization
          */
-        cookieName: 'CONTEXTLAYERS',
-        cookieOrderName: 'CONTEXTLAYERSORDER',
-        layers: {},
-        orders: [],
-        initialize: function (data) {
+        geojsonStyle: {
+            "color": "#ff7800",
+            "weight": 1,
+            "opacity": 1
+        },
+        onEachFeature: function (feature, layer) {
+            // check others properties
+            let defaultHtml = '';
+            $.each(feature.properties, function (key, value) {
+                if (typeof value === 'object') {
+                    value = JSON.stringify(value)
+                } else {
+                    value = numberWithCommas(value)
+                }
+                defaultHtml += `<tr><td valign="top"><b>${key.capitalize()}</b></td><td valign="top">${value}</td></tr>`
+            });
+            layer.bindPopup('' +
+                '<table><tr><td colspan="2" style="text-align: center; background: #eee"><b>' + self.name + '</b></td></tr>' + defaultHtml + '</table>');
+        },
+        cookieName: 'CONTEXTLAYERS', cookieOrderName: 'CONTEXTLAYERSORDER', layers: {}, orders: [], initialize: function (data) {
             this.data = data;
             this.listener();
             this.idsFromCookie = getCookieInList(this.cookieName);
 
             let orders = [];
             const self = this;
-            this.data.forEach(
-                (layer, idx) => {
-                    orders.unshift(layer.id);
-                    self.layers[layer.id] = layer;
-                }
-            );
+            this.data.forEach((layer, idx) => {
+                orders.unshift(layer.id);
+                self.layers[layer.id] = layer;
+            });
             this.orders = orders;
 
             // get order cookie
@@ -57,28 +70,26 @@ define(['js/views/layers/context-layers-draggable'], function (ContextLayerDragg
             // Init Layers
             // ----------------------------------------
             const $layerList = $('#layer-list .side-panel-content');
-            this.orders.forEach(
-                (id, idx) => {
-                    const layer = self.layers[id];
-                    if (layer) {
-                        let $appendElement = $layerList;
-                        layer['top_tree'] = 'top-tree';
-                        if (layer.group_name) {
-                            let $group = $layerList.find(`div[data-group="${layer.group_name}"]`);
-                            if ($group.length === 0) {
-                                $layerList.prepend(templates.CONTEXT_LAYER_GROUP(layer));
-                                self.initLayerEvent('context-layer-group-' + layer.group);
-                            }
-                            layer['top_tree'] = '';
-                            $appendElement = $layerList.find(`div[data-group="${layer.group_name}"] .layer-list-group`);
-
+            this.orders.forEach((id, idx) => {
+                const layer = self.layers[id];
+                if (layer) {
+                    let $appendElement = $layerList;
+                    layer['top_tree'] = 'top-tree';
+                    if (layer.group_name) {
+                        let $group = $layerList.find(`div[data-group="${layer.group_name}"]`);
+                        if ($group.length === 0) {
+                            $layerList.prepend(templates.CONTEXT_LAYER_GROUP(layer));
+                            self.initLayerEvent('context-layer-group-' + layer.group);
                         }
-                        $appendElement.prepend(templates.CONTEXT_LAYER(layer));
-                        self.initLayerEvent('context-layer-' + layer.id);
-                        self.initLayer(layer);
+                        layer['top_tree'] = '';
+                        $appendElement = $layerList.find(`div[data-group="${layer.group_name}"] .layer-list-group`);
+
                     }
+                    $appendElement.prepend(templates.CONTEXT_LAYER(layer));
+                    self.initLayerEvent('context-layer-' + layer.id);
+                    self.initLayer(layer);
                 }
-            );
+            });
 
             // Init drag event
             new ContextLayerDraggable(this);
@@ -135,9 +146,7 @@ define(['js/views/layers/context-layers-draggable'], function (ContextLayerDragg
                     const options = {
                         token: layerData.token
                     };
-                    const argisLayer = (new EsriLeafletLayer(
-                        layerData.name, url, params, options, layerData.style
-                    ));
+                    const argisLayer = new EsriLeafletLayer(layerData.name, url, params, options, layerData.style, self.onEachFeature);
                     argisLayer.load().then(output => {
                         self.addLayerToData(layerData, output.layer, argisLayer.getLegend(), output.error);
                     });
@@ -147,6 +156,37 @@ define(['js/views/layers/context-layers-draggable'], function (ContextLayerDragg
                     const layer = L.tileLayer.wms(url, params);
                     let legend = layerData.url_legend ? `<img src="${layerData.url_legend}">` : '';
                     self.addLayerToData(layerData, layer, legend);
+                    break;
+                }
+                case 'Geojson': {
+                    $.ajax({
+                        dataType: "json",
+                        data: params,
+                        url: url,
+                        success: function (data) {
+                            const layer = L.geoJson(data, {
+                                style: function (feature) {
+                                    switch (feature.geometry.type) {
+                                        default:
+                                            return self.geojsonStyle
+                                    }
+                                },
+                                onEachFeature: self.onEachFeature,
+                                pointToLayer: function (feature, latlng) {
+                                    var icon = L.icon({
+                                        iconSize: [25, 30],
+                                        iconAnchor: [10, 30],
+                                        popupAnchor: [2, -31],
+                                        iconUrl: feature.properties.icon
+                                    });
+                                    return L.marker(
+                                        latlng, { icon: icon }
+                                    );
+                                }
+                            });
+                            self.addLayerToData(layerData, layer, null);
+                        },
+                    });
                     break;
                 }
             }
@@ -205,8 +245,8 @@ define(['js/views/layers/context-layers-draggable'], function (ContextLayerDragg
                 self.checkboxLayerClicked(this);
                 const $groupRow = $(this).closest('.group');
                 const $group = $groupRow.find('.layer-list-group');
-                const inputLength = $group.find('input').length;
-                const inputLengthChecked = $group.find('input:checked').length;
+                const inputLength = $group.find('input:not(:disabled)').length;
+                const inputLengthChecked = $group.find('input:checked:not(:disabled)').length;
                 if (inputLength === inputLengthChecked) {
                     $groupRow.find('.group-checkbox').prop('checked', true);
                 } else {

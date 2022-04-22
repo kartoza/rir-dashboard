@@ -5,8 +5,9 @@ from rir_data.models.instance import Instance
 
 
 class LayerType(object):
-    ARCGIS = 'ARCGIS'
     RASTER_TILE = 'Raster Tile'
+    GEOJSON = 'Geojson'
+    ARCGIS = 'ARCGIS'
 
 
 class ContextLayerGroup(AbstractTerm):
@@ -40,10 +41,11 @@ class ContextLayer(AbstractTerm):
     )
     layer_type = models.CharField(
         max_length=256,
-        default=LayerType.ARCGIS,
+        default=LayerType.RASTER_TILE,
         choices=(
             (LayerType.ARCGIS, LayerType.ARCGIS),
-            (LayerType.RASTER_TILE, LayerType.RASTER_TILE)
+            (LayerType.RASTER_TILE, LayerType.RASTER_TILE),
+            (LayerType.GEOJSON, LayerType.GEOJSON),
         )
     )
     show_on_map = models.BooleanField(
