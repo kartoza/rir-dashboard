@@ -15,3 +15,5 @@ celerybeat-schedule*
 deployment/node-red/*
 !deployment/node-red/flows.json
 !deployment/node-red/package.json
+.RData
+.Rhistory
