@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The RIR platform is a situational awareness platform to monitor health, child protection, nutrition, wash and education in a geographic region. To fully understand the platform and the information you can obtain from it, you need to understand how it works.
+🧑‍🏫 The RIR (Risk Informed Response) platform is a situational awareness platform to monitor health, child protection, nutrition, wash and education in a geographic region. This tutorial shows you how to manage the platform as an administrator.
 
 
 ### Working with this documentation
@@ -12,27 +12,29 @@ Whenever you see a phrase in **bold**, it refers to a link or button on the user
 ### Important Links
 
 * [RIR Platform](https://staging.rir.kartoza.com/ "RIR Platform")
-* [RIR Full Documentation](https://kartoza.github.io/rir-dashboard/pages/introduction.html "RIR Full Documentation")  
+* [RIR Full Documentation](https://kartoza.github.io/rir-dashboard/ "RIR Full Documentation")  
 
-### Session Outline
+## Session Outline
 
-In this session, we will tour the RIR administration functions using examples and workflows that would be used by site administrators. 
+This session is divided into two parts:
 
+1. General Platform Administration
+   * User Management: Creating and editing user profiles.
+   * Managing Instances: Creating new and editing preexisting instances.
+   * Managing Context Layers: Using layers that you have uploaded to GeoNode or GeoServer to create a context layer in the platform.
+   * Geography management: Adding geography levels to your instance.
 
 ![image](https://user-images.githubusercontent.com/77841514/163354387-91e9ca4a-503b-4b23-b970-39b18d97cf79.png)
 
-### Platform Administration
+2. Indicator Administration
 
-We will cover the following adminstrative tasks:
-
-* User Management: Creating and editing user profiles. 
-* Managing Instances: Creating new and editing preexisting instances. 
-* Managing Context Layers: Using layers that you have uploaded to GeoNode or GeoServer to create a context layer in the platform. 
-* Geography management: Adding geography levels to your instance.
-* Indicator management: Adding indicators to the dashboard and harvesting data for indicators.
+   * Indicator management: Adding indicators to the dashboard.
+   * Forms: used to manually capture indicator data by filling in forms.
+   * Ingestors: Used to manually import data by uploading.
+   * Harvesters: Automatic agents that fetch data and add it to indicators on a regular basis.
 
 
-![image](https://user-images.githubusercontent.com/77841514/163354685-26adab94-984a-4545-a69e-82a42f213480.png)
+![Ingestor Types](../assets/screenshots/ingestor-types.png)
 
  
 ## Session Tutorial
@@ -53,61 +55,106 @@ Once you have created the user account, go back to Site Administration and selec
 
 ![Permissions](../assets/screencasts/permissions.gif "Permissions")
 
+> 📒 **Note**: If you want to make a user an admin user so that they can carry out the activities described in this tutorial, you should assign them to the **Staff** group, the **Super User** group and the **Active** box should be checked.
+
+![Groups](../assets/screencasts/groups.gif "Groups")
+
 ### **Creating an instance**
 
-Once you’ve signed in as an admin user, you will be redirected back to the home page which contains various instances that you can select. To create a new instance, select the dropdown arrow next to your username and click on **Django Admin**. Once you’re on the Site Administration page, scroll down until you find **Instances**. 
-Click on the **+Add** option on the right-hand side of the Instances row. Add the name of the new instance that you would like to create, a description  as well as the icon files. The icon file in case would be a flag of the country for the instance. Once you have added all of the information, click **Save**.
+🧑‍🏫 Once you’ve signed in as an admin user, you will be redirected back to the home page which contains various instances. To create a new instance, select the dropdown menu next to your username and click on **Django Admin**. Once you’re on the Site Administration page, scroll down until you find **Instances**.
 
+👨‍🏫 Click on the **+Add** button on the right-hand side of the Instances screen. Add the name of the new instance that you would like to create, a description, as well as the icon file. The icon file in most cases would be a flag of the country for the instance. Once you have added all of the information, click **Save**.
 
 ![Creating a New Instance](../assets/screencasts/new-instance.gif "Creating a New Instance")
 
- 
- For this tutorial, we will create an instance for South Africa, click on the image save the link: 
- 
- ![SA flag](https://user-images.githubusercontent.com/98025261/163401265-9bcfedbf-3e65-40cf-a385-4426a995ffa1.png)
- 
+ For this tutorial, we will create a demonstrator instance for South Africa, :
 
-###   **Adding a new Context layer**
+ ![SA flag](../assets/tutorial_data/sa-flag.png)
 
-In this section we will explain how to create and manage context layers. Context layers are shown on the map to provide a sense of the conditions in the region. They can cover any topic - for example, security, food security, infrastructure etc. Context layers do not have indicator data attached, they are a visual aid in the dashboard map.
+ > **Note:** You can find all of the sample data used in this tutorial (including this flag image) [](here) XXXXXX Thiasha to make XXXXX.
 
-To add a context layer, you need a link to an online layer. This can be hosted as a Web Map Service layer or an ESRI ArcGIS Online Layer. For this exercise will be adding a context layer showing homelands: https://staging.osgs.rir.kartoza.com/geoserver/ows?access_token=SWMqWx64T5dOsNwPD72o4uIbtZ7FIA&LAYERS=geonode%3Aformer_homelands_polygon&TRANSPARENT=TRUE&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&STYLES=&FORMAT=image%2Fpng&SRS=EPSG%3A900913&BBOX=2504688.5425,-3757032.81375,3757032.81375,-2504688.5425&WIDTH=256&HEIGHT=256 
+Once your new instance is created, you will be able to open it from the instance chooser. It will appear very empty, like this:
+
+XXXXXX Thiasha add XXXXXXX
+
+### **Adding a new Context layer**
+
+🧑‍🏫 In this section we will explain how to create and manage context layers. What is a context layer? Context layers are shown on the map to provide a sense of the conditions in the region. They can cover any topic - for example, security, food security, infrastructure etc. Context layers do not have indicator data attached, they are a visual aid in the dashboard map. Context layers are normally hosted on another server e.g. ArcGIS Online, GeoServer, GeoNode all provide ways to publish context layers.
+
+To add a context layer to the RIR instance, you will need a link to an online layer. For this exercise will be adding a context layer showing homelands:
+
+XXXX  Thiasha ad a screenshot of the layer on the original site XXXXX
+
+XXX Thiasha ask Irwan to make a css rule so we get a copy button on hover over a code block
+
+```https://staging.osgs.rir.kartoza.com/geoserver/ows?access_token=SWMqWx64T5dOsNwPD72o4uIbtZ7FIA&LAYERS=geonode%3Aformer_homelands_polygon&TRANSPARENT=TRUE&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&STYLES=&FORMAT=image%2Fpng&SRS=EPSG%3A900913&BBOX=2504688.5425,-3757032.81375,3757032.81375,-2504688.5425&WIDTH=256&HEIGHT=256
+```
+
+XXXX Thiasha ask Irwan to fix this so the replace step is not needed, then remove the next paragraph. XXXX
+
+👨‍🏫 Now we can create the context layer in the RIR platform.
+Copy the link address above and paste it into a notepad and change all the words in full capital letters to lower case letters. 
+
+Use this link address as the URL when adding a new layer.  
+Click on your account menu in the top right corner of the RIR platform and open **Django Admin**. Click on **+Add** on the Context layers line. Select the instance you would like to add the context layer to.
+
+XXXX Thiasha screenshot please XXXXX
 
 
-
-Now we can go ahead and create the context layer in the RIR platform. 
-Copy the link address above and paste it into a notepad and change all the words in full capital letters to lower case letters. Use this edited link address as the URL when adding a new layer.  
-Click on the user dropdown menu and open **Django Admin**. Click on **+Add** on the Context layers line. Select the instance you would like to add the context layer to.
-
-We will use the instance that we have just created, South Africa. Enter the information in the input boxes as shown in the images below and save your data once you are happy with it. Click on **Veiw Site** to see your new layer. You will be able to see your new layer in the **Layers** menu. There is also an option to add other parameters to this layer.
+We will use the instance that we have just created, South Africa. Enter the information in the form as shown in the images below and save the form once you are happy with it.
 
 ![Context Layers](../assets/screenshots/context-layer.png "Context Layers")
+
+Click on **Veiw Site** to see your new layer. You will be able to see your new layer in the **Layers** menu. There is also an option to add other parameters to this layer.
+
 ![Context Layers](../assets/screencasts/context-layer.gif "Context Layers")
 
 ## Geography Management
 
 ### **Adding a Geography level**
 
-Let’s start in  **Site Administration**. Scroll down to **Geometry Level Instances** and select **+Add**. Add the name and description to your instance. Go back to the main page of your instance. Below the **Program Interventions** panel are three icons; **Indicator Management**, **Geography Management**, and **Instance Management**.
+🧑‍🏫 Geography levels express the heirarchy between administrative boundaries. For example in South Africa we have the national boundary subdivided into provinces, which are in turn subdivided into districts, then municipalities. RIR uses these geography levels to provide a sense of the conditions in the region.
+
+👨‍🏫 Let’s start in  **Site Administration**. Scroll down to **Geometry Level Instances** and click **+Add**. Set the name and description to your instance. Go back to the main page of your instance. Below the **Program Interventions** panel are three icons; **Indicator Management**, **Geography Management**, and **Instance Management**.
 
 Click on the **Geography Management** icon. You will be redirected to the geography view map page and you will see that in the top right corner there is an **+uploader** button. Select this button and start filling in the form. The first thing you need to do is add the data for the geography level. Once the data is uploaded, you will be able to fill in the rest of the form.  
 
+
+XXXX Thiasha use same instructions as before for getting sample data.
+
+> 📒 **Note:** You can find all of the sample data used in this tutorial (including this data set) [](here) XXXXXX Thiasha to make XXXXX.
+
 [Geography level Data](https://github.com/ThiashaV/rir-dashboard/blob/documentation/sphinx/source/img/RIR%20test%20data.zip "Geography Level Data")
 
-For a province level, the code column is 'pr_mdb_c', the name column is 'pr_name' and the parent code column is 'c_pcode'. The country does not need parent, but we need the code for a country level. In here, the country is ZA (under 'adm0_pcode')
+The tutorial data containes provinces and the country boundary for South Africa.
+
+XXX Thiasha screenshot of data in tree structure
+XXX Thiasha to rename columns as per notes below
+
+For a province level, the code column is 'code', the name column is 'name' and the parent code column is 'pcode'. The country does not need parent, but we need the code for a country level. In here, the country is ZA (under 'adm0_pcode')
 
 
 ### **Adding a New Indicator**
 
-To add an indicator, click on **Indicator Management** on the main platform page for the instance and go to **Create New**. Fill in the necessary information about the indicator you would like to create.
+🧑‍🏫 Indicators are special layers in RIR that are linked to the situation in the region. Indicators are used to show the situation in the region. For example, in South Africa, there are indicators for the number of people living in poverty, the number of people living in extreme poverty, the number of people living in extreme poverty and the number of people living in extreme poverty and the number of people living in extreme poverty and the number of people living in extreme poverty.
+
+👨‍🏫 To add an indicator, click on **Indicator Management** on the main platform page for the instance and go to **Create New**. Fill in the necessary information about the indicator you would like to create.
 
 Once you have filled out the form, scroll down to **Scenario Rules** and add the parameters to match the indicator. you can also change the colour for each rule by clicking on the colour block. Click **Submit** once you are happy with the added information and scenario rules. If you add a dashbord link, you will see a black dot in the centre of the cirlce that represents the scenario case on that indicator in the Program Interventions panel. By clicking on the black dot, you will be redirected to the dashboard link.
  
 ![New Indicator](../assets/screencasts/new-indicator.gif "New Indicator")
 
+Once we have created an indicator, we need to populate it with data. THere are three ways to do this.
+
+1. We can manually add the data using the value manager form or map.
+2. We can use an ingestor to import data from a spreadsheet.
+3. We can use a harvester to automatically fetch the data from an online resource.
+
 ### **Value Manager Form**
 
-There are two ways to manually add data to indicators. The first is by using the Value Manager Form. To access this form, go to **Indicator Management** and scroll to the indicator that you would like to add data to. On the right-hand side of the indicator's name, there will be a small **Settings** symbol.
+The value manager form is a table with cells and rows, one row per administrative boundary and one cell per indicator.
+
+👨‍🏫 Let's look at how to use the Value Manager Form. To access this form, go to **Indicator Management** and scroll to the indicator that you would like to add data to. On the right-hand side of the indicator's name, there will be a small **Settings** symbol.
 Click on **Settings** for the desired indicator and then click on **Value Manager Form**. You will be redirected to a form that gives you all the geographic locations within the instantce and spaces to add values. You can also add a file to fill in the data by clicking **Use File to Refill Form**
 
 ![Value Manager Form](../assets/screencasts/value-manager-form.gif "Value Manager Form")
