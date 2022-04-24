@@ -99,11 +99,11 @@ You will see I am still signed in, and there are three options available to me o
 
 ![Web User](../assets/screenshots/web-user.png)
 
-### Dashboard Tour
+## Dashboard Tour
 
 Let's tour the dashboard together. We will start from left to right across the screen, showing what each button and panel does with a few simple examples. 
 
-**The Context Analysis Button**
+### The Context Analysis Button
 
 At the top left of the screen, you will see the **Context Analysis Button**. This button gives access to the **Indicator Panel** it is selected, and the is panel open by default.
 
@@ -117,7 +117,7 @@ Click on each button to see the information for each factor.
 
 ![Program Interventions Panel](../assets/screenshots/program-interventions-panel.png)
 
-**The Indicator Panel**
+### The Indicator Panel
 
 Click back on the **Context Analysis Button** and observe the **Indicator Panel**. This panel contains a list of indicators (special layers) that relate to the main factors on the platform like health and nutrition. The panel is expanded by default but can be collapsed if you click on the tab labeled with a house on the right side of the panel to observe the map better. 
 
@@ -130,34 +130,35 @@ Open the drop-down for **People In Need** by clicking on the triangle next to th
 The coloured circles next to each indicator show the current severity level for that indicator. Blue is the best case, yellow mid, and red is the worst case. The case scenario will indicate if that region or state needs additional responses or interventions. 
 
 ![Coloured Circles](../assets/screenshots/coloured-circles.png)
-**The Traffic Light**
+
+### The Traffic Light
 
 You can access what we call traffic lights for the indicators by clicking on the arrow in the top right of the panel. This will expand the information on the severity level, for example, you can see that for our selected layer of **PIN- Child Protection** overall in Somalia the situation is worsening for children hence the yellow color. Several regions need additional responses or support to protect vulnerable children. Click the triangle (now on the top right) again to see the map again. 
 
 ![Traffic Lights](../assets/screenshots/traffic-lights.png)
 
-**The Information Panel**
+### The Information Panel
 
 On the right-hand side of the map, the **Information Panel** shows the severity case of the indicator for each region or district. For example in Adan Yabaal Child protection has a value of 3. Your will also see an interactive pie chart infographic summarising all the data in the layer. 
 
-![Information Panel](../assets/screenshots/information-panel)
+![Information Panel](../assets/screenshots/information-panel.png)
 
-If you click on the region name in the **Information Panel** it will show which region it is with an information window on the map. Once a single district is selected and the ** Information Panel** will show all the indicators for that specified region and the severity of the situation for each indicator using colors. You can click on each indicator for more detail like Child protection and you will see more information and a infographic. We will cover the **Information Panel** more fully in the **Information Panel** section below.
+If you click on the region name in the **Information Panel** it will show which region it is with an information window on the map. Once a single district is selected and the **Information Panel** will show all the indicators for that specified region and the severity of the situation for each indicator using colors. You can click on each indicator for more detail like Child protection and you will see more information and a infographic. We will cover the **Information Panel** more fully in the **Information Panel** section below.
 
 ![Information Window](../assets/screenshots/information-window.png)
 ![Detail](../assets/screenshots/detail.png)
 
-**Downloading Data**
+### Downloading Data
 
 You can download the data of interest by clicking on the round symbol with the download arrow in it next to each indicator in the **Indicator Panel** or at the top of the **Information Panel** for the selected indicator. You can get all the data for the instance if you click the download the symbol at the top of the **Information Panel**. This will give you a spreadsheet of the information that you can use outside of the platform. 
 
 ![Download Data](../assets/screenshots/download-data.png)
 
-### Layers
+## Layers
 
 Let's explore the layers available to visualize and give context to the indicators. 
 
-**Context Layers**
+### Context Layers
 
 The **context layers** can be accessed by clicking on the button with 3 overlapping squares on it. There will be a list of options to choose from. 
 Select ‘Access’ We can now see all the roads, airports, and other access indicators. If you click on the drop-down triangle you can choose exactly what features you want to see.
@@ -165,7 +166,7 @@ Turn off everything except roads and ports. If you click on a point like a port 
 
 ![Layers Ports](../assets/screenshots/layers-ports.png)
 
-**Base Maps**
+### Base Maps
 
 You can also change the base map behind the data if you click on the world icon in the panel. The default is an OpenStreetMap canvas. There is also a GEBCO grid base map which is a global terrain model for ocean and land, a Mapbox satellite base map, and an open topo base map which is rendered from OSM and SRTM data.
 
@@ -183,7 +184,7 @@ You can now see some of the topographic features underneath the departures layer
 
 ![Inaternal Displacement](../assets/screenshots/internal-displacement.png)
 
-**Geography Level**
+### Geography Level
 
 Finally, while we have the IDP data handy you can change the **Geography Level** of the indicators. By specifying country region or district in the menu on the bottom right of the map canvas.
 
@@ -193,27 +194,27 @@ Finally, while we have the IDP data handy you can change the **Geography Level**
 
 ![Geography level](../assets/screenshots/geography-level.png)
 
-### Map Interactions
+## Map Interactions
 
 Let's now get into actually interacting with the Map. Activate the child protection indicator again (and deactivate departures). 
 
-**Zooming**
+### Zooming
 
-You can zoom into and out of the map by using your scroll wheel on your mouse or you can click hold down shift and draw a square around the area you wish to zoom in on. 
+Zoom into and out of the map by using the scroll wheel on your mouse or you can click your mouse, hold down shift and draw a square around the area you wish to zoom in to. 
 
 ![Zoom](../assets/screenshots/zoom.png)
 
-**Panning**
+### Panning
 
 To pan on the map just click on the map and drag it around. 
 
-**Information Window**
+### Information Window
 
 Once you have zoomed and panned to an area of interest click on it and you will see an information window as we saw earlier. For more information click on the detail button and information will be shown in the ** Information Panel** on the right. Click off the window to get out.
 
 ![Information window](../assets/screenshots/panning.png)
 
-**The Slider**
+### The Slider
 
 You can choose two indicators for comparison on the map. For example, while child protection is selected let's see where there is program coverage for child protection in Somalia. 
 
@@ -225,7 +226,7 @@ If you click on the middle toggle and drag you can see that in several of the re
 
 You can make the sliding horizontal by clicking the map button at the bottom right of the map canvas. 
 
-**Time Laps**
+### Time Laps
 
 There is a time laps bar that can show changes in data over time. A great example of this is the internal displacement of people. Turn off the child protection indicators and activate the IDP layer for departures. You can see where indicators are selected because the tab heading will be bolded. 
 
@@ -235,7 +236,7 @@ Now click the play button on the time bar and you will see the changes in what r
 
 ![Time Laps](../assets/screencasts/time-laps.gif)
 
-### More on Information Pannel
+## More on the Information Pannel
 
 While the IDP Departures is open, let's look at the last options and functionalities on the information panel that we did not cover previously. If the Information panel in minimized or you want to minimize it. Click on the blue Info button that looks like a tab on the right-side panel to maximize and minimize it. 
 
@@ -243,7 +244,7 @@ Inside the information panel, there is a summary of all the region/or districts 
 
 ![Info Button](../assets/screenshots/info-button.png)
 
-**Graphical Representation**
+### Graphical Representation
 
 There is also a graphical representation of the scenarios in this case a pie chart showing the proportion of best-case regions to worst-case and the status quo. You can hover your mouse over the chart and interact with it. For example, it will show that the best case is the reality for 54 out of the 73 districts in a pop-up label. 
 
@@ -256,7 +257,7 @@ This will open the details panel where you can see a line graph showing the chan
 
 ![IDP Detail](../assets/screenshots/idp-details.png)
 
-### Bringing it all together
+## Bringing it all together
 
 With your knowledge of the RIR dashboard try an analysis where we look at what districts people are departing from and what districts they are arriving to. 
 
