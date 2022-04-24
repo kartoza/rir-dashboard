@@ -289,7 +289,7 @@ Inside the information panel, there is a summary of all the region/or districts 
 
 ![Graphical Representation](../assets/screenshots/graphical-representation.png)
 
-🧑‍🏫 Further click on the name Adan Yabaal and in the Indicators select IDP departure. This will open the details panel where you can see a line graph showing the change over time for the Adan Yabaal district as well as other pertinent information. 
+🧑‍🏫 Further click on the name Adan Yabaal and in the Indicators select **IDP departure**. This will open the details panel where you can see a line graph showing the change over time for the Adan Yabaal district as well as other pertinent information. 
 
 👨‍🏫 Click on Adan Yabaal (the text) in the **Information Panel** under the pie chart, click on **IDP Departures** (the text) and observe and hover your mouse over the line chart. 
 
