@@ -2,7 +2,7 @@
 
 > RIR: Risk-Informed Response
 
-The RIR platform is a situational awareness platform to monitor health, child protection, nutrition, water, sanitation, hygiene, and education in a geographic region. This section will explain how the RIR platform works so that you can fully understand the platform and the information you can obtain from it.
+🧑‍🏫 The RIR platform is a situational awareness platform to monitor health, child protection, nutrition, water, sanitation, hygiene, and education in a geographic region. This section will explain how the RIR platform works so that you can fully understand the platform and the information you can obtain from it.
 
 ## Working with this documentation
 
@@ -59,100 +59,127 @@ In the section, we will show you how to navigate the platform and summarise what
 
 You can access the platform here: https://staging.rir.kartoza.com: 
 
-> Note this link will change in the future. We will advise all users of the system when that happens.
+> 📒 **Note** this link will change in the future. We will advise all users of the system when that happens.
 
 ### Documentation
 
-On the top right-hand side of the landing screen, there is a drop-down menu for **Links** and a link to a sign-in page. The **Links** drop-down menu is a quick way to access the documentation for using the platform and the different data and resources associated with the platform (which are not covered in this tutorial).
+🧑‍🏫 On the top right-hand side of the landing screen, there is a drop-down menu for **Links** and a link to a sign-in page. The **Links** drop-down menu is a quick way to access the documentation for using the platform and the different data and resources associated with the platform (which are not covered in this tutorial).
 
 ![Links Menu](../assets/screenshots/links.png)
 
 
-> **Instructor note:** Briefly show the documentation and how to navigate it.
+> 📒 **Instructor note:** Briefly show the documentation and how to navigate it.
 
 
 ![Documentation](../assets/screenshots/documentation.png)
 
 ### Instances
 
-On the landing page, you will see several **instances**. An Instance is a configured dashboard for a specific region or country. We will use the Somalia instance for the examples in this tutorial.
+🧑‍🏫 On the landing page, you will see several **instances**. An Instance is a configured dashboard for a specific region or country. We will use the Somalia instance for the examples in this tutorial.
 
 ![Instances](../assets/screenshots/instances.png)
 
 ### Signing In
 
-Return to the RIR platform, click on the **Sign In** link, and a page will open where you can add in your user name and password. Your credentials are created for you by an administrator and may not be necessary. As a web user, you will still be able to interact with the platform without a login.
+🧑‍🏫 Return to the RIR platform, click on the **Sign In** link, and a page will open where you can add in your user name and password. Your credentials are created for you by an administrator and may not be necessary. As a web user, you will still be able to interact with the platform without a login.
 
 ![Sign In](../assets/screenshots/log-in.png)
 
-**Sign In** is only important to access specific workflows. Some data and workflows may only be available to named users who are signed into the platform. Once you are signed in to the platform, your name will appear on the top right and depending on your admin privileges, there will be a drop-down with the option to log out and reach the admin page if you are an administrator. 
+🧑‍🏫 **Sign In** is only important to access specific workflows. Some data and workflows may only be available to named users who are signed into the platform. Once you are signed in to the platform, your name will appear on the top right and depending on your admin privileges, there will be a drop-down with the option to log out and reach the admin page if you are an administrator. 
 
 ![Signed In](../assets/screenshots/signed-in.png)
 
 ### The Somalia Dashboard
 
-Click on the instance labelled Somalia, and the dashboard will load and open. 
+👨‍🏫 Click on the instance labelled Somalia, and the dashboard will load and open. 
 
 ![Dashboard](../assets/screenshots/dashboard.png)
 
-You will see I am still signed in, and there are three options available to me on the bottom left. If I sign out, these buttons will disappear because web users do not have access to some functionality. For this tour, a web user status will work.
+🧑‍🏫 You will see I am still signed in, and there are three options available to me on the bottom left. If I sign out, these buttons will disappear because web users do not have access to some functionality. For this tour, a web user status will work.
 
 ![Web User](../assets/screenshots/web-user.png)
 
 ## Dashboard Tour
 
-Let's tour the dashboard together. We will start from left to right across the screen, showing what each button and panel does with a few simple examples. 
+🧑‍🏫 Let's tour the dashboard together. We will start from left to right across the screen, showing what each button and panel does with a few simple examples. 
 
 ### The Context Analysis Button
 
-At the top left of the screen, you will see the **Context Analysis Button**. This button gives access to the **Indicator Panel** it is selected, and the is panel open by default.
+🧑‍🏫 At the top left of the screen, you will see the **Context Analysis Button**. This button gives access to the **Indicator Panel** it is selected, and the is panel open by default.
 
 ![Context Analysis Button](../assets/screenshots/context-analysis-button.png)
 
-Below the **Context Analysis Button** is the **Programme Interventions Panel** panel. It contains a set of buttons that allow access to key risk response indicators. If you click on the arrow next to the house symbol, the tabs will extend and be labelled so you can see what each symbol means, Health, Child Protection, Nutrition, Wash, and Education.
+🧑‍🏫 Below the **Context Analysis Button** is the **Programme Interventions Panel** panel. It contains a set of buttons that allow access to key risk response indicators. 
 
-For example, the second button-down with a picture of the caduceus/ medical symbol indicates **Health**. Once opened the panel shows a report on the status of or degree to which the intervention for that factor is helping and other information like costing.
+👨‍🏫 Click on the arrow next to the house symbol, the tabs will extend and be labelled so you can see what each symbol means, Health, Child Protection, Nutrition, Wash, and Education.
+
+🧑‍🏫 For example, the second button-down with a picture of the caduceus/ medical symbol indicates **Health**. Once opened the panel shows a report on the status of or degree to which the intervention for that factor is helping and other information like costing.
  
-Click on each button to see the information for each factor. 
+👨‍🏫 Click on each button to see the information for each factor. 
 
 ![Program Interventions Panel](../assets/screenshots/program-interventions-panel.png)
 
 ### The Indicator Panel
 
-Click back on the **Context Analysis Button** and observe the **Indicator Panel**. This panel contains a list of indicators (special layers) that relate to the main factors on the platform like health and nutrition. The panel is expanded by default but can be collapsed if you click on the tab labeled with a house on the right side of the panel to observe the map better. 
+👨‍🏫 Click back on the **Context Analysis Button** and observe the **Indicator Panel**. 
+
+🧑‍🏫 This panel contains a list of indicators (special layers) that relate to the main factors of interest on the platform like health and nutrition. The panel is expanded by default but can be collapsed if you click on the tab labeled with a house on the right side of the panel. Collaping the pannel can allow you to observe the map better. 
 
 ![Indicator Panel](../assets/screenshots/indicator-pannel.png)
 
-Open the drop-down for **People In Need** by clicking on the triangle next to the label and selecting the box next to the **PIN- Child Protection**. A tick will appear and you will see the layer appear on the map. The map shows darkening color of blue, indicating a decrease in child protection per region. You can select only one sub-sections (e.g. best-case or worst-case) of the layer by ticking or un-ticking the checkboxes next to the cases. An **Information panel** will also open on the right-hand side of the screen when an indicator is selected. We will go through the **Information Panel** in more detail shortly. 
+👨‍🏫 Click on the triangle next to the label **People In Need**. 
+
+🧑‍🏫 This opens a drop-down showing all the data on differen groups of people that require assistance from government or other organisations.
+
+👨‍🏫 Select the box next to **PIN- Child Protection**.
+
+🧑‍🏫 A tick will appear in the check box and you will see a layer appear on the map. The map shows areas in darkening blue shades that indicate a decrease in child protection per region. You can select only one sub-layer (e.g. best-case or worst-case) of the layer by ticking or un-ticking the checkboxes next to the cases. 
+
+👨‍🏫 Click and unclick the different case options (see how the map changes). Ensure all of the **PIN- Child Protection** sub-Layers are ticked to continue with the tutorial.
+
+🧑‍🏫 An **Information panel** will also open on the right-hand side of the screen when an indicator is selected. We will go through the **Information Panel** in more detail shortly. 
 
 ![People in Need](../assets/screenshots/people-in-need.png)
 
-The coloured circles next to each indicator show the current severity level for that indicator. Blue is the best case, yellow mid, and red is the worst case. The case scenario will indicate if that region or state needs additional responses or interventions. 
+🧑‍🏫 The coloured circles next to each indicator show the current severity level for that indicator. Blue is the best case, yellow mid, and red is the worst case. The case scenario will indicate if that region or state needs additional responses or interventions to reduce risk. 
 
 ![Coloured Circles](../assets/screenshots/coloured-circles.png)
 
 ### The Traffic Light
 
-You can access what we call traffic lights for the indicators by clicking on the arrow in the top right of the panel. This will expand the information on the severity level, for example, you can see that for our selected layer of **PIN- Child Protection** overall in Somalia the situation is worsening for children hence the yellow color. Several regions need additional responses or support to protect vulnerable children. Click the triangle (now on the top right) again to see the map again. 
+🧑‍🏫 You can access what we call traffic lights for the indicators by clicking on the arrow in the top right of the **Indicator panel**. This will expand the information on the severity level, for example, you can see that for our selected layer of **PIN- Child Protection** overall in Somalia the situation is worsening for children hence the yellow color. Several regions need additional responses or support to protect vulnerable children. Click the triangle (now on the top right) again to see the map again. 
+
+👨‍🏫 Click on the arrow in the top right of the **Indicator panel** 
 
 ![Traffic Lights](../assets/screenshots/traffic-lights.png)
 
 ### The Information Panel
 
-On the right-hand side of the map, the **Information Panel** shows the severity case of the indicator for each region or district. For example in Adan Yabaal Child protection has a value of 3. Your will also see an interactive pie chart infographic summarising all the data in the layer. 
+🧑‍🏫 On the right-hand side of the map area, the **Information Panel** shows a summary of the severity case of the indicator selected for each region or district. For example in Adan Yabaal Child protection has a value of 3. You will also see an interactive pie chart infographic summarising all the data in the layer. 
+
+👨‍🏫 Hover your mouse over the pie chart and observe the lables and number of districts in Worsening and Worst Case scenarios. 
 
 ![Information Panel](../assets/screenshots/information-panel.png)
 
-If you click on the region name in the **Information Panel** it will show which region it is with an information window on the map. Once a single district is selected and the **Information Panel** will show all the indicators for that specified region and the severity of the situation for each indicator using colors. You can click on each indicator for more detail like Child protection and you will see more information and a infographic. We will cover the **Information Panel** more fully in the **Information Panel** section below.
+🧑‍🏫 If you click on the region name like Adan Yabaal in the **Information Panel** the platform will show which region it is on the map with an information window. 
+
+👨‍🏫 Click on Adan Yabaal (the text) in the **Information Panel** under the pie chart.
+
+🧑‍🏫 Once a single district is selected, the **Information Panel** will show all the indicators for that specified region and the severity of the situation for each indicator using different traffic light colors. You can click on each indicator for more detail like Child protection and you will see more information and a simple infographic. We will look at the **Information Panel** with different data further on in this tutorial and show how the simple infographic in the detail section can show changes over time if the data has such information. 
+
+👨‍🏫 Click on PiN-Child Protection (the text) in the **Information Panel** and observe the information and simple Infographic and hover your mouse over it.  
 
 ![Information Window](../assets/screenshots/information-window.png)
 ![Detail](../assets/screenshots/detail.png)
 
 ### Downloading Data
 
-You can download the data of interest by clicking on the round symbol with the download arrow in it next to each indicator in the **Indicator Panel** or at the top of the **Information Panel** for the selected indicator. You can get all the data for the instance if you click the download the symbol at the top of the **Information Panel**. This will give you a spreadsheet of the information that you can use outside of the platform. 
+🧑‍🏫 You can download any data of interest by clicking on the round symbol with the download arrow in it next to each indicator in the **Indicator Panel** for the selected indicator. You can get all the data for the instance if you click the download the symbol at the top of the **Information Panel**. This will give you a spreadsheet of the information that you can use outside of the platform. 
+
+👨‍🏫 Click on the download button next to **People In Need** and observe the downloaded spreadsheet on your computer. Note the data is also colour coded in the spreadsheet as per the platform.  
 
 ![Download Data](../assets/screenshots/download-data.png)
+
 
 ## Layers
 
