@@ -24,7 +24,7 @@ Here is a simplified overview of the topics we will cover in this session:
 
 ![Dashboard Flow Diagram](../assets/screenshots/dashboard-tour.png)
 
-![Layers FLow Diagram](../assets/screenshots/layers.png)
+![Layers Flow Diagram](../assets/screenshots/layers.png)
 
 ![Map Interactions Flow Diagram](../assets/screenshots/map-interactions.png)
 
@@ -123,13 +123,13 @@ You can access the platform here: https://staging.rir.kartoza.com:
 
 👨‍🏫 Click back on the **Context Analysis Button** and observe the **Indicator Panel**. 
 
-🧑‍🏫 This panel contains a list of indicators (special layers) that relate to the main factors of interest on the platform like health and nutrition. The panel is expanded by default but can be collapsed if you click on the tab labeled with a house on the right side of the panel. Collaping the pannel can allow you to observe the map better. 
+🧑‍🏫 This panel contains a list of indicators (special layers) that relate to the main factors of interest on the platform like health and nutrition. The panel is expanded by default but can be collapsed if you click on the tab labelled with a house on the right side of the panel. Collapsing the pannel can allow you to observe the map better. 
 
 ![Indicator Panel](../assets/screenshots/indicator-pannel.png)
 
 👨‍🏫 Click on the triangle next to the label **People In Need**. 
 
-🧑‍🏫 This opens a drop-down showing all the data on differen groups of people that require assistance from government or other organisations.
+🧑‍🏫 This opens a drop-down showing all the data on different groups of people that require assistance from government or other organisations.
 
 👨‍🏫 Select the box next to **PIN- Child Protection**.
 
@@ -179,93 +179,103 @@ You can access the platform here: https://staging.rir.kartoza.com:
 👨‍🏫 Click on the download button next to **People In Need** and observe the downloaded spreadsheet on your computer. Note the data is also colour coded in the spreadsheet as per the platform.  
 
 ![Download Data](../assets/screenshots/download-data.png)
-
+![Spreadsheet](../assets/screenshots/Spreadsheet.png)
 
 ## Layers
 
-Let's explore the layers available to visualize and give context to the indicators. 
+🧑‍🏫 Let's explore the layers available to visualize and give context to the indicators on the map. 
 
 ### Context Layers
 
-The **context layers** can be accessed by clicking on the button with 3 overlapping squares on it. There will be a list of options to choose from. 
-Select ‘Access’ We can now see all the roads, airports, and other access indicators. If you click on the drop-down triangle you can choose exactly what features you want to see.
-Turn off everything except roads and ports. If you click on a point like a port you will be given information about that specific point in an **Information Panel**. 
+🧑‍🏫 The **context layers** can be accessed by clicking on the button with 3 overlapping squares on it. There will be a list of options to choose from. Let's Select ‘Access’ We can now see all the roads, airports, and other access indicators/features. If you click on the drop-down triangle you can choose exactly what features you want to see and Turn off everything except roads and ports by checking and unchecking the feature boxes. If you click on a point on the map like a port you will be given information about that specific point in an **Information Window**. 
+
+👨‍🏫 Click on the context layers button, select access layers select only roads and ports. Click on a port and see information window.
 
 ![Layers Ports](../assets/screenshots/layers-ports.png)
 
 ### Base Maps
 
-You can also change the base map behind the data if you click on the world icon in the panel. The default is an OpenStreetMap canvas. There is also a GEBCO grid base map which is a global terrain model for ocean and land, a Mapbox satellite base map, and an open topo base map which is rendered from OSM and SRTM data.
+🧑‍🏫 You can also change the base map behind the data if you click on the world icon in the panel. The default is an OpenStreetMap canvas. There is also a GEBCO grid base map which is a global terrain model for ocean and land, a Mapbox satellite base map, and an open topo base map which is rendered from OSM and SRTM data.
 
 ![Layers Topo](../assets/screenshots/layers-topo.png)
 
-For example, it may be useful to have a topographic map to visualize geographic features like mountains and rivers that could impede people's movement into areas if you are reviewing the internal displacement of people. 
+🧑‍🏫 For example, it may be useful to have a topographic map to visualize geographic features like mountains and rivers that could impede people's movement into areas if you are reviewing the internal displacement of people. 
 
-- turn on the Open Topo Map
-- Navigate back to the indicator panel
-- Uncheck the child protection layer. 
-- Click the drop-down for Internal Displacement
-- select the IDP Departure layer
+👨‍🏫 - turn on the Open Topo Map base map
+   - Navigate back to the indicator panel
+   - Uncheck the child protection layer. 
+   - Click the drop-down for **Internal Displacement**
+   - select the **IDP Departure layer**
 
-You can now see some of the topographic features underneath the departures layer. 
+🧑‍🏫 You can now see some of the topographic features underneath the departures layer. You may observe that several areas with high departure rates are in the northern desert area. Thus drought may be affecting the people in these areas. Let's take it a step further and go to the contest layers again drop-down the **Natural Hazard** option and check on the **Drought Priority Areas**. You can see that many of the drought priority areas are in the northern desert area we can see on the context topo map.
+
+👨‍🏫 Navigte to the context layers and check on the **Drought Priority Areas**. 
 
 ![Inaternal Displacement](../assets/screenshots/internal-displacement.png)
 
 ### Geography Level
 
-Finally, while we have the IDP data handy you can change the **Geography Level** of the indicators. By specifying country region or district in the menu on the bottom right of the map canvas.
+🧑‍🏫 Finally, while we have the IDP data handy you can change the **Geography Level** of the indicators. By specifying country region or district in the menu on the bottom right of the map canvas.
 
-- Turn off the Acess layer by going to the layers and unchecking it so that we can see the regions better
-- On the menu at the bottom right of the page select Region you will see that the geographic level of the areas changes. 
-- click on Country and see what happens. 
+👨‍🏫 - Turn off the Acess layers and the Drought Priority Areas by going to the layers and unchecking them so that we can see the regions better
+   - On the menu at the bottom right of the page select Region and you will see that the geographic level of the areas changes. 
+   - click on Country and see what happens. 
 
 ![Geography level](../assets/screenshots/geography-level.png)
 
 ## Map Interactions
 
-Let's now get into actually interacting with the Map. Activate the child protection indicator again (and deactivate departures). 
+🧑‍🏫 Let's now get into actually interacting with the Map. Activate the child protection indicator again (and deactivate departures). 
+
+👨‍🏫 Check on the **PIN- Child Protection** and check off the **IDP Departure layer**
 
 ### Zooming
 
-Zoom into and out of the map by using the scroll wheel on your mouse or you can click your mouse, hold down shift and draw a square around the area you wish to zoom in to. 
+🧑‍🏫 Zoom into and out of the map by using the scroll wheel on your mouse or you can click your mouse, hold down shift and draw a square around the area you wish to zoom in to. 
 
 ![Zoom](../assets/screenshots/zoom.png)
 
 ### Panning
 
-To pan on the map just click on the map and drag it around. 
+To pan on the map click on the map and drag it around. 
 
 ### Information Window
 
-Once you have zoomed and panned to an area of interest click on it and you will see an information window as we saw earlier. For more information click on the detail button and information will be shown in the ** Information Panel** on the right. Click off the window to get out.
+Once you have zoomed and panned to an area of interest click on it and you will see an information window as we saw earlier. For more information click on the detail button and information will be shown in the **Information Panel** on the right. Click off the window to get out.
+
+👨‍🏫 Zoom in, Pan and click on a region of interest.
 
 ![Information window](../assets/screenshots/panning.png)
 
 ### The Slider
 
-You can choose two indicators for comparison on the map. For example, while child protection is selected let's see where there is program coverage for child protection in Somalia. 
+🧑‍🏫 You can choose two indicators for comparison on the map. For example, while child protection is selected let's see where there is program coverage for child protection in Somalia. 
 
-Under the  Program Coverage indicator select the child protection option. You will see a slider appear and the layer names represented on each side on the bottom left and right of the screen. 
+Under the **Program Coverage** indicator select the **Child Protection** option. You will see a slider appear and the layer names represented on each side on the bottom left and right of the screen. If you click on the middle toggle and drag you can see that in several of the regions in the north with the worst-case scenario for child protection there are no active programs to combat the issue depicted in red. These would be ideal candidates to fund child-relief projects in. 
 
-If you click on the middle toggle and drag you can see that in several of the regions in the north with the worst-case scenario for child protection there are no active programs to combat the issue depicted in red. These would be ideal candidates to fund child-releaf projects in. 
+👨‍🏫 Check on the **Child Protection** indicator layer and drag the slider across the map. 
 
 ![Slider](../assets/screenshots/slider.png)
 
-You can make the sliding horizontal by clicking the map button at the bottom right of the map canvas. 
+🧑‍🏫 You can make the sliding horizontal by clicking the map button at the bottom right of the map canvas. 
 
 ### Time Laps
 
-There is a time laps bar that can show changes in data over time. A great example of this is the internal displacement of people. Turn off the child protection indicators and activate the IDP layer for departures. You can see where indicators are selected because the tab heading will be bolded. 
+There is a time laps bar that can show changes in data over time located at the bottom centre of the screen or map area. A great example of this is the internal displacement of people. Turn off the child protection indicators and activate the IDP layer for departures. You can see where indicators are selected because the tab heading will be bolded. Click the play button on the time bar and you will see the changes in what region people are leaving over time.
+
+👨‍🏫 Check box on the **IDP Departure layer** and any other layers off. click on the green play button on the time laps bar. 
 
 ![time laps](../assets/screenshots/time-laps.png)
 
-Now click the play button on the time bar and you will see the changes in what region people are leaving over time. People will leave due to conflict, drought, and other reasons. This is also interesting to compare to IDP arrivals using the slide bar to see where people are leaving and what regions they are going to who may need extra financial and technical support. 
+🧑‍🏫 People will leave due to conflict, drought, and other reasons. This is also interesting to compare to IDP arrivals using the slide bar to see where people are leaving and what regions they are going to who may need extra financial and technical support. 
+
+👨‍🏫 Check box on the **IDP Arrivals layer** and use the slider to compare the two layers. 
 
 ![Time Laps](../assets/screencasts/time-laps.gif)
 
-## More on the Information Pannel
+## More on the Information Panel
 
-While the IDP Departures is open, let's look at the last options and functionalities on the information panel that we did not cover previously. If the Information panel in minimized or you want to minimize it. Click on the blue Info button that looks like a tab on the right-side panel to maximize and minimize it. 
+🧑‍🏫 While the **IDP Departures** is open, let's look at the last options and functionalities on the **Information Panel**. If the **Information Panel** is minimized or you want to minimize it. Click on the blue Info button that looks like a tab on the right-side panel to maximize and minimize it. 
 
 Inside the information panel, there is a summary of all the region/or districts and for example how many people departed that area because we are looking at the departures layer. 
 
@@ -273,12 +283,15 @@ Inside the information panel, there is a summary of all the region/or districts 
 
 ### Graphical Representation
 
-There is also a graphical representation of the scenarios in this case a pie chart showing the proportion of best-case regions to worst-case and the status quo. You can hover your mouse over the chart and interact with it. For example, it will show that the best case is the reality for 54 out of the 73 districts in a pop-up label. 
+🧑‍🏫 The graphical representation of the scenarios in this case a pie chart showing the proportion of best-case regions to worst-case and the status quo. You can hover your mouse over the chart and interact with it. For example, it will show that the best case is the reality for 54 out of the 73 districts in a pop-up label. 
+
+👨‍🏫 Hover your mouse over the pie chart and observe the labels and number of districts in different scenarios. 
 
 ![Graphical Representation](../assets/screenshots/graphical-representation.png)
 
-Further click on the name Adan Yabaal and in the Indicators select IDP departure.
-This will open the details panel where you can see a line graph showing the change over time for the Adan Yabaal district as well as other pertinent information. 
+🧑‍🏫 Further click on the name Adan Yabaal and in the Indicators select IDP departure. This will open the details panel where you can see a line graph showing the change over time for the Adan Yabaal district as well as other pertinent information. 
+
+👨‍🏫 Click on Adan Yabaal (the text) in the **Information Panel** under the pie chart, click on **IDP Departures** (the text) and observe and hover your mouse over the line chart. 
 
 ![Indicators Info Panel](../assets/screenshots/indicators-in-info-panel.png)
 
@@ -286,17 +299,18 @@ This will open the details panel where you can see a line graph showing the chan
 
 ## Bringing it all together
 
-With your knowledge of the RIR dashboard try an analysis where we look at what districts people are departing from and what districts they are arriving to. 
+🧑‍🏫 With your knowledge of the RIR dashboard try an analysis where we look at what districts people are departing from and what districts they are arriving to. 
 
+👨‍🏫 
 - Make the context map OpenStreetMap
 - Add the context layer Refugees and IDPs
--  activate both the arrivals and departures indicator layers
--  click on different districts and observe the detail in the information panel
--  slide the slider to see if neighboring districts accept departing people, thus having higher arrivals than previously observed. (see the linear graphs to compare)
+- activate both the arrivals and departures indicator layers
+- click on different districts and observe the detail in the information panel
+- slide the slider to see if neighboring districts accept departing people, thus having higher arrivals than previously observed. (see the linear graphs to compare)
 
 Answer the following questions:
 - what regions have the highest number of departures?
 - What regions have the highest number of arrivals? 
 - what region has had the most changes in departures over time? 
 
-![Brining it all Together](../assets/screencasts/bringing-it-all-together.gif)
+![Bringing it all Together](../assets/screencasts/bringing-it-all-together.gif)
