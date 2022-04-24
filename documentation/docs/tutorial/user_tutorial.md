@@ -129,30 +129,29 @@ Open the drop-down for **People In Need** by clicking on the triangle next to th
 
 The coloured circles next to each indicator show the current severity level for that indicator. Blue is the best case, yellow mid, and red is the worst case. The case scenario will indicate if that region or state needs additional responses or interventions. 
 
-![image](https://user-images.githubusercontent.com/77841514/163168300-267af4f4-8f92-47f8-acf5-98204d4def9a.png)
-
+![Coloured Circles](../assets/screenshots/coloured-circles.png)
 **The Traffic Light**
 
 You can access what we call traffic lights for the indicators by clicking on the arrow in the top right of the panel. This will expand the information on the severity level, for example, you can see that for our selected layer of **PIN- Child Protection** overall in Somalia the situation is worsening for children hence the yellow color. Several regions need additional responses or support to protect vulnerable children. Click the triangle (now on the top right) again to see the map again. 
 
-![image](https://user-images.githubusercontent.com/77841514/163168402-9fcf7cd2-623c-4be5-96b5-8386a14b1396.png)
+![Traffic Lights](../assets/screenshots/traffic-lights.png)
 
 **The Information Panel**
 
 On the right-hand side of the map, the **Information Panel** shows the severity case of the indicator for each region or district. For example in Adan Yabaal Child protection has a value of 3. Your will also see an interactive pie chart infographic summarising all the data in the layer. 
 
-![image](https://user-images.githubusercontent.com/77841514/163168609-8b6b9f0d-a14c-4a93-b319-961c8d212ac8.png)
+![Information Panel](../assets/screenshots/information-panel)
 
 If you click on the region name in the **Information Panel** it will show which region it is with an information window on the map. Once a single district is selected and the ** Information Panel** will show all the indicators for that specified region and the severity of the situation for each indicator using colors. You can click on each indicator for more detail like Child protection and you will see more information and a infographic. We will cover the **Information Panel** more fully in the **Information Panel** section below.
 
-![image](https://user-images.githubusercontent.com/77841514/163168770-4dfb9f82-e554-4c43-8898-13cf44974d55.png)
-![image](https://user-images.githubusercontent.com/77841514/163169523-96f8eefd-4e42-4279-b0f5-624f526adda5.png)
+![Information Window](../assets/screenshots/information-window.png)
+![Detail](../assets/screenshots/detail.png)
 
 **Downloading Data**
 
 You can download the data of interest by clicking on the round symbol with the download arrow in it next to each indicator in the **Indicator Panel** or at the top of the **Information Panel** for the selected indicator. You can get all the data for the instance if you click the download the symbol at the top of the **Information Panel**. This will give you a spreadsheet of the information that you can use outside of the platform. 
 
-![image](https://user-images.githubusercontent.com/77841514/163169337-c14c4cfd-7691-443f-83f5-dfc4fb10ecee.png)
+![Download Data](../assets/screenshots/download-data.png)
 
 ### Layers
 
@@ -164,13 +163,13 @@ The **context layers** can be accessed by clicking on the button with 3 overlapp
 Select ‘Access’ We can now see all the roads, airports, and other access indicators. If you click on the drop-down triangle you can choose exactly what features you want to see.
 Turn off everything except roads and ports. If you click on a point like a port you will be given information about that specific point in an **Information Panel**. 
 
-![image](https://user-images.githubusercontent.com/77841514/163170091-bf0c87c0-d820-475f-81b5-96cfcb587a2f.png)
+![Layers Ports](../assets/screenshots/layers-ports.png)
 
 **Base Maps**
 
 You can also change the base map behind the data if you click on the world icon in the panel. The default is an OpenStreetMap canvas. There is also a GEBCO grid base map which is a global terrain model for ocean and land, a Mapbox satellite base map, and an open topo base map which is rendered from OSM and SRTM data.
 
-![image](https://user-images.githubusercontent.com/77841514/163170223-6e492aaa-2318-4322-8aa2-a2cfcb4af014.png)
+![Layers Topo](../assets/screenshots/layers-topo.png)
 
 For example, it may be useful to have a topographic map to visualize geographic features like mountains and rivers that could impede people's movement into areas if you are reviewing the internal displacement of people. 
 
@@ -182,7 +181,7 @@ For example, it may be useful to have a topographic map to visualize geographic 
 
 You can now see some of the topographic features underneath the departures layer. 
 
-![image](https://user-images.githubusercontent.com/77841514/163171012-f5f02f76-6c4f-47d4-8aca-4fafca512022.png)
+![Inaternal Displacement](../assets/screenshots/internal-displacement.png)
 
 **Geography Level**
 
@@ -192,8 +191,7 @@ Finally, while we have the IDP data handy you can change the **Geography Level**
 - On the menu at the bottom right of the page select Region you will see that the geographic level of the areas changes. 
 - click on Country and see what happens. 
 
-![image](https://user-images.githubusercontent.com/77841514/163171820-746865ac-711e-4d9e-ac14-4e307ac541d9.png)
-
+![Geography level](../assets/screenshots/geography-level.png)
 
 ### Map Interactions
 
@@ -203,7 +201,7 @@ Let's now get into actually interacting with the Map. Activate the child protect
 
 You can zoom into and out of the map by using your scroll wheel on your mouse or you can click hold down shift and draw a square around the area you wish to zoom in on. 
 
-![image](https://user-images.githubusercontent.com/77841514/163172369-2427987e-d2b6-4a79-854a-f0f290b3dd23.png)
+![Zoom](../assets/screenshots/zoom.png)
 
 **Panning**
 
@@ -213,7 +211,7 @@ To pan on the map just click on the map and drag it around.
 
 Once you have zoomed and panned to an area of interest click on it and you will see an information window as we saw earlier. For more information click on the detail button and information will be shown in the ** Information Panel** on the right. Click off the window to get out.
 
-![image](https://user-images.githubusercontent.com/77841514/163173282-27af9f69-126c-434c-94db-56860a7d2c64.png)
+![Information window](../assets/screenshots/panning.png)
 
 **The Slider**
 
@@ -223,7 +221,7 @@ Under the  Program Coverage indicator select the child protection option. You wi
 
 If you click on the middle toggle and drag you can see that in several of the regions in the north with the worst-case scenario for child protection there are no active programs to combat the issue depicted in red. These would be ideal candidates to fund child-releaf projects in. 
 
-![image](https://user-images.githubusercontent.com/77841514/163174476-5114ada8-dabc-48c1-aafc-95888752b951.png)
+![Slider](../assets/screenshots/slider.png)
 
 You can make the sliding horizontal by clicking the map button at the bottom right of the map canvas. 
 
@@ -231,11 +229,11 @@ You can make the sliding horizontal by clicking the map button at the bottom rig
 
 There is a time laps bar that can show changes in data over time. A great example of this is the internal displacement of people. Turn off the child protection indicators and activate the IDP layer for departures. You can see where indicators are selected because the tab heading will be bolded. 
 
-![image](https://user-images.githubusercontent.com/77841514/163174875-c25800a3-97b5-4bf8-ba3e-f490156cf72b.png)
+![time laps](../assets/screenshots/time-laps.png)
 
 Now click the play button on the time bar and you will see the changes in what region people are leaving over time. People will leave due to conflict, drought, and other reasons. This is also interesting to compare to IDP arrivals using the slide bar to see where people are leaving and what regions they are going to who may need extra financial and technical support. 
 
-![RIR](https://user-images.githubusercontent.com/77841514/163184016-ed9b2298-9527-4481-8528-f1614d8b44e8.gif)
+![Time Laps](../assets/screencasts/time-laps.gif)
 
 ### More on Information Pannel
 
@@ -243,20 +241,20 @@ While the IDP Departures is open, let's look at the last options and functionali
 
 Inside the information panel, there is a summary of all the region/or districts and for example how many people departed that area because we are looking at the departures layer. 
 
-![image](https://user-images.githubusercontent.com/77841514/163175429-eb9b3e24-204c-4bad-9eb3-df7117d266ae.png)
+![Info Button](../assets/screenshots/info-button.png)
 
 **Graphical Representation**
 
 There is also a graphical representation of the scenarios in this case a pie chart showing the proportion of best-case regions to worst-case and the status quo. You can hover your mouse over the chart and interact with it. For example, it will show that the best case is the reality for 54 out of the 73 districts in a pop-up label. 
 
-![image](https://user-images.githubusercontent.com/77841514/163175571-9788f294-1d33-4ecb-9a1f-9f2b74c6c43b.png)
+![Graphical Representation](../assets/screenshots/graphical-representation.png)
 
 Further click on the name Adan Yabaal and in the Indicators select IDP departure.
 This will open the details panel where you can see a line graph showing the change over time for the Adan Yabaal district as well as other pertinent information. 
 
-![image](https://user-images.githubusercontent.com/77841514/163176117-25712899-f3fd-45f4-ae2d-0fd7d92233f6.png)
+![Indicators Info Panel](../assets/screenshots/indicators-in-info-panel.png)
 
-![image](https://user-images.githubusercontent.com/77841514/163175994-7750d241-bc18-4d9d-86c5-eb83bbb19ab3.png)
+![IDP Detail](../assets/screenshots/idp-details.png)
 
 ### Bringing it all together
 
@@ -273,4 +271,4 @@ Answer the following questions:
 - What regions have the highest number of arrivals? 
 - what region has had the most changes in departures over time? 
 
-![RIR4](https://user-images.githubusercontent.com/77841514/163191464-e44d5141-02b8-4c0d-868f-e49ef1798d71.gif)
+![Brining it all Together](../assets/screencasts/bringing-it-all-together.gif)
