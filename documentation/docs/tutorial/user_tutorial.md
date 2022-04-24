@@ -167,7 +167,7 @@ You can access the platform here: https://staging.rir.kartoza.com:
 
 🧑‍🏫 Once a single district is selected, the **Information Panel** will show all the indicators for that specified region and the severity of the situation for each indicator using different traffic light colors. You can click on each indicator for more detail like Child protection and you will see more information and a simple infographic. We will look at the **Information Panel** with different data further on in this tutorial and show how the simple infographic in the detail section can show changes over time if the data has such information. 
 
-👨‍🏫 Click on PiN-Child Protection (the text) in the **Information Panel** and observe the information and simple Infographic and hover your mouse over it.  
+👨‍🏫 Click on **PiN-Child Protection** (the text) in the **Information Panel** and observe the information and simple Infographic and hover your mouse over it.  
 
 ![Information Window](../assets/screenshots/information-window.png)
 ![Detail](../assets/screenshots/detail.png)
