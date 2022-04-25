@@ -75,7 +75,7 @@ Once you have created the user account, go back to Site Administration and selec
 
 Once your new instance is created, you will be able to open it from the instance chooser. It will appear very empty, like this:
 
- ![New Instance](../assets/tutorial_data/newinstance.png)
+ ![New Instance](../assets/screenshots/newinstance.png)
 
 ### **Adding a new Context layer**
 
@@ -83,12 +83,11 @@ Once your new instance is created, you will be able to open it from the instance
 
 To add a context layer to the RIR instance, you will need a link to an online layer. For this exercise will be adding a context layer showing homelands:
 
-![Home Lands Data](../assets/tutorial_data/homelands.png)
+![Home Lands Data](../assets/screenshots/homelands.png)
 
 👨‍🏫 To find the link to an online layer so that you can copy it over and create your layer in the RIR Dashboard, Right-click on the browser page, click on inspect and then select network. Hard refresh your creen and look through the url links until you see the layer url. this is the url that you need to copy.
 
-![Home Lands Data](../assets/tutorial_data/homelandsurl.png)
-
+![Home Lands Data](../assets/screenshots/homelandsurl.png)
 
 
 XXX Thiasha ask Irwan to make a css rule so we get a copy button on hover over a code block
@@ -127,11 +126,7 @@ Click on the **Geography Management** icon. You will be redirected to the geogra
 
 
 > 📒 **Note:** You can find all of the sample data used in this tutorial here: [Data](https://github.com/ThiashaV/rir-dashboard/blob/develop/documentation/docs/assets/tutorial_data/Training_Data.zip "Data")
-
-
-
-
-
+F
 
 For a province level, the code column is 'code', the name column is 'name' and the parent code column is 'pcode'. The country does not need parent, but we need the code for a country level. In here, the country is ZA (under 'adm0_pcode')
 
