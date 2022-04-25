@@ -125,13 +125,10 @@ Click on **Veiw Site** to see your new layer. You will be able to see your new l
 Click on the **Geography Management** icon. You will be redirected to the geography view map page and you will see that in the top right corner there is an **+uploader** button. Select this button and start filling in the form. The first thing you need to do is add the data for the geography level. Once the data is uploaded, you will be able to fill in the rest of the form.  
 
 
-XXXX Thiasha use same instructions as before for getting sample data.
 
 > 📒 **Note:** You can find all of the sample data used in this tutorial here: [Data](https://github.com/ThiashaV/rir-dashboard/blob/develop/documentation/docs/assets/tutorial_data/Training_Data.zip "Data")
 
 
-
-[Data](https://github.com/ThiashaV/rir-dashboard/blob/develop/documentation/docs/assets/tutorial_data/Training_Data.zip "Data")
 
 
 
@@ -166,13 +163,17 @@ Click on **Settings** for the desired indicator and then click on **Value Manage
 
 ### **Value Manager Map**
 
-The second way to add data to an indicator is through the Value Manager Map option. Go to **Indicator Management** and scroll to the indicator that you would like to add data to. On the right-hand side of the indicator's name, there will be a small Settings symbol. Click on **Settings** for the desired indicator and then click" on **Value Manager Map**. This will take you back to the map canvas. Now you will be able to click on any geographic location within the instance and a popup window will appear which will allow you to fill in value data for that location.
+The value manager map allows you to add data by directly clicking on the region of the map that you would like to add data to.
+
+👨‍🏫 The second way to add data to an indicator is through the Value Manager Map option. Go to **Indicator Management** and scroll to the indicator that you would like to add data to. On the right-hand side of the indicator's name, there will be a small Settings symbol. Click on **Settings** for the desired indicator and then click" on **Value Manager Map**. This will take you back to the map canvas. Now you will be able to click on any geographic location within the instance and a popup window will appear which will allow you to fill in value data for that location.
 
 ![Value Manager Map](../assets/screencasts/value-manager-map.gif "Value Manager Map")
 
 ### **Ingestors**
 
-The function of an ingestor is to manually upload data which is then automatically ingested or pushed from a remote side. To start, click on **Create Harvester** as you will also do for the harvester options. Change the type of harvester to **Harvested using exposed API by external client**. Add necessary notes and submit.
+The function of an ingestor is to manually upload data which is then automatically ingested or pushed from a remote side. 
+
+👨‍🏫 To start, click on **Create Harvester** as you will also do for the harvester options. Change the type of harvester to **Harvested using exposed API by external client**. Add necessary notes and submit.
 
 
 You will now be presented with an 'API URL' and a 'Token' that has been received from an external source. You now need to "push" the data from outside to the RIR dashboard. "Open" the API platform that you use to build and use API's. We used Postman. "Copy" over the URL and token to push the data to the RIR dashboard.
@@ -181,7 +182,7 @@ You will now be presented with an 'API URL' and a 'Token' that has been received
 
 ### **Harvesters**
 
-The process of creating a harvester is for the total automation fetching of data. Go to **Indicator Management** and if you haven't already created the indicator you want to work with, start by doing that. Once the necessary indicator exists, 
+🏫👨‍🏫 The process of creating a harvester is for the total automation fetching of data. Go to **Indicator Management** and if you haven't already created the indicator you want to work with, start by doing that. Once the necessary indicator exists, 
 click on the little **Settings** icon on the right-hand side of the indicator name. Select the **Create Harvester** option. Pick the type of harvester you would
 like to create from the drop-down Harvester (you will be presented with three options: 'API With Geogrphay Using Today's Date'; 'API With Geography And Date'; and 
 'Harvested Using Exposed API By External Client'). The first two options are for the harvester and the third one is for the ingestor. For the 'API With Geogrphay Using Today's Date' and 'API With Geography And Date' options,  fill in the Attributes portion of the form and then a popup window with a list of 
