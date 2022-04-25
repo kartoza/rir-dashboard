@@ -16,7 +16,7 @@ Whenever you see a phrase in **bold**, it refers to a link or button on the user
 
 ## Session Outline
 
-This session is divided into two parts:
+🧑‍🏫 This session is divided into two parts:
 
 1. General Platform Administration
    * User Management: Creating and editing user profiles.
@@ -41,7 +41,7 @@ This session is divided into two parts:
 
 ### **Signing In**
 
-In the top right-hand corner of the screen is the **Sign In** button. Here, you will sign in using your admin username and password. This process is the same for a staff user and an admin user.  
+🧑‍🏫 In the top right-hand corner of the screen is the **Sign In** button. Here, you will sign in using your admin username and password. This process is the same for a staff user and an admin user.  
 
 ![Signing in](../assets/screencasts/login.gif "Signing in")
 
