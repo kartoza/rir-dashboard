@@ -4,7 +4,6 @@
 
 🧑‍🏫 The RIR (Risk Informed Response) platform is a situational awareness platform to monitor health, child protection, nutrition, wash and education in a geographic region. This tutorial shows you how to manage the platform as an administrator.
 
-
 ### Working with this documentation
 
 Whenever you see a phrase in **bold**, it refers to a link or button on the user interface that you can interact with.
@@ -16,7 +15,7 @@ Whenever you see a phrase in **bold**, it refers to a link or button on the user
 
 ## Session Outline
 
-This session is divided into two parts:
+🧑‍🏫 This session is divided into two parts:
 
 1. General Platform Administration
    * User Management: Creating and editing user profiles.
@@ -33,15 +32,13 @@ This session is divided into two parts:
    * Ingestors: Used to manually import data by uploading.
    * Harvesters: Automatic agents that fetch data and add it to indicators on a regular basis.
 
-
 ![Ingestor Types](../assets/screenshots/ingestor-types.png)
 
- 
 ## Session Tutorial
 
 ### **Signing In**
 
-In the top right-hand corner of the screen is the **Sign In** button. Here, you will sign in using your admin username and password. This process is the same for a staff user and an admin user.  
+🧑‍🏫 In the top right-hand corner of the screen is the **Sign In** button. Here, you will sign in using your admin username and password. This process is the same for a staff user and an admin user.  
 
 ![Signing in](../assets/screencasts/login.gif "Signing in")
 
@@ -57,7 +54,7 @@ Once you have created the user account, go back to Site Administration and selec
 
 > 📒 **Note**: If you want to make a user an admin user so that they can carry out the activities described in this tutorial, you should assign them to the **Staff** group, the **Super User** group and the **Active** box should be checked.
 
-![Groups](../assets/screencasts/permissions.gif "Groups")
+![Groups](../assets/screenshots/permissions.png "Groups")
 
 ### **Creating an instance**
 
@@ -71,7 +68,7 @@ Once you have created the user account, go back to Site Administration and selec
 
  ![SA flag](../assets/tutorial_data/sa-flag.png)
 
- > **Note:** You can find all of the sample data used in this tutorial (including this flag image) [](here) XXXXXX Thiasha to make XXXXX.
+ > **Note:** You can find all of the sample data used in this tutorial (including this flag image) [here](../assets/tutorial_data/Training_Data.zip "Data")
 
 Once your new instance is created, you will be able to open it from the instance chooser. It will appear very empty, like this:
 
@@ -88,8 +85,6 @@ To add a context layer to the RIR instance, you will need a link to an online la
 👨‍🏫 To find the link to an online layer so that you can copy it over and create your layer in the RIR Dashboard, Right-click on the browser page, click on inspect and then select network. Hard refresh your screen and look through the url links until you see the layer url. 
 This is the url that you need to copy.
 
-For example is below url. Please copy it:
-
 ![Home Lands Data](../assets/screenshots/homelandsurl.png)
 
 ```
@@ -99,17 +94,19 @@ https://staging.osgs.rir.kartoza.com/geoserver/ows?access_token=SWMqWx64T5dOsNwP
 👨‍🏫 Now we can create the context layer in the RIR platform.
 Click on your account menu in the top right corner of the RIR platform and open **Django Admin**. Click on **+Add** on the Context layers line. Select the instance you would like to add the context layer to.
 
+![Context Layers](../assets/screencasts/context-layer.gif "Context Layers")
+
+We will use the instance that we have just created, South Africa. Also paste the url that you copied before to url input.
+
+Enter the information in the form as shown in the images below and save the form once you are happy with it.
+
 ![Context Layers](../assets/screenshots/addcontextlayer.png "Context Layers")
 
 We will use the instance that we have just created, South Africa. Also paste the url that you copied before to url input.
 
 Enter the information in the form as shown in the images below and save the form once you are happy with it.
 
-![Context Layers](../assets/screenshots/context-layer.png "Context Layers")
-
-Click on **Veiw Site** to see your new layer. You will be able to see your new layer in the **Layers** menu. There is also an option to add other parameters to this layer.
-
-![Context Layers](../assets/screencasts/context-layer.gif "Context Layers")
+Click on **View Site** to see your new layer. You will be able to see your new layer in the **Layers** menu. There is also an option to add other parameters to this layer.
 
 ## Geography Management
 
@@ -121,13 +118,9 @@ Click on **Veiw Site** to see your new layer. You will be able to see your new l
 
 Click on the **Geography Management** icon. You will be redirected to the geography view map page and you will see that in the top right corner there is an **+uploader** button. Select this button and start filling in the form. The first thing you need to do is add the data for the geography level. Once the data is uploaded, you will be able to fill in the rest of the form.  
 
-
-
-> 📒 **Note:** You can find all of the sample data used in this tutorial here: [Data](https://github.com/ThiashaV/rir-dashboard/blob/develop/documentation/docs/assets/tutorial_data/Training_Data.zip "Data")
-
+> 📒 **Note:** You can find all of the sample data used in this tutorial here: [Data](../assets/tutorial_data/Training_Data.zip "Data"), if You have not downloaded it previously. 
 
 For a province level, the code column is 'code', the name column is 'name' and the parent code column is 'pcode'. The country does not need parent, but we need the code for a country level. In here, the country is ZA (under 'adm0_pcode')
-
 
 ### **Adding a New Indicator**
 
@@ -168,7 +161,6 @@ Click on **Settings** for the desired indicator and then click on **Value Manage
 
 👨‍🏫 To start, click on **Create Harvester** as you will also do for the harvester options. Change the type of harvester to **Harvested using exposed API by external client**. Add necessary notes and submit.
 
-
 You will now be presented with an 'API URL' and a 'Token' that has been received from an external source. You now need to "push" the data from outside to the RIR dashboard. "Open" the API platform that you use to build and use API's. We used Postman. "Copy" over the URL and token to push the data to the RIR dashboard.
 
 ![Ingestor](../assets/screencasts/ingestor.gif "Ingestor")
@@ -185,11 +177,9 @@ keys will appear; **drag** the green labels to their corresponding criteria. Sel
 scroll down to the log to see if your harvest is running in the background. Go to **Indicator Management** and click on the little settings icon that you just 
 created a harvester for and select **Value Manager Map** to view your progress.
  
-![Harvester](../assets/screencasts/harvester.gif "Harvester")
+![Harvester](../assets/screencasts/API_with_Geometry_Harvester.gif "Harvester")
 
 👨‍🏫  Lastly we are going to create a Meta Harvester, go to **Indicator Management** and in the top right-hand corner of the page, there will be a **Meta Harvester** option that you will 
 need to select. Fill in _Sheet name_, _Column name: administration code_, and add the appropriate data file (once again you can use the SA Data file that is above). **Submit** your work. Click **Report File** to view your progress.
 
-![Harvester](../assets/screencasts/meta-harvester.gif "Harvester")
-
-
+![Harvester](../assets/screencasts/meta_harvester.gif "Harvester")
