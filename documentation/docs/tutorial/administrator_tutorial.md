@@ -57,7 +57,7 @@ Once you have created the user account, go back to Site Administration and selec
 
 > 📒 **Note**: If you want to make a user an admin user so that they can carry out the activities described in this tutorial, you should assign them to the **Staff** group, the **Super User** group and the **Active** box should be checked.
 
-![Groups](../assets/screencasts/permissions.png "Groups")
+![Groups](../assets/screenshots/permissions.png "Groups")
 
 ### **Creating an instance**
 
