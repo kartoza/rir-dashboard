@@ -85,27 +85,25 @@ To add a context layer to the RIR instance, you will need a link to an online la
 
 ![Home Lands Data](../assets/screenshots/homelands.png)
 
-👨‍🏫 To find the link to an online layer so that you can copy it over and create your layer in the RIR Dashboard, Right-click on the browser page, click on inspect and then select network. Hard refresh your creen and look through the url links until you see the layer url. this is the url that you need to copy.
+👨‍🏫 To find the link to an online layer so that you can copy it over and create your layer in the RIR Dashboard, Right-click on the browser page, click on inspect and then select network. Hard refresh your screen and look through the url links until you see the layer url. 
+This is the url that you need to copy.
+
+For example is below url. Please copy it:
 
 ![Home Lands Data](../assets/screenshots/homelandsurl.png)
 
-
-XXX Thiasha ask Irwan to make a css rule so we get a copy button on hover over a code block
-
-```https://staging.osgs.rir.kartoza.com/geoserver/ows?access_token=SWMqWx64T5dOsNwPD72o4uIbtZ7FIA&LAYERS=geonode%3Aformer_homelands_polygon&TRANSPARENT=TRUE&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&STYLES=&FORMAT=image%2Fpng&SRS=EPSG%3A900913&BBOX=2504688.5425,-3757032.81375,3757032.81375,-2504688.5425&WIDTH=256&HEIGHT=256
+```
+https://staging.osgs.rir.kartoza.com/geoserver/ows?access_token=SWMqWx64T5dOsNwPD72o4uIbtZ7FIA&LAYERS=geonode%3Aformer_homelands_polygon&TRANSPARENT=TRUE&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&STYLES=&FORMAT=image%2Fpng&SRS=EPSG%3A900913&BBOX=2504688.5425,-3757032.81375,3757032.81375,-2504688.5425&WIDTH=256&HEIGHT=256
 ```
 
-XXXX Thiasha ask Irwan to fix this so the replace step is not needed, then remove the next paragraph. XXXX
-
 👨‍🏫 Now we can create the context layer in the RIR platform.
-Copy the link address above and paste it into a notepad and change all the words in full capital letters to lower case letters. 
-
-Use this link address as the URL when adding a new layer.  
 Click on your account menu in the top right corner of the RIR platform and open **Django Admin**. Click on **+Add** on the Context layers line. Select the instance you would like to add the context layer to.
 
 ![Context Layers](../assets/screenshots/addcontextlayer.png "Context Layers")
 
-We will use the instance that we have just created, South Africa. Enter the information in the form as shown in the images below and save the form once you are happy with it.
+We will use the instance that we have just created, South Africa. Also paste the url that you copied before to url input.
+
+Enter the information in the form as shown in the images below and save the form once you are happy with it.
 
 ![Context Layers](../assets/screenshots/context-layer.png "Context Layers")
 
