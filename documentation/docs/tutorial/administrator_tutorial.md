@@ -57,7 +57,7 @@ Once you have created the user account, go back to Site Administration and selec
 
 > 📒 **Note**: If you want to make a user an admin user so that they can carry out the activities described in this tutorial, you should assign them to the **Staff** group, the **Super User** group and the **Active** box should be checked.
 
-![Groups](../assets/screencasts/groups.gif "Groups")
+![Groups](../assets/screencasts/permissions.gif "Groups")
 
 ### **Creating an instance**
 
@@ -75,7 +75,7 @@ Once you have created the user account, go back to Site Administration and selec
 
 Once your new instance is created, you will be able to open it from the instance chooser. It will appear very empty, like this:
 
-XXXXXX Thiasha add XXXXXXX
+ ![New Instance](../assets/tutorial_data/newinstance.png)
 
 ### **Adding a new Context layer**
 
@@ -83,7 +83,13 @@ XXXXXX Thiasha add XXXXXXX
 
 To add a context layer to the RIR instance, you will need a link to an online layer. For this exercise will be adding a context layer showing homelands:
 
-XXXX  Thiasha ad a screenshot of the layer on the original site XXXXX
+![Home Lands Data](../assets/tutorial_data/homelands.png)
+
+👨‍🏫 To find the link to an online layer so that you can copy it over and create your layer in the RIR Dashboard, Right-click on the browser page, click on inspect and then select network. Hard refresh your creen and look through the url links until you see the layer url. this is the url that you need to copy.
+
+![Home Lands Data](../assets/tutorial_data/homelandsurl.png)
+
+
 
 XXX Thiasha ask Irwan to make a css rule so we get a copy button on hover over a code block
 
@@ -98,8 +104,7 @@ Copy the link address above and paste it into a notepad and change all the words
 Use this link address as the URL when adding a new layer.  
 Click on your account menu in the top right corner of the RIR platform and open **Django Admin**. Click on **+Add** on the Context layers line. Select the instance you would like to add the context layer to.
 
-XXXX Thiasha screenshot please XXXXX
-
+![Context Layers](../assets/screenshots/addcontextlayer.png "Context Layers")
 
 We will use the instance that we have just created, South Africa. Enter the information in the form as shown in the images below and save the form once you are happy with it.
 
@@ -128,8 +133,6 @@ XXXX Thiasha use same instructions as before for getting sample data.
 
 The tutorial data containes provinces and the country boundary for South Africa.
 
-XXX Thiasha screenshot of data in tree structure
-XXX Thiasha to rename columns as per notes below
 
 For a province level, the code column is 'code', the name column is 'name' and the parent code column is 'pcode'. The country does not need parent, but we need the code for a country level. In here, the country is ZA (under 'adm0_pcode')
 
