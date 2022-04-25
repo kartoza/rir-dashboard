@@ -127,11 +127,13 @@ Click on the **Geography Management** icon. You will be redirected to the geogra
 
 XXXX Thiasha use same instructions as before for getting sample data.
 
-> 📒 **Note:** You can find all of the sample data used in this tutorial (including this data set) [](here) XXXXXX Thiasha to make XXXXX.
+> 📒 **Note:** You can find all of the sample data used in this tutorial here: [Data](https://github.com/ThiashaV/rir-dashboard/blob/develop/documentation/docs/assets/tutorial_data/Training_Data.zip "Data")
 
-[Geography level Data](https://github.com/ThiashaV/rir-dashboard/blob/documentation/sphinx/source/img/RIR%20test%20data.zip "Geography Level Data")
 
-The tutorial data containes provinces and the country boundary for South Africa.
+
+[Data](https://github.com/ThiashaV/rir-dashboard/blob/develop/documentation/docs/assets/tutorial_data/Training_Data.zip "Data")
+
+
 
 
 For a province level, the code column is 'code', the name column is 'name' and the parent code column is 'pcode'. The country does not need parent, but we need the code for a country level. In here, the country is ZA (under 'adm0_pcode')
@@ -171,7 +173,7 @@ The second way to add data to an indicator is through the Value Manager Map opti
 ### **Ingestors**
 
 The function of an ingestor is to manually upload data which is then automatically ingested or pushed from a remote side. To start, click on **Create Harvester** as you will also do for the harvester options. Change the type of harvester to **Harvested using exposed API by external client**. Add necessary notes and submit.
-The following data file conains an CSV file to upload as well as all the necessary data in case the CSV file does not work: [SA Data](https://github.com/ThiashaV/rir-dashboard/blob/documentation/sphinx/source/img/SA_data.zip "SA Data")
+
 
 You will now be presented with an 'API URL' and a 'Token' that has been received from an external source. You now need to "push" the data from outside to the RIR dashboard. "Open" the API platform that you use to build and use API's. We used Postman. "Copy" over the URL and token to push the data to the RIR dashboard.
 
