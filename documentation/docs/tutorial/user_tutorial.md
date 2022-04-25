@@ -123,7 +123,7 @@ You can access the platform here: https://staging.rir.kartoza.com:
 
 👨‍🏫 Click back on the **Context Analysis Button** and observe the **Indicator Panel**. 
 
-🧑‍🏫 This panel contains a list of indicators (special layers) that relate to the main factors of interest on the platform like health and nutrition. The panel is expanded by default but can be collapsed if you click on the tab labelled with a house on the right side of the panel. Collapsing the pannel can allow you to observe the map better. 
+🧑‍🏫 This panel contains a list of indicators (special layers) that relate to the main factors of interest on the platform like health and nutrition. Indicators are special layers in RIR that are linked to the situation in the region. Indicators are used to show the situation in the region. For example, in Somalia, there are indicators for the Children in need of protection **PIN- Child Protection** that we will practically explore below. The panel is expanded by default but can be collapsed if you click on the tab labelled with a house on the right side of the panel. Collapsing the pannel can allow you to observe the map better. 
 
 ![Indicator Panel](../assets/screenshots/indicator-pannel.png)
 
@@ -187,7 +187,7 @@ You can access the platform here: https://staging.rir.kartoza.com:
 
 ### Context Layers
 
-🧑‍🏫 The **context layers** can be accessed by clicking on the button with 3 overlapping squares on it. There will be a list of options to choose from. Let's Select ‘Access’ We can now see all the roads, airports, and other access indicators/features. If you click on the drop-down triangle you can choose exactly what features you want to see and Turn off everything except roads and ports by checking and unchecking the feature boxes. If you click on a point on the map like a port you will be given information about that specific point in an **Information Window**. 
+🧑‍🏫 The **context layers** can be accessed by clicking on the button with 3 overlapping squares on it.  There will be a list of options to choose from.Context layers are shown on the map to provide a sense of the conditions in the region. They can cover any topic - for example, security, food security, infrastructure etc. Context layers do not have indicator data attached, they are a visual aid in the dashboard map. Let's Select ‘Access’ We can now see all the roads, airports, and other access indicators/features. If you click on the drop-down triangle you can choose exactly what features you want to see and Turn off everything except roads and ports by checking and unchecking the feature boxes. If you click on a point on the map like a port you will be given information about that specific point in an **Information Window**. 
 
 👨‍🏫 Click on the context layers button, select access layers select only roads and ports. Click on a port and see information window.
 
@@ -215,7 +215,7 @@ You can access the platform here: https://staging.rir.kartoza.com:
 
 ### Geography Level
 
-🧑‍🏫 Finally, while we have the IDP data handy you can change the **Geography Level** of the indicators. By specifying country region or district in the menu on the bottom right of the map canvas.
+🧑‍🏫 Finally, while we have the IDP data handy you can change the **Geography Level** of the indicators. By specifying country, region or district in the menu on the bottom right of the map canvas. Geography levels express the heirarchy between administrative boundaries. For example in Somalia we have the country boundary subdivided into regions, which are in turn subdivided into districts. RIR uses these geography levels to provide a sense of the conditions in the region.
 
 👨‍🏫 - Turn off the Acess layers and the Drought Priority Areas by going to the layers and unchecking them so that we can see the regions better
    - On the menu at the bottom right of the page select Region and you will see that the geographic level of the areas changes. 
