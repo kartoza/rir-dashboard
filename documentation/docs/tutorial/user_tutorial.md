@@ -40,15 +40,15 @@ In the section, we will show you how to navigate the platform and summarise what
 3. **The Indicator Panel:** We will show you how the list of indicators can be used to explore data in the platform (full documentation here: [Indicators](https://kartoza.github.io/rir-dashboard/pages/using/indicators.html#indicators)).
 4. **Hiding and showing panels:** We will show you how to hide and show different content areas around the site so that you can focus on the information that is most important to you.
 5. **Layers**: (see also [Layers](https://kartoza.github.io/rir-dashboard/pages/using/layers.html#layers)). We will look at these layer related topics:
-  - The **Layers Icon** 
-  - The **Basemap Icon**
-  - **Geography Level Panel**: This panel allows you to view the area of interest at a country, region, and district geography level. 
+  * The **Layers Icon** 
+  * The **Basemap Icon**
+  * **Geography Level Panel**: This panel allows you to view the area of interest at a country, region, and district geography level. 
 6. **Map:** (see also [Map Interactions](https://kartoza.github.io/rir-dashboard/pages/using/map_interactions.html))
-  - Panning/ moving around the map 
-  - Zooming in and out
-  - The information display window 
-  - The map slider (eg. to compare people in need of 'Child Protection' vs. 'Child Protection Program Coverage') 
-  - Timelaps (eg. IDP arrival over time) 
+  * Panning/ moving around the map 
+  * Zooming in and out
+  * The information display window 
+  * The map slider (eg. to compare people in need of 'Child Protection' vs. 'Child Protection Program Coverage') 
+  * Timelaps (eg. IDP arrival over time) 
 7. The **Info Button** 
 8. Infographics
 9. Questions 
