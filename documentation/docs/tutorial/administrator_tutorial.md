@@ -88,7 +88,7 @@ To add a context layer to the RIR instance, you will need a link to an online la
 👨‍🏫 To find the link to an online layer so that you can copy it over and create your layer in the RIR Dashboard, Right-click on the browser page, click on inspect and then select network. Hard refresh your screen and look through the url links until you see the layer url. 
 This is the url that you need to copy.
 
-For example is below url. Please copy it:
+
 
 ![Home Lands Data](../assets/screenshots/homelandsurl.png)
 
@@ -99,17 +99,22 @@ https://staging.osgs.rir.kartoza.com/geoserver/ows?access_token=SWMqWx64T5dOsNwP
 👨‍🏫 Now we can create the context layer in the RIR platform.
 Click on your account menu in the top right corner of the RIR platform and open **Django Admin**. Click on **+Add** on the Context layers line. Select the instance you would like to add the context layer to.
 
+![Context Layers](../assets/screencasts/context-layer.gif "Context Layers")
+
+We will use the instance that we have just created, South Africa. Also paste the url that you copied before to url input.
+
+Enter the information in the form as shown in the images below and save the form once you are happy with it.
+
+
 ![Context Layers](../assets/screenshots/addcontextlayer.png "Context Layers")
 
 We will use the instance that we have just created, South Africa. Also paste the url that you copied before to url input.
 
 Enter the information in the form as shown in the images below and save the form once you are happy with it.
 
-![Context Layers](../assets/screenshots/context-layer.png "Context Layers")
 
-Click on **Veiw Site** to see your new layer. You will be able to see your new layer in the **Layers** menu. There is also an option to add other parameters to this layer.
 
-![Context Layers](../assets/screencasts/context-layer.gif "Context Layers")
+Click on **View Site** to see your new layer. You will be able to see your new layer in the **Layers** menu. There is also an option to add other parameters to this layer.
 
 ## Geography Management
 
@@ -185,11 +190,11 @@ keys will appear; **drag** the green labels to their corresponding criteria. Sel
 scroll down to the log to see if your harvest is running in the background. Go to **Indicator Management** and click on the little settings icon that you just 
 created a harvester for and select **Value Manager Map** to view your progress.
  
-![Harvester](../assets/screencasts/harvester.gif "Harvester")
+![Harvester](../assets/screencasts/API_with_Geometry_Harvester.gif "Harvester")
 
 👨‍🏫  Lastly we are going to create a Meta Harvester, go to **Indicator Management** and in the top right-hand corner of the page, there will be a **Meta Harvester** option that you will 
 need to select. Fill in _Sheet name_, _Column name: administration code_, and add the appropriate data file (once again you can use the SA Data file that is above). **Submit** your work. Click **Report File** to view your progress.
 
-![Harvester](../assets/screencasts/meta-harvester.gif "Harvester")
+![Harvester](../assets/screencasts/meta_harvester.gif "Harvester")
 
 
