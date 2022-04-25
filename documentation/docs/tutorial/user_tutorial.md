@@ -23,9 +23,9 @@ This session will tour the RIR platform functionality using simple examples and 
 During this tutorial, we will show you how to navigate the platform and summarise what each tool and button does. We will include simple examples and workflows.
 
 1. Access the platform
-2. Documentation and Links
-3. Instances
-4. Signing in
+2. **Documentation** and **Links**
+3. **Instances**
+4. **Sign in**
 5. The Dashboard tour 
  * **The Context Analysis Button**
  * **Programme Interventions Panel**
