@@ -18,40 +18,47 @@ This session will tour the RIR platform functionality using simple examples and 
 * [RIR Platform](https://staging.rir.kartoza.com/ "RIR Platform")
 * [RIR Full Documentation](https://kartoza.github.io/rir-dashboard/pages/introduction.html "RIR Full Documentation")
 
-### Session breakdown diagram: 
+### Session Outline: 
 
-Here is a simplified overview of the topics we will cover in this session:
+During this tutorial, we will show you how to navigate the platform and summarise what each tool and button does. We will include simple examples and workflows.
 
+1. Access the platform
+2. Documentation and Links
+3. Instances
+4. Signing in
+5. The Dashboard tour 
+ * **The Context Analysis Button**
+ * **Programme Interventions Panel**
+ * **The Indicator Panel:** 
+ * **Hiding and showing panels:**
+ * **The Traffic Light**
+ * **The Information Panel**
+ * **Downloading Data button**
 ![Dashboard Flow Diagram](../assets/screenshots/dashboard-tour.png)
+(See also [Indicators](https://kartoza.github.io/rir-dashboard/pages/using/indicators.html#indicators)).
 
-![Layers Flow Diagram](../assets/screenshots/layers.png)
-
-![Map Interactions Flow Diagram](../assets/screenshots/map-interactions.png)
-
-During this tutorial, we will complete the following activities:
-
-### Activity: Overview / Course Outline
-
-In the section, we will show you how to navigate the platform and summarise what each tool and button does. We will include simple examples and workflows. You can find more self-study content in the full system documentation here: [Platform Tour](https://kartoza.github.io/rir-dashboard/pages/using/platform_tour.html)).
-
-
-1. Access and **Sign In** to the platform and **Links** menu.
-2. **Programme Interventions Panel**: We will explore the group of buttons used to navigate through the program intervention plans that have been created for each scenario.
-3. **The Indicator Panel:** We will show you how the list of indicators can be used to explore data in the platform (full documentation here: [Indicators](https://kartoza.github.io/rir-dashboard/pages/using/indicators.html#indicators)).
-4. **Hiding and showing panels:** We will show you how to hide and show different content areas around the site so that you can focus on the information that is most important to you.
-5. **Layers**: (see also [Layers](https://kartoza.github.io/rir-dashboard/pages/using/layers.html#layers)). We will look at these layer related topics:
-  * The **Layers Icon** 
+6. Layers
+  * The **Context Layers Icon** 
   * The **Basemap Icon**
-  * **Geography Level Panel**: This panel allows you to view the area of interest at a country, region, and district geography level. 
-6. **Map:** (see also [Map Interactions](https://kartoza.github.io/rir-dashboard/pages/using/map_interactions.html))
-  * Panning/ moving around the map 
-  * Zooming in and out
-  * The information display window 
-  * The map slider (eg. to compare people in need of 'Child Protection' vs. 'Child Protection Program Coverage') 
-  * Timelaps (eg. IDP arrival over time) 
-7. The **Info Button** 
-8. Infographics
+  * **Geography Level Panel**
+![Layers Flow Diagram](../assets/screenshots/layers.png)
+(see also [Layers](https://kartoza.github.io/rir-dashboard/pages/using/layers.html#layers)). We will look at these layer related topics:
+  
+7. Map Interactions
+  * **Panning** moving around the map 
+  * **Zooming** in and out
+  * The **Information Display Window** 
+  * **The Map Slider** (eg. to compare people in need of 'Child Protection' vs. 'Child Protection Program Coverage') 
+  * **Timelaps Bar**(eg. IDP arrival over time) 
+![Map Interactions Flow Diagram](../assets/screenshots/map-interactions.png)
+(see also [Map Interactions](https://kartoza.github.io/rir-dashboard/pages/using/map_interactions.html))
+
+8. More on the **Information Panel**
+ * **Graphical Representation**
+ 
 9. Questions 
+
+You can find more self-study content in the full system documentation here: [Platform Tour](https://kartoza.github.io/rir-dashboard/pages/using/platform_tour.html)).
 
 ## Activity: Tutorial
 
@@ -172,7 +179,7 @@ You can access the platform here: https://staging.rir.kartoza.com:
 ![Information Window](../assets/screenshots/information-window.png)
 ![Detail](../assets/screenshots/detail.png)
 
-### Downloading Data
+### Downloading Data Button
 
 🧑‍🏫 You can download any data of interest by clicking on the round symbol with the download arrow in it next to each indicator in the **Indicator Panel** for the selected indicator. You can get all the data for the instance if you click the download the symbol at the top of the **Information Panel**. This will give you a spreadsheet of the information that you can use outside of the platform. 
 
