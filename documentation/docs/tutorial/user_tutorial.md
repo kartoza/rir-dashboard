@@ -316,7 +316,7 @@ Inside the information panel, there is a summary of all the region/or districts 
 - Add the context layer Refugees and IDPs
 - activate both the arrivals and departures indicator layers
 - click on different districts and observe the detail in the information panel
-- slide the slider to see if neighboring districts accept departing people, thus having higher arrivals than previously observed. (see the linear graphs to compare)
+- slide the slider to see if neighboring districts accept departing people, thus having higher arrivals than previously observed (see the linear graphs to compare).
 
 Answer the following questions:
 - what regions have the highest number of departures?
