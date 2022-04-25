@@ -123,7 +123,7 @@ Click on **View Site** to see your new layer. You will be able to see your new l
 Click on the **Geography Management** icon. You will be redirected to the geography view map page and you will see that in the top right corner there is an **+uploader** button. Select this button and start filling in the form. The first thing you need to do is add the data for the geography level. Once the data is uploaded, you will be able to fill in the rest of the form.  
 
 
-> 📒 **Note:** You can find all of the sample data used in this tutorial here: [Data](../assets/tutorial_data/Training_Data.zip "Data")
+> 📒 **Note:** You can find all of the sample data used in this tutorial here: [Data](../assets/tutorial_data/Training_Data.zip "Data"), if You have not downloaded it previously. 
 
 
 For a province level, the code column is 'code', the name column is 'name' and the parent code column is 'pcode'. The country does not need parent, but we need the code for a country level. In here, the country is ZA (under 'adm0_pcode')
