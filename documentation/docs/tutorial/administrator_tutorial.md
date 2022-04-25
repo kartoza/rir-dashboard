@@ -71,7 +71,7 @@ Once you have created the user account, go back to Site Administration and selec
 
  ![SA flag](../assets/tutorial_data/sa-flag.png)
 
- > **Note:** You can find all of the sample data used in this tutorial (including this flag image) [](here) XXXXXX Thiasha to make XXXXX.
+ > **Note:** You can find all of the sample data used in this tutorial (including this flag image) [here](../assets/tutorial_data/Training_Data.zip "Data")
 
 Once your new instance is created, you will be able to open it from the instance chooser. It will appear very empty, like this:
 
@@ -87,8 +87,6 @@ To add a context layer to the RIR instance, you will need a link to an online la
 
 👨‍🏫 To find the link to an online layer so that you can copy it over and create your layer in the RIR Dashboard, Right-click on the browser page, click on inspect and then select network. Hard refresh your screen and look through the url links until you see the layer url. 
 This is the url that you need to copy.
-
-
 
 ![Home Lands Data](../assets/screenshots/homelandsurl.png)
 
@@ -112,8 +110,6 @@ We will use the instance that we have just created, South Africa. Also paste the
 
 Enter the information in the form as shown in the images below and save the form once you are happy with it.
 
-
-
 Click on **View Site** to see your new layer. You will be able to see your new layer in the **Layers** menu. There is also an option to add other parameters to this layer.
 
 ## Geography Management
@@ -127,8 +123,7 @@ Click on **View Site** to see your new layer. You will be able to see your new l
 Click on the **Geography Management** icon. You will be redirected to the geography view map page and you will see that in the top right corner there is an **+uploader** button. Select this button and start filling in the form. The first thing you need to do is add the data for the geography level. Once the data is uploaded, you will be able to fill in the rest of the form.  
 
 
-
-> 📒 **Note:** You can find all of the sample data used in this tutorial here: [Data](https://github.com/ThiashaV/rir-dashboard/blob/develop/documentation/docs/assets/tutorial_data/Training_Data.zip "Data")
+> 📒 **Note:** You can find all of the sample data used in this tutorial here: [Data](../assets/tutorial_data/Training_Data.zip "Data")
 
 
 For a province level, the code column is 'code', the name column is 'name' and the parent code column is 'pcode'. The country does not need parent, but we need the code for a country level. In here, the country is ZA (under 'adm0_pcode')
