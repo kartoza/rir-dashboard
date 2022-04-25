@@ -4,7 +4,6 @@
 
 🧑‍🏫 The RIR (Risk Informed Response) platform is a situational awareness platform to monitor health, child protection, nutrition, wash and education in a geographic region. This tutorial shows you how to manage the platform as an administrator.
 
-
 ### Working with this documentation
 
 Whenever you see a phrase in **bold**, it refers to a link or button on the user interface that you can interact with.
@@ -33,10 +32,8 @@ Whenever you see a phrase in **bold**, it refers to a link or button on the user
    * Ingestors: Used to manually import data by uploading.
    * Harvesters: Automatic agents that fetch data and add it to indicators on a regular basis.
 
-
 ![Ingestor Types](../assets/screenshots/ingestor-types.png)
 
- 
 ## Session Tutorial
 
 ### **Signing In**
@@ -103,7 +100,6 @@ We will use the instance that we have just created, South Africa. Also paste the
 
 Enter the information in the form as shown in the images below and save the form once you are happy with it.
 
-
 ![Context Layers](../assets/screenshots/addcontextlayer.png "Context Layers")
 
 We will use the instance that we have just created, South Africa. Also paste the url that you copied before to url input.
@@ -122,12 +118,9 @@ Click on **View Site** to see your new layer. You will be able to see your new l
 
 Click on the **Geography Management** icon. You will be redirected to the geography view map page and you will see that in the top right corner there is an **+uploader** button. Select this button and start filling in the form. The first thing you need to do is add the data for the geography level. Once the data is uploaded, you will be able to fill in the rest of the form.  
 
-
 > 📒 **Note:** You can find all of the sample data used in this tutorial here: [Data](../assets/tutorial_data/Training_Data.zip "Data"), if You have not downloaded it previously. 
 
-
 For a province level, the code column is 'code', the name column is 'name' and the parent code column is 'pcode'. The country does not need parent, but we need the code for a country level. In here, the country is ZA (under 'adm0_pcode')
-
 
 ### **Adding a New Indicator**
 
@@ -168,7 +161,6 @@ Click on **Settings** for the desired indicator and then click on **Value Manage
 
 👨‍🏫 To start, click on **Create Harvester** as you will also do for the harvester options. Change the type of harvester to **Harvested using exposed API by external client**. Add necessary notes and submit.
 
-
 You will now be presented with an 'API URL' and a 'Token' that has been received from an external source. You now need to "push" the data from outside to the RIR dashboard. "Open" the API platform that you use to build and use API's. We used Postman. "Copy" over the URL and token to push the data to the RIR dashboard.
 
 ![Ingestor](../assets/screencasts/ingestor.gif "Ingestor")
@@ -191,5 +183,3 @@ created a harvester for and select **Value Manager Map** to view your progress.
 need to select. Fill in _Sheet name_, _Column name: administration code_, and add the appropriate data file (once again you can use the SA Data file that is above). **Submit** your work. Click **Report File** to view your progress.
 
 ![Harvester](../assets/screencasts/meta_harvester.gif "Harvester")
-
-
