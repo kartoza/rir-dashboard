@@ -146,7 +146,7 @@ Once you have filled out the form, scroll down to **Scenario Rules** and add the
  
 ![New Indicator](../assets/screencasts/new-indicator.gif "New Indicator")
 
-Once we have created an indicator, we need to populate it with data. THere are three ways to do this.
+🧑‍🏫 Once we have created an indicator, we need to populate it with data. THere are three ways to do this.
 
 1. We can manually add the data using the value manager form or map.
 2. We can use an ingestor to import data from a spreadsheet.
@@ -154,7 +154,7 @@ Once we have created an indicator, we need to populate it with data. THere are t
 
 ### **Value Manager Form**
 
-The value manager form is a table with cells and rows, one row per administrative boundary and one cell per indicator.
+🧑‍🏫 The value manager form is a table with cells and rows, one row per administrative boundary and one cell per indicator.
 
 👨‍🏫 Let's look at how to use the Value Manager Form. To access this form, go to **Indicator Management** and scroll to the indicator that you would like to add data to. On the right-hand side of the indicator's name, there will be a small **Settings** symbol.
 Click on **Settings** for the desired indicator and then click on **Value Manager Form**. You will be redirected to a form that gives you all the geographic locations within the instantce and spaces to add values. You can also add a file to fill in the data by clicking **Use File to Refill Form**
@@ -163,7 +163,7 @@ Click on **Settings** for the desired indicator and then click on **Value Manage
 
 ### **Value Manager Map**
 
-The value manager map allows you to add data by directly clicking on the region of the map that you would like to add data to.
+🧑‍🏫 The value manager map allows you to add data by directly clicking on the region of the map that you would like to add data to.
 
 👨‍🏫 The second way to add data to an indicator is through the Value Manager Map option. Go to **Indicator Management** and scroll to the indicator that you would like to add data to. On the right-hand side of the indicator's name, there will be a small Settings symbol. Click on **Settings** for the desired indicator and then click" on **Value Manager Map**. This will take you back to the map canvas. Now you will be able to click on any geographic location within the instance and a popup window will appear which will allow you to fill in value data for that location.
 
@@ -171,7 +171,7 @@ The value manager map allows you to add data by directly clicking on the region 
 
 ### **Ingestors**
 
-The function of an ingestor is to manually upload data which is then automatically ingested or pushed from a remote side. 
+🧑‍🏫 The function of an ingestor is to manually upload data which is then automatically ingested or pushed from a remote side. 
 
 👨‍🏫 To start, click on **Create Harvester** as you will also do for the harvester options. Change the type of harvester to **Harvested using exposed API by external client**. Add necessary notes and submit.
 
@@ -182,7 +182,9 @@ You will now be presented with an 'API URL' and a 'Token' that has been received
 
 ### **Harvesters**
 
-🏫👨‍🏫 The process of creating a harvester is for the total automation fetching of data. Go to **Indicator Management** and if you haven't already created the indicator you want to work with, start by doing that. Once the necessary indicator exists, 
+🧑‍🏫 The process of creating a harvester is for the total automation fetching of data. 
+
+👨‍🏫 Go to **Indicator Management** and if you haven't already created the indicator you want to work with, start by doing that. Once the necessary indicator exists, 
 click on the little **Settings** icon on the right-hand side of the indicator name. Select the **Create Harvester** option. Pick the type of harvester you would
 like to create from the drop-down Harvester (you will be presented with three options: 'API With Geogrphay Using Today's Date'; 'API With Geography And Date'; and 
 'Harvested Using Exposed API By External Client'). The first two options are for the harvester and the third one is for the ingestor. For the 'API With Geogrphay Using Today's Date' and 'API With Geography And Date' options,  fill in the Attributes portion of the form and then a popup window with a list of 
@@ -192,7 +194,7 @@ created a harvester for and select **Value Manager Map** to view your progress.
  
 ![Harvester](../assets/screencasts/harvester.gif "Harvester")
 
-Lastly we are going to create a Meta Harvester, go to **Indicator Management** and in the top right-hand corner of the page, there will be a **Meta Harvester** option that you will 
+👨‍🏫  Lastly we are going to create a Meta Harvester, go to **Indicator Management** and in the top right-hand corner of the page, there will be a **Meta Harvester** option that you will 
 need to select. Fill in _Sheet name_, _Column name: administration code_, and add the appropriate data file (once again you can use the SA Data file that is above). **Submit** your work. Click **Report File** to view your progress.
 
 ![Harvester](../assets/screencasts/meta-harvester.gif "Harvester")
