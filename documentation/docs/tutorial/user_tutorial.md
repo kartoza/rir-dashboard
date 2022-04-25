@@ -82,7 +82,7 @@ You can access the platform here: https://staging.rir.kartoza.com:
 
 ### Instances
 
-🧑‍🏫 On the landing page, you will see several **instances**. An Instance is a configured dashboard for a specific region or country. We will use the Somalia instance for the examples in this tutorial.
+🧑‍🏫 On the landing page, you will see several **instances**. An **Instance** is a configured dashboard for a specific region or country. We will use the **Somalia instance** for the examples in this tutorial.
 
 ![Instances](../assets/screenshots/instances.png)
 
@@ -98,7 +98,7 @@ You can access the platform here: https://staging.rir.kartoza.com:
 
 ### The Somalia Dashboard
 
-👨‍🏫 Click on the instance labelled Somalia, and the dashboard will load and open. 
+👨‍🏫 Click on the **instance** labelled Somalia, and the dashboard will load and open. 
 
 ![Dashboard](../assets/screenshots/dashboard.png)
 
@@ -116,7 +116,7 @@ You can access the platform here: https://staging.rir.kartoza.com:
 
 ![Context Analysis Button](../assets/screenshots/context-analysis-button.png)
 
-🧑‍🏫 Below the **Context Analysis Button** is the **Programme Interventions Panel** panel. It contains a set of buttons that allow access to key risk response indicators. 
+🧑‍🏫 Below the **Context Analysis Button** is the **Programme Interventions Panel**. It contains a set of buttons that allow access to key risk response indicators. 
 
 👨‍🏫 Click on the arrow next to the house symbol, the tabs will extend and be labelled so you can see what each symbol means, Health, Child Protection, Nutrition, Wash, and Education.
 
@@ -130,7 +130,7 @@ You can access the platform here: https://staging.rir.kartoza.com:
 
 👨‍🏫 Click back on the **Context Analysis Button** and observe the **Indicator Panel**. 
 
-🧑‍🏫 This panel contains a list of indicators (special layers) that relate to the main factors of interest on the platform like health and nutrition. Indicators are special layers in RIR that are linked to the situation in the region. Indicators are used to show the situation in the region. For example, in Somalia, there are indicators for the Children in need of protection **PIN- Child Protection** that we will practically explore below. The panel is expanded by default but can be collapsed if you click on the tab labelled with a house on the right side of the panel. Collapsing the pannel can allow you to observe the map better. 
+🧑‍🏫 This panel contains a list of **indicators** (special layers) that relate to the main factors of interest on the platform like health and nutrition. Indicators are special layers in RIR that are linked to the situation in the region. Indicators are used to show the situation in the region. For example, in Somalia, there are indicators for the Children in need of protection **PIN- Child Protection** that we will practically explore below. The panel is expanded by default but can be collapsed if you click on the tab labelled with a house on the right side of the panel. Collapsing the pannel can allow you to observe the map better. 
 
 ![Indicator Panel](../assets/screenshots/indicator-pannel.png)
 
@@ -140,15 +140,15 @@ You can access the platform here: https://staging.rir.kartoza.com:
 
 👨‍🏫 Select the box next to **PIN- Child Protection**.
 
-🧑‍🏫 A tick will appear in the check box and you will see a layer appear on the map. The map shows areas in darkening blue shades that indicate a decrease in child protection per region. You can select only one sub-layer (e.g. best-case or worst-case) of the layer by ticking or un-ticking the checkboxes next to the cases. 
+🧑‍🏫 A tick will appear in the check box and you will see a layer appear on the map. The map shows areas in darkening blue shades that indicate a decrease in child protection per region. You can select only one sub-layer (e.g. best-case or worst-case) of the **indicator** layer by ticking or un-ticking the **checkboxes** next to each of the cases. 
 
 👨‍🏫 Click and unclick the different case options (see how the map changes). Ensure all of the **PIN- Child Protection** sub-Layers are ticked to continue with the tutorial.
 
-🧑‍🏫 An **Information panel** will also open on the right-hand side of the screen when an indicator is selected. We will go through the **Information Panel** in more detail shortly. 
+🧑‍🏫 An **Information panel** will also open on the right-hand side of the screen when an **indicator** is selected. We will go through the **Information Panel** in more detail shortly. 
 
 ![People in Need](../assets/screenshots/people-in-need.png)
 
-🧑‍🏫 The coloured circles next to each indicator show the current severity level for that indicator. Blue is the best case, yellow mid, and red is the worst case. The case scenario will indicate if that region or state needs additional responses or interventions to reduce risk. 
+🧑‍🏫 The coloured circles next to each **indicator** show the current severity level for that indicator. Blue is the best case, yellow mid, and red is the worst case. The case scenario will indicate if that region or state needs additional responses or interventions to reduce risk. 
 
 ![Coloured Circles](../assets/screenshots/coloured-circles.png)
 
@@ -162,9 +162,9 @@ You can access the platform here: https://staging.rir.kartoza.com:
 
 ### The Information Panel
 
-🧑‍🏫 On the right-hand side of the map area, the **Information Panel** shows a summary of the severity case of the indicator selected for each region or district. For example in Adan Yabaal Child protection has a value of 3. You will also see an interactive pie chart infographic summarising all the data in the layer. 
+🧑‍🏫 On the right-hand side of the map area, the **Information Panel** shows a summary of the severity case of the indicator selected for each region or district. For example in Adan Yabaal Child protection has a value of 3. You will also see an interactive **pie chart** infographic summarising all the data in the layer. 
 
-👨‍🏫 Hover your mouse over the pie chart and observe the lables and number of districts in Worsening and Worst Case scenarios. 
+👨‍🏫 Hover your mouse over the **pie chart** and observe the lables and number of districts in Worsening and Worst Case scenarios. 
 
 ![Information Panel](../assets/screenshots/information-panel.png)
 
@@ -181,9 +181,9 @@ You can access the platform here: https://staging.rir.kartoza.com:
 
 ### Downloading Data Button
 
-🧑‍🏫 You can download any data of interest by clicking on the round symbol with the download arrow in it next to each indicator in the **Indicator Panel** for the selected indicator. You can get all the data for the instance if you click the download the symbol at the top of the **Information Panel**. This will give you a spreadsheet of the information that you can use outside of the platform. 
+🧑‍🏫 You can download any data of interest by clicking on the round symbol with the download arrow in it (**download button**) next to each indicator in the **Indicator Panel** for the selected indicator. You can get all the data for the instance if you click **the download button** at the top of the **Information Panel**. This will give you a spreadsheet of the information that you can use outside of the platform. 
 
-👨‍🏫 Click on the download button next to **People In Need** and observe the downloaded spreadsheet on your computer. Note the data is also colour coded in the spreadsheet as per the platform.  
+👨‍🏫 Click on the **download button** next to **People In Need** and observe the downloaded spreadsheet on your computer. Note the data is also colour coded in the spreadsheet as per the platform.  
 
 ![Download Data](../assets/screenshots/download-data.png)
 ![Spreadsheet](../assets/screenshots/Spreadsheet.png)
@@ -208,7 +208,7 @@ You can access the platform here: https://staging.rir.kartoza.com:
 
 🧑‍🏫 For example, it may be useful to have a topographic map to visualize geographic features like mountains and rivers that could impede people's movement into areas if you are reviewing the internal displacement of people. 
 
-👨‍🏫 - turn on the Open Topo Map base map
+👨‍🏫 - turn on the Open **Topo Map** base map
    - Navigate back to the indicator panel
    - Uncheck the child protection layer. 
    - Click the drop-down for **Internal Displacement**
@@ -224,7 +224,7 @@ You can access the platform here: https://staging.rir.kartoza.com:
 
 🧑‍🏫 Finally, while we have the IDP data handy you can change the **Geography Level** of the indicators. By specifying country, region or district in the menu on the bottom right of the map canvas. Geography levels express the heirarchy between administrative boundaries. For example in Somalia we have the country boundary subdivided into regions, which are in turn subdivided into districts. RIR uses these geography levels to provide a sense of the conditions in the region.
 
-👨‍🏫 - Turn off the Acess layers and the Drought Priority Areas by going to the layers and unchecking them so that we can see the regions better
+👨‍🏫 - Turn off the **Acess layers** and the **Drought Priority Areas** by going to the layers and unchecking them so that we can see the regions better
    - On the menu at the bottom right of the page select Region and you will see that the geographic level of the areas changes. 
    - click on Country and see what happens. 
 
@@ -232,7 +232,7 @@ You can access the platform here: https://staging.rir.kartoza.com:
 
 ## Map Interactions
 
-🧑‍🏫 Let's now get into actually interacting with the Map. Activate the child protection indicator again (and deactivate departures). 
+🧑‍🏫 Let's now get into interacting with the Map. Activate the child protection indicator again and deactivate departures. 
 
 👨‍🏫 Check on the **PIN- Child Protection** and check off the **IDP Departure layer**
 
@@ -266,9 +266,9 @@ Under the **Program Coverage** indicator select the **Child Protection** option.
 
 🧑‍🏫 You can make the sliding horizontal by clicking the map button at the bottom right of the map canvas. 
 
-### Time Laps
+### Time Laps Bar
 
-There is a time laps bar that can show changes in data over time located at the bottom centre of the screen or map area. A great example of this is the internal displacement of people. Turn off the child protection indicators and activate the IDP layer for departures. You can see where indicators are selected because the tab heading will be bolded. Click the play button on the time bar and you will see the changes in what region people are leaving over time.
+There is a **Time Laps Bar** that can show changes in data over time located at the bottom centre of the screen or map area. A great example of this is the internal displacement of people. Turn off the child protection indicators and activate the IDP layer for departures. You can see where indicators are selected because the tab heading will be bolded. Click the play button on the time bar and you will see the changes in what region people are leaving over time.
 
 👨‍🏫 Check box on the **IDP Departure layer** and any other layers off. click on the green play button on the time laps bar. 
 
@@ -290,7 +290,7 @@ Inside the information panel, there is a summary of all the region/or districts 
 
 ### Graphical Representation
 
-🧑‍🏫 The graphical representation of the scenarios in this case a pie chart showing the proportion of best-case regions to worst-case and the status quo. You can hover your mouse over the chart and interact with it. For example, it will show that the best case is the reality for 54 out of the 73 districts in a pop-up label. 
+🧑‍🏫 The graphical representation of the scenarios in this case a **pie chart** showing the proportion of best-case regions to worst-case and the status quo. You can hover your mouse over the chart and interact with it. For example, it will show that the best case is the reality for 54 out of the 73 districts in a pop-up label. 
 
 👨‍🏫 Hover your mouse over the pie chart and observe the labels and number of districts in different scenarios. 
 
