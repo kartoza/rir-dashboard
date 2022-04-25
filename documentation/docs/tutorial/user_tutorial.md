@@ -60,7 +60,7 @@ During this tutorial, we will show you how to navigate the platform and summaris
 
 You can find more self-study content in the full system documentation here: [Platform Tour](https://kartoza.github.io/rir-dashboard/pages/using/platform_tour.html)).
 
-## Activity: Tutorial
+## Tutorial
 
 ### Accessing the platform
 
