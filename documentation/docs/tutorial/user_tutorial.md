@@ -35,6 +35,7 @@ During this tutorial, we will show you how to navigate the platform and summaris
  * **Downloading Data button**
 
 ![Dashboard Flow Diagram](../assets/screenshots/dashboard-tour.png)
+
 (See also [Indicators](https://kartoza.github.io/rir-dashboard/pages/using/indicators.html#indicators)).
 
 6. Layers
@@ -43,6 +44,7 @@ During this tutorial, we will show you how to navigate the platform and summaris
   * **Geography Level Panel**
 
 ![Layers Flow Diagram](../assets/screenshots/layers.png)
+
 (see also [Layers](https://kartoza.github.io/rir-dashboard/pages/using/layers.html#layers)). We will look at these layer related topics:
   
 7. Map Interactions
@@ -53,6 +55,7 @@ During this tutorial, we will show you how to navigate the platform and summaris
   * **Timelaps Bar**(eg. IDP arrival over time) 
 
 ![Map Interactions Flow Diagram](../assets/screenshots/map-interactions.png)
+
 (see also [Map Interactions](https://kartoza.github.io/rir-dashboard/pages/using/map_interactions.html))
 
 8. More on the **Information Panel**
