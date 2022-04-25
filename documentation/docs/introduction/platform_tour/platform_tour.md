@@ -32,7 +32,7 @@ By clicking on this icon, you expand the 'Layers Panel'. This panel is where you
 To expand or collapse the basemap panel, "click" on this icon. When expanded, you will be able to choose which basemap you would like to be displayed on your canvas extent.
 
 ## 6. Map
-The map displays a geographic area based on the instantce being used. In this case, it’s Somalia. The information that is displayed on the map is determined by the layers that are selected as well the factors that have been selected within the 'Indicator Panel'. A complete guide of the map and accompanying interactions will be available in a document to follow.
+The map displays a geographic area based on the instance being used. In this case, it’s Somalia. The information that is displayed on the map is determined by the layers that are selected as well the factors that have been selected within the 'Indicator Panel'. A complete guide of the map and accompanying interactions will be available in a document to follow.
  
 ## 7. The Info Button
 ![The info button](../../assets/screenshots/info-button.png "The info button")
@@ -47,7 +47,7 @@ This panel allows you to view the area of interest at a country, region, and dis
 ## 9. Graphical Representation
 ![Graphical representation](../../assets/screenshots/graphical-representation.png "Graphical representation")
 
-This pie chart illustrates the severities of the selected indicators for the whole geographical area or instantce. This chart gives you the cumulative total of each severity out of the total number of regions or districts (depending on your settings in the geography level panel). To find out how many regions or districts fall within a specific severity level, "run" your mouse over that area of the pie chart.
+This pie chart illustrates the severities of the selected indicators for the whole geographical area or instance. This chart gives you the cumulative total of each severity out of the total number of regions or districts (depending on your settings in the geography level panel). To find out how many regions or districts fall within a specific severity level, "run" your mouse over that area of the pie chart.
  
 ## 10. Timelapse Bar
 The 'Timelapse Bar' will show you the severity of the selected indicators over some time. As the map and the 'Info Panel' change, the corresponding date for that data will be displayed within the bar. To initiate the time-lapse, "click" on the "play" button.

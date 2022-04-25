@@ -9,7 +9,7 @@ Go to **site administration**. Click on **+Add** in the same row as Users. You c
 
 ## User Permissions
 
-Once you have created the user account, go back to **Site Administration** and select the **user** option. Select the user you created and then you can edit their personal information as well as select or deselect their ‘Permissions’. Remember to **Save** your changes.
+Once you have created the user account, go back to **Site Administration** and select the **user** option. Select the user you created, and then you can edit their personal information as well as select or deselect their ‘Permissions’. Remember to **Save** your changes.
 
 You also can change the permission in user creations.
 

@@ -29,7 +29,7 @@ Whenever you see a phrase in **bold**, it refers to a link or button on the user
 
    * Indicator management: Adding indicators to the dashboard.
    * Forms: used to manually capture indicator data by filling in forms.
-   * Ingestors: Used to manually import data by uploading.
+   * Ingestor: Used to manually import data by uploading.
    * Harvesters: Automatic agents that fetch data and add it to indicators on a regular basis.
 
 ![Ingestor Types](../assets/screenshots/ingestor-types.png)
@@ -44,11 +44,11 @@ Whenever you see a phrase in **bold**, it refers to a link or button on the user
 
 ### **Users and Permissions**
 
-Next we will look at how to manage users. Go to site administration by clickng **Admin -> Django Admin**. Click on **+Add** in the same row as ‘Users’. You can now create a profile for someone by adding a username and password. Once you have created the user profile, click **Save**.
+Next we will look at how to manage users. Go to site administration by clicking **Admin -> Django Admin**. Click on **+Add** in the same row as ‘Users’. You can now create a profile for someone by adding a username and password. Once you have created the user profile, click **Save**.
 
 ![New User](../assets/screencasts/new-user.gif "New User")
 
-Once you have created the user account, go back to Site Administration and select the **User** option. Select the user you created and then you can edit their personal information as well as select or deselect their permission status. Remember to **Save** your changes.
+Once you have created the user account, go back to Site Administration and select the **User** option. Select the user you created, and then you can edit their personal information as well as select or deselect their permission status. Remember to **Save** your changes.
 
 ![Permissions](../assets/screencasts/permissions.gif "Permissions")
 
@@ -60,7 +60,7 @@ Once you have created the user account, go back to Site Administration and selec
 
 🧑‍🏫 Once you’ve signed in as an admin user, you will be redirected back to the home page which contains various instances. To create a new instance, select the dropdown menu next to your username and click on **Django Admin**. Once you’re on the Site Administration page, scroll down until you find **Instances**.
 
-👨‍🏫 Click on the **+Add** button on the right-hand side of the Instances screen. Add the name of the new instance that you would like to create, a description, as well as the icon file. The icon file in most cases would be a flag of the country for the instance. Once you have added all of the information, click **Save**.
+👨‍🏫 Click on the **+Add** button on the right-hand side of the Instances screen. Add the name of the new instance that you would like to create, a description, as well as the icon file. The icon file in most cases would be a flag of the country for the instance. Once you have added all the information, click **Save**.
 
 ![Creating a New Instance](../assets/screencasts/new-instance.gif "Creating a New Instance")
 
@@ -68,7 +68,7 @@ Once you have created the user account, go back to Site Administration and selec
 
  ![SA flag](../assets/tutorial_data/sa-flag.png)
 
- > **Note:** You can find all of the sample data used in this tutorial (including this flag image) [here](../assets/tutorial_data/Training_Data.zip "Data")
+ > **Note:** You can find all the sample data used in this tutorial (including this flag image) [here](../assets/tutorial_data/Training_Data.zip "Data")
 
 Once your new instance is created, you will be able to open it from the instance chooser. It will appear very empty, like this:
 
@@ -112,13 +112,13 @@ Click on **View Site** to see your new layer. You will be able to see your new l
 
 ### **Adding a Geography level**
 
-🧑‍🏫 Geography levels express the heirarchy between administrative boundaries. For example in South Africa we have the national boundary subdivided into provinces, which are in turn subdivided into districts, then municipalities. RIR uses these geography levels to provide a sense of the conditions in the region.
+🧑‍🏫 Geography levels express the hierarchy between administrative boundaries. For example in South Africa we have the national boundary subdivided into provinces, which are in turn subdivided into districts, then municipalities. RIR uses these geography levels to provide a sense of the conditions in the region.
 
 👨‍🏫 Let’s start in  **Site Administration**. Scroll down to **Geometry Level Instances** and click **+Add**. Set the name and description to your instance. Go back to the main page of your instance. Below the **Program Interventions** panel are three icons; **Indicator Management**, **Geography Management**, and **Instance Management**.
 
-Click on the **Geography Management** icon. You will be redirected to the geography view map page and you will see that in the top right corner there is an **+uploader** button. Select this button and start filling in the form. The first thing you need to do is add the data for the geography level. Once the data is uploaded, you will be able to fill in the rest of the form.  
+Click on the **Geography Management** icon. You will be redirected to the geography view map page, and you will see that in the top right corner there is an **+uploader** button. Select this button and start filling in the form. The first thing you need to do is add the data for the geography level. Once the data is uploaded, you will be able to fill in the rest of the form.  
 
-> 📒 **Note:** You can find all of the sample data used in this tutorial here: [Data](../assets/tutorial_data/Training_Data.zip "Data"), if You have not downloaded it previously. 
+> 📒 **Note:** You can find all the sample data used in this tutorial here: [Data](../assets/tutorial_data/Training_Data.zip "Data"), if You have not downloaded it previously. 
 
 For a province level, the code column is 'code', the name column is 'name' and the parent code column is 'pcode'. The country does not need parent, but we need the code for a country level. In here, the country is ZA (under 'adm0_pcode')
 
@@ -128,7 +128,7 @@ For a province level, the code column is 'code', the name column is 'name' and t
 
 👨‍🏫 To add an indicator, click on **Indicator Management** on the main platform page for the instance and go to **Create New**. Fill in the necessary information about the indicator you would like to create.
 
-Once you have filled out the form, scroll down to **Scenario Rules** and add the parameters to match the indicator. you can also change the colour for each rule by clicking on the colour block. Click **Submit** once you are happy with the added information and scenario rules. If you add a dashbord link, you will see a black dot in the centre of the cirlce that represents the scenario case on that indicator in the Program Interventions panel. By clicking on the black dot, you will be redirected to the dashboard link.
+Once you have filled out the form, scroll down to **Scenario Rules** and add the parameters to match the indicator. you can also change the colour for each rule by clicking on the colour block. Click **Submit** once you are happy with the added information and scenario rules. If you add a dashboard link, you will see a black dot in the centre of the cirlce that represents the scenario case on that indicator in the Program Interventions panel. By clicking on the black dot, you will be redirected to the dashboard link.
  
 ![New Indicator](../assets/screencasts/new-indicator.gif "New Indicator")
 
@@ -143,7 +143,7 @@ Once you have filled out the form, scroll down to **Scenario Rules** and add the
 🧑‍🏫 The value manager form is a table with cells and rows, one row per administrative boundary and one cell per indicator.
 
 👨‍🏫 Let's look at how to use the Value Manager Form. To access this form, go to **Indicator Management** and scroll to the indicator that you would like to add data to. On the right-hand side of the indicator's name, there will be a small **Settings** symbol.
-Click on **Settings** for the desired indicator and then click on **Value Manager Form**. You will be redirected to a form that gives you all the geographic locations within the instantce and spaces to add values. You can also add a file to fill in the data by clicking **Use File to Refill Form**
+Click on **Settings** for the desired indicator and then click on **Value Manager Form**. You will be redirected to a form that gives you all the geographic locations within the instance and spaces to add values. You can also add a file to fill in the data by clicking **Use File to Refill Form**
 
 ![Value Manager Form](../assets/screencasts/value-manager-form.gif "Value Manager Form")
 
@@ -151,7 +151,7 @@ Click on **Settings** for the desired indicator and then click on **Value Manage
 
 🧑‍🏫 The value manager map allows you to add data by directly clicking on the region of the map that you would like to add data to.
 
-👨‍🏫 The second way to add data to an indicator is through the Value Manager Map option. Go to **Indicator Management** and scroll to the indicator that you would like to add data to. On the right-hand side of the indicator's name, there will be a small Settings symbol. Click on **Settings** for the desired indicator and then click" on **Value Manager Map**. This will take you back to the map canvas. Now you will be able to click on any geographic location within the instance and a popup window will appear which will allow you to fill in value data for that location.
+👨‍🏫 The second way to add data to an indicator is through the Value Manager Map option. Go to **Indicator Management** and scroll to the indicator that you would like to add data to. On the right-hand side of the indicator's name, there will be a small Settings symbol. Click on **Settings** for the desired indicator and then click on **Value Manager Map**. This will take you back to the map canvas. Now you will be able to click on any geographic location within the instance and a popup window will appear which will allow you to fill in value data for that location.
 
 ![Value Manager Map](../assets/screencasts/value-manager-map.gif "Value Manager Map")
 
@@ -171,8 +171,8 @@ You will now be presented with an 'API URL' and a 'Token' that has been received
 
 👨‍🏫 Go to **Indicator Management** and if you haven't already created the indicator you want to work with, start by doing that. Once the necessary indicator exists, 
 click on the little **Settings** icon on the right-hand side of the indicator name. Select the **Create Harvester** option. Pick the type of harvester you would
-like to create from the drop-down Harvester (you will be presented with three options: 'API With Geogrphay Using Today's Date'; 'API With Geography And Date'; and 
-'Harvested Using Exposed API By External Client'). The first two options are for the harvester and the third one is for the ingestor. For the 'API With Geogrphay Using Today's Date' and 'API With Geography And Date' options,  fill in the Attributes portion of the form and then a popup window with a list of 
+like to create from the drop-down Harvester (you will be presented with three options: 'API With Geography Using Today's Date'; 'API With Geography And Date'; and 
+'Harvested Using Exposed API By External Client'). The first two options are for the harvester and the third one is for the ingestor. For the 'API With Geography Using Today's Date' and 'API With Geography And Date' options,  fill in the Attributes portion of the form and then a popup window with a list of 
 keys will appear; **drag** the green labels to their corresponding criteria. Select **Harvest Now**. You can 
 scroll down to the log to see if your harvest is running in the background. Go to **Indicator Management** and click on the little settings icon that you just 
 created a harvester for and select **Value Manager Map** to view your progress.

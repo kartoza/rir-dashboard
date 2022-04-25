@@ -30,8 +30,8 @@ username : admin
 password : admin
 ```
 
-## Setup different environment
-To setup different environment, for example the Default credential, or the port of server, open **deployment/.env**.
+## Set up different environment
+To set up different environment, for example the Default credential, or the port of server, open **deployment/.env**.
 You can check the description below for each of variable.
 
 ```
@@ -60,4 +60,4 @@ PUID=1000
 PGID=1000
 ```
 
-After you hange the desired variable and do `make up`. It will rerun the project with new environment.
+After you change the desired variable and do `make up`. It will rerun the project with new environment.

@@ -13,19 +13,19 @@ you will be redirected to the dashboard link.
 
 ## Add a New Indicator from Existing One
 Sometimes we need to create multiple indicators with the same configurations with just different names. To do this, we can create a new indicator from the existing one.<br>
-To do that, go to **Indicator Management**, click the **cog** icon and click **Create from This** and it will be redirected to the from with pre-configuration from the last selected indicator.
+To do that, go to **Indicator Management**, click the **cog** icon and click **Create from This**, and it will be redirected to the form with pre-configuration from the last selected indicator.
 
 ![Create from Existing Indicator](../../assets/screencasts/create-from-indicator.gif "Create from Existing Indicator")
 
 ## Edit Indicator
-To edit the indicator, go to **Indicator Management**, click the **cog** icon and click **Edit** and it will be redirected to the form where we can change the configuration of an indicator.
+To edit the indicator, go to **Indicator Management**, click the **cog** icon and click **Edit**, and it will be redirected to the form where we can change the configuration of an indicator.
 
 ![Edit Indicator](../../assets/screencasts/edit-indicator.gif "Edit Indicator")
 
 ## Edit Multiple Indicator
 Sometimes we need to update multiple indicators because they have the same configurations. To do it, go to **Indicator Management**, and click the **Multi-Edit**. 
-There will be a checkbox where we can check the indicators that we needed. After we check the indicators, click **Multi-Edit Form** and it will be redirected to the form and fill some fields if they have the same configurations.
-To change a configuration, we need to check the checkbox before the input label, and the input will be turned on and we can change the configuration value.
+There will be a checkbox where we can check the indicators that we needed. After we check the indicators, click **Multi-Edit Form**, and it will be redirected to the form and fill some fields if they have the same configurations.
+To change a configuration, we need to check the checkbox before the input label, and the input will be turned on, and we can change the configuration value.
 
 ![Edit Multiple Indicator](../../assets/screencasts/multi-edit-indicator.gif "Edit Multiple Indicator")
 
@@ -59,8 +59,8 @@ and a popup window will appear which will allow you to fill in value data for th
 ## Harvesters
 The process of creating a harvester is for the total automation fetching of data. Go to **Indicator Management** and if you haven't already created the indicator you want to work with, start by doing that. Once the necessary indicator exists, 
 click on the little **Settings** icon on the right-hand side of the indicator name. Select the **Create Harvester** option. Pick the type of harvester you would
-like to create from the drop-down 'Harvester' (you will be presented with three options: 'API With Geogrphay Using Today's Date'; 'API With Geography And Date'; and 
-'Harvested Using Exposed API By External Client'). The first two options are for the harvester and the third one is for the ingestor. For the **API With Geogrphay Using Today's Date** and **API With Geography And Date** options,  fill in the Attributes portion of the form and then a popup window with a list of 
+like to create from the drop-down 'Harvester' (you will be presented with three options: 'API With Geography Using Today's Date'; 'API With Geography And Date'; and 
+'Harvested Using Exposed API By External Client'). The first two options are for the harvester and the third one is for the ingestor. For the **API With Geography Using Today's Date** and **API With Geography And Date** options,  fill in the Attributes portion of the form and then a popup window with a list of 
 keys will appear; drag the green labels to their corresponding criteria. Double-check that in 'Geometry Mapping', 'From' matches 'To'. Select **Harvest Now**. You can 
 scroll down to the log to see if your harvest is running in the background. Go to **Indicator Management** and click on the little settings icon that you just 
 created a harvester for and select **Value Manager Map** to view your progress.

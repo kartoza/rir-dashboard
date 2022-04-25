@@ -12,5 +12,5 @@ The platform provides a way to understand risk modalities across different geogr
 * **Indicators** - risk factors which can be harvested form external sources and displayed in the map and dashboard
 * **Interactive map** - click, drag, drill down into information on the map and open corresponding dashboards and details
 * **Harvesters** that can automatically update indicators from different data sources such as web API's
-* a complete and user **friendly administration** environment to manage the system
+* a complete and **user friendly administration** environment to manage the system
 * Role based **user management**

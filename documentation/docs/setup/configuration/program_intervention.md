@@ -1,6 +1,6 @@
 # Program Interventions
 
-After we change the scenario, we need to create a program so we can create a program intervention.
+After we change the scenario, we need to create a program, so we can create a program intervention.
 To add or edit a program, go to the **Site Administration** page, select **Program**. In the form, you can fill name, icon and white icon.
 
 ![Program](../../assets/screencasts/program.gif "Program")
