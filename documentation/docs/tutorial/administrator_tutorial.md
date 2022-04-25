@@ -67,7 +67,7 @@ Once you have created the user account, go back to Site Administration and selec
 
 ![Creating a New Instance](../assets/screencasts/new-instance.gif "Creating a New Instance")
 
- For this tutorial, we will create a demonstrator instance for South Africa, :
+ For this tutorial, we will create a demonstrator instance for South Africa:
 
  ![SA flag](../assets/tutorial_data/sa-flag.png)
 
@@ -126,7 +126,7 @@ Click on the **Geography Management** icon. You will be redirected to the geogra
 
 
 > 📒 **Note:** You can find all of the sample data used in this tutorial here: [Data](https://github.com/ThiashaV/rir-dashboard/blob/develop/documentation/docs/assets/tutorial_data/Training_Data.zip "Data")
-F
+
 
 For a province level, the code column is 'code', the name column is 'name' and the parent code column is 'pcode'. The country does not need parent, but we need the code for a country level. In here, the country is ZA (under 'adm0_pcode')
 
