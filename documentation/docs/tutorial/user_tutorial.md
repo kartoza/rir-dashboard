@@ -8,7 +8,6 @@
 
 Whenever you see a phrase in **bold**, it refers to a link or button on the user interface that you can interact with.
 
-
 ## Session outline 
 
 This session will tour the RIR platform functionality using simple examples and workflows that the everyday platform user would use.
@@ -34,6 +33,7 @@ During this tutorial, we will show you how to navigate the platform and summaris
  * **The Traffic Light**
  * **The Information Panel**
  * **Downloading Data button**
+
 ![Dashboard Flow Diagram](../assets/screenshots/dashboard-tour.png)
 (See also [Indicators](https://kartoza.github.io/rir-dashboard/pages/using/indicators.html#indicators)).
 
@@ -41,6 +41,7 @@ During this tutorial, we will show you how to navigate the platform and summaris
   * The **Context Layers Icon** 
   * The **Basemap Icon**
   * **Geography Level Panel**
+
 ![Layers Flow Diagram](../assets/screenshots/layers.png)
 (see also [Layers](https://kartoza.github.io/rir-dashboard/pages/using/layers.html#layers)). We will look at these layer related topics:
   
@@ -50,6 +51,7 @@ During this tutorial, we will show you how to navigate the platform and summaris
   * The **Information Display Window** 
   * **The Map Slider** (eg. to compare people in need of 'Child Protection' vs. 'Child Protection Program Coverage') 
   * **Timelaps Bar**(eg. IDP arrival over time) 
+
 ![Map Interactions Flow Diagram](../assets/screenshots/map-interactions.png)
 (see also [Map Interactions](https://kartoza.github.io/rir-dashboard/pages/using/map_interactions.html))
 
@@ -74,9 +76,7 @@ You can access the platform here: https://staging.rir.kartoza.com:
 
 ![Links Menu](../assets/screenshots/links.png)
 
-
 > 📒 **Instructor note:** Briefly show the documentation and how to navigate it.
-
 
 ![Documentation](../assets/screenshots/documentation.png)
 
