@@ -60,4 +60,4 @@ You can slide the green bar to select the date, or you can start autoplay by "cl
 
 Every indicator has administrative levels that we can select. By default, it will select the lowest administration level.
 To change it, you can click one of level on the right-bottom list of levels (left-bottom for second indicator in compare mode).
-The corresponding selected indicators data for the selected level will be displayed in map in also in sidebar. 
+The corresponding selected "indicators" data for the selected level will be displayed in map in also in sidebar. 

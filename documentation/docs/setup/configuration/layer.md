@@ -14,7 +14,7 @@ Click on the ellipse on the right-hand side of the File line to choose a place t
 
 ![SLD](../../assets/screencasts/sld.gif  "SLD")
 
-Now we’re going to upload it to GeoNode. Log into your GeoNode or GeoServer account. Clickon the **Data** dropdown. Select **Upload Layer**. Please note that
+Now we’re going to upload it to GeoNode. Log into your GeoNode or GeoServer account. Click on the **Data** dropdown. Select **Upload Layer**. Please note that
 you can only upload one layer at a time. Drop all the data for the layer into the grey box and select **Upload files**.
 
 ![Uploading to GeoNode](../../assets/screencasts/geonode_upload.gif  "Uploading to GeoNode")
@@ -29,7 +29,7 @@ change the thumbnail for the layer by uploading a screenshot of the layer.
 ![Adding SLD File](../../assets/screencasts/adding_sld.gif  "Adding SLD File")
 
 Right-click on the layer and Select **Inspect**. Select **Network** and hard refresh the page. Select the web address for a tile from the layer
-(usually the third option) but if you click on the address, you’ll be able to see if it is the right one).
+(usually the third option) but if you click on the address, you’ll be able to see if it is the right one.
 
 ![Finding Link](../../assets/screencasts/finding_link.gif  "Finding Link")
 

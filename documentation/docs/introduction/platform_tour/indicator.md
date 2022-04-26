@@ -18,27 +18,27 @@ If there is a little black dot in the coloured circle next to the group or indic
 
 To view the traffic lights, "expand" the indicators panel by "clicking" on the arrow for ‘full screen’ as indicated in the clip below. 
 This will open the full indicator information page and allow you to look at the severity level for each indicator. 
-To view each subsection in each group, "expand" the indicator group. The severity levels displayed are for the entire instantce, in this case, they show the indicators and their corresponding severities for Somalia.
+To view each subsection in each group, "expand" the indicator group. The severity levels displayed are for the entire instance, in this case, they show the indicators and their corresponding severities for Somalia.
 
 ## Download Data
 ![Downloading Data](../../assets/screenshots/downloading-data.png "Downloading Data")
 
 If you would like to download data for each group, indicator or even for the whole instance, there are various methods to do so. 
 There is a download option (round icon with a download arrow in it) next to each indicator and group on the 'Indicator panel' as well as on the 'Traffic Light' screen.
-The option to download data for the entire instance is on the top right corner of the screen. 
-The data will download in the form of an excel spreadsheet.
+The option to download data for the entire instance is in the top right corner of the screen. 
+The data will download in the form of an Excel spreadsheet.
 
 Downloading data  will provide you with country, region, district and IPC level data for the geographic location under observation.
 
-![Downloading Data for the Entire Instantce](../../assets/screencasts/excel.gif "Downloading Data for the Entire Instant")
+![Downloading Data for the Entire Instance](../../assets/screencasts/excel.gif "Downloading Data for the Entire Instant")
 
 ## Info Panel
 ![Info Panel](../../assets/screencasts/info-panel.gif "Info Panel")
 
-The Information panel is located on the righthand side of the screen. It’s only visible when an indicator is selected in the indicator panel.
+The Information panel is located on the right-hand side of the screen. It’s only visible when an indicator is selected in the indicator panel.
 
 The panel shows the severity case of the selected indicator in each region or district (depending on what has been selected). 
-It also has a graphical representation in the form of a pie chart that displays how many areas within the instantce fall within each severity case. 
+It also has a graphical representation in the form of a pie chart that displays how many areas within the instance fall within each severity case. 
 By "hovering" your mouse over the pie chart, you can see these values in a pop-up label. You can also download the data for that specific indicator in the info panel.
 
 The download icon is circled in red in the image below. 

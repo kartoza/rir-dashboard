@@ -1,4 +1,4 @@
 # Setup
 
-This document covers how you can setup the project.
-From setup the machine to setup the data. 
+This document covers how you can set up the project.
+From set up the machine to set up the data. 
