@@ -20,18 +20,18 @@ Whenever you see a phrase in **bold**, it refers to a link or button on the user
 🧑‍🏫 This session is divided into two parts:
 
 1. **Part 1:** General Platform Administration
-   * User Management: Creating and editing user profiles.
-   * Managing Instances: Creating new and editing preexisting instances.
-   * Managing Context Layers: Using layers that you have uploaded to GeoNode or GeoServer to create a context layer in the platform.
-   * Geography management: Adding geography levels to your instance.
+     * User Management: Creating and editing user profiles.
+     * Managing Instances: Creating new and editing preexisting instances.
+     * Managing Context Layers: Using layers that you have uploaded to GeoNode or GeoServer to create a context layer in the platform.
+     * Geography management: Adding geography levels to your instance.
 
-![image](https://user-images.githubusercontent.com/77841514/163354387-91e9ca4a-503b-4b23-b970-39b18d97cf79.png)
+   ![image](https://user-images.githubusercontent.com/77841514/163354387-91e9ca4a-503b-4b23-b970-39b18d97cf79.png)
 
 2. **Part 2:** Indicator Administration
-   * Indicator management: Adding indicators to the dashboard.
-   * Forms: used to manually capture indicator data by filling in forms.
-   * Ingestors: Used to manually import data by uploading.
-   * Harvesters: Automatic agents that fetch data and add it to indicators on a regular basis.
+     * Indicator management: Adding indicators to the dashboard.
+     * Forms: used to manually capture indicator data by filling in forms.
+     * Ingestors: Used to manually import data by uploading.
+     * Harvesters: Automatic agents that fetch data and add it to indicators on a regular basis.
 
 ![Ingestor Types](../assets/screenshots/ingestor-types.png)
 

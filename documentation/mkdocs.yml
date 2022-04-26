@@ -18,6 +18,10 @@ nav:
           - Indicator: introduction/platform_tour/indicator.md
           - Map interaction: introduction/platform_tour/map_interaction.md
           - Layers: introduction/platform_tour/layers.md
+  - Tutorial:
+      - tutorial/index.md
+      - User: tutorial/user_tutorial.md
+      - Administrator: tutorial/administrator_tutorial.md
   - Setup:
       - setup/index.md
       - Installation:
@@ -36,11 +40,6 @@ nav:
           - Layer: setup/configuration/layer.md
           - Geography: setup/configuration/geography.md
           - Indicator: setup/configuration/indicator.md
-  - Tutorial:
-      - tutorial/index.md
-      - User: tutorial/user_tutorial.md
-      - Administrator: tutorial/administrator_tutorial.md
-  - Roadmap: setup/roadmap.md
 
 # Configuration
 theme:

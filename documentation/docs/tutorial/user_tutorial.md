@@ -25,42 +25,43 @@ During this tutorial, we will show you how to navigate the platform and summaris
 2. **Documentation** and **Links**
 3. **Instances**
 4. **Sign in**
-5. The Dashboard tour 
+5. The Dashboard tour:
+     * **The Context Analysis Button**
+     * **Programme Interventions Panel**
+     * **The Indicator Panel** 
+     * **Hiding and showing panels**
+     * **The Traffic Light**
+     * **The Information Panel**
+     * **Downloading Data button**
 
-   * **The Context Analysis Button**
-   * **Programme Interventions Panel**
-   * **The Indicator Panel:** 
-   * **Hiding and showing panels:**
-   * **The Traffic Light**
-   * **The Information Panel**
-   * **Downloading Data button**
+    ![Dashboard Flow Diagram](../assets/screenshots/dashboard-tour.png)
 
-![Dashboard Flow Diagram](../assets/screenshots/dashboard-tour.png)
-
-(See also [Indicators](https://kartoza.github.io/rir-dashboard/pages/using/indicators.html#indicators)).
+    (See also [Indicators](https://kartoza.github.io/rir-dashboard/pages/using/indicators.html#indicators)).
 
 6. Layers
-   * The **Context Layers Icon** 
-   * The **Basemap Icon**
-   * **Geography Level Panel**
+     * The **Context Layers Icon** 
+     * The **Basemap Icon**
+     * **Geography Level Panel**
 
-![Layers Flow Diagram](../assets/screenshots/layers.png)
+    ![Layers Flow Diagram](../assets/screenshots/layers.png)
 
-(see also [Layers](https://kartoza.github.io/rir-dashboard/pages/using/layers.html#layers)). We will look at these layer related topics:
+    (see also [Layers](https://kartoza.github.io/rir-dashboard/pages/using/layers.html#layers)). We will look at these layer related topics:
   
+
 7. Map Interactions
-   * **Panning** moving around the map 
-   * **Zooming** in and out
-   * The **Information Display Window** 
-   * **The Map Slider** (eg. to compare people in need of 'Child Protection' vs. 'Child Protection Program Coverage') 
-   * **Timelapse Bar**(eg. IDP arrival over time) 
+     * **Panning** moving around the map 
+     * **Zooming** in and out
+     * The **Information Display Window** 
+     * **The Map Slider** (eg. to compare people in need of 'Child Protection' vs. 'Child Protection Program Coverage') 
+     * **Timelapse Bar**(eg. IDP arrival over time) 
 
-![Map Interactions Flow Diagram](../assets/screenshots/map-interactions.png)
+    ![Map Interactions Flow Diagram](../assets/screenshots/map-interactions.png)
 
-(see also [Map Interactions](https://kartoza.github.io/rir-dashboard/pages/using/map_interactions.html))
+    (see also [Map Interactions](https://kartoza.github.io/rir-dashboard/pages/using/map_interactions.html))
+
 
 8. More on the **Information Panel**
-   * **Graphical Representation**
+     * **Graphical Representation**
  
 9. Questions 
 
@@ -312,7 +313,6 @@ Inside the information panel, there is a summary of all the region/or districts 
 
 🧑‍🏫 With your knowledge of the RIR dashboard try an analysis where we look at what districts people are departing from and what districts they are arriving to. 
 
-👨‍🏫 
 - Make the context map OpenStreetMap
 - Add the context layer Refugees and IDPs
 - activate both the arrivals and departures indicator layers
