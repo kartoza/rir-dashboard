@@ -197,7 +197,7 @@
                                         <tbody class="group">
                                         <tr class="group-name">
                                             <td class="row">
-                                                <div class="col">{{ group_name }}</div>
+                                                <div class="col">{{ group_name }} <i class="fa fa-check" aria-hidden="true"></i> </div>
                                                 <div><i class="group-toggle fa fa-caret-down hidden" aria-hidden="true"></i></div>
                                                 {% include 'dashboard/context-analysis/_template-scenario-download.html' with ids=group.indicator_ids %}
                                                 {% include 'dashboard/context-analysis/_template-scenario-bullet.html' with overall_scenario=group.overall_scenario dashboard_link=group.dashboard_link %}

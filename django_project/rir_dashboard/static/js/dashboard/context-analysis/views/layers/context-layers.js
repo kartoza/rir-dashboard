@@ -11,20 +11,6 @@ define(['js/views/layers/context-layers-draggable'], function (ContextLayerDragg
             "weight": 1,
             "opacity": 1
         },
-        onEachFeature: function (feature, layer) {
-            // check others properties
-            let defaultHtml = '';
-            $.each(feature.properties, function (key, value) {
-                if (typeof value === 'object') {
-                    value = JSON.stringify(value)
-                } else {
-                    value = numberWithCommas(value)
-                }
-                defaultHtml += `<tr><td valign="top"><b>${key.capitalize()}</b></td><td valign="top">${value}</td></tr>`
-            });
-            layer.bindPopup('' +
-                '<table><tr><td colspan="2" style="text-align: center; background: #eee"><b>' + self.name + '</b></td></tr>' + defaultHtml + '</table>');
-        },
         cookieName: 'CONTEXTLAYERS', cookieOrderName: 'CONTEXTLAYERSORDER', layers: {}, orders: [], initialize: function (data) {
             this.data = data;
             this.listener();
@@ -141,12 +127,26 @@ define(['js/views/layers/context-layers-draggable'], function (ContextLayerDragg
                 });
             }
 
+            const onEachFeature = function (feature, layer) {
+                let defaultHtml = '';
+                $.each(feature.properties, function (key, value) {
+                    if (typeof value === 'object') {
+                        value = JSON.stringify(value)
+                    } else {
+                        value = numberWithCommas(value)
+                    }
+                    defaultHtml += `<tr><td valign="top"><b>${key.capitalize()}</b></td><td valign="top">${value}</td></tr>`
+                });
+                layer.bindPopup('' +
+                    '<table><tr><td colspan="2" style="text-align: center; background: #eee"><b>' + layerData.name + '</b></td></tr>' + defaultHtml + '</table>');
+            }
+
             switch (layerType) {
                 case 'ARCGIS': {
                     const options = {
                         token: layerData.token
                     };
-                    const argisLayer = new EsriLeafletLayer(layerData.name, url, params, options, layerData.style, self.onEachFeature);
+                    const argisLayer = new EsriLeafletLayer(layerData.name, url, params, options, layerData.style, onEachFeature);
                     argisLayer.load().then(output => {
                         self.addLayerToData(layerData, output.layer, argisLayer.getLegend(), output.error);
                     });
@@ -171,7 +171,7 @@ define(['js/views/layers/context-layers-draggable'], function (ContextLayerDragg
                                             return self.geojsonStyle
                                     }
                                 },
-                                onEachFeature: self.onEachFeature,
+                                onEachFeature: onEachFeature,
                                 pointToLayer: function (feature, latlng) {
                                     var icon = L.icon({
                                         iconSize: [25, 30],

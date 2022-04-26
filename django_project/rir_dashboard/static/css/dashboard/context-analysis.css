@@ -105,8 +105,17 @@
     opacity: 0.5;
 }
 
+#indicator .group .group-name .fa-check {
+    display: none;
+    font-size: 12px;
+}
+
 #indicator .group.active .group-name {
     font-weight: 700;
+}
+
+#indicator .group.active .group-name .fa-check {
+    display: inline-block;
 }
 
 #indicator table th {
@@ -361,6 +370,10 @@
 
 #right-side .content-wrapper .indicator-info-content .value-table {
     width: 100%;
+}
+
+#right-side .content-wrapper .indicator-info-content .value-table .group-name {
+    background: var(--almost-white-color-level-2);
 }
 
 #right-side .content-wrapper .indicator-info-content .value-table table {
