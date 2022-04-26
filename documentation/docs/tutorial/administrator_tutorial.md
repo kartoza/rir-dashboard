@@ -17,7 +17,7 @@ Whenever you see a phrase in **bold**, it refers to a link or button on the user
 
 ## Session Outline
 
-This session is divided into two parts:
+🧑‍🏫 This session is divided into two parts:
 
 1. **Part 1:** General Platform Administration
    * User Management: Creating and editing user profiles.
@@ -33,15 +33,13 @@ This session is divided into two parts:
    * Ingestors: Used to manually import data by uploading.
    * Harvesters: Automatic agents that fetch data and add it to indicators on a regular basis.
 
-
 ![Ingestor Types](../assets/screenshots/ingestor-types.png)
 
- 
 ## Session Tutorial
 
 ### **Signing In**
 
-In the top right-hand corner of the screen is the **Sign In** button. Here, you will sign in using your admin username and password. This process is the same for a staff user and an admin user.  
+🧑‍🏫 In the top right-hand corner of the screen is the **Sign In** button. Here, you will sign in using your admin username and password. This process is the same for a staff user and an admin user.  
 
 ![Signing in](../assets/screencasts/login.gif "Signing in")
 
@@ -63,7 +61,7 @@ Once you have created the user account, go back to Site Administration and selec
 
 🧑‍🏫 Once you’ve signed in as an admin user, you will be redirected back to the home page which contains various instances. To create a new instance, select the dropdown menu next to your username and click on **Django Admin**. Once you’re on the Site Administration page, scroll down until you find **Instances**.
 
-👨‍🏫 Click on the **+Add** button on the right-hand side of the Instances screen. Add the name of the new instance that you would like to create, a description, as well as the icon file. The icon file in most cases would be a flag of the country for the instance. Once you have added all information, click **Save**.
+👨‍🏫 Click on the **+Add** button on the right-hand side of the Instances screen. Add the name of the new instance that you would like to create, a description, as well as the icon file. The icon file in most cases would be a flag of the country for the instance. Once you have added all of the information, click **Save**.
 
 ![Creating a New Instance](../assets/screencasts/new-instance.gif "Creating a New Instance")
 
@@ -71,7 +69,7 @@ Once you have created the user account, go back to Site Administration and selec
 
  ![SA flag](../assets/tutorial_data/sa-flag.png)
 
- > **Note:** You can find all the **sample data** used in this tutorial (including this flag image) [here](../assets/tutorial_data/RIRTrainingData.zip).
+> **Note:** You can find all the **sample data** used in this tutorial (including this flag image) [here](../assets/tutorial_data/RIRTrainingData.zip).
 
 Once your new instance is created, you will be able to open it from the instance chooser. It will appear very empty, like this:
 
@@ -85,7 +83,7 @@ To add a context layer to the RIR instance, you will need a link to an online la
 
 ![Home Lands Data](../assets/screenshots/homelands.png)
 
-👨‍🏫 To find the link to an online layer so that you can copy it over and create your layer in the RIR Dashboard, Right-click on the browser page, click on inspect, and then select network. Hard refresh your screen and look through the URL links until you see the layer URL. 
+👨‍🏫 To find the link to an online layer so that you can copy it over and create your layer in the RIR Dashboard, Right-click on the browser page, click on inspect, and then select network. Hard refresh your screen and look through the URL links until you see the layer URL.
 This is the URL that you need to copy.
 
 For our example, we will use the URL below. Please copy it:
@@ -119,15 +117,11 @@ Click on **View Site** to see your new layer. You will be able to see your new l
 
 👨‍🏫 Let’s start in  **Site Administration**. Scroll down to **Geometry Level Instances** and click **+Add**. Set the name and description to your instance. Go back to the main page of your instance. Below the **Program Interventions** panel are three icons; **Indicator Management**, **Geography Management**, and **Instance Management**.
 
-Click on the **Geography Management** icon. You will be redirected to the geography view map page, and you will see that in the top right corner there is an **+uploader** button. Select this button and start filling in the form. The first thing you need to do is add the data for the geography level. Once the data is uploaded, you will be able to fill in the rest of the form.  
+Click on the **Geography Management** icon. You will be redirected to the geography view map page, and you will see that in the top right corner there is an **+uploader** button. Select this button and start filling in the form. The first thing you need to do is add the data for the geography level. Once the data is uploaded, you will be able to fill in the rest of the form.
 
-
-
-> 📒 **Note:** You can find all the sample data used in this tutorial here: [Data](../assets/tutorial_data/Training_Data.zip "Data")
-
+> 📒 **Note:** You can find all the sample data used in this tutorial here: [Data](../assets/tutorial_data/RIRTrainingData.zip "Data")
 
 For a province level, the code column is 'code', the name column is 'name', and the parent code column is 'pcode'. The country does not need a parent, but we need the code for a country level. In this case, the country is ZA (under 'adm0_pcode')
-
 
 ### **Adding a New Indicator**
 
@@ -136,7 +130,7 @@ For a province level, the code column is 'code', the name column is 'name', and 
 👨‍🏫 To add an indicator, click on **Indicator Management** on the main platform page for the instance and go to **Create New**. Fill in the necessary information about the indicator you would like to create.
 
 👨‍🏫 Once you have filled out the form, scroll down to **Scenario Rules** and add the parameters to match the indicator. you can also change the color for each rule by clicking on the color block. Click **Submit** once you are happy with the added information and scenario rules. If you add a dashboard link, you will see a black dot in the center of the circle that represents the scenario case on that indicator in the Program Interventions panel. By clicking on the black dot, you will be redirected to the dashboard link.
- 
+
 ![New Indicator](../assets/screencasts/new-indicator.gif "New Indicator")
 
 🧑‍🏫 Once we have created an indicator, we need to populate it with data. There are three ways to do this.
@@ -150,7 +144,7 @@ For a province level, the code column is 'code', the name column is 'name', and 
 🧑‍🏫 The value manager form is a table with cells and rows, one row per administrative boundary, and one cell per indicator.
 
 👨‍🏫 Let's look at how to use the Value Manager Form. To access this form, go to **Indicator Management** and scroll to the indicator that you would like to add data to. On the right-hand side of the indicator's name, there will be a small **Settings** symbol.
-Click on **Settings** for the desired indicator and then click on **Value Manager Form**. You will be redirected to a form that gives you all the geographic locations within the instance and spaces to add values. 
+Click on **Settings** for the desired indicator and then click on **Value Manager Form**. You will be redirected to a form that gives you all the geographic locations within the instance and spaces to add values.
 
 👨‍🏫 You can also add a file to fill in the data by clicking **Use File to Refill Form**. To check how to do it, check section _Spreadsheet Uploader_.
 
@@ -166,7 +160,7 @@ Click on **Settings** for the desired indicator and then click on **Value Manage
 
 ### **Ingestors**
 
-🧑‍🏫 The function of an ingestor is to manually populate data for an ingestor. 
+🧑‍🏫 The function of an ingestor is to manually populate data for an ingestor.
 
 There are three modalities for ingestors:
 
@@ -185,14 +179,14 @@ We are going to use TrainingData/IngestorData/sa-population.xls.
 Before starts, we need to create the indicator first. (Check _Adding a New Indicator_ section)
 
 🧑‍🏫 Go to **Indicator Management** and scroll to the indicator that you would like to add data to. On the right-hand side of the indicator's name, there will be a small **Settings** symbol.
-Click on **Settings** for the desired indicator and then click on **Value Manager Form**. 
+Click on **Settings** for the desired indicator and then click on **Value Manager Form**.
 
-👨‍🏫 Click _Use File to Refill Form_ and the popup will show. After that select other inputs. 
+👨‍🏫 Click _Use File to Refill Form_ and the popup will show. After that select other inputs.
 > 📒 **Note:** Always select administrative code to _Choose area code column._
 
-🧑‍🏫 After everything selected, click _import_, and the form will be autofilled. 
-> 📒 **Note:** If it is still empty, check the administrative code that you have on spreadsheet and the forms. 
-> Always use administrative code on the speadsheet value. On the form, the code is in brackets.                        
+🧑‍🏫 After everything selected, click _import_, and the form will be autofilled.
+> 📒 **Note:** If it is still empty, check the administrative code that you have on spreadsheet and the forms.
+> Always use administrative code on the speadsheet value. On the form, the code is in brackets.
 
 ![Spreadsheet Ingestor](../assets/screencasts/spreadsheet-ingestor.gif "Spreadsheet Ingestor")
 
@@ -203,8 +197,8 @@ We are going to use TrainingData/IngestorData/sa-gdp_unemployment.xls.
 In there, there are **gdp** and **unemployment** columns that we need to save the data for **gdp** and **unemployment** indicator. 
 Before starts, we need to create those indicators first. (Check _Adding a New Indicator_ section)
 
-🧑‍🏫 To start the meta ingestor, go to **Indicator Management** and in the top right-hand corner of the page, there will be a **Meta Ingestor** option that you will 
-need to click. 
+🧑‍🏫 To start the meta ingestor, go to **Indicator Management** and in the top right-hand corner of the page, there will be a **Meta Ingestor** option that you will
+need to click.
 
 🧑‍🏫 Select the file in TrainingData/IngestorData/sa-gdp_unemployment.xls from the sample data and the other inputs will be activate.
 
@@ -214,13 +208,11 @@ need to click.
 Then **Submit** your work, and wait until it says done. 
 ![Meta Ingestor](../assets/screencasts/meta-ingestor.gif "Meta Ingestor")
 
-
 #### API Ingestor
 
 > Note: This is for advanced users only.
 
 👨‍🏫 To start, click on **Create Harvester** as you will also do for the harvester options. Change the type of harvester to **Harvested using exposed API by external client**. Add necessary notes and submit.
-
 
 You will now be presented with an 'API URL' and a 'Token' that has been received from an external source. You now need to "push" the data from outside to the RIR dashboard. "Open" the API platform that you use to build and use API's. We used Postman. "Copy" over the URL and token to push the data to the RIR dashboard.
 
@@ -232,5 +224,5 @@ You will now be presented with an 'API URL' and a 'Token' that has been received
 
 👨‍🏫 Go to **Indicator Management** and if you haven't already created the indicator you want to work with, start by doing that. Once the necessary indicator exists,click on the little **Settings** icon on the right-hand side of the indicator name. Select the **Create Harvester** option. Pick the type of harvester you would like to create from the drop-down Harvester (you will be presented with three options: 'API With Geography Using Today's Date'; 'API With Geography And Date'; and 'Harvested Using Exposed API By External Client'). The first two options are for the harvester and the third one is for the ingestor. For the 'API With Geography Using Today's Date' and 'API With Geography And Date' options,  fill in the Attributes portion of the form and then a popup window with a list of 
 keys will appear; **drag** the green labels to their corresponding criteria. Select **Harvest Now**. You can scroll down to the log to see if your harvest is running in the background. Go to **Indicator Management** and click on the little settings icon that you just created a harvester for and select **Value Manager Map** to view your progress.
- 
+
 ![Harvester](../assets/screencasts/harvester.gif "Harvester")
