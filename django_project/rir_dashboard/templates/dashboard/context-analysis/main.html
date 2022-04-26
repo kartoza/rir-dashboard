@@ -202,6 +202,12 @@
                                                 {% include 'dashboard/context-analysis/_template-scenario-download.html' with ids=group.indicator_ids %}
                                                 {% include 'dashboard/context-analysis/_template-scenario-bullet.html' with overall_scenario=group.overall_scenario dashboard_link=group.dashboard_link %}
                                             </td>
+                                            {# this is for full screen #}
+                                            {% for scenario in scenarios %}
+                                                <td class="scenario indicator" data-scenario-level="{{ scenario.level }}">
+                                                    <b>{{ scenario.name }}</b>
+                                                </td>
+                                            {% endfor %}
                                         </tr>
                                         {# For the space #}
                                         {% for indicator in group.indicators %}

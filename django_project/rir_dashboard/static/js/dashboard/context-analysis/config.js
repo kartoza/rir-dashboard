@@ -38,8 +38,8 @@ require([
                         $input.attr('data-id', indicator.id);
                         $input.attr('data-name', indicator.name);
                         $input.attr('data-scenario', indicator.scenario_value);
-                        $(`#indicator-${indicator.id}`).closest('.group').find('.scenario-bullet').addClass(`scenario-${groupValue.overall_scenario}`)
-                        $(`#indicator-${indicator.id}`).closest('.group').find(`td[data-scenario-level='${groupValue.overall_scenario}']`).addClass(`scenario-${groupValue.overall_scenario}`)
+                        $(`#indicator-${indicator.id}`).closest('.group').find('.group-name .scenario-bullet').addClass(`scenario-${groupValue.overall_scenario}`)
+                        $(`#indicator-${indicator.id}`).closest('.group').find(`.group-name td[data-scenario-level='${groupValue.overall_scenario}']`).addClass(`scenario-${groupValue.overall_scenario}`)
                     } else {
                         $(`#indicator-${indicator.id}`).attr("title", "There is no data for for this indicator.");
                     }
