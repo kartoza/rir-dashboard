@@ -126,10 +126,10 @@ define(['js/views/layers/context-layers-draggable'], function (ContextLayerDragg
                     if (!Number.isInteger(value)) params[index] = decodeURIComponent(value);
                 });
             }
-
-            const onEachFeature = function (feature, layer) {
+            // This is for the popup content
+            const featurePopupContent = (properties) => {
                 let defaultHtml = '';
-                $.each(feature.properties, function (key, value) {
+                $.each(properties, function (key, value) {
                     if (typeof value === 'object') {
                         value = JSON.stringify(value)
                     } else {
@@ -137,8 +137,12 @@ define(['js/views/layers/context-layers-draggable'], function (ContextLayerDragg
                     }
                     defaultHtml += `<tr><td valign="top"><b>${key.capitalize()}</b></td><td valign="top">${value}</td></tr>`
                 });
-                layer.bindPopup('' +
-                    '<table><tr><td colspan="2" style="text-align: center; background: #eee"><b>' + layerData.name + '</b></td></tr>' + defaultHtml + '</table>');
+                return '<table><tr><td colspan="2" style="text-align: center; background: #eee"><b>' + layerData.name + '</b></td></tr>' + defaultHtml + '</table>'
+            }
+
+            // this is for each feature
+            const onEachFeature = (feature, layer) => {
+                layer.bindPopup(featurePopupContent(feature.properties));
             }
 
             switch (layerType) {
@@ -153,7 +157,21 @@ define(['js/views/layers/context-layers-draggable'], function (ContextLayerDragg
                     break;
                 }
                 case 'Raster Tile': {
-                    const layer = L.tileLayer.wms(url, params);
+                    const layer = L.tileLayer.betterWMS(url, params, {
+                        renderFeatureInfo: function (data) {
+                            if (data && data.features && data.features[0]) {
+                                return featurePopupContent(data.features[0].properties)
+                            }
+                            return ''
+                        },
+                        renderError: function (error) {
+                            return '' +
+                                '<table>' +
+                                '<tr><td colspan="2" style="text-align: center; background: #eee"><b>' + layerData.name + '</b></td></tr>' +
+                                '<tr style="color: red"><td>' + error + '</td></tr>' +
+                                '</table>';
+                        }
+                    });
                     let legend = layerData.url_legend ? `<img src="${layerData.url_legend}">` : '';
                     self.addLayerToData(layerData, layer, legend);
                     break;
