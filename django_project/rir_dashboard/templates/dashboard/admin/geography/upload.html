@@ -131,6 +131,7 @@
                                     .then(source => source.read()
                                         .then(function log(result) {
                                             if (result.done) return;
+                                            $selectInput.html('');
                                             $('#id_parent_code_column').append(`<option></option`);
                                             $.each(result.value.properties, function (key, values) {
                                                 $selectInput.append(`<option value="${key}">${key}</option`);
