@@ -140,7 +140,7 @@ Click on **View Site** to see your new layer. You will be able to see your new l
 
 ### Geography Management
 
-#### **Adding a Geography level**
+#### Adding a Geography level
 
 > 💡 This activity will use the django admin interface.
 
@@ -148,13 +148,57 @@ Click on **View Site** to see your new layer. You will be able to see your new l
 
 > ⚠ Geography levels are shared globally across all RIR instances, so be careful when adding, deleting or renaming a level that you do not impact other users.
 
-👨‍🏫 Let’s start in  **Site Administration**. Scroll down to **Geometry Level Instances** and click **+Add**. Set the name and description to your instance. Go back to the main page of your instance. Below the **Program Interventions** panel are three icons; **Indicator Management**, **Geography Management**, and **Instance Management**.
+👨‍🏫 Let’s start in  **Site Administration**. Scroll down to **Geometry Level Instances** and click **+Add**. Set the name and description to your geography level  - in our case we will use 'Province' (do not re-add the Province level instance if it already exists). Geometry levels are heirarchical and follow the political organisation of countries. For example 'Country', 'Province', 'District' etc.
 
-Click on the **Geography Management** icon. You will be redirected to the geography view map page, and you will see that in the top right corner there is an **+uploader** button. Select this button and start filling in the form. The first thing you need to do is add the data for the geography level. Once the data is uploaded, you will be able to fill in the rest of the form.
+#### Establishing the hierarchy
+
+> 💡 This activity will use the RIR admin interface.
+
+Geography levels are heirarchical and follow the political organisation of countries. For example 'Country', 'Province', 'District' etc. We need to explicitly tell the system which levels are the parent and child of each other.
+
+To do this we use the Geography Level Management tool. Click on the **Geography Management** button on the left of the screen. Then click on the Geography Level Management button.
+
+![Geography Level Management](../assets/screenshots/geography-level-management.png "Geography Level Management")
+
+Now drag and drop the levels you want to establish the hierarchy between.
+
+![Geography Heirachy](../assets/screenshots/geography-level-definition.png "Geogery Heirachy")
+
+Having done this, the system will 'know' that provinces fall under the country boundary.
+
+Press the **Submit** button to save the changes.
+
+#### Uploading Geography Boundaries
+
+> 💡 This activity will use the RIR admin interface.
+
+ Go back to the main page of your instance. Below the **Program Interventions** panel are three icons; **Indicator Management**, **Geography Management**, and **Instance Management**.
+
+Click on the **Geography Management** icon.
+
+![Geography Management](../assets/screenshots/geography-management.png "Geography Management")
+
+You will be redirected to the geography view map page, and you will see that in the top right corner there is an **+uploader** button.
+
+![Geography Uploader](../assets/screenshots/geography-uploader.png "Geography Uploader")
+
+Select this button and start filling in the form. We will create two new geographies: Country and Provices using the tutorial data supplied below:
 
 > 📒 **Note:** You can find all the sample data used in this tutorial here: [Data](../assets/tutorial_data/RIRTrainingData.zip "Data")
 
-For a province level, the code column is 'code', the name column is 'name', and the parent code column is 'pcode'. The country does not need a parent, but we need the code for a country level. In this case, the country is ZA (under 'adm0_pcode')
+The geography boundary should be provided in either Esri Shapefile format or as a geojson file.
+
+Add the country layer first. Start by clicking the **files** button at the bottom of the form and then select **all* of the shapefile layers.
+
+![Shapefile](../assets/screenshots/geography-select-shapefile.png "Shapefile")
+
+Now complete the rest of the details as per the screenshot below. Note that the country geography does not need a parent, but we need the code for a country level. In this case, the country is ZA (under 'adm0_pcode').
+
+![Country Form](../assets/screenshots/geography-country-form.png "Country Form")
+
+For a province level, the code column is 'pr_code', the name column is 'pr_name', and the parent code column is 'c_pcode'.
+
+![Province Form](../assets/screenshots/geography-province-form.png "Province Form")
 
 ## Part 2: Managing Indicators
 
@@ -185,7 +229,7 @@ Here is an overview of what we will cover in this section:
 👨‍🏫 Let's look at how to use the Value Manager Form. To access this form, go to **Indicator Management** and scroll to the indicator that you would like to add data to. On the right-hand side of the indicator's name, there will be a small **Settings** symbol.
 Click on **Settings** for the desired indicator and then click on **Value Manager Form**. You will be redirected to a form that gives you all the geographic locations within the instance and spaces to add values.
 
-👨‍🏫 You can also add a file to fill in the data by clicking **Use File to Refill Form**. To check how to do it, check section _Spreadsheet Uploader_.
+👨‍🏫 You can also add a file to fill in the data by clicking **Use File to Refill Form**. To check how to do it, check section *Spreadsheet Uploader*.
 
 ![Value Manager Form](../assets/screencasts/value-manager-form.gif "Value Manager Form")
 
@@ -211,19 +255,20 @@ We describe the workflow for each of these ingestors below.
 
 #### Spreadsheet Uploader
 
-👨‍🏫 Spreadsheet uploader is used for upload data of an indicator using one file. It is using _Value Manager Form_ without input value one by one.
-We are going to use TrainingData/IngestorData/sa-population.xls.
+👨‍🏫 Spreadsheet uploader is used for upload data of an indicator using one file. It is using *Value Manager Form* without input value one by one.
+
+We are going to use ``TrainingData/IngestorData/sa-population.xls``.
 
 👨‍🏫 For this example, we are going to use **population** indicator.
-Before starts, we need to create the indicator first. (Check _Adding a New Indicator_ section)
+Before starts, we need to create the indicator first. (Check *Adding a New Indicator* section)
 
 🧑‍🏫 Go to **Indicator Management** and scroll to the indicator that you would like to add data to. On the right-hand side of the indicator's name, there will be a small **Settings** symbol.
 Click on **Settings** for the desired indicator and then click on **Value Manager Form**.
 
-👨‍🏫 Click _Use File to Refill Form_ and the popup will show. After that select other inputs.
-> 📒 **Note:** Always select administrative code to _Choose area code column._
+👨‍🏫 Click *Use File to Refill Form* and the popup will show. After that select other inputs.
+> 📒 **Note:** Always select administrative code to *Choose area code column.*
 
-🧑‍🏫 After everything selected, click _import_, and the form will be autofilled.
+🧑‍🏫 After everything selected, click *import*, and the form will be autofilled.
 > 📒 **Note:** If it is still empty, check the administrative code that you have on spreadsheet and the forms.
 > Always use administrative code on the speadsheet value. On the form, the code is in brackets.
 
@@ -234,16 +279,16 @@ Click on **Settings** for the desired indicator and then click on **Value Manage
 👨‍🏫 We are going to create a Meta Ingestor. The goal for this ingestor is for uploading data for multiple indicator for one file.
 We are going to use TrainingData/IngestorData/sa-gdp_unemployment.xls.
 In there, there are **gdp** and **unemployment** columns that we need to save the data for **gdp** and **unemployment** indicator.
-Before starts, we need to create those indicators first. (Check _Adding a New Indicator_ section)
+Before starts, we need to create those indicators first. (Check *Adding a New Indicator* section)
 
 🧑‍🏫 To start the meta ingestor, go to **Indicator Management** and in the top right-hand corner of the page, there will be a **Meta Ingestor** option that you will
 need to click.
 
 🧑‍🏫 Select the file in TrainingData/IngestorData/sa-gdp_unemployment.xls from the sample data and the other inputs will be activate.
 
-🧑‍🏫 Select _Sheet name_ and _Row number: header_ (It is row 1).
+🧑‍🏫 Select *Sheet name* and *Row number: header* (It is row 1).
 
-🧑‍🏫 Select _Column name: administration code_, and select other _Column name_ inputs (The indicator name) with the header on the Excel that reflects the indicator data.
+🧑‍🏫 Select *Column name: administration code*, and select other *Column name* inputs (The indicator name) with the header on the Excel that reflects the indicator data.
 Then **Submit** your work, and wait until it says done.
 ![Meta Ingestor](../assets/screencasts/meta-ingestor.gif "Meta Ingestor")
 
