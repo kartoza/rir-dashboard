@@ -11,20 +11,6 @@ define(['js/views/layers/context-layers-draggable'], function (ContextLayerDragg
             "weight": 1,
             "opacity": 1
         },
-        onEachFeature: function (feature, layer) {
-            // check others properties
-            let defaultHtml = '';
-            $.each(feature.properties, function (key, value) {
-                if (typeof value === 'object') {
-                    value = JSON.stringify(value)
-                } else {
-                    value = numberWithCommas(value)
-                }
-                defaultHtml += `<tr><td valign="top"><b>${key.capitalize()}</b></td><td valign="top">${value}</td></tr>`
-            });
-            layer.bindPopup('' +
-                '<table><tr><td colspan="2" style="text-align: center; background: #eee"><b>' + self.name + '</b></td></tr>' + defaultHtml + '</table>');
-        },
         cookieName: 'CONTEXTLAYERS', cookieOrderName: 'CONTEXTLAYERSORDER', layers: {}, orders: [], initialize: function (data) {
             this.data = data;
             this.listener();
@@ -140,20 +126,52 @@ define(['js/views/layers/context-layers-draggable'], function (ContextLayerDragg
                     if (!Number.isInteger(value)) params[index] = decodeURIComponent(value);
                 });
             }
+            // This is for the popup content
+            const featurePopupContent = (properties) => {
+                let defaultHtml = '';
+                $.each(properties, function (key, value) {
+                    if (typeof value === 'object') {
+                        value = JSON.stringify(value)
+                    } else {
+                        value = numberWithCommas(value)
+                    }
+                    defaultHtml += `<tr><td valign="top"><b>${key.capitalize()}</b></td><td valign="top">${value}</td></tr>`
+                });
+                return '<table><tr><td colspan="2" style="text-align: center; background: #eee"><b>' + layerData.name + '</b></td></tr>' + defaultHtml + '</table>'
+            }
+
+            // this is for each feature
+            const onEachFeature = (feature, layer) => {
+                layer.bindPopup(featurePopupContent(feature.properties));
+            }
 
             switch (layerType) {
                 case 'ARCGIS': {
                     const options = {
                         token: layerData.token
                     };
-                    const argisLayer = new EsriLeafletLayer(layerData.name, url, params, options, layerData.style, self.onEachFeature);
+                    const argisLayer = new EsriLeafletLayer(layerData.name, url, params, options, layerData.style, onEachFeature);
                     argisLayer.load().then(output => {
                         self.addLayerToData(layerData, output.layer, argisLayer.getLegend(), output.error);
                     });
                     break;
                 }
                 case 'Raster Tile': {
-                    const layer = L.tileLayer.wms(url, params);
+                    const layer = L.tileLayer.betterWMS(url, params, {
+                        renderFeatureInfo: function (data) {
+                            if (data && data.features && data.features[0]) {
+                                return featurePopupContent(data.features[0].properties)
+                            }
+                            return ''
+                        },
+                        renderError: function (error) {
+                            return '' +
+                                '<table>' +
+                                '<tr><td colspan="2" style="text-align: center; background: #eee"><b>' + layerData.name + '</b></td></tr>' +
+                                '<tr style="color: red"><td>' + error + '</td></tr>' +
+                                '</table>';
+                        }
+                    });
                     let legend = layerData.url_legend ? `<img src="${layerData.url_legend}">` : '';
                     self.addLayerToData(layerData, layer, legend);
                     break;
@@ -171,7 +189,7 @@ define(['js/views/layers/context-layers-draggable'], function (ContextLayerDragg
                                             return self.geojsonStyle
                                     }
                                 },
-                                onEachFeature: self.onEachFeature,
+                                onEachFeature: onEachFeature,
                                 pointToLayer: function (feature, latlng) {
                                     var icon = L.icon({
                                         iconSize: [25, 30],

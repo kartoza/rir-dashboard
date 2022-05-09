@@ -56,6 +56,8 @@ class GeometryForm(forms.Form):
         super().__init__(*args, **kwargs)
         if level:
             self.fields['level'].choices = [(u.id, u.name) for u in level]
+        else:
+            self.fields['level'].choices = []
 
     def temporary_folder(self):
         """
