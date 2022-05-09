@@ -174,7 +174,7 @@ Press the **Submit** button to save the changes.
 
  Go back to the main page of your instance. Below the **Program Interventions** panel are three icons; **Indicator Management**, **Geography Management**, and **Instance Management**.
 
-Click on the **Geography Management** icon.
+Click on the **Geography Management** icon.´
 
 ![Geography Management](../assets/screenshots/geography-management.png "Geography Management")
 
@@ -208,13 +208,46 @@ Here is an overview of what we will cover in this section:
 
 ### **Adding a New Indicator**
 
-🧑‍🏫 Indicators are special layers in RIR that are linked to the situation in the region. Indicators are used to show the situation in the region. For example, in South Africa, there are indicators for the number of people living in poverty, the number of people living in extreme poverty, the number of people living in extreme poverty, and the number of people living in extreme poverty and the number of people living in extreme poverty and the number of people living in extreme poverty.
+🧑‍🏫 Indicators are special layers in RIR that are linked to the situation in the region. Indicators are used to show the situation in the region. For example, in South Africa, there may be indicators for the number of people living in poverty, the number of people living in high crime areas, etc.
 
-👨‍🏫 To add an indicator, click on **Indicator Management** on the main platform page for the instance and go to **Create New**. Fill in the necessary information about the indicator you would like to create.
-
-👨‍🏫 Once you have filled out the form, scroll down to **Scenario Rules** and add the parameters to match the indicator. you can also change the color for each rule by clicking on the color block. Click **Submit** once you are happy with the added information and scenario rules. If you add a dashboard link, you will see a black dot in the center of the circle that represents the scenario case on that indicator in the Program Interventions panel. By clicking on the black dot, you will be redirected to the dashboard link.
+👨‍🏫 To add an indicator, click on **Indicator Management** on the main platform page for the instance and go to **Create New**. Fill in the necessary information about the indicator you would like to create. Let's create an indicator for population per province. We have already added province admin areas to the instance. The following little screen cast gives a short overview of the process:
 
 ![New Indicator](../assets/screencasts/new-indicator.gif "New Indicator")
+
+Set up your indicator with the following details:
+
+Field | Value
+-----|-------
+Name | Population
+Description | Population of South Africa
+Access Level | Need login to access
+Short Code| pop
+Group | Demographics
+Frequency | 365
+Geometry Reporting Level | Province
+Unit | People
+Reporting Behaviour | Most recent for each geography
+Aggregation Behavioud | Aggregate data by the sum of all data in the  levels
+Maximum Value | 15000000
+Dashboard Link | (leave blank)
+
+![Population Indicator](../assets/screenshots/population-indicator.png "Population Indicator")
+
+👨‍🏫 Once you have filled out the form, scroll down to **Scenario Rules** and add the parameters to match the indicator as per the table below.
+
+Field | Value
+-----|-------
+Best Case |
+
+![Population Thresholds](../assets/screenshots/population-thresholds.png "Population Thresholds")
+
+> 📔**Note:** We are using a contrived example here. In a real instance we would used factors like people in need, COVID infection rates, etc.
+
+You can also change the color for each rule by clicking on the color block. Click **Submit** once you are happy with the added information and scenario rules.
+
+![Submit](../assets/screenshots/submit-indicator.png "Submit")
+
+🌟 If you add a dashboard link, you will see a black dot in the center of the circle that represents the scenario case on that indicator in the Program Interventions panel. By clicking on the black dot, you will be redirected to the dashboard link.
 
 🧑‍🏫 Once we have created an indicator, we need to populate it with data. There are three ways to do this.
 
@@ -227,9 +260,12 @@ Here is an overview of what we will cover in this section:
 🧑‍🏫 The value manager form is a table with cells and rows, one row per administrative boundary, and one cell per indicator.
 
 👨‍🏫 Let's look at how to use the Value Manager Form. To access this form, go to **Indicator Management** and scroll to the indicator that you would like to add data to. On the right-hand side of the indicator's name, there will be a small **Settings** symbol.
-Click on **Settings** for the desired indicator and then click on **Value Manager Form**. You will be redirected to a form that gives you all the geographic locations within the instance and spaces to add values.
 
-👨‍🏫 You can also add a file to fill in the data by clicking **Use File to Refill Form**. To check how to do it, check section *Spreadsheet Uploader*.
+![Settings](../assets/screenshots/indicator-settings.png "Settings")
+
+Click on **Settings** for the desired indicator and then click on **Value Manager Form**. You will be redirected to a form that gives you all the geographic locations within the instance and fields to add values.
+
+👨‍🏫 You can also add a file to fill in the data by clicking **Use File to Refill Form**. Tee the section: *Spreadsheet Uploader* below.
 
 ![Value Manager Form](../assets/screencasts/value-manager-form.gif "Value Manager Form")
 
