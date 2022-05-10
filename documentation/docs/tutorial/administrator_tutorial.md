@@ -332,13 +332,43 @@ Then **Submit** your work, and wait until it says done.
 
 > Note: This is for advanced users only.
 
-👨‍🏫 To start, click on **Create Harvester** as you will also do for the harvester options. Change the type of harvester to **Harvested using exposed API by external client**. Add necessary notes and submit.
+👨‍🏫 To start, go to indicator management, go to the 'Population' line, click 'cog' symbol and click 'Create Harvester'. 
+![Ingestor](../assets/screenshots/API%20Ingestor/1.png "Ingestor")
 
-You will now be presented with an 'API URL' and a 'Token' that has been received from an external source. You now need to "push" the data from outside to the RIR dashboard. "Open" the API platform that you use to build and use API's. We used Postman. "Copy" over the URL and token to push the data to the RIR dashboard.
+👨‍🏫 Change the type of harvester to **Harvested using exposed API by external client**. Add necessary notes and submit.
+![Ingestor](../assets/screenshots/API%20Ingestor/2.png "Ingestor")
 
-![Ingestor](../assets/screencasts/ingestor.gif "Ingestor")
+👨‍🏫 It will show the details that we need to use later.
+![Ingestor](../assets/screenshots/API%20Ingestor/3.png "Ingestor")
+
+👨‍🏫 After that go to postman for example to push data.
+
+👨‍🏫 Change method to POST. Copy the url on the image above and put it on url on Postman.
+
+👨‍🏫 Copy the token on the image above, go to postman, go to headers tab. Add new key 'Authorization' with value 'Bearer (token that we paste)'.
+
+👨‍🏫 Example postman for harvester from  above image.
+
+![Ingestor](../assets/screenshots/API%20Ingestor/4.png "Ingestor")
+
+
+👨‍🏫 Copy the json that show on the harvester page, and go to postman, go to body tab, change to raw and change to JSON.
+Paste the json, and change with necessary data. Put correct administrative code in there.
+
+![Ingestor](../assets/screenshots/API%20Ingestor/5.png "Ingestor")
+
+👨‍🏫 Then click 'Send' on postman. 
+👨‍🏫 If it is success, it will return the detail of data that we pushed before.
+
+![Ingestor](../assets/screenshots/API%20Ingestor/6.png "Ingestor")
+
+
+👨‍🏫 Please check full walkthrough below.
+![Ingestor](../assets/screencasts/API Ingestor.gif "Ingestor")
 
 ### **Harvesters**
+
+> Note: This is for advanced users only.
 
 🧑‍🏫 Harvesters are fully automated software routines that periodically fetch data from third party sources and populate indicators.
 
