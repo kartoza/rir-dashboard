@@ -1,0 +1,1812 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A platform provides a way to understand risk modalities across different geographic contexts.">
+      
+      
+        <meta name="author" content="Tim Sutton">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.2.6">
+    
+    
+      
+        <title>Administrator - RIR Dashboard 1.0</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.9d5733d3.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.e6a45f82.min.css">
+        
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="gray">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#administrator-tutorial" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="RIR Dashboard 1.0" class="md-header__button md-logo" aria-label="RIR Dashboard 1.0" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RIR Dashboard 1.0
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Administrator
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="gray"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="gray"  aria-label="Switch to light mode]"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode]" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18V6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-2.69L23.31 12 20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/kartoza/rir-dashboard/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    kartoza/rir-dashboard
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        Introduction
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../" class="md-tabs__link md-tabs__link--active">
+        Tutorial
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../setup/" class="md-tabs__link">
+        Setup
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="RIR Dashboard 1.0" class="md-nav__button md-logo" aria-label="RIR Dashboard 1.0" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    RIR Dashboard 1.0
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/kartoza/rir-dashboard/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    kartoza/rir-dashboard
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" data-md-state="indeterminate" type="checkbox" id="__nav_1" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../..">Introduction</a>
+          
+            <label for="__nav_1">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Introduction" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          Introduction
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../introduction/disclaimer/" class="md-nav__link">
+        Disclaimer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../introduction/license/" class="md-nav__link">
+        License
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../introduction/contributing/" class="md-nav__link">
+        Contributing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../introduction/credits/" class="md-nav__link">
+        Credits
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6" data-md-state="indeterminate" type="checkbox" id="__nav_1_6" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_1_6">
+          Platform tour
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Platform tour" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_6">
+          <span class="md-nav__icon md-icon"></span>
+          Platform tour
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../introduction/platform_tour/platform_tour/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../introduction/platform_tour/indicator/" class="md-nav__link">
+        Indicator
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../introduction/platform_tour/map_interaction/" class="md-nav__link">
+        Map interaction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../introduction/platform_tour/layers/" class="md-nav__link">
+        Layers
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../">Tutorial</a>
+          
+            <label for="__nav_2">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Tutorial" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Tutorial
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user_tutorial/" class="md-nav__link">
+        User
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Administrator
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Administrator
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+    <nav class="md-nav" aria-label="Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#working-with-this-documentation" class="md-nav__link">
+    Working with this documentation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important-links" class="md-nav__link">
+    Important Links
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#session-outline" class="md-nav__link">
+    Session Outline
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-1-general-platform-administration" class="md-nav__link">
+    Part 1: General Platform Administration
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 1: General Platform Administration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#signing-in" class="md-nav__link">
+    Signing In
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#users-and-permissions" class="md-nav__link">
+    Users and Permissions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-an-instance" class="md-nav__link">
+    Creating an instance
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-a-new-context-layer" class="md-nav__link">
+    Adding a new Context layer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#geography-management" class="md-nav__link">
+    Geography Management
+  </a>
+  
+    <nav class="md-nav" aria-label="Geography Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adding-a-geography-level" class="md-nav__link">
+    Adding a Geography level
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#establishing-the-hierarchy" class="md-nav__link">
+    Establishing the hierarchy
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uploading-geography-boundaries" class="md-nav__link">
+    Uploading Geography Boundaries
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-2-managing-indicators" class="md-nav__link">
+    Part 2: Managing Indicators
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 2: Managing Indicators">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adding-a-new-indicator" class="md-nav__link">
+    Adding a New Indicator
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#value-manager-form" class="md-nav__link">
+    Value Manager Form
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#value-manager-map" class="md-nav__link">
+    Value Manager Map
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ingestors" class="md-nav__link">
+    Ingestors
+  </a>
+  
+    <nav class="md-nav" aria-label="Ingestors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#spreadsheet-uploader" class="md-nav__link">
+    Spreadsheet Uploader
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#meta-ingestor-uploader" class="md-nav__link">
+    Meta Ingestor Uploader
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#api-ingestor" class="md-nav__link">
+    API Ingestor
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#harvesters" class="md-nav__link">
+    Harvesters
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" data-md-state="indeterminate" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../setup/">Setup</a>
+          
+            <label for="__nav_3">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Setup" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Setup
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" data-md-state="indeterminate" type="checkbox" id="__nav_3_2" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_2">
+          Installation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Installation" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          Installation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../setup/installation/preparation/" class="md-nav__link">
+        Preparation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../setup/installation/project_setup/" class="md-nav__link">
+        Project setup
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2_3" data-md-state="indeterminate" type="checkbox" id="__nav_3_2_3" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../setup/installation/development_setup/">Development setup</a>
+          
+            <label for="__nav_3_2_3">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Development setup" data-md-level="3">
+        <label class="md-nav__title" for="__nav_3_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Development setup
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../setup/installation/development_setup/pycharm/" class="md-nav__link">
+        Using pycharm
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_3" data-md-state="indeterminate" type="checkbox" id="__nav_3_3" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_3">
+          Configuration
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Configuration" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          Configuration
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../setup/configuration/preferences/" class="md-nav__link">
+        Preferences
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../setup/configuration/user/" class="md-nav__link">
+        User
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../setup/configuration/instances/" class="md-nav__link">
+        Instance
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../setup/configuration/navigation_link/" class="md-nav__link">
+        Navigation link
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../setup/configuration/scenario/" class="md-nav__link">
+        Scenario
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../setup/configuration/program_intervention/" class="md-nav__link">
+        Program intervention
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../setup/configuration/layer/" class="md-nav__link">
+        Layer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../setup/configuration/geography/" class="md-nav__link">
+        Geography
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../setup/configuration/indicator/" class="md-nav__link">
+        Indicator
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+    <nav class="md-nav" aria-label="Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#working-with-this-documentation" class="md-nav__link">
+    Working with this documentation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important-links" class="md-nav__link">
+    Important Links
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#session-outline" class="md-nav__link">
+    Session Outline
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-1-general-platform-administration" class="md-nav__link">
+    Part 1: General Platform Administration
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 1: General Platform Administration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#signing-in" class="md-nav__link">
+    Signing In
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#users-and-permissions" class="md-nav__link">
+    Users and Permissions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-an-instance" class="md-nav__link">
+    Creating an instance
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-a-new-context-layer" class="md-nav__link">
+    Adding a new Context layer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#geography-management" class="md-nav__link">
+    Geography Management
+  </a>
+  
+    <nav class="md-nav" aria-label="Geography Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adding-a-geography-level" class="md-nav__link">
+    Adding a Geography level
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#establishing-the-hierarchy" class="md-nav__link">
+    Establishing the hierarchy
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uploading-geography-boundaries" class="md-nav__link">
+    Uploading Geography Boundaries
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-2-managing-indicators" class="md-nav__link">
+    Part 2: Managing Indicators
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 2: Managing Indicators">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adding-a-new-indicator" class="md-nav__link">
+    Adding a New Indicator
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#value-manager-form" class="md-nav__link">
+    Value Manager Form
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#value-manager-map" class="md-nav__link">
+    Value Manager Map
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ingestors" class="md-nav__link">
+    Ingestors
+  </a>
+  
+    <nav class="md-nav" aria-label="Ingestors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#spreadsheet-uploader" class="md-nav__link">
+    Spreadsheet Uploader
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#meta-ingestor-uploader" class="md-nav__link">
+    Meta Ingestor Uploader
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#api-ingestor" class="md-nav__link">
+    API Ingestor
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#harvesters" class="md-nav__link">
+    Harvesters
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+<a href="https://github.com/kartoza/rir-dashboard/edit/master/docs/tutorial/administrator_tutorial.md" title="Edit this page" class="md-content__button md-icon">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+</a>
+
+
+
+<h1 id="administrator-tutorial">Administrator Tutorial<a class="headerlink" href="#administrator-tutorial" title="Permanent link">&para;</a></h1>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
+<p>🧑‍🏫 The RIR (Risk Informed Response) platform is a situational awareness platform to monitor health, child protection, nutrition, wash, and education in a geographic region. This tutorial shows you how to manage the platform as an administrator.</p>
+<h3 id="working-with-this-documentation">Working with this documentation<a class="headerlink" href="#working-with-this-documentation" title="Permanent link">&para;</a></h3>
+<p>Whenever you see a phrase in <strong>bold</strong>, it refers to a link or button on the user interface that you can interact with.</p>
+<h3 id="important-links">Important Links<a class="headerlink" href="#important-links" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="https://staging.rir.kartoza.com/" title="RIR Platform">RIR Platform</a></li>
+<li><a href="https://kartoza.github.io/rir-dashboard/" title="RIR Full Documentation">RIR Full Documentation</a>  </li>
+</ul>
+<blockquote>
+<p>📒 <strong>Note:</strong> You can find all the <strong>sample data</strong> used in this tutorial <a href="../../assets/tutorial_data/RIRTrainingData.zip" title="Data">here</a></p>
+</blockquote>
+<h2 id="session-outline">Session Outline<a class="headerlink" href="#session-outline" title="Permanent link">&para;</a></h2>
+<p>🧑‍🏫 This session is divided into two parts:</p>
+<ol>
+<li>
+<p><strong>Part 1:</strong> General Platform Administration covering</p>
+<ul>
+<li>User Management: Creating and editing user profiles.</li>
+<li>Managing Instances: Creating new and editing preexisting instances.</li>
+<li>Managing Context Layers: Adding layers from services such as ArcGIS online, GeoNode or GeoServer to create a context layer in the platform.</li>
+<li>Geography management: Adding geography levels to your instance.</li>
+</ul>
+</li>
+<li>
+<p><strong>Part 2:</strong> Indicator Administration covering</p>
+<ul>
+<li>Indicator management: Adding indicators to the dashboard.</li>
+<li>Forms: used to manually capture indicator data by filling in forms.</li>
+<li>Ingestors: Used to manually import data by uploading spreadsheets.</li>
+<li>Harvesters: Automatic agents which fetch data and add it to indicators on a regular basis.</li>
+</ul>
+</li>
+</ol>
+<h2 id="part-1-general-platform-administration">Part 1: General Platform Administration<a class="headerlink" href="#part-1-general-platform-administration" title="Permanent link">&para;</a></h2>
+<p>Here is an overview of the general platform administration.</p>
+<p><img alt="image" src="https://user-images.githubusercontent.com/77841514/163354387-91e9ca4a-503b-4b23-b970-39b18d97cf79.png" /></p>
+<blockquote>
+<p>📒 <strong>Note</strong>: The following sections all require admin user permissions.</p>
+</blockquote>
+<p>There are two key activity areas for administering the RIR platform.</p>
+<ol>
+<li>Django admin</li>
+<li>RIR Platform admin</li>
+</ol>
+<p>Django admin is used for more technical activities and provides a more generic user interface. The RIR Platform admin area is integrated into the frontend of the site and can be used to manage instances, geographies and indicators.</p>
+<h3 id="signing-in"><strong>Signing In</strong><a class="headerlink" href="#signing-in" title="Permanent link">&para;</a></h3>
+<p>🧑‍🏫 Before you can administer the platform, you need to sign in with a user with administrator rights. In the top right-hand corner of the screen is the <strong>Sign In</strong> button. Here, you will sign in using your admin username and password. This process is the same for a regular user and an admin user.  </p>
+<p><img alt="Signing in" src="../../assets/screencasts/login.gif" title="Signing in" /></p>
+<h3 id="users-and-permissions"><strong>Users and Permissions</strong><a class="headerlink" href="#users-and-permissions" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>💡 This activity will use the django admin interface.</p>
+</blockquote>
+<p>Next, we will look at how to manage users. Go to site administration by clicking <strong>Admin -&gt; Django Admin</strong>. Click on <strong>+Add</strong> in the same row as ‘Users’.</p>
+<p><img alt="New User" src="../../assets/screenshots/add-user.png" title="New User" /></p>
+<p>You can now create a profile for someone by adding a username and password. Once you have created the user profile, click <strong>Save</strong>.</p>
+<p><img alt="New User" src="../../assets/screencasts/new-user.gif" title="New User" /></p>
+<blockquote>
+<p>📝 <strong>Note:</strong> In future the platform will be upgraded to support single sign-on with your Microsoft Teams credentials or similar oauth provider.</p>
+</blockquote>
+<p>Once you have created the user account, pressing save will let you edit the personal information for the new user, as well as select or deselect their permission status. Remember to <strong>Save</strong> your changes.</p>
+<p><img alt="Permissions" src="../../assets/screencasts/permissions.gif" title="Permissions" /></p>
+<blockquote>
+<p>📒 <strong>Note</strong>: If you want to make a user an admin user so that they can carry out the activities described in this tutorial, you should assign them to the <strong>Staff</strong> group, the <strong>Super User</strong> group and the <strong>Active</strong> box should be checked.</p>
+</blockquote>
+<p><img alt="Groups" src="../../assets/screencasts/permissions.gif" title="Groups" /></p>
+<h3 id="creating-an-instance"><strong>Creating an instance</strong><a class="headerlink" href="#creating-an-instance" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>💡 This activity will use the RIR admin interface.</p>
+</blockquote>
+<p>🧑‍🏫 Make sure you are signed in as an admin user. Open any existing instance, then click on the instance manager icon on the left of the screen.</p>
+<p><img alt="Instance Manager" src="../../assets/screenshots/instance-manager.png" title="Instance Manager" /></p>
+<p>To create a new instance, click on the Create Instance button at the top right of the screen.</p>
+<p><img alt="Instance Creation" src="../../assets/screenshots/create-instance.png" title="Create Instance" /></p>
+<p>On the instance form. add the name of the new instance that you would like to create, a description, as well as the icon file. The icon file in most cases would be the flag of the country for the instance. Once you have added all of the information, click <strong>Save</strong>.</p>
+<p>For this tutorial, we will create a demonstrator instance for South Africa:</p>
+<p><img alt="Instance Form" src="../../assets/screenshots/instance-form.png" title="Instance Form" /></p>
+<p>The flag we used in this exercise is available here:</p>
+<p><img alt="SA flag" src="../../assets/tutorial_data/sa-flag.png" /></p>
+<blockquote>
+<p><strong>Note:</strong> You can find all the <strong>sample data</strong> used in this tutorial (including this flag image) <a href="../../assets/tutorial_data/RIRTrainingData.zip">here</a>.</p>
+</blockquote>
+<p>Once your new instance is created, you will be able to open it from the instance chooser. It will appear very empty, like this:</p>
+<p><img alt="New Instance" src="../../assets/screenshots/newinstance.png" /></p>
+<h3 id="adding-a-new-context-layer"><strong>Adding a new Context layer</strong><a class="headerlink" href="#adding-a-new-context-layer" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>💡 This activity will use the django admin interface.</p>
+</blockquote>
+<p>🧑‍🏫 In this section we will explain how to create and manage context layers. What is a context layer? Context layers are shown on the map to provide a sense of the conditions in the region. They can cover any topic - for example, security, food security, infrastructure, etc. Context layers <strong>do not</strong> have indicator data attached, they are a visual aid in the dashboard map. Context layers are normally hosted on another server e.g. ArcGIS Online, GeoServer, and GeoNode all provide ways to publish context layers.</p>
+<blockquote>
+<p><strong>Note:</strong> For more information about context layers see the <a href="../user_tutorial/#context-layers">user tutorial</a> on this topic.</p>
+</blockquote>
+<p>To add a context layer to the RIR instance, you will need a link to an online layer. For this exercise will be adding a context layer from geonode showing <a href="https://staging.osgs.rir.kartoza.com/layers/geonode_data:geonode:former_homelands_polygon">homelands</a>:</p>
+<p><img alt="Home Lands Data" src="../../assets/screenshots/homelands.png" /></p>
+<blockquote>
+<p>👨‍🏫 The process for finding the link to an online layer so it can be used as a context layer differs per platform the layer is hosted on. For Geonode layers we need to open the layer in Geonode, right-click on the browser page, click on inspect, and then select network. Hard refresh your screen and look through the URL links until you see the layer URL.</p>
+</blockquote>
+<p>For our example, we will use the URL below. Please copy it:</p>
+<p><img alt="Home Lands Data" src="../../assets/screenshots/homelandsurl.png" /></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>https://staging.osgs.rir.kartoza.com/geoserver/ows?access_token=SWMqWx64T5dOsNwPD72o4uIbtZ7FIA&amp;LAYERS=geonode%3Aformer_homelands_polygon&amp;TRANSPARENT=TRUE&amp;SERVICE=WMS&amp;VERSION=1.1.1&amp;REQUEST=GetMap&amp;STYLES=&amp;FORMAT=image%2Fpng&amp;SRS=EPSG%3A900913&amp;BBOX=2504688.5425,-3757032.81375,3757032.81375,-2504688.5425&amp;WIDTH=256&amp;HEIGHT=256
+</code></pre></div>
+<p>👨‍🏫 Now we can create the context layer in the RIR platform. Click on your account menu in the top right corner of the RIR platform and open <strong>Django Admin</strong>. Click on <strong>+Add</strong> on the Context Layers line. Select the instance you would like to add the context layer to.</p>
+<p><img alt="Context Layers" src="../../assets/screenshots/addcontextlayer.png" title="Context Layers" /></p>
+<p>We will use the instance that we have just created, South Africa. Paste the URL that you copied above into the URL box.</p>
+<p>Enter the information in the form as shown in the images below and save the form once you are happy with it.</p>
+<p><img alt="Context Layers" src="../../assets/screenshots/context-layer.png" title="Context Layers" /></p>
+<p>Click on <strong>View Site</strong> to see your new layer. You will be able to see your new layer in the <strong>Context Layers</strong> panel.</p>
+<p><img alt="Context Layers" src="../../assets/screencasts/context-layer.gif" title="Context Layers" /></p>
+<h3 id="geography-management">Geography Management<a class="headerlink" href="#geography-management" title="Permanent link">&para;</a></h3>
+<h4 id="adding-a-geography-level">Adding a Geography level<a class="headerlink" href="#adding-a-geography-level" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p>💡 This activity will use the django admin interface.</p>
+</blockquote>
+<p>🧑‍🏫 Geography levels express the hierarchy between administrative boundaries. For example in South Africa we have the national boundary subdivided into provinces, which are in turn subdivided into districts, then municipalities. RIR uses these geography levels to provide a way to group the information from the indicators into administrative units.</p>
+<blockquote>
+<p>⚠ Geography levels are shared globally across all RIR instances, so be careful when adding, deleting or renaming a level that you do not impact other users.</p>
+</blockquote>
+<p>👨‍🏫 Let’s start in  <strong>Site Administration</strong>. Scroll down to <strong>Geometry Level Instances</strong> and click <strong>+Add</strong>. Set the name and description to your geography level  - in our case we will use 'Province' (do not re-add the Province level instance if it already exists). Geometry levels are heirarchical and follow the political organisation of countries. For example 'Country', 'Province', 'District' etc.</p>
+<h4 id="establishing-the-hierarchy">Establishing the hierarchy<a class="headerlink" href="#establishing-the-hierarchy" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p>💡 This activity will use the RIR admin interface.</p>
+</blockquote>
+<p>Geography levels are heirarchical and follow the political organisation of countries. For example 'Country', 'Province', 'District' etc. We need to explicitly tell the system which levels are the parent and child of each other.</p>
+<p>To do this we use the Geography Level Management tool. Click on the <strong>Geography Management</strong> button on the left of the screen. Then click on the Geography Level Management button.</p>
+<p><img alt="Geography Level Management" src="../../assets/screenshots/geography-level-management.png" title="Geography Level Management" /></p>
+<p>Now drag and drop the levels you want to establish the hierarchy between.</p>
+<p><img alt="Geography Heirachy" src="../../assets/screenshots/geography-level-definition.png" title="Geogery Heirachy" /></p>
+<p>Having done this, the system will 'know' that provinces fall under the country boundary.</p>
+<p>Press the <strong>Submit</strong> button to save the changes.</p>
+<h4 id="uploading-geography-boundaries">Uploading Geography Boundaries<a class="headerlink" href="#uploading-geography-boundaries" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p>💡 This activity will use the RIR admin interface.</p>
+</blockquote>
+<p>Go back to the main page of your instance. Below the <strong>Program Interventions</strong> panel are three icons; <strong>Indicator Management</strong>, <strong>Geography Management</strong>, and <strong>Instance Management</strong>.</p>
+<p>Click on the <strong>Geography Management</strong> icon.´</p>
+<p><img alt="Geography Management" src="../../assets/screenshots/geography-management.png" title="Geography Management" /></p>
+<p>You will be redirected to the geography view map page, and you will see that in the top right corner there is an <strong>+uploader</strong> button.</p>
+<p><img alt="Geography Uploader" src="../../assets/screenshots/geography-uploader.png" title="Geography Uploader" /></p>
+<p>Select this button and start filling in the form. We will create two new geographies: Country and Provices using the tutorial data supplied below:</p>
+<blockquote>
+<p>📒 <strong>Note:</strong> You can find all the sample data used in this tutorial here: <a href="../../assets/tutorial_data/RIRTrainingData.zip" title="Data">Data</a></p>
+</blockquote>
+<p>The geography boundary should be provided in either Esri Shapefile format or as a geojson file.</p>
+<p>Add the country layer first. Start by clicking the <strong>files</strong> button at the bottom of the form and then select **all* of the shapefile layers.</p>
+<p><img alt="Shapefile" src="../../assets/screenshots/geography-select-shapefile.png" title="Shapefile" /></p>
+<p>Now complete the rest of the details as per the screenshot below. Note that the country geography does not need a parent, but we need the code for a country level. In this case, the country is ZA (under 'adm0_pcode').</p>
+<p><img alt="Country Form" src="../../assets/screenshots/geography-country-form.png" title="Country Form" /></p>
+<p>For a province level, the code column is 'pr_code', the name column is 'pr_name', and the parent code column is 'c_pcode'.</p>
+<p><img alt="Province Form" src="../../assets/screenshots/geography-province-form.png" title="Province Form" /></p>
+<h2 id="part-2-managing-indicators">Part 2: Managing Indicators<a class="headerlink" href="#part-2-managing-indicators" title="Permanent link">&para;</a></h2>
+<p>Here is an overview of what we will cover in this section:</p>
+<p><img alt="Ingestor Types" src="../../assets/screenshots/ingestor-types.png" /></p>
+<h3 id="adding-a-new-indicator"><strong>Adding a New Indicator</strong><a class="headerlink" href="#adding-a-new-indicator" title="Permanent link">&para;</a></h3>
+<p>🧑‍🏫 Indicators are special layers in RIR that are linked to the situation in the region. Indicators are used to show the situation in the region. For example, in South Africa, there may be indicators for the number of people living in poverty, the number of people living in high crime areas, etc.</p>
+<p>👨‍🏫 To add an indicator, click on <strong>Indicator Management</strong> on the main platform page for the instance and go to <strong>Create New</strong>. Fill in the necessary information about the indicator you would like to create. Let's create an indicator for population per province. We have already added province admin areas to the instance. The following little screen cast gives a short overview of the process:</p>
+<p><img alt="New Indicator" src="../../assets/screencasts/new-indicator.gif" title="New Indicator" /></p>
+<p>Set up your indicator with the following details:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Name</td>
+<td>Population</td>
+</tr>
+<tr>
+<td>Description</td>
+<td>Population of South Africa</td>
+</tr>
+<tr>
+<td>Access Level</td>
+<td>Need login to access</td>
+</tr>
+<tr>
+<td>Short Code</td>
+<td>pop</td>
+</tr>
+<tr>
+<td>Group</td>
+<td>Demographics</td>
+</tr>
+<tr>
+<td>Frequency</td>
+<td>365</td>
+</tr>
+<tr>
+<td>Geometry Reporting Level</td>
+<td>Province</td>
+</tr>
+<tr>
+<td>Unit</td>
+<td>People</td>
+</tr>
+<tr>
+<td>Reporting Behaviour</td>
+<td>Most recent for each geography</td>
+</tr>
+<tr>
+<td>Aggregation Behavioud</td>
+<td>Aggregate data by the sum of all data in the  levels</td>
+</tr>
+<tr>
+<td>Maximum Value</td>
+<td>15000000</td>
+</tr>
+<tr>
+<td>Dashboard Link</td>
+<td>(leave blank)</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="Population Indicator" src="../../assets/screenshots/population-indicator.png" title="Population Indicator" /></p>
+<p>👨‍🏫 Once you have filled out the form, scroll down to <strong>Scenario Rules</strong> and add the parameters to match the indicator as per the table below.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Best Case</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><img alt="Population Thresholds" src="../../assets/screenshots/population-thresholds.png" title="Population Thresholds" /></p>
+<blockquote>
+<p>📔<strong>Note:</strong> We are using a contrived example here. In a real instance we would used factors like people in need, COVID infection rates, etc.</p>
+</blockquote>
+<p>You can also change the color for each rule by clicking on the color block. Click <strong>Submit</strong> once you are happy with the added information and scenario rules.</p>
+<p><img alt="Submit" src="../../assets/screenshots/submit-indicator.png" title="Submit" /></p>
+<p>🌟 If you add a dashboard link, you will see a black dot in the center of the circle that represents the scenario case on that indicator in the Program Interventions panel. By clicking on the black dot, you will be redirected to the dashboard link.</p>
+<p>🧑‍🏫 Once we have created an indicator, we need to populate it with data. There are three ways to do this.</p>
+<ol>
+<li>We can manually add the data using the value manager form or map.</li>
+<li>We can use an ingestor to import data from a spreadsheet.</li>
+<li>We can use a harvester to automatically fetch the data from an online resource.</li>
+</ol>
+<h3 id="value-manager-form"><strong>Value Manager Form</strong><a class="headerlink" href="#value-manager-form" title="Permanent link">&para;</a></h3>
+<p>🧑‍🏫 The value manager form is a table with cells and rows, one row per administrative boundary, and one cell per indicator.</p>
+<p>👨‍🏫 Let's look at how to use the Value Manager Form. To access this form, go to <strong>Indicator Management</strong> and scroll to the indicator that you would like to add data to. On the right-hand side of the indicator's name, there will be a small <strong>Settings</strong> symbol.</p>
+<p><img alt="Settings" src="../../assets/screenshots/indicator-settings.png" title="Settings" /></p>
+<p>Click on <strong>Settings</strong> for the desired indicator and then click on <strong>Value Manager Form</strong>. You will be redirected to a form that gives you all the geographic locations within the instance and fields to add values.</p>
+<p>👨‍🏫 You can also add a file to fill in the data by clicking <strong>Use File to Refill Form</strong>. Tee the section: <em>Spreadsheet Uploader</em> below.</p>
+<p><img alt="Value Manager Form" src="../../assets/screencasts/value-manager-form.gif" title="Value Manager Form" /></p>
+<h3 id="value-manager-map"><strong>Value Manager Map</strong><a class="headerlink" href="#value-manager-map" title="Permanent link">&para;</a></h3>
+<p>🧑‍🏫 The value manager map allows you to add data by directly clicking on the region of the map that you would like to add data to.</p>
+<p>👨‍🏫 The second way to add data to an indicator is through the Value Manager Map option. Go to <strong>Indicator Management</strong> and scroll to the indicator that you would like to add data to. On the right-hand side of the indicator's name, there will be a small Settings symbol. Click on <strong>Settings</strong> for the desired indicator and then "click" on <strong>Value Manager Map</strong>. This will take you back to the map canvas. Now you will be able to click on any geographic location within the instance and a popup window will appear which will allow you to fill in value data for that location.</p>
+<p><img alt="Value Manager Map" src="../../assets/screencasts/value-manager-map.gif" title="Value Manager Map" /></p>
+<h3 id="ingestors"><strong>Ingestors</strong><a class="headerlink" href="#ingestors" title="Permanent link">&para;</a></h3>
+<p>🧑‍🏫 The function of an ingestor is to manually populate data for an ingestor.</p>
+<p>There are three modalities for ingestors:</p>
+<ol>
+<li>Spreadsheet uploader (for single indicators)</li>
+<li>Meta Ingestor (for populating multiple indicators)</li>
+<li>Push API (advanced, allows you to create programmes that push their data to an indicator)</li>
+</ol>
+<p>We describe the workflow for each of these ingestors below.</p>
+<h4 id="spreadsheet-uploader">Spreadsheet Uploader<a class="headerlink" href="#spreadsheet-uploader" title="Permanent link">&para;</a></h4>
+<p>👨‍🏫 Spreadsheet uploader is used for upload data of an indicator using one file. It is using <em>Value Manager Form</em> without input value one by one.</p>
+<p>We are going to use <code>TrainingData/IngestorData/sa-population.xls</code>.</p>
+<p>👨‍🏫 For this example, we are going to use <strong>population</strong> indicator.
+Before starts, we need to create the indicator first. (Check <em>Adding a New Indicator</em> section)</p>
+<p>🧑‍🏫 Go to <strong>Indicator Management</strong> and scroll to the indicator that you would like to add data to. On the right-hand side of the indicator's name, there will be a small <strong>Settings</strong> symbol.
+Click on <strong>Settings</strong> for the desired indicator and then click on <strong>Value Manager Form</strong>.</p>
+<p>👨‍🏫 Click <em>Use File to Refill Form</em> and the popup will show. After that select other inputs.</p>
+<blockquote>
+<p>📒 <strong>Note:</strong> Always select administrative code to <em>Choose area code column.</em></p>
+</blockquote>
+<p>🧑‍🏫 After everything selected, click <em>import</em>, and the form will be autofilled.</p>
+<blockquote>
+<p>📒 <strong>Note:</strong> If it is still empty, check the administrative code that you have on spreadsheet and the forms.
+Always use administrative code on the speadsheet value. On the form, the code is in brackets.</p>
+</blockquote>
+<p><img alt="Spreadsheet Ingestor" src="../../assets/screencasts/spreadsheet-ingestor.gif" title="Spreadsheet Ingestor" /></p>
+<h4 id="meta-ingestor-uploader">Meta Ingestor Uploader<a class="headerlink" href="#meta-ingestor-uploader" title="Permanent link">&para;</a></h4>
+<p>👨‍🏫 We are going to create a Meta Ingestor. The goal for this ingestor is for uploading data for multiple indicator for one file.
+We are going to use TrainingData/IngestorData/sa-gdp_unemployment.xls.
+In there, there are <strong>gdp</strong> and <strong>unemployment</strong> columns that we need to save the data for <strong>gdp</strong> and <strong>unemployment</strong> indicator.
+Before starts, we need to create those indicators first. (Check <em>Adding a New Indicator</em> section)</p>
+<p>🧑‍🏫 To start the meta ingestor, go to <strong>Indicator Management</strong> and in the top right-hand corner of the page, there will be a <strong>Meta Ingestor</strong> option that you will
+need to click.</p>
+<p>🧑‍🏫 Select the file in TrainingData/IngestorData/sa-gdp_unemployment.xls from the sample data and the other inputs will be activate.</p>
+<p>🧑‍🏫 Select <em>Sheet name</em> and <em>Row number: header</em> (It is row 1).</p>
+<p>🧑‍🏫 Select <em>Column name: administration code</em>, and select other <em>Column name</em> inputs (The indicator name) with the header on the Excel that reflects the indicator data.
+Then <strong>Submit</strong> your work, and wait until it says done.
+<img alt="Meta Ingestor" src="../../assets/screencasts/meta-ingestor.gif" title="Meta Ingestor" /></p>
+<h4 id="api-ingestor">API Ingestor<a class="headerlink" href="#api-ingestor" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p>Note: This is for advanced users only.</p>
+</blockquote>
+<p>👨‍🏫 To start, go to indicator management, go to the 'Population' line, click 'cog' symbol and click 'Create Harvester'. 
+<img alt="Ingestor" src="../../assets/screenshots/API%20Ingestor/1.png" title="Ingestor" /></p>
+<p>👨‍🏫 Change the type of harvester to <strong>Harvested using exposed API by external client</strong>. Add necessary notes and submit.
+<img alt="Ingestor" src="../../assets/screenshots/API%20Ingestor/2.png" title="Ingestor" /></p>
+<p>👨‍🏫 It will show the details that we need to use later.
+<img alt="Ingestor" src="../../assets/screenshots/API%20Ingestor/3.png" title="Ingestor" /></p>
+<p>👨‍🏫 After that go to postman for example to push data.</p>
+<p>👨‍🏫 Change method to POST. Copy the url on the image above and put it on url on Postman.</p>
+<p>👨‍🏫 Copy the token on the image above, go to postman, go to headers tab. Add new key 'Authorization' with value 'Bearer (token that we paste)'.</p>
+<p>👨‍🏫 Example postman for harvester from  above image.</p>
+<p><img alt="Ingestor" src="../../assets/screenshots/API%20Ingestor/4.png" title="Ingestor" /></p>
+<p>👨‍🏫 Copy the json that show on the harvester page, and go to postman, go to body tab, change to raw and change to JSON.
+Paste the json, and change with necessary data. Put correct administrative code in there.</p>
+<p><img alt="Ingestor" src="../../assets/screenshots/API%20Ingestor/5.png" title="Ingestor" /></p>
+<p>👨‍🏫 Then click 'Send' on postman. 
+👨‍🏫 If it is success, it will return the detail of data that we pushed before.</p>
+<p><img alt="Ingestor" src="../../assets/screenshots/API%20Ingestor/6.png" title="Ingestor" /></p>
+<p>👨‍🏫 Please check full walkthrough below.
+<img alt="Ingestor" src="../../assets/screencasts/API%20Ingestor.gif" title="Ingestor" /></p>
+<h3 id="harvesters"><strong>Harvesters</strong><a class="headerlink" href="#harvesters" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>Note: This is for advanced users only.</p>
+</blockquote>
+<p>🧑‍🏫 Harvesters are fully automated software routines that periodically fetch data from third party sources and populate indicators.</p>
+<p>👨‍🏫 Go to <strong>Indicator Management</strong> and if you haven't already created the indicator you want to work with, start by doing that. Once the necessary indicator exists,click on the little <strong>Settings</strong> icon on the right-hand side of the indicator name. Select the <strong>Create Harvester</strong> option. Pick the type of harvester you would like to create from the drop-down Harvester (you will be presented with three options: 'API With Geography Using Today's Date'; 'API With Geography And Date'; and 'Harvested Using Exposed API By External Client'). The first two options are for the harvester and the third one is for the ingestor. For the 'API With Geography Using Today's Date' and 'API With Geography And Date' options,  fill in the Attributes portion of the form and then a popup window with a list of
+keys will appear; <strong>drag</strong> the green labels to their corresponding criteria. Select <strong>Harvest Now</strong>. You can scroll down to the log to see if your harvest is running in the background. Go to <strong>Indicator Management</strong> and click on the little settings icon that you just created a harvester for and select <strong>Value Manager Map</strong> to view your progress.</p>
+<p><img alt="Harvester" src="../../assets/screencasts/harvester.gif" title="Harvester" /></p>
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../user_tutorial/" class="md-footer__link md-footer__link--prev" aria-label="Previous: User" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              User
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../../setup/" class="md-footer__link md-footer__link--next" aria-label="Next: Setup" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Setup
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright Tim Sutton and Contributors, 2022
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.annotate", "navigation.expand", "navigation.indexes", "navigation.sections", "navigation.tabs", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.follow"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.5e67fbfe.min.js"}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e87a5f81.min.js"></script>
+      
+    
+  </body>
+</html>

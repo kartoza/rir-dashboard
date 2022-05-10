@@ -1,0 +1,1808 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A platform provides a way to understand risk modalities across different geographic contexts.">
+      
+      
+        <meta name="author" content="Tim Sutton">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.2.6">
+    
+    
+      
+        <title>User - RIR Dashboard 1.0</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.9d5733d3.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.e6a45f82.min.css">
+        
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="gray">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#user-tutorial" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="RIR Dashboard 1.0" class="md-header__button md-logo" aria-label="RIR Dashboard 1.0" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RIR Dashboard 1.0
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              User
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="gray"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="gray"  aria-label="Switch to light mode]"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode]" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18V6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-2.69L23.31 12 20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/kartoza/rir-dashboard/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    kartoza/rir-dashboard
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        Introduction
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../" class="md-tabs__link md-tabs__link--active">
+        Tutorial
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../setup/" class="md-tabs__link">
+        Setup
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="RIR Dashboard 1.0" class="md-nav__button md-logo" aria-label="RIR Dashboard 1.0" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    RIR Dashboard 1.0
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/kartoza/rir-dashboard/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    kartoza/rir-dashboard
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" data-md-state="indeterminate" type="checkbox" id="__nav_1" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../..">Introduction</a>
+          
+            <label for="__nav_1">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Introduction" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          Introduction
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../introduction/disclaimer/" class="md-nav__link">
+        Disclaimer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../introduction/license/" class="md-nav__link">
+        License
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../introduction/contributing/" class="md-nav__link">
+        Contributing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../introduction/credits/" class="md-nav__link">
+        Credits
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6" data-md-state="indeterminate" type="checkbox" id="__nav_1_6" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_1_6">
+          Platform tour
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Platform tour" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_6">
+          <span class="md-nav__icon md-icon"></span>
+          Platform tour
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../introduction/platform_tour/platform_tour/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../introduction/platform_tour/indicator/" class="md-nav__link">
+        Indicator
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../introduction/platform_tour/map_interaction/" class="md-nav__link">
+        Map interaction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../introduction/platform_tour/layers/" class="md-nav__link">
+        Layers
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../">Tutorial</a>
+          
+            <label for="__nav_2">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Tutorial" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Tutorial
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          User
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        User
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#working-with-this-documentation" class="md-nav__link">
+    Working with this documentation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#session-outline" class="md-nav__link">
+    Session outline
+  </a>
+  
+    <nav class="md-nav" aria-label="Session outline">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#important-links" class="md-nav__link">
+    Important Links:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#session-outline_1" class="md-nav__link">
+    Session Outline:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tutorial" class="md-nav__link">
+    Tutorial
+  </a>
+  
+    <nav class="md-nav" aria-label="Tutorial">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#accessing-the-platform" class="md-nav__link">
+    Accessing the platform
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    Documentation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#instances" class="md-nav__link">
+    Instances
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#signing-in" class="md-nav__link">
+    Signing In
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-somalia-dashboard" class="md-nav__link">
+    The Somalia Dashboard
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dashboard-tour" class="md-nav__link">
+    Dashboard Tour
+  </a>
+  
+    <nav class="md-nav" aria-label="Dashboard Tour">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-context-analysis-button" class="md-nav__link">
+    The Context Analysis Button
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-indicator-panel" class="md-nav__link">
+    The Indicator Panel
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-traffic-light" class="md-nav__link">
+    The Traffic Light
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-information-panel" class="md-nav__link">
+    The Information Panel
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#downloading-data-button" class="md-nav__link">
+    Downloading Data Button
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#layers" class="md-nav__link">
+    Layers
+  </a>
+  
+    <nav class="md-nav" aria-label="Layers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#context-layers" class="md-nav__link">
+    Context Layers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#base-maps" class="md-nav__link">
+    Base Maps
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#geography-level" class="md-nav__link">
+    Geography Level
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#map-interactions" class="md-nav__link">
+    Map Interactions
+  </a>
+  
+    <nav class="md-nav" aria-label="Map Interactions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#zooming" class="md-nav__link">
+    Zooming
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panning" class="md-nav__link">
+    Panning
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#information-window" class="md-nav__link">
+    Information Window
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-slider" class="md-nav__link">
+    The Slider
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#timelapse-bar" class="md-nav__link">
+    Timelapse Bar
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#more-on-the-information-panel" class="md-nav__link">
+    More on the Information Panel
+  </a>
+  
+    <nav class="md-nav" aria-label="More on the Information Panel">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#graphical-representation" class="md-nav__link">
+    Graphical Representation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bringing-it-all-together" class="md-nav__link">
+    Bringing it all together
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../administrator_tutorial/" class="md-nav__link">
+        Administrator
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" data-md-state="indeterminate" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../setup/">Setup</a>
+          
+            <label for="__nav_3">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Setup" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Setup
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" data-md-state="indeterminate" type="checkbox" id="__nav_3_2" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_2">
+          Installation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Installation" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          Installation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../setup/installation/preparation/" class="md-nav__link">
+        Preparation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../setup/installation/project_setup/" class="md-nav__link">
+        Project setup
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2_3" data-md-state="indeterminate" type="checkbox" id="__nav_3_2_3" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../setup/installation/development_setup/">Development setup</a>
+          
+            <label for="__nav_3_2_3">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Development setup" data-md-level="3">
+        <label class="md-nav__title" for="__nav_3_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Development setup
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../setup/installation/development_setup/pycharm/" class="md-nav__link">
+        Using pycharm
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_3" data-md-state="indeterminate" type="checkbox" id="__nav_3_3" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_3">
+          Configuration
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Configuration" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          Configuration
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../setup/configuration/preferences/" class="md-nav__link">
+        Preferences
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../setup/configuration/user/" class="md-nav__link">
+        User
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../setup/configuration/instances/" class="md-nav__link">
+        Instance
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../setup/configuration/navigation_link/" class="md-nav__link">
+        Navigation link
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../setup/configuration/scenario/" class="md-nav__link">
+        Scenario
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../setup/configuration/program_intervention/" class="md-nav__link">
+        Program intervention
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../setup/configuration/layer/" class="md-nav__link">
+        Layer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../setup/configuration/geography/" class="md-nav__link">
+        Geography
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../setup/configuration/indicator/" class="md-nav__link">
+        Indicator
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#working-with-this-documentation" class="md-nav__link">
+    Working with this documentation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#session-outline" class="md-nav__link">
+    Session outline
+  </a>
+  
+    <nav class="md-nav" aria-label="Session outline">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#important-links" class="md-nav__link">
+    Important Links:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#session-outline_1" class="md-nav__link">
+    Session Outline:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tutorial" class="md-nav__link">
+    Tutorial
+  </a>
+  
+    <nav class="md-nav" aria-label="Tutorial">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#accessing-the-platform" class="md-nav__link">
+    Accessing the platform
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    Documentation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#instances" class="md-nav__link">
+    Instances
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#signing-in" class="md-nav__link">
+    Signing In
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-somalia-dashboard" class="md-nav__link">
+    The Somalia Dashboard
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dashboard-tour" class="md-nav__link">
+    Dashboard Tour
+  </a>
+  
+    <nav class="md-nav" aria-label="Dashboard Tour">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-context-analysis-button" class="md-nav__link">
+    The Context Analysis Button
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-indicator-panel" class="md-nav__link">
+    The Indicator Panel
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-traffic-light" class="md-nav__link">
+    The Traffic Light
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-information-panel" class="md-nav__link">
+    The Information Panel
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#downloading-data-button" class="md-nav__link">
+    Downloading Data Button
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#layers" class="md-nav__link">
+    Layers
+  </a>
+  
+    <nav class="md-nav" aria-label="Layers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#context-layers" class="md-nav__link">
+    Context Layers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#base-maps" class="md-nav__link">
+    Base Maps
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#geography-level" class="md-nav__link">
+    Geography Level
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#map-interactions" class="md-nav__link">
+    Map Interactions
+  </a>
+  
+    <nav class="md-nav" aria-label="Map Interactions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#zooming" class="md-nav__link">
+    Zooming
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panning" class="md-nav__link">
+    Panning
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#information-window" class="md-nav__link">
+    Information Window
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-slider" class="md-nav__link">
+    The Slider
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#timelapse-bar" class="md-nav__link">
+    Timelapse Bar
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#more-on-the-information-panel" class="md-nav__link">
+    More on the Information Panel
+  </a>
+  
+    <nav class="md-nav" aria-label="More on the Information Panel">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#graphical-representation" class="md-nav__link">
+    Graphical Representation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bringing-it-all-together" class="md-nav__link">
+    Bringing it all together
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+<a href="https://github.com/kartoza/rir-dashboard/edit/master/docs/tutorial/user_tutorial.md" title="Edit this page" class="md-content__button md-icon">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+</a>
+
+
+
+<h1 id="user-tutorial">User Tutorial<a class="headerlink" href="#user-tutorial" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>RIR: Risk-Informed Response</p>
+</blockquote>
+<p>🧑‍🏫 The RIR platform is a situational awareness platform to monitor health, child protection, nutrition, water, sanitation, hygiene, and education in a geographic region. This section will explain how the RIR platform works so that you can fully understand the platform and the information you can obtain from it.</p>
+<h2 id="working-with-this-documentation">Working with this documentation<a class="headerlink" href="#working-with-this-documentation" title="Permanent link">&para;</a></h2>
+<p>Whenever you see a phrase in <strong>bold</strong>, it refers to a link or button on the user interface that you can interact with.</p>
+<h2 id="session-outline">Session outline<a class="headerlink" href="#session-outline" title="Permanent link">&para;</a></h2>
+<p>This session will tour the RIR platform functionality using simple examples and workflows that the everyday platform user would use.</p>
+<h3 id="important-links">Important Links:<a class="headerlink" href="#important-links" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="https://staging.rir.kartoza.com/" title="RIR Platform">RIR Platform</a></li>
+<li><a href="https://kartoza.github.io/rir-dashboard/pages/introduction.html" title="RIR Full Documentation">RIR Full Documentation</a></li>
+</ul>
+<h3 id="session-outline_1">Session Outline:<a class="headerlink" href="#session-outline_1" title="Permanent link">&para;</a></h3>
+<p>During this tutorial, we will show you how to navigate the platform and summarise what each tool and button does. We will include simple examples and workflows.</p>
+<ol>
+<li>Access the platform</li>
+<li><strong>Documentation</strong> and <strong>Links</strong></li>
+<li><strong>Instances</strong></li>
+<li><strong>Sign in</strong></li>
+<li>
+<p>The Dashboard tour:</p>
+<ul>
+<li><strong>The Context Analysis Button</strong></li>
+<li><strong>Programme Interventions Panel</strong></li>
+<li><strong>The Indicator Panel</strong> </li>
+<li><strong>Hiding and showing panels</strong></li>
+<li><strong>The Traffic Light</strong></li>
+<li><strong>The Information Panel</strong></li>
+<li><strong>Downloading Data button</strong></li>
+</ul>
+<p><img alt="Dashboard Flow Diagram" src="../../assets/screenshots/dashboard-tour.png" /></p>
+<p>(See also <a href="https://kartoza.github.io/rir-dashboard/pages/using/indicators.html#indicators">Indicators</a>).</p>
+</li>
+<li>
+<p>Layers</p>
+<ul>
+<li>The <strong>Context Layers Icon</strong> </li>
+<li>The <strong>Basemap Icon</strong></li>
+<li><strong>Geography Level Panel</strong></li>
+</ul>
+<p><img alt="Layers Flow Diagram" src="../../assets/screenshots/layers.png" /></p>
+<p>(see also <a href="https://kartoza.github.io/rir-dashboard/pages/using/layers.html#layers">Layers</a>). We will look at these layer related topics:</p>
+</li>
+<li>
+<p>Map Interactions</p>
+<ul>
+<li><strong>Panning</strong> moving around the map </li>
+<li><strong>Zooming</strong> in and out</li>
+<li>The <strong>Information Display Window</strong> </li>
+<li><strong>The Map Slider</strong> (eg. to compare people in need of 'Child Protection' vs. 'Child Protection Program Coverage') </li>
+<li><strong>Timelapse Bar</strong>(eg. IDP arrival over time) </li>
+</ul>
+<p><img alt="Map Interactions Flow Diagram" src="../../assets/screenshots/map-interactions.png" /></p>
+<p>(see also <a href="https://kartoza.github.io/rir-dashboard/pages/using/map_interactions.html">Map Interactions</a>)</p>
+</li>
+<li>
+<p>More on the <strong>Information Panel</strong></p>
+<ul>
+<li><strong>Graphical Representation</strong></li>
+</ul>
+</li>
+<li>
+<p>Questions </p>
+</li>
+</ol>
+<p>You can find more self-study content in the full system documentation here: <a href="https://kartoza.github.io/rir-dashboard/pages/using/platform_tour.html">Platform Tour</a>).</p>
+<h2 id="tutorial">Tutorial<a class="headerlink" href="#tutorial" title="Permanent link">&para;</a></h2>
+<h3 id="accessing-the-platform">Accessing the platform<a class="headerlink" href="#accessing-the-platform" title="Permanent link">&para;</a></h3>
+<p>You can access the platform here: <a href="https://staging.rir.kartoza.com">https://staging.rir.kartoza.com</a>: </p>
+<blockquote>
+<p>📒 <strong>Note</strong> this link will change in the future. We will advise all users of the system when that happens.</p>
+</blockquote>
+<h3 id="documentation">Documentation<a class="headerlink" href="#documentation" title="Permanent link">&para;</a></h3>
+<p>🧑‍🏫 On the top right-hand side of the landing screen, there is a drop-down menu for <strong>Links</strong> and a link to a sign-in page. The <strong>Links</strong> drop-down menu is a quick way to access the documentation for using the platform and the different data and resources associated with the platform (which are not covered in this tutorial).</p>
+<p><img alt="Links Menu" src="../../assets/screenshots/links.png" /></p>
+<blockquote>
+<p>📒 <strong>Instructor note:</strong> Briefly show the documentation and how to navigate it.</p>
+</blockquote>
+<p><img alt="Documentation" src="../../assets/screenshots/documentation.png" /></p>
+<h3 id="instances">Instances<a class="headerlink" href="#instances" title="Permanent link">&para;</a></h3>
+<p>🧑‍🏫 On the landing page, you will see several <strong>instances</strong>. An <strong>Instance</strong> is a configured dashboard for a specific region or country. We will use the <strong>Somalia instance</strong> for the examples in this tutorial.</p>
+<p><img alt="Instances" src="../../assets/screenshots/instances.png" /></p>
+<h3 id="signing-in">Signing In<a class="headerlink" href="#signing-in" title="Permanent link">&para;</a></h3>
+<p>🧑‍🏫 Return to the RIR platform, click on the <strong>Sign In</strong> link, and a page will open where you can add in your user name and password. Your credentials are created for you by an administrator and may not be necessary. As a web user, you will still be able to interact with the platform without a login.</p>
+<p><img alt="Sign In" src="../../assets/screenshots/log-in.png" /></p>
+<p>🧑‍🏫 <strong>Sign In</strong> is only important to access specific workflows. Some data and workflows may only be available to named users who are signed into the platform. Once you are signed in to the platform, your name will appear on the top right, and depending on your admin privileges, there will be a drop-down with the option to log out and reach the admin page if you are an administrator. </p>
+<p><img alt="Signed In" src="../../assets/screenshots/signed-in.png" /></p>
+<h3 id="the-somalia-dashboard">The Somalia Dashboard<a class="headerlink" href="#the-somalia-dashboard" title="Permanent link">&para;</a></h3>
+<p>👨‍🏫 Click on the <strong>instance</strong> labeled Somalia, and the dashboard will load and open. </p>
+<p><img alt="Dashboard" src="../../assets/screenshots/dashboard.png" /></p>
+<p>🧑‍🏫 You will see I am still signed in, and there are three options available to me on the bottom left. If I sign out, these buttons will disappear because web users do not have access to some functionality. For this tour, a web user status will work.</p>
+<p><img alt="Web User" src="../../assets/screenshots/web-user.png" /></p>
+<h2 id="dashboard-tour">Dashboard Tour<a class="headerlink" href="#dashboard-tour" title="Permanent link">&para;</a></h2>
+<p>🧑‍🏫 Let's tour the dashboard together. We will start from left to right across the screen, showing what each button and panel does with a few simple examples. </p>
+<h3 id="the-context-analysis-button">The Context Analysis Button<a class="headerlink" href="#the-context-analysis-button" title="Permanent link">&para;</a></h3>
+<p>🧑‍🏫 At the top left of the screen, you will see the <strong>Context Analysis Button</strong>. This button gives access to the <strong>Indicator Panel</strong> it is selected, and the is panel open by default.</p>
+<p><img alt="Context Analysis Button" src="../../assets/screenshots/context-analysis-button.png" /></p>
+<p>🧑‍🏫 Below the <strong>Context Analysis Button</strong> is the <strong>Programme Interventions Panel</strong>. It contains a set of buttons that allow access to key risk response indicators. </p>
+<p>👨‍🏫 Click on the arrow next to the house symbol, the tabs will extend and be labeled so you can see what each symbol means, Health, Child Protection, Nutrition, Wash, and Education.</p>
+<p>🧑‍🏫 For example, the second button-down with a picture of the caduceus/ medical symbol indicates <strong>Health</strong>. Once opened the panel shows a report on the status of or degree to which the intervention for that factor is helping and other information like costing.</p>
+<p>👨‍🏫 Click on each button to see the information for each factor. </p>
+<p><img alt="Program Interventions Panel" src="../../assets/screenshots/program-interventions-panel.png" /></p>
+<h3 id="the-indicator-panel">The Indicator Panel<a class="headerlink" href="#the-indicator-panel" title="Permanent link">&para;</a></h3>
+<p>👨‍🏫 Click back on the <strong>Context Analysis Button</strong> and observe the <strong>Indicator Panel</strong>. </p>
+<p>🧑‍🏫 This panel contains a list of <strong>indicators</strong> (special layers) that relate to the main factors of interest on the platform like health and nutrition. Indicators are special layers in RIR that are linked to the situation in the region. Indicators are used to show the situation in the region. For example, in Somalia, there are indicators for the Children in need of protection <strong>PIN- Child Protection</strong> that we will practically explore below. The panel is expanded by default but can be collapsed if you click on the tab labeled with a house on the right side of the panel. Collapsing the pannel can allow you to observe the map better. </p>
+<p><img alt="Indicator Panel" src="../../assets/screenshots/indicator-pannel.png" /></p>
+<p>👨‍🏫 Click on the triangle next to the label <strong>People In Need</strong>. </p>
+<p>🧑‍🏫 This opens a drop-down menu showing all the data on different groups of people that require assistance from government or other organizations.</p>
+<p>👨‍🏫 Select the box next to <strong>PIN- Child Protection</strong>.</p>
+<p>🧑‍🏫 A tick will appear in the check box and you will see a layer appear on the map. The map shows areas in darkening blue shades that indicate a decrease in child protection per region. You can select only one sub-layer (e.g. best-case or worst-case) of the <strong>indicator</strong> layer by ticking or un-ticking the <strong>checkboxes</strong> next to each of the cases. </p>
+<p>👨‍🏫 Click and unclick the different case options (see how the map changes). Ensure all of the <strong>PIN- Child Protection</strong> sub-Layers are ticked to continue with the tutorial.</p>
+<p>🧑‍🏫 An <strong>Information panel</strong> will also open on the right-hand side of the screen when an <strong>indicator</strong> is selected. We will go through the <strong>Information Panel</strong> in more detail shortly. </p>
+<p><img alt="People in Need" src="../../assets/screenshots/people-in-need.png" /></p>
+<p>🧑‍🏫 The coloured circles next to each <strong>indicator</strong> show the current severity level for that indicator. Blue is the best case, yellow mid, and red is the worst case. The case scenario will indicate if that region or state needs additional responses or interventions to reduce risk. </p>
+<p><img alt="Coloured Circles" src="../../assets/screenshots/coloured-circles.png" /></p>
+<h3 id="the-traffic-light">The Traffic Light<a class="headerlink" href="#the-traffic-light" title="Permanent link">&para;</a></h3>
+<p>🧑‍🏫 You can access what we call traffic lights for the indicators by clicking on the arrow in the top right of the <strong>Indicator panel</strong>. This will expand the information on the severity level, for example, you can see that for our selected layer of <strong>PIN- Child Protection</strong> overall in Somalia the situation is worsening for children hence the yellow color. Several regions need additional responses or support to protect vulnerable children. Click the triangle (now on the top right) again to see the map again. </p>
+<p>👨‍🏫 Click on the arrow in the top right of the <strong>Indicator panel</strong> </p>
+<p><img alt="Traffic Lights" src="../../assets/screenshots/traffic-lights.png" /></p>
+<h3 id="the-information-panel">The Information Panel<a class="headerlink" href="#the-information-panel" title="Permanent link">&para;</a></h3>
+<p>🧑‍🏫 On the right-hand side of the map area, the <strong>Information Panel</strong> shows a summary of the severity case of the indicator selected for each region or district. For example in Adan Yabaal Child protection has a value of 3. You will also see an interactive <strong>pie chart</strong> infographic summarising all the data in the layer. </p>
+<p>👨‍🏫 Hover your mouse over the <strong>pie chart</strong> and observe the labels and number of districts in Worsening and Worst Case scenarios. </p>
+<p><img alt="Information Panel" src="../../assets/screenshots/information-panel.png" /></p>
+<p>🧑‍🏫 If you click on the region name like Adan Yabaal in the <strong>Information Panel</strong> the platform will show which region it is on the map with an information window. </p>
+<p>👨‍🏫 Click on Adan Yabaal (the text) in the <strong>Information Panel</strong> under the pie chart.</p>
+<p>🧑‍🏫 Once a single district is selected, the <strong>Information Panel</strong> will show all the indicators for that specified region and the severity of the situation for each indicator using different traffic light colors. You can click on each indicator for more detail like Child protection and you will see more information and a simple infographic. We will look at the <strong>Information Panel</strong> with different data further on in this tutorial and show how the simple infographic in the detail section can show changes over time if the data has such information. </p>
+<p>👨‍🏫 Click on <strong>PiN-Child Protection</strong> (the text) in the <strong>Information Panel</strong> and observe the information and simple Infographic and hover your mouse over it.  </p>
+<p><img alt="Information Window" src="../../assets/screenshots/information-window.png" />
+<img alt="Detail" src="../../assets/screenshots/detail.png" /></p>
+<h3 id="downloading-data-button">Downloading Data Button<a class="headerlink" href="#downloading-data-button" title="Permanent link">&para;</a></h3>
+<p>🧑‍🏫 You can download any data of interest by clicking on the round symbol with the download arrow in it (<strong>download button</strong>) next to each indicator in the <strong>Indicator Panel</strong> for the selected indicator. You can get all the data for the instance if you click <strong>the download button</strong> at the top of the <strong>Information Panel</strong>. This will give you a spreadsheet of the information that you can use outside of the platform. </p>
+<p>👨‍🏫 Click on the <strong>download button</strong> next to <strong>People In Need</strong> and observe the downloaded spreadsheet on your computer. Note the data is also colour-coded in the spreadsheet as per the platform.  </p>
+<p><img alt="Download Data" src="../../assets/screenshots/download-data.png" />
+<img alt="Spreadsheet" src="../../assets/screenshots/Spreadsheet.png" /></p>
+<h2 id="layers">Layers<a class="headerlink" href="#layers" title="Permanent link">&para;</a></h2>
+<p>🧑‍🏫 Let's explore the layers available to visualize and give context to the indicators on the map. </p>
+<h3 id="context-layers">Context Layers<a class="headerlink" href="#context-layers" title="Permanent link">&para;</a></h3>
+<p>🧑‍🏫 The <strong>context layers</strong> can be accessed by clicking on the button with 3 overlapping squares on it.  There will be a list of options to choose from. Context layers are shown on the map to provide a sense of the conditions in the region. They can cover any topic - for example, security, food security, infrastructure, etc. Context layers do not have indicator data attached, they are a visual aid in the dashboard map. Let's Select ‘Access’ We can now see all the roads, airports, and other access indicators/features. If you click on the drop-down triangle you can choose exactly what features you want to see and Turn off everything except roads and ports by checking and unchecking the feature boxes. If you click on a point on the map like a port you will be given information about that specific point in an <strong>Information Window</strong>. </p>
+<p>👨‍🏫 Click on the context layers button, select access layers select only roads and ports. Click on a port and see the information window.</p>
+<p><img alt="Layers Ports" src="../../assets/screenshots/layers-ports.png" /></p>
+<h3 id="base-maps">Base Maps<a class="headerlink" href="#base-maps" title="Permanent link">&para;</a></h3>
+<p>🧑‍🏫 You can also change the base map behind the data if you click on the world icon in the panel. The default is an OpenStreetMap canvas. There is also a GEBCO grid base map which is a global terrain model for ocean and land, a Mapbox satellite base map, and an open topo base map which is rendered from OSM and SRTM data.</p>
+<p><img alt="Layers Topo" src="../../assets/screenshots/layers-topo.png" /></p>
+<p>🧑‍🏫 For example, it may be useful to have a topographic map to visualize geographic features like mountains and rivers that could impede people's movement into areas if you are reviewing the internal displacement of people. </p>
+<p>👨‍🏫 - turn on the Open <strong>Topo Map</strong> base map
+   - Navigate back to the indicator panel
+   - Uncheck the child protection layer. 
+   - Click the drop-down for <strong>Internal Displacement</strong>
+   - select the <strong>IDP Departure layer</strong></p>
+<p>🧑‍🏫 You can now see some of the topographic features underneath the departures layer. You may observe that several areas with high departure rates are in the northern desert area. Thus drought may be affecting the people in these areas. Let's take it a step further and go to the contest layers again drop down the <strong>Natural Hazard</strong> option and check on the <strong>Drought Priority Areas</strong>. You can see that many of the drought priority areas are in the northern desert area we can see on the context topo map.</p>
+<p>👨‍🏫 Navigate to the context layers and check on the <strong>Drought Priority Areas</strong>. </p>
+<p><img alt="Inaternal Displacement" src="../../assets/screenshots/internal-displacement.png" /></p>
+<h3 id="geography-level">Geography Level<a class="headerlink" href="#geography-level" title="Permanent link">&para;</a></h3>
+<p>🧑‍🏫 Finally, while we have the IDP data handy you can change the <strong>Geography Level</strong> of the indicators. By specifying country, region, or district in the menu on the bottom right of the map canvas. Geography levels express the hierarchy between administrative boundaries. For example, in Somalia, we have the country boundary subdivided into regions, which are in turn subdivided into districts. RIR uses these geography levels to provide a sense of the conditions in the region.</p>
+<p>👨‍🏫 - Turn off the <strong>Acess layers</strong> and the <strong>Drought Priority Areas</strong> by going to the layers and unchecking them so that we can see the regions better
+   - On the menu at the bottom right of the page select Region and you will see that the geographic level of the areas changes. 
+   - click on Country and see what happens. </p>
+<p><img alt="Geography level" src="../../assets/screenshots/geography-level.png" /></p>
+<h2 id="map-interactions">Map Interactions<a class="headerlink" href="#map-interactions" title="Permanent link">&para;</a></h2>
+<p>🧑‍🏫 Let's now get into interacting with the Map. Activate the child protection indicator again and deactivate departures. </p>
+<p>👨‍🏫 Check on the <strong>PIN- Child Protection</strong> and check off the <strong>IDP Departure layer</strong></p>
+<h3 id="zooming">Zooming<a class="headerlink" href="#zooming" title="Permanent link">&para;</a></h3>
+<p>🧑‍🏫 Zoom into and out of the map by using the scroll wheel on your mouse or you can click your mouse, hold down shift and draw a square around the area you wish to zoom in to. </p>
+<p><img alt="Zoom" src="../../assets/screenshots/zoom.png" /></p>
+<h3 id="panning">Panning<a class="headerlink" href="#panning" title="Permanent link">&para;</a></h3>
+<p>To pan on the map click on the map and drag it around. </p>
+<h3 id="information-window">Information Window<a class="headerlink" href="#information-window" title="Permanent link">&para;</a></h3>
+<p>Once you have zoomed and panned to an area of interest click on it and you will see an information window as we saw earlier. For more information click on the detail button and information will be shown in the <strong>Information Panel</strong> on the right. Click off the window to get out.</p>
+<p>👨‍🏫 Zoom in, Pan, and click on a region of interest.</p>
+<p><img alt="Information window" src="../../assets/screenshots/panning.png" /></p>
+<h3 id="the-slider">The Slider<a class="headerlink" href="#the-slider" title="Permanent link">&para;</a></h3>
+<p>🧑‍🏫 You can choose two indicators for comparison on the map. For example, while child protection is selected let's see where there is program coverage for child protection in Somalia. </p>
+<p>Under the <strong>Program Coverage</strong> indicator select the <strong>Child Protection</strong> option. You will see a slider appear and the layer names represented on each side on the bottom left and right of the screen. If you click on the middle toggle and drag you can see that in several of the regions in the north with the worst-case scenario for child protection there are no active programs to combat the issue depicted in red. These would be ideal candidates to fund child-relief projects in. </p>
+<p>👨‍🏫 Check on the <strong>Child Protection</strong> indicator layer and drag the slider across the map. </p>
+<p><img alt="Slider" src="../../assets/screenshots/slider.png" /></p>
+<p>🧑‍🏫 You can make the sliding horizontal by clicking the map button at the bottom right of the map canvas. </p>
+<h3 id="timelapse-bar">Timelapse Bar<a class="headerlink" href="#timelapse-bar" title="Permanent link">&para;</a></h3>
+<p>There is a <strong>Timelapse Bar</strong> that can show changes in data over time located at the bottom center of the screen or map area. A great example of this is the internal displacement of people. Turn off the child protection indicators and activate the IDP layer for departures. You can see where indicators are selected because the tab heading will be bolded. Click the play button on the time bar and you will see the changes in what region people are leaving over time.</p>
+<p>👨‍🏫 Check the box on the <strong>IDP Departure layer</strong> and any other layers off. Click on the green play button on the timelapse bar. </p>
+<p><img alt="timelapse" src="../../assets/screenshots/time-laps.png" /></p>
+<p>🧑‍🏫 People will leave due to conflict, drought, and other reasons. This is also interesting to compare to IDP arrivals using the slide bar to see where people are leaving and what regions they are going to who may need extra financial and technical support. </p>
+<p>👨‍🏫 Check the box on the <strong>IDP Arrivals layer</strong> and use the slider to compare the two layers. </p>
+<p><img alt="Timelapse" src="../../assets/screencasts/time-laps.gif" /></p>
+<h2 id="more-on-the-information-panel">More on the Information Panel<a class="headerlink" href="#more-on-the-information-panel" title="Permanent link">&para;</a></h2>
+<p>🧑‍🏫 While the <strong>IDP Departures</strong> is open, let's look at the last options and functionalities on the <strong>Information Panel</strong>. If the <strong>Information Panel</strong> is minimized or you want to minimize it. Click on the blue Info button that looks like a tab on the right-side panel to maximize and minimize it. </p>
+<p>Inside the information panel, there is a summary of all the region/or districts and for example how many people departed that area because we are looking at the departures layer. </p>
+<p><img alt="Info Button" src="../../assets/screenshots/info-button.png" /></p>
+<h3 id="graphical-representation">Graphical Representation<a class="headerlink" href="#graphical-representation" title="Permanent link">&para;</a></h3>
+<p>🧑‍🏫 The graphical representation of the scenarios in this case a <strong>pie chart</strong> showing the proportion of best-case regions to worst-case and the status quo. You can hover your mouse over the chart and interact with it. For example, it will show that the best case is the reality for 54 out of the 73 districts in a pop-up label. </p>
+<p>👨‍🏫 Hover your mouse over the pie chart and observe the labels and number of districts in different scenarios. </p>
+<p><img alt="Graphical Representation" src="../../assets/screenshots/graphical-representation.png" /></p>
+<p>🧑‍🏫 Further click on the name Adan Yabaal and in the Indicators select <strong>IDP departure</strong>. This will open the details panel where you can see a line graph showing the change over time for the Adan Yabaal district as well as other pertinent information. </p>
+<p>👨‍🏫 Click on Adan Yabaal (the text) in the <strong>Information Panel</strong> under the pie chart, click on <strong>IDP Departures</strong> (the text) and observe and hover your mouse over the line chart. </p>
+<p><img alt="Indicators Info Panel" src="../../assets/screenshots/indicators-in-info-panel.png" /></p>
+<p><img alt="IDP Detail" src="../../assets/screenshots/idp-details.png" /></p>
+<h2 id="bringing-it-all-together">Bringing it all together<a class="headerlink" href="#bringing-it-all-together" title="Permanent link">&para;</a></h2>
+<p>🧑‍🏫 With your knowledge of the RIR dashboard try an analysis where we look at what districts people are departing from and what districts they are arriving to. </p>
+<ul>
+<li>Make the context map OpenStreetMap</li>
+<li>Add the context layer Refugees and IDPs</li>
+<li>activate both the arrivals and departures indicator layers</li>
+<li>click on different districts and observe the detail in the information panel</li>
+<li>slide the slider to see if neighboring districts accept departing people, thus having higher arrivals than previously observed (see the linear graphs to compare).</li>
+</ul>
+<p>Answer the following questions:
+- what regions have the highest number of departures?
+- What regions have the highest number of arrivals? 
+- what region has had the most changes in departures over time? </p>
+<p><img alt="Bringing it all Together" src="../../assets/screencasts/bringing-it-all-together.gif" /></p>
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Tutorial" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Tutorial
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../administrator_tutorial/" class="md-footer__link md-footer__link--next" aria-label="Next: Administrator" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Administrator
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright Tim Sutton and Contributors, 2022
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.annotate", "navigation.expand", "navigation.indexes", "navigation.sections", "navigation.tabs", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.follow"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.5e67fbfe.min.js"}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e87a5f81.min.js"></script>
+      
+    
+  </body>
+</html>
