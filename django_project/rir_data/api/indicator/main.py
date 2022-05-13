@@ -364,7 +364,7 @@ class IndicatorValuesBatch(APIView):
                         date=date,
                         geometry=geometry
                     )
-                    return HttpResponseBadRequest('The value on this date already exist')
+                    continue
                 except IndicatorValue.DoesNotExist:
                     pass
                 indicator_values.append(
