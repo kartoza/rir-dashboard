@@ -303,7 +303,7 @@
                                     // check others properties
                                     $.each(values, function (key, value) {
                                         if (extraColumns.includes(key) && key !== areaCodeColumn && key !== valueColumn) {
-                                            if (value) {
+                                            if (value !== undefined) {
                                                 addNewExtraValue($row, key, value)
                                             }
                                         }
