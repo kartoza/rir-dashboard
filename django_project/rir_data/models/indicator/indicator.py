@@ -208,6 +208,7 @@ class Indicator(AbstractTerm, PermissionModel):
                 'rule_name': scenario_rule.name if scenario_rule else '',
                 'rule_value': scenario_rule.rule if scenario_rule else '',
                 'rule_color': scenario_rule.color if scenario_rule else '',
+                'rule_outline_color': scenario_rule.outline_color if scenario_rule else '#FFFFFF',
             })
         return scenarios
 
@@ -243,6 +244,7 @@ class Indicator(AbstractTerm, PermissionModel):
         # return data
         scenario_value = self.scenario_level(value)
         background_color = scenario_value.background_color if scenario_value else ''
+        outline_color = '#FFFFFF'
 
         scenario_text = scenario_value.level if scenario_value else 0
         try:
@@ -250,6 +252,7 @@ class Indicator(AbstractTerm, PermissionModel):
             scenario_text = scenario_rule.name
             if scenario_rule and scenario_rule.color:
                 background_color = scenario_rule.color
+                outline_color = scenario_rule.outline_color
         except AttributeError:
             pass
 
@@ -263,6 +266,7 @@ class Indicator(AbstractTerm, PermissionModel):
             'scenario_text': scenario_text,
             'text_color': scenario_value.text_color if scenario_value else '',
             'background_color': background_color,
+            'outline_color': outline_color,
         }
         values.update(attributes if attributes else {})
         return values
