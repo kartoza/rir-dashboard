@@ -88,9 +88,14 @@ form .header span {
 }
 
 /* color input */
+.color-review-section-row {
+    width: 150px;
+}
+
 .color-review-section {
     border: 1px solid #ccc;
     border-radius: 4px;
+    width: 150px;
 }
 
 .color-review-section input {
@@ -163,6 +168,10 @@ form .header span {
     border-radius: 4px;
     height: 46px;
     overflow: hidden;
+}
+
+#rule-table .rule-row {
+    min-width: 530px;
 }
 
 #rule-table .symbol {
