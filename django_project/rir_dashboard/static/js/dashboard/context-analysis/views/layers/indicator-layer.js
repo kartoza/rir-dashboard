@@ -272,10 +272,9 @@ define([], function () {
                 });
                 const style = function (feature, layer) {
                     if (levelActivated.includes(feature.properties.scenario_value)) {
-                        let color = '#ffffff';
-                        let weight = 0.5;
+                        let color = feature.properties.outline_color;
+                        let weight = 1;
                         if (self.geometry && feature.id === self.geometry.id) {
-                            color = '#ffffff';
                             weight = 3;
                         }
                         return {

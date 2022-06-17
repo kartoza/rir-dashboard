@@ -62,6 +62,7 @@ class IndicatorEditView(AdminView):
                 rule = request.POST.get(f'scenario_{scenario.id}_rule', None)
                 name = request.POST.get(f'scenario_{scenario.id}_name', None)
                 color = request.POST.get(f'scenario_{scenario.id}_color', None)
+                outline_color = request.POST.get(f'scenario_{scenario.id}_outline_color', None)
                 if name:
                     scenario_rule, created = IndicatorScenarioRule.objects.get_or_create(
                         indicator=indicator,
@@ -70,6 +71,7 @@ class IndicatorEditView(AdminView):
                     scenario_rule.name = name
                     scenario_rule.rule = rule
                     scenario_rule.color = color
+                    scenario_rule.outline_color = outline_color
                     scenario_rule.save()
             return redirect(
                 reverse(

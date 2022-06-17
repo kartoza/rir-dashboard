@@ -63,7 +63,9 @@
             </th>
             <th valign="top">Rule<br>
             </th>
-            <th valign="top">Color<br>
+            <th valign="top">Fill Color<br>
+            </th>
+            <th valign="top">Outline Color<br>
             </th>
         </tr>
         <tr style="border-top: none!important;">
@@ -83,7 +85,16 @@
                 </div>
             </th>
             <th valign="top">
-                <span class="helptext">Put the hex color with # (e.g. #ffffff) or put the text of color. (e.g. blue).</span>
+                <span class="helptext">
+                    Used for coloring the traffic light or filling the geometry.
+                    Put the hex color with # (e.g. #ffffff) or put the text of color. (e.g. blue).
+                </span>
+            </th>
+            <th valign="top">
+                <span class="helptext">
+                    Used for coloring the outline of the geometry.
+                    Put the hex color with # (e.g. #ffffff) or put the text of color. (e.g. blue).
+                </span>
             </th>
         </tr>
         {% for scenario in scenarios %}
@@ -117,6 +128,19 @@
                         <input type="text" name="scenario_{{ scenario.id }}_color" value="{{ scenario.rule_color }}" class="scenario-rule-color col" spellcheck="false">
                         <div class="color-review-wrapper">
                             <input type="text" class="color-review" spellcheck="false" style="background: {{ scenario.rule_color }}" autocomplete="false">
+                            <div class="color-picker-indicator-wrapper">
+                                <div class="color-picker-indicator">
+                                    <div class="arrow" content="box-shadow-bottom"></div>
+                                    <img src="{% static "img/color-picker.svg" %}" class="box-shadow-bottom">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td><td>
+                    <div class="row color-review-section">
+                        <input type="text" name="scenario_{{ scenario.id }}_outline_color" value="{{ scenario.rule_outline_color }}" class="scenario-rule-color col" spellcheck="false">
+                        <div class="color-review-wrapper">
+                            <input type="text" class="color-review" spellcheck="false" style="background: {{ scenario.rule_outline_color }}" autocomplete="false">
                             <div class="color-picker-indicator-wrapper">
                                 <div class="color-picker-indicator">
                                     <div class="arrow" content="box-shadow-bottom"></div>

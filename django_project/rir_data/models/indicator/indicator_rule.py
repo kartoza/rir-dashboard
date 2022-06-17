@@ -1,5 +1,6 @@
 from django.contrib.gis.db import models
 from django.utils.translation import ugettext_lazy as _
+
 from rir_data.models.indicator.indicator import Indicator
 from rir_data.models.scenario import ScenarioLevel
 
@@ -32,6 +33,13 @@ class IndicatorScenarioRule(models.Model):
         null=True, blank=True,
         help_text=_(
             'Color that override the scenario level color'
+        )
+    )
+    outline_color = models.CharField(
+        max_length=16,
+        default='#FFFFFF',
+        help_text=_(
+            'Color for the outline of geometry on map.'
         )
     )
 
